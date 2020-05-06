@@ -1,7 +1,11 @@
-FROM conoria/alpine-r-bookdown
-
-WORKDIR /usr/src
-
-COPY . .
-
-RUN R -q -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook")' && mv _book /public
+FROM geocompr/geocompr:rstudio_preview
+RUN R -e "remotes::install_cran('tinytest')"
+# install the r-spatial stack linking to new OSGeo pkgs
+RUN su rstudio && \
+  cd /home/rstudio && \
+  wget https://github.com/mtennekes/tmap_book/archive/master.zip && \
+  unzip master.zip && \
+  mv tmap_book-master /home/rstudio/tmap_book && \
+  cd tmap_book && \
+  make html
+RUN chown -Rv rstudio /home/rstudio/tmap_book 
