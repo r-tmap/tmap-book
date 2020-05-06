@@ -1,5 +1,19 @@
-book_filename: "bookdown-demo"
+book_filename: "tmap_book"
 language:
+  label:
+    fig: "FIGURE "
+    tab: "TABLE "
   ui:
+    edit: "Edit"
     chapter_name: "Chapter "
+new_session: yes
+before_chapter_script: ["code/before_script.R"]
 delete_merged_file: true
+rmd_files: 
+    - "index.Rmd"
+    - "01-intro.Rmd"
+    - "02-literature.Rmd"
+    - "03-method.Rmd"
+    - "04-application.Rmd"  
+    - "05-summary.Rmd"
+    - "references.Rmd"
