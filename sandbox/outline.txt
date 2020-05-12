@@ -1,0 +1,85 @@
+Introduction
+- Maps in genaral
+- R spatial
+- Grammar of graphics
+
+  
+Geographic data in R (similar to geocomprC2, but different accents)
+- What is geographic data? (points/lines/polygons/rasters, projection on earth (CRS))
+- sf
+- stars
+
+
+Methodology: how to make good maps?
+- Which information to show? (absolute vs relative values, global overview vs local detail, required geographical detail, base maps or not, user- and task-dependency)
+- Aesthetics (position, shape, size, area, etc; for which data / perception ranking)
+- Colors (color spaces, perception, guidelines)
+- Common methods (choropleth / bubble map / cartogram etc)
+
+some useful sources:
+https://socviz.co/lookatdata.html
+https://serialmentor.com/dataviz/aesthetic-mapping.html
+
+
+Basics of tmap
+- Layered approach (grammar of graphics)
+- qtm
+- plot and view mode
+
+Specifying the data with tm_shape
+- projection (CRS, is.master)
+- bounding box
+- simplification?
+- raster: downsample etc
+
+Geospatial data
+- tm_shape
+- CRS
+- bounding box
+
+Layers
+- aesthetics (overview)
+- points
+- polygons
+- lines
+- raster
+- text
+
+
+Facets
+- How to define facets?
+- Scales
+- Coordinates
+
+
+Map enhancements
+- map attributes (compass, scale bar, etc)
+- aspect ratio, position of legends etc
+
+
+View mode:
+- set zoom level, panning, etc
+- popups
+- leaflet base/overlay-layers/groups
+
+
+Tmap options
+- Styles
+
+
+
+Output
+- static images (png etc)
+- interactive maps (HTML files)
+- RMarkdown
+- Shiny
+
+
+
+
+Cheatsheat, such as
+
+https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+
+
