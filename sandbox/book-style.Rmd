@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
     - `class_of_object`
     - `function_name()`
 - Spelling: use `en-us`
+- Use of `\index{}` is recommended
 
 # Code
 
