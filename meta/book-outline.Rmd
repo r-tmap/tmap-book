@@ -1,0 +1,32 @@
+---
+title: "The tmap book outline"
+author: "Martijn Tennekes, Jakub Nowosad"
+date: "`r Sys.Date()`"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1. Introduction
+    1. What is tmap? *Very brief intro*
+    2. Thematic maps *What are they? Brief history and scope*
+    3. Software for geographic data *An overview of the place of tmap in the field; alternative R packages, python and dedicated GIS software (also brief)*
+2. Geographic data in R
+    1. What is geographic data?
+    2. Vector data: sf *class and basic/most useful methods*
+    3. Array data: stars *class and basic/most useful methods*
+    4. OpenStreetMap *what is OSM, tiles vs vector data, APIs, geofabrik, etc.*
+3. tmap in a nutshell
+    1. Layers *incl. grammar of graphics*
+    2. qtm: quick thematic map
+    3. plot and view mode
+4. tm_shape: specifying geographic data
+    1. which data to use *polygons/points/lines/raster;classes;where to get them?*
+    2. CRS: how to project the earth on a flat screen *explaining the challange without too many technical details*
+    3. multiple datasets *stacking, is.master*
+5. layer functions
+
+    
