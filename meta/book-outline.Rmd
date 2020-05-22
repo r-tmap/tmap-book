@@ -24,32 +24,32 @@ knitr::opts_chunk$set(echo = TRUE)
     1. Layers *incl. grammar of graphics*
     2. qtm: quick thematic map
     3. plot and view mode
-4. tm_shape: specifying geographic data
+4. Specifying spatial data with `tm_shape`
     1. which data to use *polygons/points/lines/raster;classes;where to get them?*
     2. CRS: how to project the earth on a flat screen *written to arouse curiosity and to understand the basic concept*
     3. simplification *about simplifying polygons and downsampling rasters. In the viz community, people are often afraid to throw away information, while more information can be communicated with less detailed data (e.g. the coastline of Norway)*
     4. multiple datasets *stacking, is.master*
-5. layer functions
+5. Layer functions
     1. overview *table of layer functions and their aesthetics*
     2. polygons
     3. points
     4. lines
     5. raster
-6. small multiples
+6. Small multiples
     1. why are they useful?
     2. approach 1: several variables
     3. approach 2: group by variable
     4. approach 3: combining maps with tmap_arrange
-7. layout
+7. Layout
     1. attribute layers *compass, scale bar, etc*
     2. styles
     3. (advanced) margins and aspect ratio *asp, inner-, outer-margins, design.mode*
-8. interactive settings
+8. Interactive settings
     1. set zoom level, focus point, map limites
     2. hover text and popups
     3. groups: baselayers and overlays
 9. (advanced) tmap_options *not sure if this will cover a whole chapter...*
-10. save tmap
+10. Save tmap
     1. static plots
     2. interactive plots
     3. RMarkdown
@@ -57,7 +57,7 @@ knitr::opts_chunk$set(echo = TRUE)
     1. hello shiny World: a simple example
     2. renderTmap and tmapOutput
     3. changing layers with tmapProxy
-12. how to make good maps
+12. How to make good maps?
     1. Which information to show? *absolute vs relative values, global overview vs local detail, required geographical detail, base maps or not, user- and task-dependency*
     2. A closer look at aesthetics *position, shape, size, area, etc; for which data / perception ranking*
     3. Colors *color spaces, perception, guidelines*
@@ -69,5 +69,6 @@ knitr::opts_chunk$set(echo = TRUE)
 * Include exercises? If so, in the last section of each chapter, or perhaps better, in a different chapter?
 * My original aim was to write a small handy book. However, due to all topics we can to include, the fact that we'll have to include a lot of space-fillig maps, it won't be a thin book.
 For reference, geocompr has 320 pages among 15 chapters, so `r 320/15` pages per chapter.
-
+* Chapter titles: which style? Options: ing-verb (e.g. "Creating maps with tmap"), noun (e.g. "Map creation with tmap"), question (e.g. "How to create maps with tmap?"). Should be more-or-less consisent I think.
+* We suggest we wait for a chapter "How to contribute?", since it is much more advanced, and requires a restructuring of the internal code.
 

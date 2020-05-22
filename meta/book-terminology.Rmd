@@ -1,0 +1,19 @@
+---
+title: "Terminology"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+What we want to achieve is using concise and consistent names for certain things. A few choices to make:
+
+* Geographical / geospatial / spatial data. Someone on SO posted this: `spatial data > geospatial data == geographic data == geodata`
+* Spatial data object. In the **tmap** docs and functions, I called it a `shape`. Any alternatives? It should refer to `sf` objects, `sp::SpatialXDataFrames`, `Raster`s, and `stars`.
+* raster/grid/array data. So far, I've used raster (e.g. `tm_raster`). Can we also call irregular and sheared grids rasters?
+* How to we cal `tm_fill`, `tm_points`, etc.? Aesthetic layers? Drawing layers? `tm_compass` and `tm_scale_bar` are also layer functions, but without aesthetics (I would call them attribute layers)
+
+
+
+

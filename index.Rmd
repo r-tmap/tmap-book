@@ -1,5 +1,5 @@
 --- 
-title: "tmap: beautiful and effective maps in R"
+title: "Elegant and informative maps with **tmap**"
 author: "Martijn Tennekes, Jakub Nowosad"
 date: "`r Sys.Date()`"
 description: "This is a book in progress about the tmap package."
@@ -20,25 +20,25 @@ graphics: yes
 links-as-notes: true
 ---
 
-# Prerequisites
-
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
-
-The **bookdown** package can be installed from CRAN or Github:
-
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
+```{r index-1, echo=FALSE}
+is_on_ghactions = identical(Sys.getenv("GITHUB_ACTIONS"), "true")
+is_online = curl::has_internet()
+is_html = knitr::is_html_output()
 ```
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+```{asis index-2, echo=is_html}
+# Welcome {-}
+This is the online home of *Elegant and informative maps with **tmap***, a book on geospatial data visualization with the R-package tmap.
+```
 
-To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
+```{r index-2-2, echo=FALSE, eval=is_html, results="asis"}
+if (is_on_ghactions){
+    cat(paste0("This version of the book was built on GH Actions on ", Sys.Date(), "."))
+} else {
+    cat(paste0("This version of the book was built on ", Sys.Date(), "."))
+}
+```
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+```{asis index-2-3, echo=is_html}
+## How to contribute? {-}
 ```
