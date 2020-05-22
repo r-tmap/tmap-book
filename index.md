@@ -1,7 +1,7 @@
 --- 
 title: "tmap: beautiful and effective maps in R"
 author: "Martijn Tennekes, Jakub Nowosad"
-date: "2020-05-17"
+date: "2020-05-22"
 description: "This is a book in progress about the tmap package."
 knit: bookdown::render_book
 site: bookdown::bookdown_site
