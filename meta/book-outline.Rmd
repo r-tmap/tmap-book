@@ -69,6 +69,6 @@ knitr::opts_chunk$set(echo = TRUE)
 * Include exercises? If so, in the last section of each chapter, or perhaps better, in a different chapter?
 * My original aim was to write a small handy book. However, due to all topics we can to include, the fact that we'll have to include a lot of space-fillig maps, it won't be a thin book.
 For reference, geocompr has 320 pages among 15 chapters, so `r 320/15` pages per chapter.
-* Chapter titles: which style? Options: ing-verb (e.g. "Creating maps with tmap"), noun (e.g. "Map creation with tmap"), question (e.g. "How to create maps with tmap?"). Should be more-or-less consisent I think.
+* Chapter titles: which style? Options: ing-verb (e.g. "Creating maps with tmap"), noun (e.g. "Map creation with tmap"), question (e.g. "How to create maps with tmap?"). Should be more-or-less consistent I think.
 * We suggest we wait for a chapter "How to contribute?", since it is much more advanced, and requires a restructuring of the internal code.
 

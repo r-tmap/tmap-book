@@ -6,6 +6,7 @@ Suggestion:
 
 Other candidates:
 
+* Elegant and insightful maps with **tmap**
 * **tmap**: elegant and informative maps
 * Thematic maps in R with **tmap**
 * Geographical data exploration and presentation with **tmap**
@@ -15,5 +16,5 @@ Other candidates:
 
 # Notes:
 
-* The part "in R" is not needed when we go with the CRC R Series (since the label "The R Series" is sufficient)
-* Better to avoid **tmap**: thematic maps in R, since this is the JSS paper title
+* The part "in R" is not needed when we go with the CRC R Series (since the label "The R Series" on the book cover is sufficient)
+* Better to avoid "**tmap**: thematic maps in R", since this is the JSS paper title
