@@ -1,14 +1,17 @@
-# Geographic data in R {#geodata}
-<!-- or spatial data? -->
+# Spatial data in R {#geodata}
+<!-- # Geographic data in R {#geodata} -->
+<!-- to discuss -->
 
-<!-- \index{R!installation} -->
+\index{geodata}
 
 ## Introduction
 
+Two basic models to represent spatial data are vector and raster data model.
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also references to some books (either here or in the next section or both) -->
+<!-- - maybe also mention some data sources -->
 
 ## Vector data
 
@@ -17,12 +20,43 @@
 
 ### Vector data model
 
+...
+The Vector data model is consists of two main elements: geometries and attributes.
+The role of geometry is to describe the location and shape of spatial objects.
+There are three basic types of geometries: points, lines, and polygons.
+All of them are build using the same main idea of coordinates.
+A point is represented by a pair of coordinates, usually described as X and Y.
+It allows for locating this point in some space.
+<!-- short CRS intro -->
+X and Y could be unitless, in degrees, or in some measure units, such as meters.
+<!-- maybe ref to CRS section here -->
+<!-- examples of points -->
+A line extends the idea of a point.
+It consists of several points (with coordinates) that are arranged in some order.
+Consecutive points are connected by straight lines.
+Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
+It gives the illusion that the line is curved. 
+<!-- examples of lines -->
+Polygon is again a set of ordered points connected by straight lines. 
+The only difference is the first and the last point in a polygon has the same coordinates, and thus close the object.
+<!-- examples of polygons -->
+Polygons also have one unique feature - they could have holes. 
+A polygon hole represents an area inside of the polygon but does not belong to it.
+For example, a lake with an island can be depicted as a polygon with a hole.
+
+<!-- additional dimensions: -->
+<!-- - more than two coordinates (XYZM) -->
+<!-- - multiobjects -->
+<!-- - additional geometries -->
+
 <!-- - what is the vector data model (point coordinates) -->
 <!-- - examples -->
 <!-- - what's the simple features standard -->
 <!-- - main geometry types -->
 <!-- - relation between geometries and attributes -->
 <!-- - vector file formats -->
+<!-- - advantages/disadvantages -->
+<!-- - example figure (similar to the one in geocompr, but made with tmap) -->
 
 ### The sf package
 
