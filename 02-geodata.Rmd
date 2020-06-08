@@ -94,4 +94,5 @@ For example, a lake with an island can be depicted as a polygon with a hole.
 <!-- - stars proxy -->
 
 
-<!-- CRS? -->
+## CRS
+<!-- mtennekes part -->
