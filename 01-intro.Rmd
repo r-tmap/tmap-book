@@ -4,7 +4,7 @@
 
 # Introduction {#intro}
 
-This book teaches how to make elegant and informative maps with the R-pacakge **tmap**.
+This book teaches how to make elegant and informative maps with the R-package **tmap**.
 A couple of real-world applications are used to illustrate the whole process from exploring raw spatial data to presenting insightful results.
 
 We can distinguish three aspects that are required to make good maps:
