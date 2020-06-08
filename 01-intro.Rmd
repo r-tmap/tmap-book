@@ -7,21 +7,30 @@
 This book teaches how to make elegant and informative maps with the R-pacakge **tmap**.
 A couple of real-world applications are used to illustrate the whole process from exploring raw spatial data to presenting insightful results.
 
-
 We can distinguish three aspects that are required to make good maps:
 
-* *Software skills* Without knowing how to use software for making maps, it will obviously be challanging to make maps with the computer. Yes, back in the old days, people like Henry
-Drury Harness and Charles Joseph Minard used pen and paper to draw maps, but the computational speed, reproducibility, and interactivity of digital maps cannot be missed.
-* *Domain knowledge* It is essential to know the background of the data. Where does the data come from? What do the data units represent? What do the variables mean? Since data visualization is all about conveying information, it is obviously important to have domain knowledge in order to make good data visualizations.
-* *Data visualization knowledge* Someone with software skills and knowledge of a certain domain will be able to make maps of the data. However, these maps will not necessarily be good maps, since visualization of spatial data is trickier than most people think. There are a few underlying principles in data visualization that, when violated, will result in maps that are prone to misinterpretation of the data.
+* *Software skills* Without knowing how to use software for making maps, it will obviously be challenging to make maps with the computer.
+Yes, back in the old days, people like Henry Drury Harness and Charles Joseph Minard used pen and paper to draw maps, but the computational speed, reproducibility, and interactivity of digital maps cannot be missed.
+* *Domain knowledge* It is essential to know the background of the data. 
+Where does the data come from? 
+What do the data units represent? 
+What do the variables mean? 
+Since data visualization is all about conveying information, it is obviously important to have domain knowledge in order to make good data visualizations.
+* *Data visualization knowledge* Someone with software skills and knowledge of a certain domain will be able to make maps of the data.
+However, these maps will not necessarily be good maps, since visualization of spatial data is trickier than most people think. 
+There are a few underlying principles in data visualization that, when violated, will result in maps that are prone to misinterpretation of the data.
 
-The main focus on this book will be on software skills, since our aim is to create maps with **tmap**. Along the way, we will cover the most important data visualization methodology. Since whole books have been written about it already, we will keep this brief and pragmatic. Obviously, it is not possible to cover the remaining aspect, domain knowledge. However, the example datasets do not require much specific domain knowledge.
+The main focus on this book will be on software skills, since our aim is to create maps with **tmap**. 
+Along the way, we will cover the most important data visualization methodology. 
+Since whole books have been written about it already, we will keep this brief and pragmatic. 
+Obviously, it is not possible to cover the remaining aspect, domain knowledge.
+However, the example datasets do not require much specific domain knowledge.
 
 
 ## What is **tmap**?
 
-The short answer is that **tmap** is an R package for visualization geospatial data. 
-The slightly longer answer is that **tmap** allows users to explore, analyze, and present geospatial data in a intuitive way. 
+The short answer is that **tmap** is an R package for visualization spatial data. 
+The slightly longer answer is that **tmap** allows users to explore, analyze, and present spatial data in a intuitive way. 
 In this book, you will find the long answer.
 
 ## Thematic maps
