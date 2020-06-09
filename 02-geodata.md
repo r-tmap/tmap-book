@@ -49,6 +49,18 @@ A polygon hole represents an area inside of the polygon but does not belong to i
 For example, a lake with an island can be depicted as a polygon with a hole.
 
 
+```
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
+```
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+
 
 <!-- additional dimensions: -->
 <!-- - more than two coordinates (XYZM) -->
