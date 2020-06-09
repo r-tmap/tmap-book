@@ -33,13 +33,14 @@ X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 <!-- examples of points -->
 A line extends the idea of a point.
-It consists of several points (with coordinates) that are arranged in some order.
+It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved. 
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
 <!-- examples of lines -->
+Lines are used to represent linear features, such as roads, rivers, boundaries, etc. 
 Polygon is again a set of ordered points connected by straight lines. 
 The only difference is the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
@@ -48,6 +49,97 @@ Polygons also have one unique feature - they could have holes.
 A polygon hole represents an area inside of the polygon but does not belong to it.
 For example, a lake with an island can be depicted as a polygon with a hole.
 
+```{r, echo=FALSE}
+library(sf)
+library(tmap)
+point_data = st_sf(
+    id = as.factor(c(1, 2)),
+    geom = st_sfc(
+      st_multipoint(rbind(c(1, 2))),
+      st_multipoint(rbind(c(1.4, 1.2), c(2, 1.5))),
+      crs = 4326)
+  )
+tm_shape(point_data) +
+  tm_grid() + 
+  tm_symbols(col = "id") +
+  tm_layout(main.title = "POINT",
+            legend.show = FALSE,
+            inner.margins = 0.1)
+```
+
+```{r, echo=FALSE}
+linestring_sfg1 = st_linestring(rbind(c(0.9, 1.9), c(1.6, 1.9), c(1.8, 1.8)))
+linestring_sfg2 = st_linestring(rbind(c(0.8, 1.6), c(1.4, 1.5), c(2, 1.6)))
+linestring_sfg3 = st_linestring(rbind(c(1.1, 1), c(1.6, 1.2), c(1.9, 1.2)))
+lines_data = st_sf(
+  id = as.factor(1:3),
+  geom = st_sfc(linestring_sfg1, 
+                linestring_sfg2,
+                linestring_sfg3,
+                crs = 4326)
+  )
+lines_data_p = st_cast(lines_data, "MULTIPOINT")
+
+tm_shape(lines_data) +
+  tm_grid() + 
+  tm_lines(col = "id", lwd = 7) +
+  tm_shape(lines_data_p) +
+  tm_dots(size = 1) +
+  tm_layout(main.title = "LINESTRING",
+            legend.show = FALSE,
+            inner.margins = 0.1)
+```
+
+```{r, echo=FALSE}
+polygon_sfg1 = st_polygon(list(rbind(c(1.4, 1.6),
+                                     c(1.6, 1.6), 
+                                     c(1.6, 1.8),
+                                     c(1.4, 1.8), 
+                                     c(1.4, 1.6))))
+
+polygon_sfg2 = st_multipolygon(list(list(rbind(
+  c(1.6, 1.3), c(1.8, 1.45), c(1.6, 1.45), c(1.6, 1.3)
+)),
+st_polygon(
+  list(rbind(
+    c(0.9, 1.1), c(1.2, 1.1), c(1.2, 1.4), c(0.9, 1.4), c(0.9, 1.1)
+  ),
+  rbind(
+    c(1.0, 1.2), c(1.1, 1.3), c(1.1, 1.2), c(1.0, 1.2)
+  ))
+)))
+
+polygon_data = st_sf(
+  id = as.factor(1:2),
+  geom = st_sfc(polygon_sfg1, 
+                polygon_sfg2,
+                crs = 4326)
+  )
+
+polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
+
+tm_shape(polygon_data) +
+  tm_grid() + 
+  tm_polygons(col = "id", lwd = 7) +
+  tm_shape(polygon_data_p) +
+  tm_dots(size = 1) +
+  tm_layout(main.title = "POLYGON",
+            legend.show = FALSE,
+            inner.margins = 0.15)
+```
+
+```{r, echo=FALSE}
+# tmap_mode("plot")
+all_data = rbind(point_data, lines_data, polygon_data)
+tm_shape(polygon_data, bbox = all_data) +
+    tm_grid() +
+    tm_polygons(col = "id", lwd = 7) +
+    tm_shape(lines_data) +
+    tm_lines(col = "id") +
+    tm_shape(point_data) +
+    tm_symbols(col = "id") +
+  tm_layout(inner.margins = 0.15)
+```
 
 
 <!-- additional dimensions: -->
