@@ -33,13 +33,14 @@ X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 <!-- examples of points -->
 A line extends the idea of a point.
-It consists of several points (with coordinates) that are arranged in some order.
+It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved. 
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
 <!-- examples of lines -->
+Lines are used to represent linear features, such as roads, rivers, boundaries, etc. 
 Polygon is again a set of ordered points connected by straight lines. 
 The only difference is the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
