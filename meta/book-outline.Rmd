@@ -35,11 +35,7 @@ knitr::opts_chunk$set(echo = TRUE)
     3. points
     4. lines
     5. raster
-6. Small multiples
-    1. why are they useful?
-    2. approach 1: several variables
-    3. approach 2: group by variable
-    4. approach 3: combining maps with tmap_arrange
+6. Other map types*cartogram,geogrid*
 7. Layout
     1. attribute layers *compass, scale bar, etc*
     2. styles
@@ -48,16 +44,22 @@ knitr::opts_chunk$set(echo = TRUE)
     1. set zoom level, focus point, map limites
     2. hover text and popups
     3. groups: baselayers and overlays
-9. (advanced) tmap_options *not sure if this will cover a whole chapter...*
-10. Save tmap
+9. Small multiples
+    1. why are they useful?
+    2. approach 1: several variables
+    3. approach 2: group by variable
+    4. approach 3: combining maps with tmap_arrange
+10. (advanced) tmap_options *not sure if this will cover a whole chapter...*
+11. Save tmap
     1. static plots
     2. interactive plots
     3. RMarkdown
-11. tmap in shiny
+12. Animations
+13. tmap in shiny
     1. hello shiny World: a simple example
     2. renderTmap and tmapOutput
     3. changing layers with tmapProxy
-12. How to make good maps?
+14. How to make good maps?
     1. Which information to show? *absolute vs relative values, global overview vs local detail, required geographical detail, base maps or not, user- and task-dependency*
     2. A closer look at aesthetics *position, shape, size, area, etc; for which data / perception ranking*
     3. Colors *color spaces, perception, guidelines*

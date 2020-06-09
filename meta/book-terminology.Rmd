@@ -9,11 +9,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 What we want to achieve is using concise and consistent names for certain things. A few choices to make:
 
-* Geographical / geospatial / spatial data. Someone on SO posted this: `spatial data > geospatial data == geographic data == geodata`
-* Spatial data object. In the **tmap** docs and functions, I called it a `shape`. Any alternatives? It should refer to `sf` objects, `sp::SpatialXDataFrames`, `Raster`s, and `stars`.
-* raster/grid/array data. So far, I've used raster (e.g. `tm_raster`). Can we also call irregular and sheared grids rasters?
-* How to we cal `tm_fill`, `tm_points`, etc.? Aesthetic layers? Drawing layers? `tm_compass` and `tm_scale_bar` are also layer functions, but without aesthetics (I would call them attribute layers)
-
-
-
-
+* **Spatial data**. Geographical / geospatial / spatial data. Someone on SO posted this: `spatial data > geospatial data == geographic data == geodata`
+* **Shape** for spatial data object. Why? It is current tmap terminology, it sounds cute, and there is no proper alternative as far as we know. The only minor issue to be aware of is that shape is also an aesthetic in `tm_symbol`.
+* **Raster** for spatial non-vector data. This is the most tricky one. Also irregular, sheared, and curved grids can fall under this definition. We'll have to think about stars that are vector-data cubes. (see https://r-spatial.github.io/stars/articles/stars1.html, bottom). This probably requires a new feature in tmap.
+* **Map layers**, by which we mean all layers that (can) map data, e.g. `tm_fill`, `tm_dots`, etc. There are other layers that draw stuff, like `tm_compass`, but we can call them something else, e.g. **Map annotation layer**
+* Visual variables such as color, length, size, shape, etc. There are often called visual variables or visual attributes, but we can stick with the ggplot2 terminology and use **aesthetics**.
