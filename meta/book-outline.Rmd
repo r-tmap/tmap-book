@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
     1. What is tmap? *Very brief intro*
     2. Thematic maps *What are they? Brief history and scope*
     3. Software for geographic data *An overview of the place of tmap in the field; alternative R packages, python and dedicated GIS software (also brief)*
-2. Geographic data in R
+2. Spatial data in R
     1. What is geographic data?
     2. Vector data: sf *class and basic/most useful methods*
     3. Array data: stars *class and basic/most useful methods*
