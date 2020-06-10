@@ -32,6 +32,8 @@ X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 <!-- examples of points -->
+Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
+<!-- Points can be also used to represent abstract features -->
 A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
@@ -40,7 +42,7 @@ It gives the illusion that the line is curved.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
 <!-- examples of lines -->
-Lines are used to represent linear features, such as roads, rivers, boundaries, etc. 
+Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc. 
 Polygon is again a set of ordered points connected by straight lines. 
 The only difference is the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
@@ -158,6 +160,7 @@ tm_shape(polygon_data, bbox = all_data) +
 
 ### The sf package
 
+<!-- "Vector data provide a way to represent real world features" -->
 <!-- - how the sf objects are organized -->
 <!-- - how to read sf objects from files -->
 <!-- - where to find info on how to operate on sf objects -->
