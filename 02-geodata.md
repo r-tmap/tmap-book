@@ -25,6 +25,7 @@ The Vector data model consists of two main elements: geometries and attributes.
 The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.
+
 A point is represented by a pair of coordinates, usually described as X and Y.
 It allows for locating this point in some space.
 <!-- short CRS intro -->
@@ -33,6 +34,7 @@ X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
 Points can be also used to represent abstract features, such as locations of map labels.
+
 A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
@@ -41,7 +43,8 @@ It gives the illusion that the line is curved.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
 Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc. 
-Polygon is again a set of ordered points connected by straight lines. 
+
+A polygon is again a set of ordered points connected by straight lines. 
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
 <!-- examples of polygons -->
