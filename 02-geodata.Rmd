@@ -25,6 +25,7 @@ The Vector data model consists of two main elements: geometries and attributes.
 The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.
+
 A point is represented by a pair of coordinates, usually described as X and Y.
 It allows for locating this point in some space.
 <!-- short CRS intro -->
@@ -33,6 +34,7 @@ X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
 Points can be also used to represent abstract features, such as locations of map labels.
+
 A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
@@ -41,7 +43,8 @@ It gives the illusion that the line is curved.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
 Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc. 
-Polygon is again a set of ordered points connected by straight lines. 
+
+A polygon is again a set of ordered points connected by straight lines. 
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
 <!-- examples of polygons -->
@@ -60,12 +63,6 @@ point_data = st_sf(
       st_multipoint(rbind(c(1.4, 1.2), c(2, 1.5))),
       crs = 4326)
   )
-tm_point_data = tm_shape(point_data) +
-  tm_grid() + 
-  tm_symbols(col = "id") +
-  tm_layout(main.title = "POINT",
-            legend.show = FALSE,
-            inner.margins = 0.1)
 ```
 
 ```{r, echo=FALSE}
@@ -80,15 +77,6 @@ lines_data = st_sf(
                 crs = 4326)
   )
 lines_data_p = st_cast(lines_data, "MULTIPOINT")
-
-tm_lines_data = tm_shape(lines_data) +
-  tm_grid() + 
-  tm_lines(col = "id", lwd = 7) +
-  tm_shape(lines_data_p) +
-  tm_dots(size = 1) +
-  tm_layout(main.title = "LINESTRING",
-            legend.show = FALSE,
-            inner.margins = 0.1)
 ```
 
 ```{r, echo=FALSE}
@@ -118,18 +106,37 @@ polygon_data = st_sf(
   )
 
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
-
-tm_polygons_data = tm_shape(polygon_data) +
-  tm_grid() + 
-  tm_polygons(col = "id", lwd = 7) +
-  tm_shape(polygon_data_p) +
-  tm_dots(size = 1) +
-  tm_layout(main.title = "POLYGON",
-            legend.show = FALSE,
-            inner.margins = 0.15)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.asp=0.33}
+all_data = rbind(point_data, lines_data, polygon_data)
+tm_point_data = tm_shape(point_data, bbox = all_data) +
+  tm_grid() + 
+  tm_symbols(col = "id", palette = "Set2") +
+  tm_layout(main.title = "POINTS",
+            legend.show = FALSE,
+            inner.margins = 0.1)
+
+tm_lines_data = tm_shape(lines_data, bbox = all_data) +
+  # tm_grid(x = c(0.75, 1, 1.25, 1.5, 1.75, 2, 2.25),
+  #         y = c(0.5, 1, 1.5, 2, 2.5)) + 
+  tm_grid() + 
+  tm_lines(col = "id", lwd = 7, palette = "Set2") +
+  tm_shape(lines_data_p) +
+  tm_dots(size = 0.25) +
+  tm_layout(main.title = "LINES",
+            legend.show = FALSE,
+            inner.margins = 0.1)
+
+tm_polygons_data = tm_shape(polygon_data, bbox = all_data) +
+  tm_grid() + 
+  tm_polygons(col = "id", lwd = 2, palette = "-Set2") +
+  tm_shape(polygon_data_p) +
+  tm_dots(size = 0.25) +
+  tm_layout(main.title = "POLYGONS",
+            legend.show = FALSE,
+            inner.margins = 0.1)
+
 tmap_arrange(tm_point_data,
              tm_lines_data,
              tm_polygons_data,
