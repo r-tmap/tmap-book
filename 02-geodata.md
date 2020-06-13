@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Two basic models to represent spatial data are vector and raster data model.
+Two basic models used to represent spatial data are vector and raster data model.
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
@@ -21,7 +21,7 @@ Two basic models to represent spatial data are vector and raster data model.
 ### Vector data model
 
 ...
-The Vector data model is consists of two main elements: geometries and attributes.
+The Vector data model consists of two main elements: geometries and attributes.
 The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.
@@ -31,9 +31,8 @@ It allows for locating this point in some space.
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
 <!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
-<!-- examples of points -->
 Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
-<!-- Points can be also used to represent abstract features -->
+Points can be also used to represent abstract features, such as locations of map labels.
 A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
@@ -41,28 +40,26 @@ Therefore, a straight spatial line consists of two points (two pairs of coordina
 It gives the illusion that the line is curved. 
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
-<!-- examples of lines -->
 Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc. 
 Polygon is again a set of ordered points connected by straight lines. 
-The only difference is the first and the last point in a polygon has the same coordinates, and thus close the object.
+Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
 <!-- examples of polygons -->
+The polygon representation is used to represent shapes and locations of different objects, from a lake or a patch of vegetation, through a building or a city block, to some administrative units. 
 Polygons also have one unique feature - they could have holes. 
 A polygon hole represents an area inside of the polygon but does not belong to it.
 For example, a lake with an island can be depicted as a polygon with a hole.
 
 
-```
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
-```
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+
 
 <img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+
+
+
 
 
 <!-- additional dimensions: -->
