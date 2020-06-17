@@ -1,1 +1,169 @@
 # Specifying spatial data with `tm_shape` {#tmshape}
+
+
+## CRS: dealing with a three-dimensional earth
+
+NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.
+
+
+```{r crs-01, eval=TRUE, echo=FALSE, results='hide', warning=FALSE}
+library(sf)
+library(tmap)
+library(grid)
+data(World)
+clr_peel = "#FD8A04"
+clr_land = "#FB6801"
+clr_peel_back = "#D24010"
+clr_grat = "grey50"
+clr_border = "grey30"
+#source("code/crs_examples.R", local = knitr::knit_global()) # something strange going on: when saving this R script, the content isn't updated in the envir, or there is a cashing problem. Therefore, I had to add source(... ) to every chunk below.
+```
+
+We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
+For centuries, geographers and mathematicians wondered what the best way is to do this.
+Let us wonder with them for a second.
+
+The world is shown as an orange below, not just to stimulate your appetite for this subject, but also since an orange peel is a good analogy for a two-dimensional map.
+A world map can be seen as an orange peel that is put flat on the table.
+The question is how to do this.
+
+
+```{r crs-02, eval=TRUE, echo=FALSE, results='hide', warning=FALSE}
+source("code/crs_examples.R")
+map_orange_world()
+```
+
+```{r orange, echo=FALSE, message=FALSE, fig.cap="How to peel an orange?", fig.scap="How to peel an orange?"}
+knitr::include_graphics("images/orange_world.png")
+```
+
+When we peel the orange, ideally we want to rip the peel near areas of the earth that are less interesting. 
+What is interesting depends on the application; for applications where land mass is more important than wetlands, it is a good idea to make the rips in the oceans.
+The (interrupted) Goode homolosine projection, which is shown below, embodies this idea. 
+All continents and countries are preserved, except Antarctica and Greenland.
+
+
+```{r crs-03, echo=FALSE, results='hide', warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
+source("code/crs_examples.R")
+goode = map_goode()
+tm_shape(goode$bg) +
+	tm_polygons(clr_peel) +
+tm_shape(goode$land) +
+	tm_polygons(clr_land, border.col = clr_border, lwd = 1) +
+tm_shape(goode$grat) +
+  tm_lines(col = clr_grat, lwd = 1) +
+tm_layout(frame = FALSE)
+```
+
+To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
+A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection*. 
+
+The grey lines are the longitude and latitude lines, also known as *graticules*. 
+These lines are also shown in \@ref(fig:orange). 
+The longitude lines are the meridians from north to south pole, and specify the east-west position, where by convention, the longitude = 0$^\circ$ meridian crosses Royal Observatory in Greenwich, UK.
+The latitude specifies the north-south position, where latitude = 0$^\circ$ is the equator, and where the latitudes for the north and south poly are 90$^\circ$ and -90$^\circ$ respectively.
+Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a *coordinate reference system* (CRS).
+
+It is important to keep in mind that the earth is not a perfect sphere: the radius of the equator is a little larger than the polar radius (about 0.3%).
+Therefore, geographers model the earth as an ellipsoid.
+This ellipsoid model is called a *(geodetic) datum*.
+There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.
+
+Let's take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web-Mercator projection, which is currently the de facto standard for interactive maps. 
+These projections are indexed as EPSG4326 and EPSG3857 (EPSG is an institude that maintains a database of standard map projections).
+
+<!--https://geographx.co.nz/map-projections/-->
+
+
+```{r crs-04, echo=FALSE, results='hide', warning=FALSE, fig.cap="Latitude longitude coordinates (EPSG 4326)", message=FALSE, fig.cap="The WGS84 coordinate system (EPSG4326)"}
+source("code/crs_examples.R")
+
+m4326 = map_4326()
+m4326_cyl = map_4326_cyl()
+
+tmap_arrange({
+  tm_shape(m4326_cyl$bg_back) +
+    tm_polygons(clr_peel_back) +
+    tm_shape(m4326_cyl$bg_front) +
+    tm_polygons(clr_peel, border.col = clr_border) +
+    tm_shape(m4326_cyl$land) +
+    tm_polygons(clr_land) +
+    tm_shape(m4326_cyl$grat) +
+    tm_lines(col = clr_grat, lwd = 1) +
+    tm_layout(frame = FALSE)},
+  { tm_shape(m4326$bg) +
+      tm_fill(clr_peel) +
+      tm_shape(m4326$land) +
+      tm_polygons(clr_land) +
+      tm_shape(m4326$grat) +
+      tm_lines(col = clr_grat, lwd = 1) +
+      tm_layout(frame = TRUE, inner.margins = 0)
+  }, widths = c(.3, .7), asp = NULL)
+
+```
+
+When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure \@ref(fig:crs-04) (left).
+Note that the lontitude lines have become straight vertical lines.
+When we unroll this cylinder, we obtain the latitude, longitude coordinate system (WGS84/EPSG4326), shown in Figure \@ref(fig:crs-04) (right).
+
+Observe since we stretched the poles open, the area near the poles have been stretched out as well.
+More specifically, the closer the land is to one of the poles, the more it has been stretched out.
+Since the stretching direction is only horizontally, the shapes of the areas have become wider.
+A good example is Greenland, which is normally a 'tall' area (see Figure \@ref(fig:orange)).
+
+In order to fix these deformed areas, Gerardus Mercator, a Flemish geographics in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
+The resulting cylinder and plain map are shown in Figure \@ref{fig:crs-05).
+
+
+
+```{r crs-05, echo=FALSE, results='hide', warning=FALSE, fig.cap="Mercator projection (EPSG3857)", message=FALSE}
+source("code/crs_examples.R")
+
+m3857 = map_3857()
+m3857_cyl = map_3857_cyl()
+
+tmap_arrange({
+  tm_shape(m3857_cyl$bg_back) +
+    tm_polygons(clr_peel_back) +
+    tm_shape(m3857_cyl$bg_front) +
+    tm_polygons(clr_peel, border.col = clr_border) +
+    tm_shape(m3857_cyl$land) +
+    tm_polygons(clr_land) +
+    tm_shape(m3857_cyl$grat) +
+    tm_lines(col = clr_grat, lwd = 1) +
+    tm_layout(frame = FALSE)},
+  { tm_shape(m3857$bg) +
+      tm_fill(clr_peel) +
+      tm_shape(m3857$land) +
+      tm_polygons(clr_land) +
+      tm_shape(m3857$grat) +
+      tm_lines(col = clr_grat, lwd = 1) +
+      tm_layout(frame = TRUE, inner.margins = 0)
+  }, widths = c(.3, .7), asp = NULL)
+
+```
+
+Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure \@ref(fig:orange)).
+The Mercator projection is very useful for navigational purposes, and has been embraced by sailors ever since.
+However, for maps that show data the Mercator projection should be used with great caution, because the inflated areas (e.g. countries) may cause a perceptual bias.
+
+<!-- https://en.wikipedia.org/wiki/List_of_map_projections
+http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
+
+
+-->
+
+Map projections can be classified by wheather the following map properties are preserved:
+
+There are four properties by which we can classify map projections:
+
+* *Conformal (true local angles/shapes)*: A map projection is called *conformal* when local angles are preserved, and therefore local shapes. 
+The Mercator is an example.
+* *Equal-area (true areas)*: A map projection is called *equal-area* if the areas are proportional to the true areas.
+* *Equidistant (true distances)* A map projection is called *equidistant* if there is one point (usually the center) from which the distances to any other point in the map are preserved.
+* *Azimuthal (true-direction)* A map projection is called *azimuthal* if the directions from one point (the center) to any other point are same as the true direction following the surface of the earth.
+
+
+Take home message: plain latitude/longitude coordinates (EPSG 4326) and the Mercator projection (3857) are great for navigation, but less suitable for maps with data, especially world maps.
+
+Take home message: before you start mapping, think about which projection is good for the area of interest and for the specific task at hand.
