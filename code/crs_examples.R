@@ -163,6 +163,55 @@ map_4326_cyl = function() {
 }
 
 
+# function to check if polygons contain 4 points
+sf_is_valid_4poly = function(x) {
+  g <- sf::st_geometry(x)
+  vapply(g, function(gi) {
+    nrow(st_coordinates(gi)) == 5L
+  }, FUN.VALUE = logical(1))
+}
+
+# function to create world surface
+world_surface = function(datum = 4326, step = 2, nx = 360/step, ny = 180/step, projection = NULL, union = TRUE) {
+  s = stars::st_as_stars(sf::st_bbox(c(xmin=-180,ymin=-90,xmax=180,ymax=90), crs = datum), nx = nx, ny = ny)
+  s2 = sf::st_as_sf(s)
+  s4 = if (!is.null(projection)) {
+    s3 = sf::st_transform(s2, crs=projection)
+    s3[sf_is_valid_4poly(s3), ]
+  } else{
+    s2
+  }
+  if (union) {
+    sf::st_union(sf::st_buffer(s4, dist = 1e-03))
+  } else {
+    s4
+  }
+}
+
+map_3035 = function() {
+  data(World, package = "tmap")
+  land = sf::st_transform(World, 3035)
+  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) %>% st_transform(3035)
+  
+  # background approximation using many graticules
+  grat2 = sf::st_graticule(lon = seq(-180, 180, by = 1), lat = seq(-90, 90, by = 1)) %>% st_transform(3035)
+  co = st_coordinates(grat2)
+  xrange = range(co[,1])
+  yrange = range(co[,2])
+  xc = mean(xrange)
+  yc = mean(yrange)
+  xamp = xc - xrange[1]
+  yamp = yc - yrange[1]
+  
+  x = sin(seq(0, 2*pi, length.out=361)) * xamp + xc
+  y = cos(seq(0, 2*pi, length.out=361)) * yamp + yc
+  x[361] = x[1]
+  y[361] = y[1]
+  bg = st_sfc(st_polygon(list(cbind(x, y))), crs = 3035)
+  
+  list(bg = bg, land = land, grat = grat)
+}
+
 
 map_3857_cyl = function() {
   
@@ -193,7 +242,6 @@ map_3857_cyl = function() {
                                      c(lon_center + 20037508/2, -20037508),
                                      c(lon_center - 20037508/2, -20037508)))), crs = 3857)
   
-  print("test123")
   World_cyl = m3857$land %>% 
     st_intersection(crp) %>% 
     st_cast("MULTIPOLYGON")
