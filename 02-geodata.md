@@ -21,9 +21,6 @@ Two basic models used to represent spatial data are vector and raster data model
 ### Vector data model
 
 ...
-<!-- several implementations of this data model -->
-<!-- including simple feature -->
-<!-- what is a feature -->
 
 The vector data model consists of two main elements: geometries and attributes.
 
@@ -59,6 +56,11 @@ A polygon hole represents an area inside of the polygon but does not belong to i
 For example, a lake with an island can be depicted as a polygon with a hole.
 Values of polygons' attributes can be represented by the areas (fill) colors.
 
+The second part of the vector data model relates to attributes. 
+Attributes are usually stored as a table describing properties of the data.
+In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a single geometry. 
+
 
 
 
@@ -67,17 +69,17 @@ Values of polygons' attributes can be represented by the areas (fill) colors.
 
 <img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 
+<!-- several implementations of this data model -->
+<!-- including simple feature -->
+<!-- what is a feature -->
+Simple feature standard makes a clear difference between single- and multi-element features.
+We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 <!-- multielements -->
-<!-- additional geometries -->
-
-The part of the vector data model relates to attributes. 
-Attributes are usually stored as a table describing properties of the data.
-In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
-Each row, on the other hand, relates to a feature. 
-Here we can clearly see a difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
+Attribute table clearly shows a main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
 For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
 <!-- redundancy -->
 <!-- Example -->
+<!-- additional geometries -->
 
 
 ```r
