@@ -1,7 +1,9 @@
 # Specifying spatial data with `tm_shape` {#tmshape}
 
 
-## CRS: dealing with a three-dimensional earth
+## Map projections (CRS)
+
+### How to peel an orange?
 
 NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.
 
@@ -41,6 +43,9 @@ All continents and countries are preserved, except Antarctica and Greenland.
 To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection*. 
 
+
+### Latitude and longitude
+
 The grey lines are the longitude and latitude lines, also known as *graticules*. 
 These lines are also shown in \@ref(fig:orange). 
 The longitude lines are the meridians from north to south pole, and specify the east-west position, where by convention, the longitude = 0$^\circ$ meridian crosses Royal Observatory in Greenwich, UK.
@@ -52,8 +57,9 @@ Therefore, geographers model the earth as an ellipsoid.
 This ellipsoid model is called a *(geodetic) datum*.
 There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.
 
-Let's take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web-Mercator projection, which is currently the de facto standard for interactive maps. 
-These projections are indexed as EPSG4326 and EPSG3857 (EPSG is an institude that maintains a database of standard map projections).
+Let's take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web Mercator projection, which is currently the de facto standard for interactive maps. 
+These projections are indexed as EPSG4326 and EPSG3857 respectively.
+EPSG is an institute that maintains a database of standard map projections.
 
 <!--https://geographx.co.nz/map-projections/-->
 
@@ -72,29 +78,34 @@ More specifically, the closer the land is to one of the poles, the more it has b
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
 A good example is Greenland, which is normally a 'tall' area (see Figure \@ref(fig:orange)).
 
-In order to fix these deformed areas, Gerardus Mercator, a Flemish geographics in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
-The resulting cylinder and plain map are shown in Figure \@ref{fig:crs-05).
+### Mercator projection
 
+In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
+This projection is called the Mercator projection.
+For web applications, this projection has been slightly modified and renamed the Web Mercator projection (EPSG3857).
+The cylinder and plain map using this projection are shown in Figure \@ref(fig:crs-05).
 
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/crs-05-1.png" alt="Mercator projection (EPSG3857)" width="672" />
-<p class="caption">(\#fig:crs-05)Mercator projection (EPSG3857)</p>
+<img src="04-tm-shape_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
+<p class="caption">(\#fig:crs-05)Web Mercator projection (EPSG3857)</p>
 </div>
 
 Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure \@ref(fig:orange)).
 The Mercator projection is very useful for navigational purposes, and has been embraced by sailors ever since.
 However, for maps that show data the Mercator projection should be used with great caution, because the inflated areas (e.g. countries) may cause a perceptual bias.
 
+
+## Overview of map projections
+
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
-
-
 -->
 
-Map projections can be classified by wheather the following map properties are preserved:
 
-There are four properties by which we can classify map projections:
+
+
+Map projections can be classified by whether the following map properties are preserved:
 
 * *Conformal (true local angles/shapes)*: A map projection is called *conformal* when local angles are preserved, and therefore local shapes. 
 The Mercator is an example.

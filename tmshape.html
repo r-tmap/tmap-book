@@ -158,7 +158,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs-dealing-with-a-three-dimensional-earth"><i class="fa fa-check"></i><b>4.1</b> CRS: dealing with a three-dimensional earth</a></li>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#map-projections-crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-peel-an-orange"><i class="fa fa-check"></i><b>4.1.1</b> How to peel an orange?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-and-longitude"><i class="fa fa-check"></i><b>4.1.2</b> Latitude and longitude</a></li>
+<li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#mercator-projection"><i class="fa fa-check"></i><b>4.1.3</b> Mercator projection</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
@@ -194,8 +199,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tmshape" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Specifying spatial data with <code>tm_shape</code></h1>
-<div id="crs-dealing-with-a-three-dimensional-earth" class="section level2">
-<h2><span class="header-section-number">4.1</span> CRS: dealing with a three-dimensional earth</h2>
+<div id="map-projections-crs" class="section level2">
+<h2><span class="header-section-number">4.1</span> Map projections (CRS)</h2>
+<div id="how-to-peel-an-orange" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> How to peel an orange?</h3>
 <p>NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.</p>
 <pre><code>#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</code></pre>
 <p>We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
@@ -222,6 +229,9 @@ FIGURE 4.2: The (interrupted) Goode homolosine projection
 </div>
 <p>To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-03">4.2</a> is an example, is called a <em>map projection</em>.</p>
+</div>
+<div id="latitude-and-longitude" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Latitude and longitude</h3>
 <p>The grey lines are the longitude and latitude lines, also known as <em>graticules</em>.
 These lines are also shown in <a href="tmshape.html#fig:orange">4.1</a>.
 The longitude lines are the meridians from north to south pole, and specify the east-west position, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses Royal Observatory in Greenwich, UK.
@@ -231,8 +241,9 @@ Mathematically, a map projection is a transformation from latitude and longitude
 Therefore, geographers model the earth as an ellipsoid.
 This ellipsoid model is called a <em>(geodetic) datum</em>.
 There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.</p>
-<p>Let’s take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web-Mercator projection, which is currently the de facto standard for interactive maps.
-These projections are indexed as EPSG4326 and EPSG3857 (EPSG is an institude that maintains a database of standard map projections).</p>
+<p>Let’s take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web Mercator projection, which is currently the de facto standard for interactive maps.
+These projections are indexed as EPSG4326 and EPSG3857 respectively.
+EPSG is an institute that maintains a database of standard map projections.</p>
 <!--https://geographx.co.nz/map-projections/-->
 <div class="figure" style="text-align: center"><span id="fig:crs-04"></span>
 <img src="04-tm-shape_files/figure-html/crs-04-1.png" alt="The WGS84 coordinate system (EPSG4326)" width="672" />
@@ -247,24 +258,30 @@ When we unroll this cylinder, we obtain the latitude, longitude coordinate syste
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
 A good example is Greenland, which is normally a ‘tall’ area (see Figure <a href="tmshape.html#fig:orange">4.1</a>).</p>
-<p>In order to fix these deformed areas, Gerardus Mercator, a Flemish geographics in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
-The resulting cylinder and plain map are shown in Figure @ref{fig:crs-05).</p>
+</div>
+<div id="mercator-projection" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Mercator projection</h3>
+<p>In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
+This projection is called the Mercator projection.
+For web applications, this projection has been slightly modified and renamed the Web Mercator projection (EPSG3857).
+The cylinder and plain map using this projection are shown in Figure <a href="tmshape.html#fig:crs-05">4.4</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-05"></span>
-<img src="04-tm-shape_files/figure-html/crs-05-1.png" alt="Mercator projection (EPSG3857)" width="672" />
+<img src="04-tm-shape_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
 <p class="caption">
-FIGURE 4.4: Mercator projection (EPSG3857)
+FIGURE 4.4: Web Mercator projection (EPSG3857)
 </p>
 </div>
 <p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure <a href="tmshape.html#fig:orange">4.1</a>).
 The Mercator projection is very useful for navigational purposes, and has been embraced by sailors ever since.
 However, for maps that show data the Mercator projection should be used with great caution, because the inflated areas (e.g. countries) may cause a perceptual bias.</p>
+</div>
+</div>
+<div id="overview-of-map-projections" class="section level2">
+<h2><span class="header-section-number">4.2</span> Overview of map projections</h2>
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
-
-
 -->
-<p>Map projections can be classified by wheather the following map properties are preserved:</p>
-<p>There are four properties by which we can classify map projections:</p>
+<p>Map projections can be classified by whether the following map properties are preserved:</p>
 <ul>
 <li><em>Conformal (true local angles/shapes)</em>: A map projection is called <em>conformal</em> when local angles are preserved, and therefore local shapes.
 The Mercator is an example.</li>
