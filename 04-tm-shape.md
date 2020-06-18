@@ -3,7 +3,7 @@
 
 ## Map projections (CRS)
 
-### How to peel an orange?
+### How to put an orange peel flat on the table?
 
 NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.
 
@@ -41,7 +41,7 @@ All continents and countries are preserved, except Antarctica and Greenland.
 </div>
 
 To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
-A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection*. 
+A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection* or *Coordinate Reference System (CRS)*.
 
 
 ### Latitude and longitude
@@ -71,19 +71,24 @@ EPSG is an institute that maintains a database of standard map projections.
 
 When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure \@ref(fig:crs-04) (left).
 Note that the lontitude lines have become straight vertical lines.
-When we unroll this cylinder, we obtain the latitude, longitude coordinate system (WGS84/EPSG4326), shown in Figure \@ref(fig:crs-04) (right).
+When we unroll this cylinder, we obtain a map where the x and y coordinates are the longitude and latitude respectively. This CRS, which is known as EPSG4326, is shown in Figure \@ref(fig:crs-04) (right).
 
 Observe since we stretched the poles open, the area near the poles have been stretched out as well.
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
 A good example is Greenland, which is normally a 'tall' area (see Figure \@ref(fig:orange)).
 
+EPSG4326 is an *unprojected* CRS, since the longitude and latitude have not been transformed. With *projected* CRSs, the x and y coordinates refer to specific measurement units, usually meters.
+The projected variant of this CRS is called the *Platte Carrée* (EPSG4087), and is exactly the same map (but with other x and y value ranges) as shown in Figure \@ref(fig:crs-04) (right).
+
+
+
 ### Mercator projection
 
 In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
-For web applications, this projection has been slightly modified and renamed the Web Mercator projection (EPSG3857).
-The cylinder and plain map using this projection are shown in Figure \@ref(fig:crs-05).
+For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
+The cylinder and plain map that uses this projection are shown in Figure \@ref(fig:crs-05).
 
 
 <div class="figure" style="text-align: center">
@@ -92,8 +97,9 @@ The cylinder and plain map using this projection are shown in Figure \@ref(fig:c
 </div>
 
 Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure \@ref(fig:orange)).
-The Mercator projection is very useful for navigational purposes, and has been embraced by sailors ever since.
-However, for maps that show data the Mercator projection should be used with great caution, because the inflated areas (e.g. countries) may cause a perceptual bias.
+The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
+Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
+However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive the data.
 
 
 ## Overview of map projections
@@ -103,6 +109,12 @@ http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
 -->
 
 
+
+
+<div class="figure" style="text-align: center">
+<img src="04-tm-shape_files/figure-html/crs-06-1.png" alt="Lambert azimuthal equal-area projection (EPSG3035)" width="672" />
+<p class="caption">(\#fig:crs-06)Lambert azimuthal equal-area projection (EPSG3035)</p>
+</div>
 
 
 Map projections can be classified by whether the following map properties are preserved:
