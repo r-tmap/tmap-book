@@ -213,8 +213,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
 <p>…
-The Vector data model consists of two main elements: geometries and attributes.
-The role of geometry is to describe the location and shape of spatial objects.
+<!-- several implementations of this data model -->
+<!-- including simple feature -->
+<!-- what is a feature --></p>
+<p>The vector data model consists of two main elements: geometries and attributes.</p>
+<p>The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.</p>
 <p>A point is represented by a pair of coordinates, usually described as X and Y.
@@ -243,6 +246,16 @@ A polygon hole represents an area inside of the polygon but does not belong to i
 For example, a lake with an island can be depicted as a polygon with a hole.
 Values of polygons’ attributes can be represented by the areas (fill) colors.</p>
 <p><img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- multielements -->
+<!-- additional geometries -->
+<p>The part of the vector data model relates to attributes.
+Attributes are usually stored as a table describing properties of the data.
+In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a feature.
+Here we can clearly see a difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
+For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
+<!-- redundancy -->
+<!-- Example --></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># install.packages(&quot;gt&quot;)</span></span>
 <span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="co"># library(gt)</span></span>
 <span id="cb1-3"><a href="geodata.html#cb1-3"></a><span class="co"># </span></span>

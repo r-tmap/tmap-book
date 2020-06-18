@@ -21,7 +21,12 @@ Two basic models used to represent spatial data are vector and raster data model
 ### Vector data model
 
 ...
-The Vector data model consists of two main elements: geometries and attributes.
+<!-- several implementations of this data model -->
+<!-- including simple feature -->
+<!-- what is a feature -->
+
+The vector data model consists of two main elements: geometries and attributes.
+
 The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.
@@ -62,6 +67,17 @@ Values of polygons' attributes can be represented by the areas (fill) colors.
 
 <img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 
+<!-- multielements -->
+<!-- additional geometries -->
+
+The part of the vector data model relates to attributes. 
+Attributes are usually stored as a table describing properties of the data.
+In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a feature. 
+Here we can clearly see a difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
+For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
+<!-- redundancy -->
+<!-- Example -->
 
 
 ```r
