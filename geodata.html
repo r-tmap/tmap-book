@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Spatial data in R | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.19.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19.4 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Spatial data in R | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-13" />
+<meta name="date" content="2020-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,11 +50,76 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -92,7 +157,9 @@
 <li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs"><i class="fa fa-check"></i><b>2.4</b> CRS</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
-<li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a></li>
+<li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs-dealing-with-a-three-dimensional-earth"><i class="fa fa-check"></i><b>4.1</b> CRS: dealing with a three-dimensional earth</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -155,26 +222,33 @@ It allows for locating this point in some space.
 <!-- short CRS intro -->
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
-<!-- ways to adjust points aesthetics: point sizes, colors, shapes, (markers/images) -->
 Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
-Points can be also used to represent abstract features, such as locations of map labels.</p>
+They are also used to express abstract features, such as locations of map labels.
+Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.</p>
 <p>A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved.
+Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc.
+In this case, we can express line features’ attributes using either lines’ color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
-<!-- in theory lty could be also used - but it is not implemented in tmap -->
-Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc.</p>
+<!-- in theory lty could be also used - but it is not implemented in tmap --></p>
 <p>A polygon is again a set of ordered points connected by straight lines.
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
-<!-- ways to adjust polygons aesthetics: (fill) colors, (line/borders) colors -->
 <!-- examples of polygons -->
 The polygon representation is used to represent shapes and locations of different objects, from a lake or a patch of vegetation, through a building or a city block, to some administrative units.
 Polygons also have one unique feature - they could have holes.
 A polygon hole represents an area inside of the polygon but does not belong to it.
-For example, a lake with an island can be depicted as a polygon with a hole.</p>
+For example, a lake with an island can be depicted as a polygon with a hole.
+Values of polygons’ attributes can be represented by the areas (fill) colors.</p>
 <p><img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># install.packages(&quot;gt&quot;)</span></span>
+<span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="co"># library(gt)</span></span>
+<span id="cb1-3"><a href="geodata.html#cb1-3"></a><span class="co"># </span></span>
+<span id="cb1-4"><a href="geodata.html#cb1-4"></a><span class="co"># point_df = st_drop_geometry(point_data) %&gt;% </span></span>
+<span id="cb1-5"><a href="geodata.html#cb1-5"></a><span class="co">#   gt() %&gt;% </span></span>
+<span id="cb1-6"><a href="geodata.html#cb1-6"></a><span class="co">#   tab_header(&quot;Attribute Table for Point Data&quot;)</span></span></code></pre></div>
 <!-- additional dimensions: -->
 <!-- - more than two coordinates (XYZM) -->
 <!-- - multiobjects -->
@@ -291,6 +365,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
