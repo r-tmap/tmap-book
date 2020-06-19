@@ -72,7 +72,7 @@ Each row, on the other hand, relates to a single geometry.
 <!-- several implementations of this data model -->
 <!-- including simple feature -->
 <!-- what is a feature -->
-Simple feature standard makes a clear difference between single- and multi-element features.
+Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 <!-- multielements -->
 Attribute table clearly shows a main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
@@ -107,6 +107,16 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- - main geometry types -->
 <!-- - relation between geometries and attributes -->
 <!-- - vector file formats -->
+There are a couple hundreds of file formats that can store spatial vector data.
+One of the simplest ways to store spatial data is in the form of a text file (`.csv`) or as a spreadsheet (`.xls` or `.xlsx`). 
+While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
+Text files are also not suitable for storing information about the coordinate reference system used.
+<!--ref to the CRS section??-->
+Historically, the shapefile format (`.shp`) developed by the ESRI company gained a lot of interest and become the most widely supported spatial vector file format. 
+Despite its popularity, this format has a number of shortcomings, including the need to store several files, attribute names limited to ten characters, the ability to store up to 255 attributes and files up to 2GB, and many more.
+A fairly recent file format, OGC GeoPackage (`.gpkg`), was developed as an alternative. 
+It is a single file database free from the limitation of the shapefile format.
+Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.gpx`), and KML (`.kml`). 
 <!-- - advantages/disadvantages -->
 <!-- - example figure (similar to the one in geocompr, but made with tmap) -->
 

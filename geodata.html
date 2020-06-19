@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-18" />
+<meta name="date" content="2020-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,7 +255,7 @@ Each row, on the other hand, relates to a single geometry.</p>
 <!-- several implementations of this data model -->
 <!-- including simple feature -->
 <!-- what is a feature -->
-<p>Simple feature standard makes a clear difference between single- and multi-element features.
+<p>Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 <!-- multielements -->
 Attribute table clearly shows a main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
@@ -279,8 +279,18 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- - main geometry types -->
 <!-- - relation between geometries and attributes -->
 <!-- - vector file formats -->
+<p>There are a couple hundreds of file formats that can store spatial vector data.
+One of the simplest ways to store spatial data is in the form of a text file (<code>.csv</code>) or as a spreadsheet (<code>.xls</code> or <code>.xlsx</code>).
+While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
+Text files are also not suitable for storing information about the coordinate reference system used.
+<!--ref to the CRS section??-->
+Historically, the shapefile format (<code>.shp</code>) developed by the ESRI company gained a lot of interest and become the most widely supported spatial vector file format.
+Despite its popularity, this format has a number of shortcomings, including the need to store several files, attribute names limited to ten characters, the ability to store up to 255 attributes and files up to 2GB, and many more.
+A fairly recent file format, OGC GeoPackage (<code>.gpkg</code>), was developed as an alternative.
+It is a single file database free from the limitation of the shapefile format.
+Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>), GPX (<code>.gpx</code>), and KML (<code>.kml</code>).
 <!-- - advantages/disadvantages -->
-<!-- - example figure (similar to the one in geocompr, but made with tmap) -->
+<!-- - example figure (similar to the one in geocompr, but made with tmap) --></p>
 </div>
 <div id="the-sf-package" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> The sf package</h3>
