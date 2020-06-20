@@ -56,6 +56,70 @@
 </script>
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -140,7 +204,8 @@
 <p></p>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">2.1</span> Introduction</h2>
-<p>Vector and raster data models are two basic models use to represent spatial data.
+<p>Vector and raster data models are two basic models used to represent spatial data.
+These spatial data models are closely related with map making, with each model having its own pros and cons.
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
@@ -152,6 +217,12 @@
 <p></p>
 <!-- - one/two intro sentences -->
 <!-- - including r packages used for vector representation -->
+<p>R has several packages aimed to represent spatial vector data.
+Recently, the <strong>terra</strong> package has been released containing a new vector data representation.
+For more than a decade, the <strong>sp</strong> package <!--REF--> was a standard of vector data representation in R.
+However, now this package is in the maintenance mode only, and its successor, <strong>sf</strong> is recommended.
+The <strong>tmap</strong> package has been using <strong>sf</strong> since version 2.0.
+In the two next sections, we introduce vector data model (section <a href="geodata.html#vector-data-model">2.2.1</a>) and show how the <strong>sf</strong> package works with spatial data (section <a href="geodata.html#the-sf-package">2.2.2</a>).</p>
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
 <p>…</p>
@@ -167,7 +238,7 @@ It allows for locating this point in some space.
 <!-- short CRS intro -->
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
-Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
+Points can represent features on different scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.</p>
 <p>A line extends the idea of a point.
@@ -175,7 +246,7 @@ It consists of several points (with coordinates)<!--vertex--> that are arranged 
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved.
-Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc.
+Lines are used to representing linear features, such as roads, rivers, boundaries, footpaths, etc.
 In this case, we can express line features’ attributes using either lines’ color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap --></p>
@@ -186,9 +257,9 @@ The polygon representation is used to represent shapes and locations of differen
 Polygons also have one unique feature - they could have holes.
 A polygon hole represents an area inside of the polygon but does not belong to it.
 For example, a lake with an island can be depicted as a polygon with a hole.
-Values of polygons’ attributes can be represented by the areas (fill) colors.</p>
+The values of polygons’ attributes can be represented by the areas (fill) colors.</p>
 <p>The second part of the vector data model relates to attributes.
-Attributes are usually stored as a table describing properties of the data.
+Attributes are usually stored as a table describing the properties of the data.
 In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single geometry.</p>
 <p><img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -200,12 +271,12 @@ Currently, the Simple Feature Access seems to be the most widely used standard <
 In it, a feature is every object or concept that have spatial location or extent.
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
-A main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables.
+The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables.
 For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
 <!-- redundancy -->
 <!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
-Finally, GeometryCollection exist, which can contain all of the possible geometry types.</p>
+Finally, GeometryCollection exists that contain all of the possible geometry types.</p>
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
 <!-- additional dimensions: -->
@@ -234,12 +305,23 @@ Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>
 <div id="the-sf-package" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> The sf package</h3>
 <!-- "Vector data provide a way to represent real world features" -->
+<p>Its main class, <code>sf</code>, is in the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
+In it, vector data attributes are stored as columns.
+It also has one additional column, most often named <code>geom</code> or <code>geometry</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
+This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
 <!-- - how to read sf objects from files -->
+The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
+<!--improve example--></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="kw">library</span>(sf)</span>
+<span id="cb1-2"><a href="geodata.html#cb1-2"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;...&quot;</span>)</span></code></pre></div>
+<!-- explain example -->
+<p>Spatial vector data of class <code>sf</code> can be also obtained using some of R data packages.
+<!-- add REFs-->
+For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
-<!-- - vector simplification? -->
-<!-- - stars proxy -->
+<!-- - vector simplification? --></p>
 </div>
 </div>
 <div id="raster-data" class="section level2">
@@ -273,6 +355,13 @@ Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>
 <!-- mtennekes part -->
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>However, any other names are also possible.<a href="geodata.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>It is also possible to read spatial vector data using the <code>st_read()</code> function, which differs from <code>read_sf()</code> by having different default arguments.<a href="geodata.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 <script>
 /*

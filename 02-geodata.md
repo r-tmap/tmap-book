@@ -6,7 +6,8 @@
 
 ## Introduction
 
-Vector and raster data models are two basic models use to represent spatial data.
+Vector and raster data models are two basic models used to represent spatial data.
+These spatial data models are closely related with map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
@@ -19,6 +20,12 @@ Vector and raster data models are two basic models use to represent spatial data
 
 <!-- - one/two intro sentences -->
 <!-- - including r packages used for vector representation -->
+R has several packages aimed to represent spatial vector data.
+Recently, the **terra** package has been released containing a new vector data representation.
+For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
+However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
+The **tmap** package has been using **sf** since version 2.0.
+In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
 
 ### Vector data model
 
@@ -38,7 +45,7 @@ It allows for locating this point in some space.
 <!-- short CRS intro -->
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
-Points can represents features on different scales, from a GPS position, location of a bench in a park, to a city in a small scale map.
+Points can represent features on different scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
 
@@ -47,7 +54,7 @@ It consists of several points (with coordinates)<!--vertex--> that are arranged 
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved. 
-Lines are used to represent linear features, such as roads, rivers, boundaries, footpaths, etc. 
+Lines are used to representing linear features, such as roads, rivers, boundaries, footpaths, etc. 
 In this case, we can express line features' attributes using either lines' color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
@@ -59,10 +66,10 @@ The polygon representation is used to represent shapes and locations of differen
 Polygons also have one unique feature - they could have holes. 
 A polygon hole represents an area inside of the polygon but does not belong to it.
 For example, a lake with an island can be depicted as a polygon with a hole.
-Values of polygons' attributes can be represented by the areas (fill) colors.
+The values of polygons' attributes can be represented by the areas (fill) colors.
 
 The second part of the vector data model relates to attributes. 
-Attributes are usually stored as a table describing properties of the data.
+Attributes are usually stored as a table describing the properties of the data.
 In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single geometry. 
 
@@ -82,12 +89,12 @@ Currently, the Simple Feature Access seems to be the most widely used standard <
 In it, a feature is every object or concept that have spatial location or extent. 
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
-A main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
+The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
 For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
 <!-- redundancy -->
 <!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
-Finally, GeometryCollection exist, which can contain all of the possible geometry types.
+Finally, GeometryCollection exists that contain all of the possible geometry types.
 
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
@@ -126,12 +133,26 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 ### The sf package
 
 <!-- "Vector data provide a way to represent real world features" -->
+Its main class, `sf`, is in the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
+In it, vector data attributes are stored as columns. 
+It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
+This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
 <!-- - how to read sf objects from files -->
+The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
+<!--improve example-->
+
+```r
+library(sf)
+x = read_sf("...")
+```
+<!-- explain example -->
+Spatial vector data of class `sf` can be also obtained using some of R data packages.
+<!-- add REFs--> 
+For example, **rnaturalearth** allows to download world map data, **osmdata** imports OpenStreetMap data as `sf` objects, and **tigris** loads TIGER/Line data.
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
 <!-- - vector simplification? -->
-<!-- - stars proxy -->
 
 ## Raster data
 
