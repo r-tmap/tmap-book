@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Two basic models used to represent spatial data are vector and raster data model.
+Vector and raster data models are two basic models use to represent spatial data.
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
@@ -74,17 +74,23 @@ Each row, on the other hand, relates to a single geometry.
 
 <img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 
-<!-- several implementations of this data model -->
-<!-- including simple feature -->
-<!-- what is a feature -->
+\index{simple feature}
+The above ideas could be implemented in many ways. <!--...-->
+Currently, the Simple Feature Access seems to be the most widely used standard <!--architecture-->
+<!-- REF -->
+<!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
+In it, a feature is every object or concept that have spatial location or extent. 
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
-<!-- multielements -->
-Attribute table clearly shows a main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON).
+A main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
 For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
 <!-- redundancy -->
 <!-- Example -->
-<!-- additional geometries -->
+The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
+Finally, GeometryCollection exist, which can contain all of the possible geometry types.
+
+<!-- JN: maybe too much information-->
+<!-- simple features standard also defines possible topological rules -->
 
 
 
