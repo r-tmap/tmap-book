@@ -7,6 +7,7 @@
 ## Introduction
 
 Vector and raster data models are two basic models use to represent spatial data.
+These spatial data models are closely related with map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
@@ -19,6 +20,12 @@ Vector and raster data models are two basic models use to represent spatial data
 
 <!-- - one/two intro sentences -->
 <!-- - including r packages used for vector representation -->
+R has several packages aimed to represent spatial vector data.
+Recently, the **terra** package has been released containing a new vector data representation.
+For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
+However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
+The **tmap** package has been using **sf** since version 2.0.
+In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
 
 ### Vector data model
 
