@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-19" />
+<meta name="date" content="2020-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,70 +56,6 @@
 </script>
 
 
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -213,12 +149,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="vector-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Vector data</h2>
+<p></p>
 <!-- - one/two intro sentences -->
 <!-- - including r packages used for vector representation -->
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
 <p>…</p>
-<p>The vector data model consists of two main elements: geometries and attributes.</p>
+<p>
+
+
+The vector data model consists of two main elements: geometries and attributes.</p>
 <p>The role of geometry is to describe the location and shape of spatial objects.
 There are three basic types of geometries: points, lines, and polygons.
 All of them are build using the same main idea of coordinates.</p>
@@ -263,12 +203,6 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- redundancy -->
 <!-- Example -->
 <!-- additional geometries --></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># install.packages(&quot;gt&quot;)</span></span>
-<span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="co"># library(gt)</span></span>
-<span id="cb1-3"><a href="geodata.html#cb1-3"></a><span class="co"># </span></span>
-<span id="cb1-4"><a href="geodata.html#cb1-4"></a><span class="co"># point_df = st_drop_geometry(point_data) %&gt;% </span></span>
-<span id="cb1-5"><a href="geodata.html#cb1-5"></a><span class="co">#   gt() %&gt;% </span></span>
-<span id="cb1-6"><a href="geodata.html#cb1-6"></a><span class="co">#   tab_header(&quot;Attribute Table for Point Data&quot;)</span></span></code></pre></div>
 <!-- additional dimensions: -->
 <!-- - more than two coordinates (XYZM) -->
 <!-- - multiobjects -->
@@ -278,8 +212,8 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- - what's the simple features standard -->
 <!-- - main geometry types -->
 <!-- - relation between geometries and attributes -->
-<!-- - vector file formats -->
-<p>There are a couple hundreds of file formats that can store spatial vector data.
+<p>
+There are a couple hundreds of file formats that can store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (<code>.csv</code>) or as a spreadsheet (<code>.xls</code> or <code>.xlsx</code>).
 While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
 Text files are also not suitable for storing information about the coordinate reference system used.

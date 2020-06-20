@@ -2,7 +2,7 @@
 <!-- # Geographic data in R {#geodata} -->
 <!-- to discuss -->
 
-\index{geodata}
+\index{spatial data}
 
 ## Introduction
 
@@ -15,6 +15,8 @@ Two basic models used to represent spatial data are vector and raster data model
 
 ## Vector data
 
+\index{vector data model}
+
 <!-- - one/two intro sentences -->
 <!-- - including r packages used for vector representation -->
 
@@ -22,6 +24,9 @@ Two basic models used to represent spatial data are vector and raster data model
 
 ...
 
+\index{vector data model}
+\index{spatial geometries}
+\index{spatial attributes}
 The vector data model consists of two main elements: geometries and attributes.
 
 The role of geometry is to describe the location and shape of spatial objects.
@@ -82,15 +87,6 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- additional geometries -->
 
 
-```r
-# install.packages("gt")
-# library(gt)
-# 
-# point_df = st_drop_geometry(point_data) %>% 
-#   gt() %>% 
-#   tab_header("Attribute Table for Point Data")
-
-```
 
 
 
@@ -106,7 +102,8 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- - what's the simple features standard -->
 <!-- - main geometry types -->
 <!-- - relation between geometries and attributes -->
-<!-- - vector file formats -->
+
+\index{spatial file formats}
 There are a couple hundreds of file formats that can store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (`.csv`) or as a spreadsheet (`.xls` or `.xlsx`). 
 While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
