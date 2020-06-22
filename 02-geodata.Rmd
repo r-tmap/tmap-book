@@ -12,6 +12,7 @@ These spatial data models are closely related with map making, with each model h
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also references to some books (either here or in the next section or both) -->
+<!-- explain that often there is a need to prepare spatial data before mapping -->
 <!-- - maybe also mention some data sources -->
 
 ## Vector data
@@ -236,12 +237,16 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 
 ### The sf package
 
-<!-- "Vector data provide a way to represent real world features" -->
-Its main class, `sf`, is in the form of an extended data frame, where each row is a spatial feature.
+\index{sf}
+\index{sf (package)|see {sf}}
+
+The **sf** package implements ideas behind the Simple Feature standard.
+Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
-In it, vector data attributes are stored as columns. 
+In it, attributes of the vector data are stored as columns. 
 It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
+
 <!-- - how to read sf objects from files -->
 The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
 <!--improve example-->
@@ -250,9 +255,16 @@ library(sf)
 x = read_sf("...")
 ```
 <!-- explain example -->
-Spatial vector data of class `sf` can be also obtained using some of R data packages.
+<!-- describe sf object structure -->
+
+Spatial vector data of class `sf` can be also obtained using some of other R data packages.
 <!-- add REFs--> 
 For example, **rnaturalearth** allows to download world map data, **osmdata** imports OpenStreetMap data as `sf` objects, and **tigris** loads TIGER/Line data.
+
+The **tmap** package accepts spatial vector data objects from both **sf** and **sp** packages.
+This package also has the `st_as_sf()` function that converts objects of many classes, including `data.frame`, `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
+<!-- ?convert data.frame? -->
+
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
 <!-- - vector simplification? -->
