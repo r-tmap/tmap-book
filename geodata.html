@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-20" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#map-projections-crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-and-longitude"><i class="fa fa-check"></i><b>4.1.2</b> Latitude and longitude</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-longitude-and-datums"><i class="fa fa-check"></i><b>4.1.2</b> Latitude, longitude, and datums</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#mercator-projection"><i class="fa fa-check"></i><b>4.1.3</b> Mercator projection</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
@@ -210,6 +210,7 @@ These spatial data models are closely related with map making, with each model h
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also references to some books (either here or in the next section or both) -->
+<!-- explain that often there is a need to prepare spatial data before mapping -->
 <!-- - maybe also mention some data sources --></p>
 </div>
 <div id="vector-data" class="section level2">
@@ -304,24 +305,30 @@ Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>
 </div>
 <div id="the-sf-package" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> The sf package</h3>
-<!-- "Vector data provide a way to represent real world features" -->
-<p>Its main class, <code>sf</code>, is in the form of an extended data frame, where each row is a spatial feature.
+<p>
+</p>
+<p>The <strong>sf</strong> package implements ideas behind the Simple Feature standard.
+Its main class, <code>sf</code>, has the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
-In it, vector data attributes are stored as columns.
+In it, attributes of the vector data are stored as columns.
 It also has one additional column, most often named <code>geom</code> or <code>geometry</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
-This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
+This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.</p>
 <!-- - how to read sf objects from files -->
-The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
+<p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
 <!--improve example--></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="kw">library</span>(sf)</span>
 <span id="cb1-2"><a href="geodata.html#cb1-2"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;...&quot;</span>)</span></code></pre></div>
 <!-- explain example -->
-<p>Spatial vector data of class <code>sf</code> can be also obtained using some of R data packages.
+<!-- describe sf object structure -->
+<p>Spatial vector data of class <code>sf</code> can be also obtained using some of other R data packages.
 <!-- add REFs-->
-For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.
+For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.</p>
+<p>The <strong>tmap</strong> package accepts spatial vector data objects from both <strong>sf</strong> and <strong>sp</strong> packages.
+This package also has the <code>st_as_sf()</code> function that converts objects of many classes, including <code>data.frame</code>, <code>Spatial</code> (from the <strong>sp</strong> package), <code>ppp</code>, <code>psp</code>, and <code>lpp</code> (from the <strong>spatstat</strong> package), to the objects of class <code>sf</code>.
+<!-- ?convert data.frame? --></p>
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
-<!-- - vector simplification? --></p>
+<!-- - vector simplification? -->
 </div>
 </div>
 <div id="raster-data" class="section level2">

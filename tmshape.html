@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-20" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#map-projections-crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-and-longitude"><i class="fa fa-check"></i><b>4.1.2</b> Latitude and longitude</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-longitude-and-datums"><i class="fa fa-check"></i><b>4.1.2</b> Latitude, longitude, and datums</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#mercator-projection"><i class="fa fa-check"></i><b>4.1.3</b> Mercator projection</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
@@ -204,7 +204,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="how-to-put-an-orange-peel-flat-on-the-table" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> How to put an orange peel flat on the table?</h3>
 <p>NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.</p>
-<pre><code>#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</code></pre>
 <p>We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
 For centuries, geographers and mathematicians wondered what the best way is to do this.
 Let us wonder with them for a second.</p>
@@ -230,17 +229,26 @@ FIGURE 4.2: The (interrupted) Goode homolosine projection
 <p>To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-03">4.2</a> is an example, is called a <em>map projection</em> or <em>Coordinate Reference System (CRS)</em>.</p>
 </div>
-<div id="latitude-and-longitude" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Latitude and longitude</h3>
-<p>The grey lines are the longitude and latitude lines, also known as <em>graticules</em>.
-These lines are also shown in <a href="tmshape.html#fig:orange">4.1</a>.
-The longitude lines are the meridians from north to south pole, and specify the east-west position, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses Royal Observatory in Greenwich, UK.
-The latitude specifies the north-south position, where latitude = 0<span class="math inline">\(^\circ\)</span> is the equator, and where the latitudes for the north and south poly are 90<span class="math inline">\(^\circ\)</span> and -90<span class="math inline">\(^\circ\)</span> respectively.
-Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a <em>coordinate reference system</em> (CRS).</p>
+<div id="latitude-longitude-and-datums" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Latitude, longitude, and datums</h3>
+<p>Before we take a look at other ways to flatten down the earth, it is worthwhile to describe how to define a geographic position of the earth surface.
+One way to do this is by placing the Earth in a three-dimensional (x, y, z) Cartesian coordinate system with the center of the mass of the Earth being the origin (0, 0, 0).
+Another approach is to use longitude and latitude coordinates, as we will describe in this section.</p>
+<p>The gray circular lines shown in Figures <a href="tmshape.html#fig:orange">4.1</a> and <a href="tmshape.html#fig:crs-03">4.2</a> are the longitude meridians, which crosses both poles, and the latitude parallels, which are the equator and its parellel circular lines.
+The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.</p>
+<p>The longitude specifies the east-west position in degrees, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses Royal Observatory in Greenwich, UK.
+Note that since longitude is specified in degrees, the longitude range goes from -180<span class="math inline">\(^\circ\)</span> to 180<span class="math inline">\(^\circ\)</span>, where -180<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(^\circ\)</span> specify the same longitude.
+The latitude specifies the north-south position, where latitude = 0<span class="math inline">\(^\circ\)</span> is the equator.
+The latitudes for the north and south pole are 90<span class="math inline">\(^\circ\)</span> and -90<span class="math inline">\(^\circ\)</span> respectively.</p>
 <p>It is important to keep in mind that the earth is not a perfect sphere: the radius of the equator is a little larger than the polar radius (about 0.3%).
 Therefore, geographers model the earth as an ellipsoid.
-This ellipsoid model is called a <em>(geodetic) datum</em>.
+This ellipsoid model and its translation to the Earth’ surface is called a <em>(geodetic) datum</em>.
 There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.</p>
+<p>People often use longitude latitude coordinates to specify geographic locations.
+However, this is not possible without a datum.
+Since WGS84 is used predominantly in navigation, it is often considered as the default datum.
+Please keep in mind that in many, especially local, applications other datums are used.</p>
+<p>Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a <em>coordinate reference system</em> (CRS).</p>
 <p>Let’s take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web Mercator projection, which is currently the de facto standard for interactive maps.
 These projections are indexed as EPSG4326 and EPSG3857 respectively.
 EPSG is an institute that maintains a database of standard map projections.</p>
@@ -276,7 +284,8 @@ FIGURE 4.4: Web Mercator projection (EPSG3857)
 <p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure <a href="tmshape.html#fig:orange">4.1</a>).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
-However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive the data.</p>
+However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive the data.
+We will discuss this in the next section.</p>
 </div>
 </div>
 <div id="overview-of-map-projections" class="section level2">
@@ -291,6 +300,34 @@ FIGURE 4.5: Lambert azimuthal equal-area projection (EPSG3035)
 </p>
 </div>
 <p>Map projections can be classified by whether the following map properties are preserved:</p>
+<p>The standard set of comparison operators can be used in the <code>filter()</code> function, as illustrated in Table <a href="tmshape.html#tab:operators">4.1</a>:</p>
+<table>
+<caption><span id="tab:operators">TABLE 4.1: </span>Map projection properties.</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Preserved property</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Conformal</td>
+<td align="left">Local angle (shape)</td>
+</tr>
+<tr class="even">
+<td align="left">Equal area</td>
+<td align="left">Area</td>
+</tr>
+<tr class="odd">
+<td align="left">Equidistant</td>
+<td align="left">Distance</td>
+</tr>
+<tr class="even">
+<td align="left">Azimuthal</td>
+<td align="left">Direction</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><em>Conformal (true local angles/shapes)</em>: A map projection is called <em>conformal</em> when local angles are preserved, and therefore local shapes.
 The Mercator is an example.</li>

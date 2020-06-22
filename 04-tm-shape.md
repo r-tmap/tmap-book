@@ -9,9 +9,6 @@ NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the d
 
 
 
-```
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
-```
 
 We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
 For centuries, geographers and mathematicians wondered what the best way is to do this.
@@ -44,18 +41,34 @@ To make the analogy between the orange peel and the world map complete, we have 
 A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection* or *Coordinate Reference System (CRS)*.
 
 
-### Latitude and longitude
+### Latitude, longitude, and datums
 
-The grey lines are the longitude and latitude lines, also known as *graticules*. 
-These lines are also shown in \@ref(fig:orange). 
-The longitude lines are the meridians from north to south pole, and specify the east-west position, where by convention, the longitude = 0$^\circ$ meridian crosses Royal Observatory in Greenwich, UK.
-The latitude specifies the north-south position, where latitude = 0$^\circ$ is the equator, and where the latitudes for the north and south poly are 90$^\circ$ and -90$^\circ$ respectively.
-Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a *coordinate reference system* (CRS).
+Before we take a look at other ways to flatten down the earth, it is worthwhile to describe how to define a geographic position of the earth surface.
+One way to do this is by placing the Earth in a three-dimensional (x, y, z) Cartesian coordinate system with the center of the mass of the Earth being the origin (0, 0, 0).
+Another approach is to use longitude and latitude coordinates, as we will describe in this section.
+
+The gray circular lines shown in Figures \@ref(fig:orange) and \@ref(fig:crs-03) are the longitude meridians, which crosses both poles, and the latitude parallels, which are the equator and its parellel circular lines. 
+The set of longitude meridians and latitude parallels is also referred to as *graticule*. 
+
+The longitude specifies the east-west position in degrees, where by convention, the longitude = 0$^\circ$ meridian crosses Royal Observatory in Greenwich, UK.
+Note that since longitude is specified in degrees, the longitude range goes from -180$^\circ$ to 180$^\circ$, where -180$^\circ$ and $^\circ$ specify the same longitude.
+The latitude specifies the north-south position, where latitude = 0$^\circ$ is the equator.
+The latitudes for the north and south pole are 90$^\circ$ and -90$^\circ$ respectively.
 
 It is important to keep in mind that the earth is not a perfect sphere: the radius of the equator is a little larger than the polar radius (about 0.3%).
 Therefore, geographers model the earth as an ellipsoid.
-This ellipsoid model is called a *(geodetic) datum*.
+This ellipsoid model and its translation to the Earth' surface is called a *(geodetic) datum*.
 There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.
+
+People often use longitude latitude coordinates to specify geographic locations.
+However, this is not possible without a datum.
+Since WGS84 is used predominantly in navigation, it is often considered as the default datum.
+Please keep in mind that in many, especially local, applications other datums are used.  
+
+
+
+Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a *coordinate reference system* (CRS).
+
 
 Let's take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web Mercator projection, which is currently the de facto standard for interactive maps. 
 These projections are indexed as EPSG4326 and EPSG3857 respectively.
@@ -100,7 +113,7 @@ Although the areas near the poles have been inflated quite a lot, especially Ant
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive the data.
-
+We will discuss this in the next section.
 
 ## Overview of map projections
 
@@ -118,6 +131,19 @@ http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
 
 
 Map projections can be classified by whether the following map properties are preserved:
+
+The standard set of comparison operators can be used in the `filter()` function, as illustrated in Table \@ref(tab:operators): 
+
+
+Table: (\#tab:operators)Map projection properties.
+
+Name          Preserved property  
+------------  --------------------
+Conformal     Local angle (shape) 
+Equal area    Area                
+Equidistant   Distance            
+Azimuthal     Direction           
+
 
 * *Conformal (true local angles/shapes)*: A map projection is called *conformal* when local angles are preserved, and therefore local shapes. 
 The Mercator is an example.
