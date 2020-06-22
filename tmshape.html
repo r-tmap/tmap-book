@@ -160,8 +160,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#map-projections-crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#latitude-longitude-and-datums"><i class="fa fa-check"></i><b>4.1.2</b> Latitude, longitude, and datums</a></li>
-<li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#mercator-projection"><i class="fa fa-check"></i><b>4.1.3</b> Mercator projection</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#how-to-model-the-surface-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> How to model the surface of the earth?</a></li>
+<li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#platte-carrée-and-web-mercator"><i class="fa fa-check"></i><b>4.1.3</b> Platte Carrée and Web Mercator</a></li>
+<li class="chapter" data-level="4.1.4" data-path="tmshape.html"><a href="tmshape.html#mercator-projection"><i class="fa fa-check"></i><b>4.1.4</b> Mercator projection</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
 </ul></li>
@@ -203,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Map projections (CRS)</h2>
 <div id="how-to-put-an-orange-peel-flat-on-the-table" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> How to put an orange peel flat on the table?</h3>
-<p>NOTE: probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.</p>
+<!--probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.-->
 <p>We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
 For centuries, geographers and mathematicians wondered what the best way is to do this.
 Let us wonder with them for a second.</p>
@@ -226,29 +227,41 @@ All continents and countries are preserved, except Antarctica and Greenland.</p>
 FIGURE 4.2: The (interrupted) Goode homolosine projection
 </p>
 </div>
-<p>To make the analogy between the orange peel and the world map complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
-A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-03">4.2</a> is an example, is called a <em>map projection</em> or <em>Coordinate Reference System (CRS)</em>.</p>
+<p>To make the analogy between the orange peel and the surface of the earth complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
+These properties are needed in order to make a non-interrupted map, as we will see in the next sections.</p>
+<p>A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-03">4.2</a> is an example, is called a <em>map projection</em>. Technically, it is also known as a <em>coordinate reference system</em> (<em>crs</em>), which specifies the corresponding coordinate system, as well as the transformations to other map projections.</p>
 </div>
-<div id="latitude-longitude-and-datums" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Latitude, longitude, and datums</h3>
-<p>Before we take a look at other ways to flatten down the earth, it is worthwhile to describe how to define a geographic position of the earth surface.
-One way to do this is by placing the Earth in a three-dimensional (x, y, z) Cartesian coordinate system with the center of the mass of the Earth being the origin (0, 0, 0).
-Another approach is to use longitude and latitude coordinates, as we will describe in this section.</p>
-<p>The gray circular lines shown in Figures <a href="tmshape.html#fig:orange">4.1</a> and <a href="tmshape.html#fig:crs-03">4.2</a> are the longitude meridians, which crosses both poles, and the latitude parallels, which are the equator and its parellel circular lines.
-The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.</p>
-<p>The longitude specifies the east-west position in degrees, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses Royal Observatory in Greenwich, UK.
-Note that since longitude is specified in degrees, the longitude range goes from -180<span class="math inline">\(^\circ\)</span> to 180<span class="math inline">\(^\circ\)</span>, where -180<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(^\circ\)</span> specify the same longitude.
-The latitude specifies the north-south position, where latitude = 0<span class="math inline">\(^\circ\)</span> is the equator.
-The latitudes for the north and south pole are 90<span class="math inline">\(^\circ\)</span> and -90<span class="math inline">\(^\circ\)</span> respectively.</p>
-<p>It is important to keep in mind that the earth is not a perfect sphere: the radius of the equator is a little larger than the polar radius (about 0.3%).
-Therefore, geographers model the earth as an ellipsoid.
-This ellipsoid model and its translation to the Earth’ surface is called a <em>(geodetic) datum</em>.
-There are many (slightly) different datums, but the most popular one is WGS84, which is also used by GPS.</p>
-<p>People often use longitude latitude coordinates to specify geographic locations.
-However, this is not possible without a datum.
-Since WGS84 is used predominantly in navigation, it is often considered as the default datum.
-Please keep in mind that in many, especially local, applications other datums are used.</p>
-<p>Mathematically, a map projection is a transformation from latitude and longitude coordinates to another coordinate system, called a <em>coordinate reference system</em> (CRS).</p>
+<div id="how-to-model-the-surface-of-the-earth" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> How to model the surface of the earth?</h3>
+<p>The orange and the earth have another thing in common; both are spheres, but not perfect ones.
+The earth is metaphorically speaking a little fat: the circumference around the equator is 40,075 km whereas around the circumference that crosses both poles is 40,009 km.
+<!--source: https://en.wikipedia.org/wiki/Earth_physical_characteristics_tables-->
+Therefore, the earth can better be described as an ellipsoid.
+The same applies to an orange; every orange is a little different, but probably very few oranges are perfect spheres.</p>
+<p>The ellipsoid is a good mathematical model to describe the earth’s surface.
+Keep in mind that the surface of the earth is not smooth;
+land mass usually lies on a higher altitude than sea level.
+We could potentially map each point on the surface of the earth using a three-dimensional <span class="math inline">\((x, y, z)\)</span> Cartesian coordinate system with the center of the mass of the Earth being the origin (0, 0, 0).
+However, since this has many mathematical complications, the ellipsoid is often sufficient as a model of the surface of the earth.</p>
+<p>This ellipsoid model and its translation to the Earth’ surface is called a <em>(geodetic) datum</em>.
+The most popular datum is WGS84, which has been introduced in 1984 as an international standard, and has been last revised in 2004.
+There are many (slightly) different datums, which are often tailored for local applications.
+For instance, NAD83, ETRS89, and GDA94 are slightly better models for North-America, Europe, Australia respectively.
+However, since WGS84 is a very good approximation of the earth as a whole, it has been widely adopted worldwide and is also used by the Global Positioning System (GPS).</p>
+<p>When we have specified a datum, we are able to specify geographic locations with two familiar variables, namely <em>latitude</em> and <em>longitude</em>.
+The latitude specifies the north-south position in degrees, where latitude = 0<span class="math inline">\(^\circ\)</span> is the equator.
+The latitudes for the north and south pole are 90<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(-90^\circ\)</span> respectively.
+The longitude specifies the east-west position in degrees, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses the Royal Observatory in Greenwich, UK.
+Note that since longitude is specified in degrees, the longitude range goes from -180<span class="math inline">\(^\circ\)</span> to 180<span class="math inline">\(^\circ\)</span>, where -180<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(^\circ\)</span> specify the same longitude.</p>
+<p>When we see the earth in its three-dimensional form, as in Figure <a href="tmshape.html#fig:orange">4.1</a>, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth. The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.
+In all the figures in this section, latitude parallels are shown as gray lines for <span class="math inline">\(-60^\circ\)</span>, <span class="math inline">\(-30^\circ\)</span>, <span class="math inline">\(0^\circ\)</span>, <span class="math inline">\(30^\circ\)</span> and <span class="math inline">\(60^\circ\)</span>, and longitude meridians from <span class="math inline">\(-180^\circ\)</span> to <span class="math inline">\(180^\circ\)</span> at every <span class="math inline">\(30^\circ\)</span>.</p>
+<p>Please keep in mind that only a latitude and longitude are not sufficient to specify a geographic location.
+A datum is required.
+When people exchange latitude longitude data, it is save to assume that they implicitly have used the WGS84 datum.
+However, it is good practice to specify the datum explicitly.</p>
+</div>
+<div id="platte-carrée-and-web-mercator" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Platte Carrée and Web Mercator</h3>
 <p>Let’s take a closer look at two widely used map projections, namely the plain latitude longitude coordinate system (using the WGS84 datum) and the Web Mercator projection, which is currently the de facto standard for interactive maps.
 These projections are indexed as EPSG4326 and EPSG3857 respectively.
 EPSG is an institute that maintains a database of standard map projections.</p>
@@ -270,7 +283,7 @@ A good example is Greenland, which is normally a ‘tall’ area (see Figure <a 
 The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map (but with other x and y value ranges) as shown in Figure <a href="tmshape.html#fig:crs-04">4.3</a> (right).</p>
 </div>
 <div id="mercator-projection" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> Mercator projection</h3>
+<h3><span class="header-section-number">4.1.4</span> Mercator projection</h3>
 <p>In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
