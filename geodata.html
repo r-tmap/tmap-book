@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Spatial data in R | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.19.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Spatial data in R | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-22" />
+<meta name="date" content="2020-06-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -154,11 +154,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.3.1</b> Raster data model</a></li>
 <li class="chapter" data-level="2.3.2" data-path="geodata.html"><a href="geodata.html#the-stars-package"><i class="fa fa-check"></i><b>2.3.2</b> The stars package</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs"><i class="fa fa-check"></i><b>2.4</b> CRS</a></li>
+<li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs-tmp"><i class="fa fa-check"></i><b>2.4</b> CRS-tmp</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#map-projections-crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
 <li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#how-to-model-the-surface-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> How to model the surface of the earth?</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#platte-carrée-and-web-mercator"><i class="fa fa-check"></i><b>4.1.3</b> Platte Carrée and Web Mercator</a></li>
@@ -301,6 +301,7 @@ Despite its popularity, this format has a number of shortcomings, including the 
 A fairly recent file format, OGC GeoPackage (<code>.gpkg</code>), was developed as an alternative.
 It is a single file database free from the limitation of the shapefile format.
 Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>), GPX (<code>.gpx</code>), and KML (<code>.kml</code>).
+<!-- FlatGeobuf?? -->
 <!-- - advantages/disadvantages -->
 <!-- - example figure (similar to the one in geocompr, but made with tmap) --></p>
 </div>
@@ -317,16 +318,55 @@ This column contains geometries in a form of well-known text (WKT), storing all 
 <!-- - how to read sf objects from files -->
 <p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
 <!--improve example--></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="kw">library</span>(sf)</span>
-<span id="cb1-2"><a href="geodata.html#cb1-2"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;...&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb1-3"><a href="geodata.html#cb1-3"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb1-4"><a href="geodata.html#cb1-4"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span></code></pre></div>
 <!-- explain example -->
-<!-- describe sf object structure -->
+<p>The new object, <code>x</code>, has a <code>sf</code> class.
+It has 177 features (rows or geometries) and 10 fields (columns with attributes).
+There is also an 11th column, <code>geom</code>, that stores geometries of each feature.
+Objects of class <code>sf</code> also display a header containing spatial metadata.
+It includes geometry type, dimension (<code>XY</code>, <code>XYZ</code>, <code>XYM</code>, <code>XYZM</code>), bounding box (<code>bbox</code>), and information about the used Coordinate Reference System (<code>CRS</code>).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a>x</span>
+<span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span></span>
+<span id="cb2-3"><a href="geodata.html#cb2-3"></a><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></span>
+<span id="cb2-4"><a href="geodata.html#cb2-4"></a><span class="co">#&gt; dimension:      XY</span></span>
+<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6</span></span>
+<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; geographic CRS: WGS 84</span></span>
+<span id="cb2-7"><a href="geodata.html#cb2-7"></a><span class="co">#&gt; [90m# A tibble: 177 x 11[39m</span></span>
+<span id="cb2-8"><a href="geodata.html#cb2-8"></a><span class="co">#&gt;    iso_a2 name_long continent region_un subregion type </span></span>
+<span id="cb2-9"><a href="geodata.html#cb2-9"></a><span class="co">#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m</span></span>
+<span id="cb2-10"><a href="geodata.html#cb2-10"></a><span class="co">#&gt; [90m 1[39m FJ     Fiji      Oceania   Oceania   Melanesia Sove…</span></span>
+<span id="cb2-11"><a href="geodata.html#cb2-11"></a><span class="co">#&gt; [90m 2[39m TZ     Tanzania  Africa    Africa    Eastern … Sove…</span></span>
+<span id="cb2-12"><a href="geodata.html#cb2-12"></a><span class="co">#&gt; [90m 3[39m EH     Western … Africa    Africa    Northern… Inde…</span></span>
+<span id="cb2-13"><a href="geodata.html#cb2-13"></a><span class="co">#&gt; [90m 4[39m CA     Canada    North Am… Americas  Northern… Sove…</span></span>
+<span id="cb2-14"><a href="geodata.html#cb2-14"></a><span class="co">#&gt; [90m 5[39m US     United S… North Am… Americas  Northern… Coun…</span></span>
+<span id="cb2-15"><a href="geodata.html#cb2-15"></a><span class="co">#&gt; [90m 6[39m KZ     Kazakhst… Asia      Asia      Central … Sove…</span></span>
+<span id="cb2-16"><a href="geodata.html#cb2-16"></a><span class="co">#&gt; [90m 7[39m UZ     Uzbekist… Asia      Asia      Central … Sove…</span></span>
+<span id="cb2-17"><a href="geodata.html#cb2-17"></a><span class="co">#&gt; [90m 8[39m PG     Papua Ne… Oceania   Oceania   Melanesia Sove…</span></span>
+<span id="cb2-18"><a href="geodata.html#cb2-18"></a><span class="co">#&gt; [90m 9[39m ID     Indonesia Asia      Asia      South-Ea… Sove…</span></span>
+<span id="cb2-19"><a href="geodata.html#cb2-19"></a><span class="co">#&gt; [90m10[39m AR     Argentina South Am… Americas  South Am… Sove…</span></span>
+<span id="cb2-20"><a href="geodata.html#cb2-20"></a><span class="co">#&gt; [90m# … with 167 more rows, and 5 more variables:[39m</span></span>
+<span id="cb2-21"><a href="geodata.html#cb2-21"></a><span class="co">#&gt; [90m#   area_km2 [3m[90m&lt;dbl&gt;[90m[23m, pop [3m[90m&lt;dbl&gt;[90m[23m, lifeExp [3m[90m&lt;dbl&gt;[90m[23m,[39m</span></span>
+<span id="cb2-22"><a href="geodata.html#cb2-22"></a><span class="co">#&gt; [90m#   gdpPercap [3m[90m&lt;dbl&gt;[90m[23m, geom [3m[90m&lt;MULTIPOLYGON [°]&gt;[90m[23m[39m</span></span></code></pre></div>
+<p>The <code>x</code> object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+Each polygon’s vertices are represented by a pair of values (<code>dimension: XY</code>).
+Bounding box allows to quickly understand the spatial extension of the input data.
+<!--...-->
+Finally, it has geographic CRS named WGS 84.
+You can learn more about Coordinate Reference Systems in section <a href="tmshape.html#crs">4.1</a>.</p>
+<!-- ref to CRS section -->
 <p>Spatial vector data of class <code>sf</code> can be also obtained using some of other R data packages.
 <!-- add REFs-->
-For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.</p>
+For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.
+<!-- add reference to geocompr -->
+<!-- add reference to https://cran.r-project.org/web/views/Spatial.html (after my updates) --></p>
 <p>The <strong>tmap</strong> package accepts spatial vector data objects from both <strong>sf</strong> and <strong>sp</strong> packages.
-This package also has the <code>st_as_sf()</code> function that converts objects of many classes, including <code>data.frame</code>, <code>Spatial</code> (from the <strong>sp</strong> package), <code>ppp</code>, <code>psp</code>, and <code>lpp</code> (from the <strong>spatstat</strong> package), to the objects of class <code>sf</code>.
-<!-- ?convert data.frame? --></p>
+In case of having vector objects in a different representation, they should be converted into <code>sf</code> objects first, before making maps.
+The <strong>sf</strong> package has the <code>st_as_sf()</code> function that translates objects of many classes, including <code>Spatial</code> (from the <strong>sp</strong> package), <code>ppp</code>, <code>psp</code>, and <code>lpp</code> (from the <strong>spatstat</strong> package), to the objects of class <code>sf</code>.
+The <code>st_as_sf()</code> function also allows to turn data frames into <code>sf</code> objects - the user need to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
+For example <code>my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)</code>.</p>
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
 <!-- - vector simplification? -->
@@ -358,9 +398,10 @@ This package also has the <code>st_as_sf()</code> function that converts objects
 <!-- - stars proxy -->
 </div>
 </div>
-<div id="crs" class="section level2">
-<h2><span class="header-section-number">2.4</span> CRS</h2>
+<div id="crs-tmp" class="section level2">
+<h2><span class="header-section-number">2.4</span> CRS-tmp</h2>
 <!-- mtennekes part -->
+<!-- + how to transform CRSs -->
 
 </div>
 </div>

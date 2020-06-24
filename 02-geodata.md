@@ -128,6 +128,7 @@ Despite its popularity, this format has a number of shortcomings, including the 
 A fairly recent file format, OGC GeoPackage (`.gpkg`), was developed as an alternative. 
 It is a single file database free from the limitation of the shapefile format.
 Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.gpx`), and KML (`.kml`). 
+<!-- FlatGeobuf?? -->
 <!-- - advantages/disadvantages -->
 <!-- - example figure (similar to the one in geocompr, but made with tmap) -->
 
@@ -148,19 +149,65 @@ The **sf** package can read all of the spatial data formats mentioned in the pre
 <!--improve example-->
 
 ```r
+# replace this data with some new tmap dataset
 library(sf)
-x = read_sf("...")
+file_path = system.file("shapes/world.gpkg", package = "spData")
+x = read_sf(file_path)
 ```
 <!-- explain example -->
-<!-- describe sf object structure -->
+
+The new object, `x`, has a `sf` class. 
+It has 177 features (rows or geometries) and 10 fields (columns with attributes). 
+There is also an 11th column, `geom`, that stores geometries of each feature.
+Objects of class `sf` also display a header containing spatial metadata.
+It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box (`bbox`), and information about the used Coordinate Reference System (`CRS`).
+
+
+```r
+x
+#> Simple feature collection with 177 features and 10 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6
+#> geographic CRS: WGS 84
+#> [90m# A tibble: 177 x 11[39m
+#>    iso_a2 name_long continent region_un subregion type 
+#>    [3m[90m<chr>[39m[23m  [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m
+#> [90m 1[39m FJ     Fiji      Oceania   Oceania   Melanesia Sove…
+#> [90m 2[39m TZ     Tanzania  Africa    Africa    Eastern … Sove…
+#> [90m 3[39m EH     Western … Africa    Africa    Northern… Inde…
+#> [90m 4[39m CA     Canada    North Am… Americas  Northern… Sove…
+#> [90m 5[39m US     United S… North Am… Americas  Northern… Coun…
+#> [90m 6[39m KZ     Kazakhst… Asia      Asia      Central … Sove…
+#> [90m 7[39m UZ     Uzbekist… Asia      Asia      Central … Sove…
+#> [90m 8[39m PG     Papua Ne… Oceania   Oceania   Melanesia Sove…
+#> [90m 9[39m ID     Indonesia Asia      Asia      South-Ea… Sove…
+#> [90m10[39m AR     Argentina South Am… Americas  South Am… Sove…
+#> [90m# … with 167 more rows, and 5 more variables:[39m
+#> [90m#   area_km2 [3m[90m<dbl>[90m[23m, pop [3m[90m<dbl>[90m[23m, lifeExp [3m[90m<dbl>[90m[23m,[39m
+#> [90m#   gdpPercap [3m[90m<dbl>[90m[23m, geom [3m[90m<MULTIPOLYGON [°]>[90m[23m[39m
+```
+
+The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+Each polygon's vertices are represented by a pair of values (`dimension: XY`).
+Bounding box allows to quickly understand the spatial extension of the input data. 
+<!--...--> 
+Finally, it has geographic CRS named WGS 84.
+You can learn more about Coordinate Reference Systems in section \@ref(crs).
+
+<!-- ref to CRS section -->
 
 Spatial vector data of class `sf` can be also obtained using some of other R data packages.
 <!-- add REFs--> 
 For example, **rnaturalearth** allows to download world map data, **osmdata** imports OpenStreetMap data as `sf` objects, and **tigris** loads TIGER/Line data.
+<!-- add reference to geocompr -->
+<!-- add reference to https://cran.r-project.org/web/views/Spatial.html (after my updates) -->
 
 The **tmap** package accepts spatial vector data objects from both **sf** and **sp** packages.
-This package also has the `st_as_sf()` function that converts objects of many classes, including `data.frame`, `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
-<!-- ?convert data.frame? -->
+In case of having vector objects in a different representation, they should be converted into `sf` objects first, before making maps.
+The **sf** package has the `st_as_sf()` function that translates objects of many classes, including `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
+The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user need to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
+For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
 
 <!-- - where to find info on how to operate on sf objects -->
 <!-- - https://geocompr.github.io/ -->
@@ -193,5 +240,6 @@ This package also has the `st_as_sf()` function that converts objects of many cl
 <!-- - stars proxy -->
 
 
-## CRS
+## CRS-tmp 
 <!-- mtennekes part -->
+<!-- + how to transform CRSs -->

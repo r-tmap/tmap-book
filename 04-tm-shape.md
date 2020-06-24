@@ -1,7 +1,7 @@
 # Specifying spatial data with `tm_shape` {#tmshape}
 
 
-## Map projections (CRS)
+## Map projections (CRS) {#crs}
 
 ### How to put an orange peel flat on the table?
 
@@ -147,12 +147,12 @@ The standard set of comparison operators can be used in the `filter()` function,
 
 Table: (\#tab:operators)Map projection properties.
 
-Name          Preserved property  
-------------  --------------------
-Conformal     Local angle (shape) 
-Equal area    Area                
-Equidistant   Distance            
-Azimuthal     Direction           
+|Name        |Preserved property  |
+|:-----------|:-------------------|
+|Conformal   |Local angle (shape) |
+|Equal area  |Area                |
+|Equidistant |Distance            |
+|Azimuthal   |Direction           |
 
 
 * *Conformal (true local angles/shapes)*: A map projection is called *conformal* when local angles are preserved, and therefore local shapes. 
