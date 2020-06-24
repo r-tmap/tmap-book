@@ -1,7 +1,7 @@
 # Specifying spatial data with `tm_shape` {#tmshape}
 
 
-## Map projections (CRS)
+## Map projections (CRS) {#crs}
 
 ### How to put an orange peel flat on the table?
 
