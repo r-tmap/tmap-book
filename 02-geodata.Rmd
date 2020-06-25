@@ -301,10 +301,19 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 
 ## Raster data
 
-<!-- one/two intro sentences -->
-<!-- including r packages used for raster representation -->
+\index{raster data model}
+
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for raster representation -->
+<!-- packages REFs -->
+Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
+The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
+In the two next sections, we present raster data model (section \@ref(raster-data-model))
+and introduce the **stars** package (section \@ref(the-stars-package)).
 
 ### Raster data model
+
+\index{raster data model}
 
 <!-- - raster data model (grid) -->
 <!-- - contionous and categorical rasters -->
@@ -316,6 +325,9 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 <!-- - raster file formats -->
 
 ### The stars package
+
+\index{stars}
+\index{stars (package)|see {stars}}
 
 <!-- - how the stars objects are organized -->
 <!-- - how to read stars objects from files -->
