@@ -314,9 +314,117 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 ### Raster data model
 
 \index{raster data model}
-
 <!-- - raster data model (grid) -->
+The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
+Each cell has an associated value 
+
+```{r}
+#replace example later
+library(tmap)
+library(spData)
+library(stars)
+set.seed(2020-06-25)
+mat = matrix(1:20, nrow = 5, ncol = 4)
+dim(mat) = c(x = 5, y = 4)
+sta = st_as_stars(mat)
+attr(sta, "dimensions")[[2]]$delta = -1
+
+sta_sf = st_as_sf(sta)
+sta_sf$values = sample.int(100, 20)
+sta_sf$values[c(9, 17)] = NA
+
+tm_shape(sta_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE)
+
+tm_shape(sta_sf) +
+  tm_polygons("values") +
+  tm_text("values") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+```
+
+```{r}
+
+```
+
+```{r}
+# regular grid 
+tm_shape(sta_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE)
+# rotated grids 
+sta_rotated = sta
+attr(attr(sta_rotated, "dimensions"), "raster")$affine = c(0.1, 0.1)
+sta_rotated_sf = st_as_sf(sta_rotated)
+tm_shape(sta_rotated_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE)
+# sheared grids
+sta_sheared = sta
+attr(attr(sta_sheared, "dimensions"), "raster")$affine = c(0.1, 0.2)
+sta_sheared_sf = st_as_sf(sta_sheared)
+tm_shape(sta_sheared_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE)
+# rectilinear grids
+x = c(0, 0.5, 1.5, 2.1, 3, 5)
+y = c(0.1, 1, 1.5, 2, 4)
+sta_rectilinear = st_as_stars(list(m = mat), 
+                              dimensions = st_dimensions(x = x, y = y))
+attr(sta_rectilinear, "dimensions")[[2]]$delta = -1
+sta_rectilinear_sf = st_as_sf(sta_rectilinear)
+tm_shape(sta_rectilinear_sf) +
+  tm_polygons() +
+  tm_text("m") +
+  tm_layout(frame = FALSE)
+# curvilinear grids
+# sta_curvilinear = sta
+# X1 = matrix(rep(c(1, 2, 3, 4, 5), 4), nrow = 4, ncol = 5, byrow = TRUE)
+# X1 = matrix(c(1, 1, 2, 2, 3, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 4, 4, 5, 5), nrow = 4, ncol = 5)
+# X2 = matrix(rep(c(1, 2, 3, 4), 5), nrow = 4, ncol = 5)
+# sta_curvilinear = st_as_stars(sta_curvilinear, 
+#                               curvilinear = list(x = X1,
+#                                                  y = X2))
+# plot(sta_curvilinear)
+# sta_curvilinear_sf = st_as_sf(sta_curvilinear)
+# tm_shape(sta_curvilinear_sf) +
+#   tm_polygons(col = "A1", palette = "viridis") +
+#   tm_text("A1") + 
+#   tm_layout(legend.show = FALSE)
+```
+
+```{r}
+library(stars)
+library(sf)
+
+f <- 'elevation_8.0.dat'
+
+temp <- read.table(f)#[1:20, ]
+x = matrix(temp$V1,nrow=265, ncol=166)
+y = matrix(temp$V2,nrow=265, ncol=166)
+am = matrix(temp$V3, nrow=265, ncol=166)
+s = st_as_stars(am)
+plot(s)
+s = st_as_stars(s, curvilinear=list(X1=x,X2=y))
+s1 = s[, 96:99, 95:99]
+s1
+plot(s1)
+attr(s1, "dimensions")[[2]]$delta = -1
+plot(s1)
+
+s1_sf = st_as_sf(s1)
+s1_sf$A1 = 1:20
+tm_shape(s1_sf) +
+  tm_polygons() +
+  tm_text("A1")
+```
+
+
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
 <!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->
@@ -335,6 +443,7 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 <!-- - where to find info on how to operate on stars objects -->
 <!-- - https://r-spatial.github.io/stars/index.html -->
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
+<!-- data cubes!! -->
 <!-- - stars proxy -->
 
 
