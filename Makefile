@@ -1,5 +1,6 @@
 html:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
+	Rscript code/generate_book_stats.R
 
 pdf:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
