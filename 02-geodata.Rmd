@@ -317,9 +317,11 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 <!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
-Each cell has an associated value 
+<!-- Each cell has an associated value  -->
 
-```{r, echo=FALSE, warning=FALSE}
+\@ref(fig:raster-intro)
+
+```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map"}
 #replace example later
 library(tmap)
 library(spData)
@@ -337,16 +339,18 @@ sta_sf = st_as_sf(sta)
 tm_raster1 = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE)
+  tm_layout(frame = FALSE, main.title = "1. Cell IDs")
 
 tm_raster2 = tm_shape(sta_sf) +
   tm_polygons("A1.1") +
   tm_text("A1.1") +
-  tm_layout(frame = FALSE, legend.show = FALSE)
+  tm_layout(frame = FALSE, legend.show = FALSE,
+            main.title = "2. Cell values")
 
 tm_raster3 = tm_shape(sta) +
   tm_raster("A1.1") +
-  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02)
+  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02,
+            main.title = "3. Raster map")
 
 tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
@@ -355,7 +359,9 @@ tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 
 ```
 
-```{r, echo=FALSE, warning=FALSE}
+\@ref(fig:grid-types)
+
+```{r grid-types, echo=FALSE, warning=FALSE, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
@@ -410,7 +416,7 @@ tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
   tm_layout(frame = FALSE, main.title = "Curvilinear")
 # all
 tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
-                          tm_sta_rectilinear, tm_sta_curvilinear)
+                          tm_sta_rectilinear, tm_sta_curvilinear, nrow = 1)
 tm_sta_all
 ```
 
