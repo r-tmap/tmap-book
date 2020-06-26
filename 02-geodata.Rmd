@@ -351,79 +351,62 @@ tm_shape(sta_sf) +
 
 ```{r}
 # regular grid 
-tm_shape(sta_sf) +
+tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE)
+  tm_layout(frame = FALSE, main.title = "Regular")
 # rotated grids 
 sta_rotated = sta
 attr(attr(sta_rotated, "dimensions"), "raster")$affine = c(0.1, 0.1)
 sta_rotated_sf = st_as_sf(sta_rotated)
-tm_shape(sta_rotated_sf) +
+tm_sta_rotated = tm_shape(sta_rotated_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE)
+  tm_layout(frame = FALSE, main.title = "Rotated")
 # sheared grids
 sta_sheared = sta
 attr(attr(sta_sheared, "dimensions"), "raster")$affine = c(0.1, 0.2)
 sta_sheared_sf = st_as_sf(sta_sheared)
-tm_shape(sta_sheared_sf) +
+tm_sta_sheared = tm_shape(sta_sheared_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE)
+  tm_layout(frame = FALSE, main.title = "Sheared")
 # rectilinear grids
 x = c(0, 0.5, 1.5, 2.1, 3, 5)
-y = c(0.1, 1, 1.5, 2, 4)
+y = rev(c(0.1, 1, 1.5, 2, 4))
 sta_rectilinear = st_as_stars(list(m = mat), 
                               dimensions = st_dimensions(x = x, y = y))
-attr(sta_rectilinear, "dimensions")[[2]]$delta = -1
 sta_rectilinear_sf = st_as_sf(sta_rectilinear)
-tm_shape(sta_rectilinear_sf) +
+tm_sta_rectilinear = tm_shape(sta_rectilinear_sf) +
   tm_polygons() +
   tm_text("m") +
-  tm_layout(frame = FALSE)
+  tm_layout(frame = FALSE, main.title = "Rectilinear")
 # curvilinear grids
-# sta_curvilinear = sta
-# X1 = matrix(rep(c(1, 2, 3, 4, 5), 4), nrow = 4, ncol = 5, byrow = TRUE)
-# X1 = matrix(c(1, 1, 2, 2, 3, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 4, 4, 5, 5), nrow = 4, ncol = 5)
-# X2 = matrix(rep(c(1, 2, 3, 4), 5), nrow = 4, ncol = 5)
-# sta_curvilinear = st_as_stars(sta_curvilinear, 
-#                               curvilinear = list(x = X1,
-#                                                  y = X2))
-# plot(sta_curvilinear)
-# sta_curvilinear_sf = st_as_sf(sta_curvilinear)
-# tm_shape(sta_curvilinear_sf) +
-#   tm_polygons(col = "A1", palette = "viridis") +
-#   tm_text("A1") + 
-#   tm_layout(legend.show = FALSE)
-```
-
-```{r}
-library(stars)
-library(sf)
-
-f <- 'elevation_8.0.dat'
-
-temp <- read.table(f)#[1:20, ]
-x = matrix(temp$V1,nrow=265, ncol=166)
-y = matrix(temp$V2,nrow=265, ncol=166)
-am = matrix(temp$V3, nrow=265, ncol=166)
-s = st_as_stars(am)
-plot(s)
-s = st_as_stars(s, curvilinear=list(X1=x,X2=y))
-s1 = s[, 96:99, 95:99]
-s1
-plot(s1)
-attr(s1, "dimensions")[[2]]$delta = -1
-plot(s1)
-
-s1_sf = st_as_sf(s1)
-s1_sf$A1 = 1:20
-tm_shape(s1_sf) +
+sta_curvilinear = sta
+X1 = matrix(rep(1:5, times = 4), nrow = 5, ncol = 4)
+X2 = matrix(c(seq(3.36, 1, length.out = 4),
+                    seq(3.52, 1.16, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4)),
+                  nrow = 5, ncol = 4,
+                  byrow = TRUE)
+am = matrix(1:20, nrow = 5, ncol = 4)
+sta_curvilinear = st_as_stars(am)
+sta_curvilinear = st_as_stars(sta_curvilinear,
+                              curvilinear = list(X1 = X1,
+                                                 X2 = X2))
+sta_curvilinear_sf = st_as_sf(sta_curvilinear)
+tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
   tm_polygons() +
-  tm_text("A1")
+  tm_text("A1") +
+  # tm_grid() +
+  tm_layout(frame = FALSE, main.title = "Curvilinear")
+# all
+tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
+                          tm_sta_rectilinear, tm_sta_curvilinear)
+tm_sta_all
 ```
-
 
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
