@@ -7,13 +7,18 @@
 ## Introduction
 
 Vector and raster data models are two basic models used to represent spatial data.
-These spatial data models are closely related with map making, with each model having its own pros and cons. 
+These spatial data models are closely related to map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
-<!-- - maybe also references to some books (either here or in the next section or both) -->
-<!-- explain that often there is a need to prepare spatial data before mapping -->
 <!-- - maybe also mention some data sources -->
+This chapter describes the vector (section \@ref(vector-data)) and raster (section \@ref(raster-data)) models, and also their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
+Next, it focuses on the map projections (\@ref(crs)).
+This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
+It also explains basic terms and gives an overview of map projections.
+<!-- - maybe also references to some books (either here or in the next section or both) -->
+<!-- geocompr, spatial data science, some crs book? -->
+<!-- explain that often there is a need to prepare spatial data before mapping -->
 
 ## Vector data
 
@@ -215,13 +220,143 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 
 ## Raster data
 
-<!-- one/two intro sentences -->
-<!-- including r packages used for raster representation -->
+\index{raster data model}
+
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for raster representation -->
+<!-- packages REFs -->
+Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
+The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
+In the two next sections, we present raster data model (section \@ref(raster-data-model))
+and introduce the **stars** package (section \@ref(the-stars-package)).
 
 ### Raster data model
 
+\index{raster data model}
 <!-- - raster data model (grid) -->
+The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
+Each cell has an associated value 
+
+
+```r
+#replace example later
+library(tmap)
+library(spData)
+#> To access larger datasets in this package,
+#> install the spDataLarge package with:
+#> `install.packages('spDataLarge',
+#> repos='https://nowosad.github.io/drat/',
+#> type='source')`
+library(stars)
+#> Loading required package: abind
+set.seed(2020-06-25)
+mat = matrix(1:20, nrow = 5, ncol = 4)
+dim(mat) = c(x = 5, y = 4)
+sta = st_as_stars(mat)
+attr(sta, "dimensions")[[2]]$delta = -1
+
+sta_sf = st_as_sf(sta)
+sta_sf$values = sample.int(100, 20)
+sta_sf$values[c(9, 17)] = NA
+
+tm_shape(sta_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE)
+#> Warning: Currect projection of shape sta_sf unknown.
+#> Long-lat (WGS84) is assumed.
+
+tm_shape(sta_sf) +
+  tm_polygons("values") +
+  tm_text("values") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+#> Warning: Currect projection of shape sta_sf unknown.
+#> Long-lat (WGS84) is assumed.
+```
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /><img src="02-geodata_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" />
+
+
+
+
+```r
+# regular grid 
+tm_sta_regular = tm_shape(sta_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE, main.title = "Regular")
+# rotated grids 
+sta_rotated = sta
+attr(attr(sta_rotated, "dimensions"), "raster")$affine = c(0.1, 0.1)
+sta_rotated_sf = st_as_sf(sta_rotated)
+tm_sta_rotated = tm_shape(sta_rotated_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE, main.title = "Rotated")
+# sheared grids
+sta_sheared = sta
+attr(attr(sta_sheared, "dimensions"), "raster")$affine = c(0.1, 0.2)
+sta_sheared_sf = st_as_sf(sta_sheared)
+tm_sta_sheared = tm_shape(sta_sheared_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  tm_layout(frame = FALSE, main.title = "Sheared")
+# rectilinear grids
+x = c(0, 0.5, 1.5, 2.1, 3, 5)
+y = rev(c(0.1, 1, 1.5, 2, 4))
+sta_rectilinear = st_as_stars(list(m = mat), 
+                              dimensions = st_dimensions(x = x, y = y))
+sta_rectilinear_sf = st_as_sf(sta_rectilinear)
+tm_sta_rectilinear = tm_shape(sta_rectilinear_sf) +
+  tm_polygons() +
+  tm_text("m") +
+  tm_layout(frame = FALSE, main.title = "Rectilinear")
+# curvilinear grids
+sta_curvilinear = sta
+X1 = matrix(rep(1:5, times = 4), nrow = 5, ncol = 4)
+X2 = matrix(c(seq(3.36, 1, length.out = 4),
+                    seq(3.52, 1.16, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4),
+                    seq(3.68, 1.32, length.out = 4)),
+                  nrow = 5, ncol = 4,
+                  byrow = TRUE)
+am = matrix(1:20, nrow = 5, ncol = 4)
+sta_curvilinear = st_as_stars(am)
+sta_curvilinear = st_as_stars(sta_curvilinear,
+                              curvilinear = list(X1 = X1,
+                                                 X2 = X2))
+sta_curvilinear_sf = st_as_sf(sta_curvilinear)
+tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
+  tm_polygons() +
+  tm_text("A1") +
+  # tm_grid() +
+  tm_layout(frame = FALSE, main.title = "Curvilinear")
+# all
+tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
+                          tm_sta_rectilinear, tm_sta_curvilinear)
+tm_sta_all
+#> Warning: Currect projection of shape sta_sf unknown.
+#> Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_rotated_sf
+#> unknown. Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_sheared_sf
+#> unknown. Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_rectilinear_sf
+#> unknown. Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_sf unknown.
+#> Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_rotated_sf
+#> unknown. Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_sheared_sf
+#> unknown. Long-lat (WGS84) is assumed.
+#> Warning: Currect projection of shape sta_rectilinear_sf
+#> unknown. Long-lat (WGS84) is assumed.
+```
+
+<img src="02-geodata_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
 <!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->
@@ -231,12 +366,16 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 
 ### The stars package
 
+\index{stars}
+\index{stars (package)|see {stars}}
+
 <!-- - how the stars objects are organized -->
 <!-- - how to read stars objects from files -->
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!-- - where to find info on how to operate on stars objects -->
 <!-- - https://r-spatial.github.io/stars/index.html -->
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
+<!-- data cubes!! -->
 <!-- - stars proxy -->
 
 
