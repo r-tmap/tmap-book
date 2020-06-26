@@ -319,7 +319,7 @@ The raster data model represents the world using a continuous grid of cells<!--p
 <!-- - contionous and categorical rasters -->
 Each cell has an associated value 
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 #replace example later
 library(tmap)
 library(spData)
@@ -327,29 +327,35 @@ library(stars)
 set.seed(2020-06-25)
 mat = matrix(1:20, nrow = 5, ncol = 4)
 dim(mat) = c(x = 5, y = 4)
-sta = st_as_stars(mat)
+mat2 = matrix(sample.int(100, 20), nrow = 5, ncol = 4)
+dim(mat2) = c(x = 5, y = 4)
+sta = c(st_as_stars(mat), st_as_stars(mat2))
 attr(sta, "dimensions")[[2]]$delta = -1
 
 sta_sf = st_as_sf(sta)
-sta_sf$values = sample.int(100, 20)
-sta_sf$values[c(9, 17)] = NA
 
-tm_shape(sta_sf) +
+tm_raster1 = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
   tm_layout(frame = FALSE)
 
-tm_shape(sta_sf) +
-  tm_polygons("values") +
-  tm_text("values") +
+tm_raster2 = tm_shape(sta_sf) +
+  tm_polygons("A1.1") +
+  tm_text("A1.1") +
   tm_layout(frame = FALSE, legend.show = FALSE)
+
+tm_raster3 = tm_shape(sta) +
+  tm_raster("A1.1") +
+  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02)
+
+tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
 
 ```{r}
 
 ```
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
