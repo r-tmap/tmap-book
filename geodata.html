@@ -393,112 +393,13 @@ and introduce the <strong>stars</strong> package (section <a href="geodata.html#
 The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
 Each cell has an associated value</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="geodata.html#cb3-1"></a><span class="co">#replace example later</span></span>
-<span id="cb3-2"><a href="geodata.html#cb3-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb3-3"><a href="geodata.html#cb3-3"></a><span class="kw">library</span>(spData)</span>
-<span id="cb3-4"><a href="geodata.html#cb3-4"></a><span class="co">#&gt; To access larger datasets in this package,</span></span>
-<span id="cb3-5"><a href="geodata.html#cb3-5"></a><span class="co">#&gt; install the spDataLarge package with:</span></span>
-<span id="cb3-6"><a href="geodata.html#cb3-6"></a><span class="co">#&gt; `install.packages(&#39;spDataLarge&#39;,</span></span>
-<span id="cb3-7"><a href="geodata.html#cb3-7"></a><span class="co">#&gt; repos=&#39;https://nowosad.github.io/drat/&#39;,</span></span>
-<span id="cb3-8"><a href="geodata.html#cb3-8"></a><span class="co">#&gt; type=&#39;source&#39;)`</span></span>
-<span id="cb3-9"><a href="geodata.html#cb3-9"></a><span class="kw">library</span>(stars)</span>
-<span id="cb3-10"><a href="geodata.html#cb3-10"></a><span class="co">#&gt; Loading required package: abind</span></span>
-<span id="cb3-11"><a href="geodata.html#cb3-11"></a><span class="kw">set.seed</span>(<span class="dv">2020-06-25</span>)</span>
-<span id="cb3-12"><a href="geodata.html#cb3-12"></a>mat =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb3-13"><a href="geodata.html#cb3-13"></a><span class="kw">dim</span>(mat) =<span class="st"> </span><span class="kw">c</span>(<span class="dt">x =</span> <span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">4</span>)</span>
-<span id="cb3-14"><a href="geodata.html#cb3-14"></a>sta =<span class="st"> </span><span class="kw">st_as_stars</span>(mat)</span>
-<span id="cb3-15"><a href="geodata.html#cb3-15"></a><span class="kw">attr</span>(sta, <span class="st">&quot;dimensions&quot;</span>)[[<span class="dv">2</span>]]<span class="op">$</span>delta =<span class="st"> </span><span class="dv">-1</span></span>
-<span id="cb3-16"><a href="geodata.html#cb3-16"></a></span>
-<span id="cb3-17"><a href="geodata.html#cb3-17"></a>sta_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(sta)</span>
-<span id="cb3-18"><a href="geodata.html#cb3-18"></a>sta_sf<span class="op">$</span>values =<span class="st"> </span><span class="kw">sample.int</span>(<span class="dv">100</span>, <span class="dv">20</span>)</span>
-<span id="cb3-19"><a href="geodata.html#cb3-19"></a>sta_sf<span class="op">$</span>values[<span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">17</span>)] =<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb3-20"><a href="geodata.html#cb3-20"></a></span>
-<span id="cb3-21"><a href="geodata.html#cb3-21"></a><span class="kw">tm_shape</span>(sta_sf) <span class="op">+</span></span>
-<span id="cb3-22"><a href="geodata.html#cb3-22"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb3-23"><a href="geodata.html#cb3-23"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;A1&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-24"><a href="geodata.html#cb3-24"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb3-25"><a href="geodata.html#cb3-25"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sf unknown.</span></span>
-<span id="cb3-26"><a href="geodata.html#cb3-26"></a><span class="co">#&gt; Long-lat (WGS84) is assumed.</span></span>
-<span id="cb3-27"><a href="geodata.html#cb3-27"></a></span>
-<span id="cb3-28"><a href="geodata.html#cb3-28"></a><span class="kw">tm_shape</span>(sta_sf) <span class="op">+</span></span>
-<span id="cb3-29"><a href="geodata.html#cb3-29"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;values&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-30"><a href="geodata.html#cb3-30"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;values&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-31"><a href="geodata.html#cb3-31"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">legend.show =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb3-32"><a href="geodata.html#cb3-32"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sf unknown.</span></span>
-<span id="cb3-33"><a href="geodata.html#cb3-33"></a><span class="co">#&gt; Long-lat (WGS84) is assumed.</span></span></code></pre></div>
-<p><img src="02-geodata_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /><img src="02-geodata_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a><span class="co"># regular grid </span></span>
-<span id="cb4-2"><a href="geodata.html#cb4-2"></a>tm_sta_regular =<span class="st"> </span><span class="kw">tm_shape</span>(sta_sf) <span class="op">+</span></span>
-<span id="cb4-3"><a href="geodata.html#cb4-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb4-4"><a href="geodata.html#cb4-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;A1&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-5"><a href="geodata.html#cb4-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">main.title =</span> <span class="st">&quot;Regular&quot;</span>)</span>
-<span id="cb4-6"><a href="geodata.html#cb4-6"></a><span class="co"># rotated grids </span></span>
-<span id="cb4-7"><a href="geodata.html#cb4-7"></a>sta_rotated =<span class="st"> </span>sta</span>
-<span id="cb4-8"><a href="geodata.html#cb4-8"></a><span class="kw">attr</span>(<span class="kw">attr</span>(sta_rotated, <span class="st">&quot;dimensions&quot;</span>), <span class="st">&quot;raster&quot;</span>)<span class="op">$</span>affine =<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb4-9"><a href="geodata.html#cb4-9"></a>sta_rotated_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(sta_rotated)</span>
-<span id="cb4-10"><a href="geodata.html#cb4-10"></a>tm_sta_rotated =<span class="st"> </span><span class="kw">tm_shape</span>(sta_rotated_sf) <span class="op">+</span></span>
-<span id="cb4-11"><a href="geodata.html#cb4-11"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb4-12"><a href="geodata.html#cb4-12"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;A1&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-13"><a href="geodata.html#cb4-13"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">main.title =</span> <span class="st">&quot;Rotated&quot;</span>)</span>
-<span id="cb4-14"><a href="geodata.html#cb4-14"></a><span class="co"># sheared grids</span></span>
-<span id="cb4-15"><a href="geodata.html#cb4-15"></a>sta_sheared =<span class="st"> </span>sta</span>
-<span id="cb4-16"><a href="geodata.html#cb4-16"></a><span class="kw">attr</span>(<span class="kw">attr</span>(sta_sheared, <span class="st">&quot;dimensions&quot;</span>), <span class="st">&quot;raster&quot;</span>)<span class="op">$</span>affine =<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
-<span id="cb4-17"><a href="geodata.html#cb4-17"></a>sta_sheared_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(sta_sheared)</span>
-<span id="cb4-18"><a href="geodata.html#cb4-18"></a>tm_sta_sheared =<span class="st"> </span><span class="kw">tm_shape</span>(sta_sheared_sf) <span class="op">+</span></span>
-<span id="cb4-19"><a href="geodata.html#cb4-19"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb4-20"><a href="geodata.html#cb4-20"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;A1&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-21"><a href="geodata.html#cb4-21"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">main.title =</span> <span class="st">&quot;Sheared&quot;</span>)</span>
-<span id="cb4-22"><a href="geodata.html#cb4-22"></a><span class="co"># rectilinear grids</span></span>
-<span id="cb4-23"><a href="geodata.html#cb4-23"></a>x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
-<span id="cb4-24"><a href="geodata.html#cb4-24"></a>y =<span class="st"> </span><span class="kw">rev</span>(<span class="kw">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
-<span id="cb4-25"><a href="geodata.html#cb4-25"></a>sta_rectilinear =<span class="st"> </span><span class="kw">st_as_stars</span>(<span class="kw">list</span>(<span class="dt">m =</span> mat), </span>
-<span id="cb4-26"><a href="geodata.html#cb4-26"></a>                              <span class="dt">dimensions =</span> <span class="kw">st_dimensions</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y))</span>
-<span id="cb4-27"><a href="geodata.html#cb4-27"></a>sta_rectilinear_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(sta_rectilinear)</span>
-<span id="cb4-28"><a href="geodata.html#cb4-28"></a>tm_sta_rectilinear =<span class="st"> </span><span class="kw">tm_shape</span>(sta_rectilinear_sf) <span class="op">+</span></span>
-<span id="cb4-29"><a href="geodata.html#cb4-29"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb4-30"><a href="geodata.html#cb4-30"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;m&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-31"><a href="geodata.html#cb4-31"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">main.title =</span> <span class="st">&quot;Rectilinear&quot;</span>)</span>
-<span id="cb4-32"><a href="geodata.html#cb4-32"></a><span class="co"># curvilinear grids</span></span>
-<span id="cb4-33"><a href="geodata.html#cb4-33"></a>sta_curvilinear =<span class="st"> </span>sta</span>
-<span id="cb4-34"><a href="geodata.html#cb4-34"></a>X1 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">times =</span> <span class="dv">4</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb4-35"><a href="geodata.html#cb4-35"></a>X2 =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="fl">3.36</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">4</span>),</span>
-<span id="cb4-36"><a href="geodata.html#cb4-36"></a>                    <span class="kw">seq</span>(<span class="fl">3.52</span>, <span class="fl">1.16</span>, <span class="dt">length.out =</span> <span class="dv">4</span>),</span>
-<span id="cb4-37"><a href="geodata.html#cb4-37"></a>                    <span class="kw">seq</span>(<span class="fl">3.68</span>, <span class="fl">1.32</span>, <span class="dt">length.out =</span> <span class="dv">4</span>),</span>
-<span id="cb4-38"><a href="geodata.html#cb4-38"></a>                    <span class="kw">seq</span>(<span class="fl">3.68</span>, <span class="fl">1.32</span>, <span class="dt">length.out =</span> <span class="dv">4</span>),</span>
-<span id="cb4-39"><a href="geodata.html#cb4-39"></a>                    <span class="kw">seq</span>(<span class="fl">3.68</span>, <span class="fl">1.32</span>, <span class="dt">length.out =</span> <span class="dv">4</span>)),</span>
-<span id="cb4-40"><a href="geodata.html#cb4-40"></a>                  <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">4</span>,</span>
-<span id="cb4-41"><a href="geodata.html#cb4-41"></a>                  <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-42"><a href="geodata.html#cb4-42"></a>am =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb4-43"><a href="geodata.html#cb4-43"></a>sta_curvilinear =<span class="st"> </span><span class="kw">st_as_stars</span>(am)</span>
-<span id="cb4-44"><a href="geodata.html#cb4-44"></a>sta_curvilinear =<span class="st"> </span><span class="kw">st_as_stars</span>(sta_curvilinear,</span>
-<span id="cb4-45"><a href="geodata.html#cb4-45"></a>                              <span class="dt">curvilinear =</span> <span class="kw">list</span>(<span class="dt">X1 =</span> X1,</span>
-<span id="cb4-46"><a href="geodata.html#cb4-46"></a>                                                 <span class="dt">X2 =</span> X2))</span>
-<span id="cb4-47"><a href="geodata.html#cb4-47"></a>sta_curvilinear_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(sta_curvilinear)</span>
-<span id="cb4-48"><a href="geodata.html#cb4-48"></a>tm_sta_curvilinear =<span class="st"> </span><span class="kw">tm_shape</span>(sta_curvilinear_sf) <span class="op">+</span></span>
-<span id="cb4-49"><a href="geodata.html#cb4-49"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb4-50"><a href="geodata.html#cb4-50"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;A1&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-51"><a href="geodata.html#cb4-51"></a><span class="st">  </span><span class="co"># tm_grid() +</span></span>
-<span id="cb4-52"><a href="geodata.html#cb4-52"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>, <span class="dt">main.title =</span> <span class="st">&quot;Curvilinear&quot;</span>)</span>
-<span id="cb4-53"><a href="geodata.html#cb4-53"></a><span class="co"># all</span></span>
-<span id="cb4-54"><a href="geodata.html#cb4-54"></a>tm_sta_all =<span class="st"> </span><span class="kw">tmap_arrange</span>(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,</span>
-<span id="cb4-55"><a href="geodata.html#cb4-55"></a>                          tm_sta_rectilinear, tm_sta_curvilinear)</span>
-<span id="cb4-56"><a href="geodata.html#cb4-56"></a>tm_sta_all</span>
-<span id="cb4-57"><a href="geodata.html#cb4-57"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sf unknown.</span></span>
-<span id="cb4-58"><a href="geodata.html#cb4-58"></a><span class="co">#&gt; Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-59"><a href="geodata.html#cb4-59"></a><span class="co">#&gt; Warning: Currect projection of shape sta_rotated_sf</span></span>
-<span id="cb4-60"><a href="geodata.html#cb4-60"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-61"><a href="geodata.html#cb4-61"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sheared_sf</span></span>
-<span id="cb4-62"><a href="geodata.html#cb4-62"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-63"><a href="geodata.html#cb4-63"></a><span class="co">#&gt; Warning: Currect projection of shape sta_rectilinear_sf</span></span>
-<span id="cb4-64"><a href="geodata.html#cb4-64"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-65"><a href="geodata.html#cb4-65"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sf unknown.</span></span>
-<span id="cb4-66"><a href="geodata.html#cb4-66"></a><span class="co">#&gt; Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-67"><a href="geodata.html#cb4-67"></a><span class="co">#&gt; Warning: Currect projection of shape sta_rotated_sf</span></span>
-<span id="cb4-68"><a href="geodata.html#cb4-68"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-69"><a href="geodata.html#cb4-69"></a><span class="co">#&gt; Warning: Currect projection of shape sta_sheared_sf</span></span>
-<span id="cb4-70"><a href="geodata.html#cb4-70"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span>
-<span id="cb4-71"><a href="geodata.html#cb4-71"></a><span class="co">#&gt; Warning: Currect projection of shape sta_rectilinear_sf</span></span>
-<span id="cb4-72"><a href="geodata.html#cb4-72"></a><span class="co">#&gt; unknown. Long-lat (WGS84) is assumed.</span></span></code></pre></div>
+<pre><code>#&gt; To access larger datasets in this package,
+#&gt; install the spDataLarge package with:
+#&gt; `install.packages(&#39;spDataLarge&#39;,
+#&gt; repos=&#39;https://nowosad.github.io/drat/&#39;,
+#&gt; type=&#39;source&#39;)`
+#&gt; Loading required package: abind</code></pre>
+<p><img src="02-geodata_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><img src="02-geodata_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
