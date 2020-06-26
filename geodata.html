@@ -392,15 +392,27 @@ and introduce the <strong>stars</strong> package (section <a href="geodata.html#
 <!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
-Each cell has an associated value</p>
+<!-- Each cell has an associated value  --></p>
+<p><a href="geodata.html#fig:raster-intro">2.1</a></p>
 <pre><code>#&gt; To access larger datasets in this package,
 #&gt; install the spDataLarge package with:
 #&gt; `install.packages(&#39;spDataLarge&#39;,
 #&gt; repos=&#39;https://nowosad.github.io/drat/&#39;,
 #&gt; type=&#39;source&#39;)`
 #&gt; Loading required package: abind</code></pre>
-<p><img src="02-geodata_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="02-geodata_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:raster-intro"></span>
+<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
+<p class="caption">
+FIGURE 2.1: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
+</p>
+</div>
+<p><a href="geodata.html#fig:grid-types">2.2</a></p>
+<div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
+<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
+<p class="caption">
+FIGURE 2.2: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
+</p>
+</div>
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
 <!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->

@@ -236,7 +236,9 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 <!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->.
 <!-- - contionous and categorical rasters -->
-Each cell has an associated value 
+<!-- Each cell has an associated value  -->
+
+\@ref(fig:raster-intro)
 
 
 ```
@@ -248,11 +250,19 @@ Each cell has an associated value
 #> Loading required package: abind
 ```
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
+<p class="caption">(\#fig:raster-intro)Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map</p>
+</div>
 
 
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+\@ref(fig:grid-types)
+
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
+<p class="caption">(\#fig:grid-types)Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear</p>
+</div>
 
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
