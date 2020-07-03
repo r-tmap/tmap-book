@@ -1,7 +1,7 @@
 # Specifying spatial data with `tm_shape` {#tmshape}
 
 
-## Map projections (CRS) {#crs}
+## Map projections (CRS) {#sectioncrs}
 
 ### How to put an orange peel flat on the table?
 
@@ -13,6 +13,7 @@ library(sf)
 library(tmap)
 library(grid)
 library(dplyr)
+library(kableExtra)
 data(World)
 clr_peel = "#FD8A04"
 clr_orange_land = "#FB6801"
@@ -201,6 +202,10 @@ http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
 -->
 
 
+```{r crs-types, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.25, fig.cap="Four types of map projections"}
+source("code/crs_examples.R")
+crs_types()
+```
 
 
 ```{r crs-06, echo=FALSE, results='hide', warning=FALSE, fig.cap="Lambert azimuthal equal-area projection (EPSG3035)", message=FALSE}
@@ -224,13 +229,15 @@ Map projections can be classified by whether the following map properties are pr
 
 The standard set of comparison operators can be used in the `filter()` function, as illustrated in Table \@ref(tab:operators): 
 
-```{r operators, echo=FALSE}
-crs_prop_name = c("Conformal", "Equal area", "Equidistant", "Azimuthal")
+```{r crs-properties, echo=FALSE}
+crs_prop_name = c("Conformal", "Equal area", "Non-interrupted", "")
+crs_prop_subname = c("", "", "\\- Equidistant", "\\- Azimuthal")
 crs_prop_attr = c("Local angle (shape)", "Area", "Distance", "Direction")
-knitr::kable(tibble(Name = crs_prop_name, `Preserved property` = crs_prop_attr), 
+knitr::kable(tibble(Property = crs_prop_name, ` ` = crs_prop_subname, `Preserves` = crs_prop_attr), 
              caption = "Map projection properties.",
              caption.short = "Map projection properties.",
-             booktabs = TRUE)
+             booktabs = TRUE) %>% 
+  kableExtra::column_spec(1, width = "10em")
 ```
 
 

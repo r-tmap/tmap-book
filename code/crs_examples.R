@@ -277,9 +277,193 @@ map_3857_cyl = function() {
 }
 
 
+grid.arc = function(xc, yc, asp, r, direction = "bottom", gp = gpar()) {
+  
+  if (direction == "bottom") {
+    a = seq(-pi, 0, length.out = 100)
+  } else if (direction == "top") {
+    a = seq(0, pi, length.out = 100)
+  } else {
+    a = seq(-pi, pi, length.out = 200)
+  }
+  
+  is_poly = (length(yc) == 2)
+  
+  if (!is_poly) {
+    x = xc + cos(a) * r
+    y = yc + sin(a) * r / asp
+    grid.lines(x, y, gp = gp)
+  } else {
+    x = c(xc + cos(a) * r, xc + cos(rev(a)) * r)
+    y = c(yc[1] + sin(a) * r / asp, yc[2] + sin(a) * r / asp)
+    grid.polygon(x, y, gp = gp)
+  }
+}
+
+grid.cone = function(xc, yc, asp, r, direction = "bottom", gp = gpar()) {
+  offset = 0.1
+  if (direction == "bottom") {
+    a = seq(-(1+offset)*pi, pi*offset, length.out = 100)
+  } else if (direction == "top") {
+    a = seq(pi*offset, pi*(1-offset), length.out = 100)
+  } else {
+    a = seq(-pi, pi, length.out = 200)
+  }
+  
+  x = c(xc + cos(a) * r, xc)
+  y = c(yc[1] + sin(a) * r / asp, yc[2])
+  grid.polygon(x, y, gp = gp)
+}
 
 
 
+crs_types = function() {
+  require(grid)
+  
+  col1 = "#DDDDDD"
+  col2 = "#DDDDDD88"
+  col3 = "steelblue"
+  grid.newpage()
+  pushViewport(viewport(layout=grid.layout(1, 5, widths = c(.2, .2, .2, .2, .2))))
+  pushViewport(viewport(layout.pos.col=1, layout.pos.row=1))
+  crs_type_cylindrical(col1, col2, col3)
+  upViewport()
+  pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
+  crs_type_conic(col1, col2, col3)
+  upViewport()
+  pushViewport(viewport(layout.pos.col=3, layout.pos.row=1))
+  crs_type_planar(col1, col2, col3)
+  upViewport()
+  pushViewport(viewport(layout.pos.col=4, layout.pos.row=1))
+  crs_type_interrupted(col1, col2, col3)
+  upViewport(2)
+
+}
+
+
+crs_type_cylindrical = function(col1, col2, col3) {
+  vp = viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+  pushViewport(vp)
+  
+  dy = -.05
+  
+  grid.arc(0.5, dy + c(0.2, 0.8), 2.5, .26, "top", gp = gpar(fill = col1, lty = "longdash"))
+  grid.circle(0.5, dy + 0.5, r = 0.25, gp = gpar(fill = col3))
+  grid.arc(0.5, dy + 0.5, 2.5, .25, "bottom")
+  grid.arc(0.5, dy + c(0.2, 0.8), 2.5, .26, "bottom", gp = gpar(fill = col2))
+  grid.arc(0.5, dy + 0.8, 2.5, .26, "top", gp = gpar())
+  upViewport()
+}
+
+
+crs_type_conic = function(col1, col2, col3) {
+  vp = viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+  pushViewport(vp)
+  
+  dy = -.05
+  grid.cone(0.5, dy + c(0.4, .95), 2.5, .4, "top", gp = gpar(fill = col1, lty = "longdash"))
+  grid.circle(0.5, dy + 0.5, r = 0.25, gp = gpar(fill = col3))
+  grid.arc(0.5, dy + 0.5, 2.5, .25, "bottom")
+  grid.cone(0.5, dy + c(0.4, .95), 2.5, .4, "bottom", gp = gpar(fill = col2))
+  upViewport()
+}
+
+
+crs_type_planar = function(col1, col2, col3) {
+  vp = viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+  pushViewport(vp)
+  
+  dy = -.05
+  
+  grid.circle(0.5, dy + 0.5, r = 0.25, gp = gpar(fill = col3))
+  grid.arc(0.5, dy + 0.5, 2.5, .25, "bottom")
+  grid.arc(0.5, dy + c(0.72, 0.72), 2.5, .4, "both", gp = gpar(fill = col2))
+  upViewport()
+}
+
+grid.faceTop = function(xc, yc, s, a, b, gp = gpar()) {
+  grid.polygon(xc + c(-.5 * s - b,  -.5 * s + b, .5 * s + b, .5 * s - b, -.5 * s - b), yc + c(-a/2, a/2, a/2, -a/2, -a/2), gp = gp)
+}
+grid.faceSide = function(xc, yc, s, a, b, gp = gpar()) {
+  grid.polygon(xc + c(-b, -b, b, b, -b), yc + c(-a/2-s/2, -a/2 + s/2, a/2 + s/2, a/2-s/2, -a/2-s/2), gp = gp)
+}
+grid.faceFront = function(xc, yc, s, gp = gpar()) {
+  grid.polygon(xc + c(-s/2, -s/2, s/2, s/2, -s/2), yc + c(-s/2, s/2, s/2, -s/2, -s/2), gp = gp)
+}
+
+grid.arrow = function(x1, y1, x2, y2) {
+  #grid.newpage()
+  # vp = viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+  # pushViewport(vp)
+  # grid.rect()
+  # x1 = .5
+  # y1 = .5
+  # 
+  # x2 = .25
+  # y2 = .25
+  
+  xc = x1
+  yc = y2
+  
+  a = seq(0, 0.5*pi, length.out = 20)
+  
+  x = xc + sin(a) * (x2 - x1)
+  y = yc - cos(a) * (y2 - y1)
+
+  grid.lines(x = x,
+             y = y,
+             gp = gpar(fill="black", lty = "longdash"),
+             arrow = arrow(length = unit(0.05, "npc"), 
+                           ends="last", type="closed"))
+}
+
+
+crs_type_interrupted = function(col1, col2, col3) {
+  #grid.newpage()
+  vp = viewport(width = unit(1, "snpc"), height = unit(1, "snpc"))
+  pushViewport(vp)
+  
+  xc = 0.5
+  yc = 0.5
+  
+  s = 0.5
+  
+  a = s/2.5
+  b = s/3
+  
+  dy = -.05
+  
+  grid.faceTop(xc, dy + yc - s/2, s = s, a = a, b = b, gp = gpar(fill = col1))
+  grid.faceTop(xc-s, dy + yc - s/2, s = s, a = a, b = b, gp = gpar(fill = col1))
+  grid.faceTop(xc+s, dy + yc - s/2, s = s, a = a, b = b, gp = gpar(fill = col1))
+  grid.faceTop(xc+2*s, dy + yc - s/2, s = s, a = a, b = b, gp = gpar(fill = col1))
+  grid.faceTop(xc-b*2, dy + yc - s/2-a, s = s, a = a, b = b, gp = gpar(fill = col1))
+  grid.faceTop(xc+b*2, dy + yc - s/2+a, s = s, a = a, b = b, gp = gpar(fill = col1))
+
+  
+  grid.faceSide(xc - s/2, dy + yc, s = s, a = a, b = b, gp = gpar(fill = col1, lty = "longdash"))
+  grid.faceFront(xc + b, dy + yc + a/2, s = s, gp = gpar(fill = col1, lty = "longdash"))
+
+  grid.arrow(xc - s/2, dy + yc + s/4, xc-s-s/4, dy + yc - s/2)
+  #grid.arrow(xc + b, dy + yc + a/2 + s/4, xc+b*2.5, dy + yc - s/2+a+a/4)
+  
+  grid.circle(xc, dy + yc, r = s/2, gp = gpar(fill = col3))
+  grid.arc(0.5, dy + 0.5, 2.5, .25, "bottom")
+  
+  grid.faceSide(xc + s/2, dy + yc, s = s, a = a, b = b, gp = gpar(fill = col2))
+  grid.faceFront(xc - b, dy + yc - a/2, s = s, gp = gpar(fill = col2))
+
+  
+  grid.faceTop(xc, dy + yc + s/2, s = s, a = a, b = b, gp = gpar(fill = col2))
+  
+
+  
+  grid.arrow(xc + s/2, dy + yc + s/4, xc+s+s/4, dy + yc - s/2)
+  grid.arrow(xc - b, dy + yc - a/2 + s/4, xc-b*2.5, dy + yc - s/2-a-a/4)
+  
+  upViewport()
+  
+}
 
 
 
