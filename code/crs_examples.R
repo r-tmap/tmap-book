@@ -213,6 +213,19 @@ map_3035 = function() {
 }
 
 
+map_eqdc = function() {
+  crs = "+proj=eqdc +lat_0=0 +lon_0=0 +lat_1=60 +lat_2=60 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs"
+  data(World, package = "tmap")
+  
+  land = World %>% filter(iso_a3 != "ATA") %>% sf::st_transform(crs)
+  bg = tmaptools::bb_earth(crs)
+  
+  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) %>% st_transform(crs)
+  list(bg = bg, land = land, grat = grat)
+  
+}
+
+
 map_3857_cyl = function() {
   
   m3857 = map_3857()
@@ -317,25 +330,26 @@ grid.cone = function(xc, yc, asp, r, direction = "bottom", gp = gpar()) {
 
 
 
-crs_types = function() {
+crs_types = function(col1 = "#DDDDDD", col2 = "#DDDDDD88",  col3 = "steelblue", textgp = gpar(col = "#777777", cex = 0.8)) {
   require(grid)
   
-  col1 = "#DDDDDD"
-  col2 = "#DDDDDD88"
-  col3 = "steelblue"
   grid.newpage()
   pushViewport(viewport(layout=grid.layout(1, 5, widths = c(.2, .2, .2, .2, .2))))
   pushViewport(viewport(layout.pos.col=1, layout.pos.row=1))
   crs_type_cylindrical(col1, col2, col3)
+  grid.text("(a) Cylindrical", y = unit(1, "lines"), gp = textgp)
   upViewport()
   pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
   crs_type_conic(col1, col2, col3)
+  grid.text("(b) Conic", y = unit(1, "lines"), gp = textgp)
   upViewport()
   pushViewport(viewport(layout.pos.col=3, layout.pos.row=1))
   crs_type_planar(col1, col2, col3)
+  grid.text("(c) Planar", y = unit(1, "lines"), gp = textgp)
   upViewport()
   pushViewport(viewport(layout.pos.col=4, layout.pos.row=1))
   crs_type_interrupted(col1, col2, col3)
+  grid.text("(d) Interrupted", y = unit(1, "lines"), gp = textgp)
   upViewport(2)
 
 }

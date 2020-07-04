@@ -54,7 +54,7 @@ The (interrupted) Goode homolosine projection, which is shown below, embodies th
 All continents and countries are preserved, except Antarctica and Greenland.
 
 
-```{r crs-03, echo=FALSE, results='hide', warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
+```{r crs-03, echo=FALSE, results='hide', fig.asp=0.45, warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
 source("code/crs_examples.R")
 goode = map_goode()
 tm_shape(goode$bg) +
@@ -201,12 +201,31 @@ We will discuss this in the next section.
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
 -->
 
+Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth? 
+Although there are many ways, four basic map projection types can be distinguished. 
+These are depicted in Figure \@(fig:crs-types).
 
-```{r crs-types, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.25, fig.cap="Four types of map projections"}
+
+
+
+
+```{r crs-types, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.35, fig.cap="Four types of map projections"}
 source("code/crs_examples.R")
 crs_types()
 ```
 
+
+```{r crs-eqdc, echo=FALSE, results='hide', warning=FALSE, fig.cap="World Equidistant Conic", message=FALSE}
+source("code/crs_examples.R")
+meqdc = map_eqdc()
+tm_shape(meqdc$bg) +
+    tm_polygons(clr_bg, border.col = clr_border) +
+tm_shape(meqdc$land) +
+    tm_polygons(clr_land) +
+tm_shape(meqdc$grat) +
+    tm_lines(col = clr_grat, lwd = 1) +
+    tm_layout(frame = FALSE)
+```
 
 ```{r crs-06, echo=FALSE, results='hide', warning=FALSE, fig.cap="Lambert azimuthal equal-area projection (EPSG3035)", message=FALSE}
 source("code/crs_examples.R")
