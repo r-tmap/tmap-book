@@ -52,9 +52,9 @@ When we peel the orange, ideally we want to rip the peel near areas of the earth
 What is interesting depends on the application; for applications where land mass is more important than wetlands, it is a good idea to make the rips in the oceans.
 The (interrupted) Goode homolosine projection, which is shown below, embodies this idea. 
 All continents and countries are preserved, except Antarctica and Greenland.
+There is also a version of the Goode homolosine projection which preserves the oceans.
 
-
-```{r crs-03, echo=FALSE, results='hide', fig.asp=0.45, warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
+```{r crs-goode, echo=FALSE, results='hide', fig.asp=0.45, warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
 source("code/crs_examples.R")
 goode = map_goode()
 tm_shape(goode$bg) +
@@ -69,7 +69,7 @@ tm_layout(frame = FALSE)
 To make the analogy between the orange peel and the surface of the earth complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 These properties are needed in order to make a non-interrupted map, as we will see in the next sections.
 
-A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-03) is an example, is called a *map projection*. Technically, it is also known as a *coordinate reference system* (*crs*), which specifies the corresponding coordinate system, as well as the transformations to other map projections.
+A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-goode) is an example, is called a *map projection*. Technically, it is also known as a *coordinate reference system* (*crs*), which specifies the corresponding coordinate system, as well as the transformations to other map projections.
 
 ### How to model the surface of the earth?
 
@@ -195,17 +195,17 @@ Also today, the Web Mercator is the de facto standard for interactive maps and n
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
 We will discuss this in the next section.
 
-## Overview of map projections
+### Overview of map projections
 
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
+https://www.researchgate.net/publication/303311220_Projection_Wizard_-_An_Online_Map_Projection_Selection_Tool
+https://projectionwizard.org/
 -->
 
 Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth? 
 Although there are many ways, four basic map projection types can be distinguished. 
-These are depicted in Figure \@(fig:crs-types).
-
-
+These are depicted in Figure \@ref(fig:crs-types).
 
 
 
@@ -214,47 +214,99 @@ source("code/crs_examples.R")
 crs_types()
 ```
 
+Examples for cylindrical projections have already been given in the previous section; both Platte Carrée and Web-Mercator are cylindrical. 
+There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
+An example is the Robinson projection shown in Figure \@ref(fig:crs-robin).
+Almost all commonly used standard World map projections are (pseudo-)cylindrical.
 
-```{r crs-eqdc, echo=FALSE, results='hide', warning=FALSE, fig.cap="World Equidistant Conic", message=FALSE}
+```{r crs-robin, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.45, fig.cap="The Robinson projection, which is pseudo-cylindrical."}
+data(World)
+tm_shape(World, projection = "+proj=robin") +
+    tm_polygons(clr_land, border.col = clr_border) +
+  tm_layout(earth.boundary = TRUE,
+            earth.boundary.color = clr_grat,
+            bg.color = clr_bg,
+            space.color = "white",
+            frame = FALSE) +
+  tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.cardinal = FALSE, ticks = FALSE, labels.show = FALSE)
+```
+
+An example of a conic map projection is shown in \@ref(fig:crs-conic-planar)(a).
+As a result of unfolding a cone on a flat surface, a gap is created.
+The size (angle) of this gap depends on the width of the cone.
+There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
+Conic map projections are useful for mid-latitude areas where the surfaces of the earth and the cone are almost parallel to each other. 
+
+
+Planar map projections, also known as azimuthal projections, project the Earth on a disk.
+This can be done in several ways.
+This can best be explained by the position of an imaginary light source.
+It can be placed inside the globe, at the surface of the globe opposite to the disk, and at an infinite distance opposite to the disk.
+The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.
+
+Planar map projections are often used for a specific country or continent.
+An example is the Lambert azimuthal equal-area projection (EPSG3035), shown in \@ref(fig:crs-conic-planar)(b), which is optimized for Europe.
+It can be classified as a stereographic projection, although the light beams are not straight but curved.
+Another example of a planar map projection is the orange shown in Figure \@ref(fig:crs-0    2).
+This is an orthogonal projection.
+
+```{r crs-conic-planar, echo=FALSE, results='hide', warning=FALSE, fig.cap="Examples of a conic (a) and a planar (b) projection.", message=FALSE}
 source("code/crs_examples.R")
 meqdc = map_eqdc()
+m3035 = map_3035()
+
+tmap_arrange({
 tm_shape(meqdc$bg) +
     tm_polygons(clr_bg, border.col = clr_border) +
 tm_shape(meqdc$land) +
     tm_polygons(clr_land) +
 tm_shape(meqdc$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
-    tm_layout(frame = FALSE)
-```
-
-```{r crs-06, echo=FALSE, results='hide', warning=FALSE, fig.cap="Lambert azimuthal equal-area projection (EPSG3035)", message=FALSE}
-source("code/crs_examples.R")
-
-#browser()
-m3035 = map_3035()
-
-tm_shape(m3035$bg) +
+    tm_layout(frame = FALSE) +
+tm_layout(title="(a) World Equidistant Conic projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))},
+{tm_shape(m3035$bg) +
     tm_polygons(clr_bg, border.col = clr_border) +
 tm_shape(m3035$land) +
     tm_polygons(clr_land) +
 tm_shape(m3035$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
-    tm_layout(frame = FALSE)
-
+    tm_layout(frame = FALSE) +
+tm_layout(title="(b) Lambert azimuthal equal-area projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))
+})
 ```
 
+The (interrupted) Goode homolosine projection shown in Figure \@ref(fig:crs-goode) is an example of an interrupted projection.
+A special class of these projections are polyhedral projections, which consists of planar faces. 
+In Figure \@ref(fig:crs-types) a polyhedral of six faces is illustrated. 
+There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.
+
+
+### Properties of map projections
+
+There are a few factors to take into account when choosing a proper map projection.
+Often, there already exists an official map projection for the area of interest, which have been chosen by a government agency.
+Even though it may not always be the optimal map projection, it is nonetheless recommended to use that.
+If there are no restrictions in choosing a map projection, there are two factors that are important: the application and the area of interest.
+
+
+
+Navigation and statistical maps.
+
+
+
+To decide wich map projection to use  s are good depends on the application and the area of interest. 
 
 Map projections can be classified by whether the following map properties are preserved:
 
-The standard set of comparison operators can be used in the `filter()` function, as illustrated in Table \@ref(tab:operators): 
+The standard set of comparison operators can be used in the `filter()` function, as illustrated in Table \@ref(tab:crs-properties): 
 
-```{r crs-properties, echo=FALSE}
-crs_prop_name = c("Conformal", "Equal area", "Non-interrupted", "")
-crs_prop_subname = c("", "", "\\- Equidistant", "\\- Azimuthal")
-crs_prop_attr = c("Local angle (shape)", "Area", "Distance", "Direction")
-knitr::kable(tibble(Property = crs_prop_name, ` ` = crs_prop_subname, `Preserves` = crs_prop_attr), 
-             caption = "Map projection properties.",
-             caption.short = "Map projection properties.",
+```{r crs-recommendations, echo=FALSE}
+knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
+                    `Low latitude (equator)` = c("Pseudo-cylindrical", "Azimuthal", "Cylindrical"),
+                    `Mid latitude`= c("Pseudo-cylindrical", "Azimuthal", "Conic"),
+                    `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal")),
+             caption = "Recommended projections.",
+             caption.short = "Recommended projections.",
              booktabs = TRUE) %>% 
   kableExtra::column_spec(1, width = "10em")
 ```
@@ -270,3 +322,19 @@ The Mercator is an example.
 Take home message: plain latitude/longitude coordinates (EPSG 4326) and the Mercator projection (3857) are great for navigation, but less suitable for maps with data, especially world maps.
 
 Take home message: before you start mapping, think about which projection is good for the area of interest and for the specific task at hand.
+
+
+```{r crs-properties, echo=FALSE}
+crs_prop_name = c("Conformal", "Equal area", "Equidistant", "Azimuthal")
+crs_prop_attr = c("Local angle (shape)", "Area", "Distance", "Direction")
+crs_prop_cyl = c("Mercator", "Gall-Peters, Eckert IV", "Equirectangular", "?")
+crs_prop_conic = c("Lambert conformal conic", "Albers conic", "Equidistant conic", "?")
+crs_prop_planar = c("Stereographic", "Lambert azimuthal equal-area", "Azimuthal equidistant", "Stereographic, Lambert azimuthal equal-area")
+crs_prop_interrupted = c("Myriahedral", "Goode homolosine, Myriahedral", "none", "none")
+  knitr::kable(tibble(Property = crs_prop_name, Preserves = crs_prop_attr, `Examples (cyclindrical)` = crs_prop_cyl, `Examples (conic)`=crs_prop_conic, `Examples (planar)`=crs_prop_planar, `Examples (interrupted)`=crs_prop_interrupted), 
+             caption = "Map projection properties.",
+             caption.short = "Map projection properties.",
+             booktabs = TRUE) %>% 
+  kableExtra::column_spec(1, width = "10em")
+```
+
