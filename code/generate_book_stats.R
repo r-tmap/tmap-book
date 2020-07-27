@@ -18,7 +18,7 @@ generate_book_stats = function(dir = ".") {
     nrow(unnest_tokens(x, words, text)))
   chapter = 1:length(n_words)
   date = Sys.Date()
-  data_frame(n_words, chapter, date)
+  tibble(n_words, chapter, date)
 }
 
 book_stats = readr::read_csv("extdata/word-count-time.csv", col_types = ("iiD"))
