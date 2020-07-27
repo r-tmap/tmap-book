@@ -20,18 +20,7 @@ It also explains basic terms and gives an overview of map projections.
 <!-- geocompr, spatial data science, some crs book? -->
 <!-- explain that often there is a need to prepare spatial data before mapping -->
 
-## Vector data
-
-\index{vector data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for vector representation -->
-R has several packages aimed to represent spatial vector data.
-Recently, the **terra** package has been released containing a new vector data representation.
-For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
-However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
-The **tmap** package has been using **sf** since version 2.0.
-In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
+## Data models
 
 ### Vector data model
 
@@ -185,7 +174,7 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- redundancy -->
 <!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
-Finally, GeometryCollection exists that contain all of the possible geometry types.
+Finally, GeometryCollection exists that contains all of the possible geometry types.
 
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
@@ -240,76 +229,6 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 <!-- FlatGeobuf?? -->
 <!-- - advantages/disadvantages -->
 <!-- - example figure (similar to the one in geocompr, but made with tmap) -->
-
-### The sf package
-
-\index{sf}
-\index{sf (package)|see {sf}}
-
-The **sf** package implements ideas behind the Simple Feature standard.
-Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
-<!-- - how the sf objects are organized -->
-In it, attributes of the vector data are stored as columns. 
-It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
-This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
-
-<!-- - how to read sf objects from files -->
-The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
-<!--improve example-->
-```{r}
-# replace this data with some new tmap dataset
-library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
-```
-<!-- explain example -->
-
-The new object, `x`, has a `sf` class. 
-It has `r nrow(x)` features (rows or geometries) and `r ncol(x) - 1` fields (columns with attributes). 
-There is also an `r ncol(x)`th column, `geom`, that stores geometries of each feature.
-Objects of class `sf` also display a header containing spatial metadata.
-It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box (`bbox`), and information about the used Coordinate Reference System (`CRS`).
-
-```{r}
-x
-```
-
-The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
-Each polygon's vertices are represented by a pair of values (`dimension: XY`).
-Bounding box allows to quickly understand the spatial extension of the input data. 
-<!--...--> 
-Finally, it has `r ifelse(sf::st_crs(x)$IsGeographic, "geographic", "projected")` CRS named `r sf::st_crs(x)$Name`.
-You can learn more about Coordinate Reference Systems in section \@ref(crs).
-
-<!-- ref to CRS section -->
-
-Spatial vector data of class `sf` can be also obtained using some of other R data packages.
-<!-- add REFs--> 
-For example, **rnaturalearth** allows to download world map data, **osmdata** imports OpenStreetMap data as `sf` objects, and **tigris** loads TIGER/Line data.
-<!-- add reference to geocompr -->
-<!-- add reference to https://cran.r-project.org/web/views/Spatial.html (after my updates) -->
-
-The **tmap** package accepts spatial vector data objects from both **sf** and **sp** packages.
-In case of having vector objects in a different representation, they should be converted into `sf` objects first, before making maps.
-The **sf** package has the `st_as_sf()` function that translates objects of many classes, including `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
-The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user need to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
-For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
-
-<!-- - where to find info on how to operate on sf objects -->
-<!-- - https://geocompr.github.io/ -->
-<!-- - vector simplification? -->
-
-## Raster data
-
-\index{raster data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for raster representation -->
-<!-- packages REFs -->
-Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
-The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
-In the two next sections, we present raster data model (section \@ref(raster-data-model))
-and introduce the **stars** package (section \@ref(the-stars-package)).
 
 ### Raster data model
 
@@ -426,6 +345,91 @@ tm_sta_all
 <!-- - rbg rasters -->
 <!-- - regular, rotated, sheared, rectilinear and curvilinear rasters -->
 <!-- - raster file formats -->
+
+### Spatial data cubes
+
+
+## Spatial data representations in R
+
+\index{vector data model}
+
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for vector representation -->
+R has several packages aimed to represent spatial vector data.
+Recently, the **terra** package has been released containing a new vector data representation.
+For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
+However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
+The **tmap** package has been using **sf** since version 2.0.
+In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
+
+\index{raster data model}
+
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for raster representation -->
+<!-- packages REFs -->
+Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
+The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
+In the two next sections, we present raster data model (section \@ref(raster-data-model))
+and introduce the **stars** package (section \@ref(the-stars-package)).
+
+
+### The sf package
+
+\index{sf}
+\index{sf (package)|see {sf}}
+
+The **sf** package implements ideas behind the Simple Feature standard.
+Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
+<!-- - how the sf objects are organized -->
+In it, attributes of the vector data are stored as columns. 
+It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
+This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
+
+<!-- - how to read sf objects from files -->
+The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
+<!--improve example-->
+```{r}
+# replace this data with some new tmap dataset
+library(sf)
+file_path = system.file("shapes/world.gpkg", package = "spData")
+x = read_sf(file_path)
+```
+<!-- explain example -->
+
+The new object, `x`, has a `sf` class. 
+It has `r nrow(x)` features (rows or geometries) and `r ncol(x) - 1` fields (columns with attributes). 
+There is also an `r ncol(x)`th column, `geom`, that stores geometries of each feature.
+Objects of class `sf` also display a header containing spatial metadata.
+It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box (`bbox`), and information about the used Coordinate Reference System (`CRS`).
+
+```{r}
+x
+```
+
+The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+Each polygon's vertices are represented by a pair of values (`dimension: XY`).
+Bounding box allows to quickly understand the spatial extension of the input data. 
+<!--...--> 
+Finally, it has `r ifelse(sf::st_crs(x)$IsGeographic, "geographic", "projected")` CRS named `r sf::st_crs(x)$Name`.
+You can learn more about Coordinate Reference Systems in section \@ref(crs).
+
+<!-- ref to CRS section -->
+
+Spatial vector data of class `sf` can be also obtained using some of other R data packages.
+<!-- add REFs--> 
+For example, **rnaturalearth** allows to download world map data, **osmdata** imports OpenStreetMap data as `sf` objects, and **tigris** loads TIGER/Line data.
+<!-- add reference to geocompr -->
+<!-- add reference to https://cran.r-project.org/web/views/Spatial.html (after my updates) -->
+
+The **tmap** package accepts spatial vector data objects from both **sf** and **sp** packages.
+In case of having vector objects in a different representation, they should be converted into `sf` objects first, before making maps.
+The **sf** package has the `st_as_sf()` function that translates objects of many classes, including `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
+The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
+For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
+
+<!-- - where to find info on how to operate on sf objects -->
+<!-- - https://geocompr.github.io/ -->
+<!-- - vector simplification? -->
 
 ### The stars package
 
