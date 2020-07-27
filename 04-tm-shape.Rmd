@@ -189,7 +189,7 @@ tmap_arrange({
 
 ```
 
-Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure \@ref(fig:orange)).
+Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure \@ref(fig:orange)).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
@@ -286,19 +286,25 @@ There is no limit of the number of faces, as the myriahedral projections (TODO r
 
 ### Which projection to choose?
 
-It may be clear that there is no perfect projection, since each projection has its pros and cons.
-Whether a projection is good, depends on 1) the type of application and 2) the area of interest.
+Hopefully it is clear that there is no perfect projection, since each projection has its pros and cons.
+Whether a projection is good for a certain application, depends on two factors.
+The first factor is the type of application and in particular which map projection properties are useful or even required for that application.
+For instance, navigation requires other map projection properties than statistical maps.
+The second factor is the area of interest.
+Is the whole World visualized or only a part, and in the latter case, which part?
 In this section, guidelines are provided to choose a proper projection based on those two aspects.
 
 Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure @\ref(fig:crs-conic-planar)(b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure \@ref(fig:crs-conic-planar)(b).
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.
 
+**Map projection properties**
+
 The type of application is important for the choice of a map projection.
-It would be quite tedious to list all possible applications and projection recommendations.
-Instead, we focus on four properties that map projections may or may not have.
-The key step is to find out which of these properties are useful for the target application.
+However, it would be quite tedious to list all possible applications and provide projection recommendations for each of them.
+Instead, we focus on four map projection properties.
+The key step is to find out which of these properties are useful or even required for the target application.
 The four properties are listed in the following table.
 
 ```{r crs-properties, echo=FALSE}
@@ -309,11 +315,21 @@ crs_prop_cyl = c("Mercator", "Gall-Peters, Eckert IV", "Equirectangular", "none"
 crs_prop_conic = c("Lambert conformal conic", "Albers conic", "Equidistant conic", "none")
 crs_prop_planar = c("Stereographic", "Lambert azimuthal equal-area", "Azimuthal equidistant", "Stereographic, Lambert azimuthal equal-area")
 crs_prop_interrupted = c("Myriahedral", "Goode homolosine, Myriahedral", "none", "none")
-  knitr::kable(tibble(Property = crs_prop_name, Preserves = crs_prop_attr, Applications = crs_prop_appl,  `Examples (cyclindrical)` = crs_prop_cyl, `Examples (conic)`=crs_prop_conic, `Examples (planar)`=crs_prop_planar, `Examples (interrupted)`=crs_prop_interrupted), 
-             caption = "Map projection properties.",
-             caption.short = "Map projection properties.",
-             booktabs = TRUE) %>% 
-  kableExtra::kable_styling(font_size = 12)
+
+tb = tibble(Property = crs_prop_name, Preserves = crs_prop_attr, Applications = crs_prop_appl,  `Examples (cyclindrical)` = crs_prop_cyl, `Examples (conic)`=crs_prop_conic, `Examples (planar)`=crs_prop_planar, `Examples (interrupted)`=crs_prop_interrupted)
+
+tb2 = as.data.frame(t(rbind(names(tb), as.matrix(tb, dimnames = NULL))))
+tb2 = tb2[, -1]
+
+knitr::kable(tb2, 
+             row.names = TRUE,
+             col.names = NULL,
+           caption = "Map projection properties.",
+           caption.short = "Map projection properties.",
+           booktabs = TRUE) %>% 
+  kableExtra::kable_styling(font_size = 12) %>% 
+  column_spec(1, width = "14em", bold = TRUE) %>% 
+  column_spec(c(3,5), width = "14em") 
 ```
 
 A *conformal* projection means that local angles are preserved. 
@@ -321,28 +337,38 @@ In practice, that means that for instance a map of a crossroad preserves the ang
 Therefore, this property is required for navigational purposes.
 As a consequence that local angles are preserved, local shapes are also preserved. 
 That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
+The Web Mercator shown in Figure \@ref(fig:crs-05) satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.
 
 A map projection is called *equal-area* if the areas are proportional to the true areas.
 This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
-(Example)
+Figure \@ref(fig:crs-bias) shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North-Africa and Australia emerge as vast low-populated areas.
 
+```{r crs-bias, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.45, fig.cap="The Robinson projection, which is pseudo-cylindrical."}
+library(grid)
+World = World[World$iso_a3 != "ATA", ]
+tm1 = tm_shape(World, projection = 3857) + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
+tm2 = tm_shape(World, projection = "+proj=eck4") + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
+tmap_arrange(tm1, tm2)
+grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
+grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
+```
 
+The other two map projection properties are related to one central point on the map.
+A map projection is called *equidistant* if the distances to any other point in the map are preserved, and *azimuthal* if the directions to any other point are preserved.
+These properties are in particular useful in the field of geology.
+One example is a seismic map around the epicenter of a recent earthquake, where it is important to how far and in which direction the vibrations are spreading.
 
-* *Conformal (true local angles/shapes)*: A map projection is called *conformal* when local angles are preserved, and therefore local shapes. 
-The Mercator is an example.
-* *Equal-area (true areas)*: A map projection is called *equal-area* if the areas are proportional to the true areas.
-* *Equidistant (true distances)* A map projection is called *equidistant* if there is one point (usually the center) from which the distances to any other point in the map are preserved.
-* *Azimuthal (true-direction)* A map projection is called *azimuthal* if the directions from one point (the center) to any other point are same as the true direction following the surface of the earth.
+A map projection can satisfy at most two of these properties. 
+Many map projection do not satisfy any property but are intended as a compromise.
+An example is the Robinson projection, shown in Figure \ref(fig:crs-robin).
 
+**Area of interest**
 
-Take home message: plain latitude/longitude coordinates (EPSG 4326) and the Mercator projection (3857) are great for navigation, but less suitable for maps with data, especially world maps.
+The next aspect that is important for the choice of a map projection is the area of interest.
+In general, the larger the area, the more concessions have to be made, since the larger the area, the more difficult it is to make a two-dimensional projection.
 
-Take home message: before you start mapping, think about which projection is good for the area of interest and for the specific task at hand.
-
-
-
-
-
+The following table provides recommendations of map projection types based on the area size and on the latitude of the area.
 
 
 ```{r crs-recommendations, echo=FALSE}
@@ -353,6 +379,16 @@ knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
              caption = "Recommended projections.",
              caption.short = "Recommended projections.",
              booktabs = TRUE) %>% 
+  kableExtra::kable_styling(font_size = 12) %>% 
   kableExtra::column_spec(1, width = "10em")
 ```
+
+For World maps, pseudo-cylindrical such as the Robinson projection (Figure \ref(fig:crs-robin)) and the Eckert IV projection  (Figure \ref(fig:crs-bias)(b)) are most popular, and not without a reason;
+in general, they have less distortion than other map projection types.
+
+Azimuthal map projection are recommended for hemisphere maps.
+There are four hemishperes that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemishere, which includes the other continets.
+However, other hemispheres are often used implicitely.
+For instance the Lambert Azimuthal Equal-Area projection shown in Figure \@ref(fig:crs-conic-planar)(b) shows the hemisphere centered on Europe.
+
 
