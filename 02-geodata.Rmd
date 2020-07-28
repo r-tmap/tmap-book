@@ -234,11 +234,13 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 
 \index{raster data model}
 <!-- - raster data model (grid) -->
-The raster data model represents the world using a continuous grid of cells<!--pixels-->.
-<!-- - contionous and categorical rasters -->
-<!-- Each cell has an associated value  -->
-
-\@ref(fig:raster-intro)
+The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure \@ref(fig:raster-intro)).
+Depending on the type of values, we can distinguish continuous and categorical rasters.
+In continuous rasters, such as elevation or precipitation, values vary progressively.
+Categorical rasters, on the other hand, uses integer values to represent classes.
+Their examples include land cover or soil types maps.
+Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
+For example, data for this part of the area was not collected, or this part is outside of our area of interest.
 
 ```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map"}
 #replace example later
@@ -249,11 +251,14 @@ set.seed(2020-06-25)
 mat = matrix(1:20, nrow = 5, ncol = 4)
 dim(mat) = c(x = 5, y = 4)
 mat2 = matrix(sample.int(100, 20), nrow = 5, ncol = 4)
+mat2[c(4, 12)] = NA
 dim(mat2) = c(x = 5, y = 4)
 sta = c(st_as_stars(mat), st_as_stars(mat2))
 attr(sta, "dimensions")[[2]]$delta = -1
 
 sta_sf = st_as_sf(sta)
+sta_sf$A1.2 = as.character(as.factor(sta_sf$A1.1))
+sta_sf$A1.2[is.na(sta_sf$A1.1)] = "NA"
 
 tm_raster1 = tm_shape(sta_sf) +
   tm_polygons() +
@@ -262,7 +267,7 @@ tm_raster1 = tm_shape(sta_sf) +
 
 tm_raster2 = tm_shape(sta_sf) +
   tm_polygons("A1.1") +
-  tm_text("A1.1") +
+  tm_text("A1.2") +
   tm_layout(frame = FALSE, legend.show = FALSE,
             main.title = "2. Cell values")
 
@@ -274,9 +279,7 @@ tm_raster3 = tm_shape(sta) +
 tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
 
-```{r}
-
-```
+<!-- rgb -->
 
 \@ref(fig:grid-types)
 
