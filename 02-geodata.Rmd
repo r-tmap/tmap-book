@@ -240,7 +240,7 @@ In continuous rasters, such as elevation or precipitation, values vary progressi
 Categorical rasters, on the other hand, uses integer values to represent classes.
 Their examples include land cover or soil types maps.
 Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
-For example, data for this part of the area was not collected, or this part is outside of our area of interest.
+For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
 ```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map"}
 #replace example later
@@ -279,9 +279,15 @@ tm_raster3 = tm_shape(sta) +
 tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
 
-<!-- rgb -->
-
-\@ref(fig:grid-types)
+<!-- add examples of each type -->
+When we think about raster data, most of the time we are referring to regular grids (Figure \@ref(fig:grid-types)).
+In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
+<!-- I know it is a simplification-->
+It is possible to transform regular rasters into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
+Rotated grids are the result of transforming both coordinated, $x$ and $y$ using the same rotation coefficients.
+Sheared grids are created when the rotation coefficients are not equal.
+Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure \@ref(fig:grid-types)).
+In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure \@ref(fig:grid-types)).
 
 ```{r grid-types, echo=FALSE, warning=FALSE, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
 # regular grid 
@@ -341,6 +347,8 @@ tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
                           tm_sta_rectilinear, tm_sta_curvilinear, nrow = 1)
 tm_sta_all
 ```
+
+<!-- rgb -->
 
 <!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
