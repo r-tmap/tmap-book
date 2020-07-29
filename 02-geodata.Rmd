@@ -348,13 +348,11 @@ tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
 tm_sta_all
 ```
 
-<!-- rgb -->
-
-<!-- - examples -->
 <!-- - single layer rasters vs multilayer rasters -->
 <!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->
-<!-- - rbg rasters -->
-<!-- - regular, rotated, sheared, rectilinear and curvilinear rasters -->
+<!-- - rgb rasters -->
+
+\index{spatial file formats}
 <!-- - raster file formats -->
 
 ### Spatial data cubes
