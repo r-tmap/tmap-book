@@ -8,7 +8,7 @@ name: Render-Book-from-master
 jobs:
   bookdown:
     name: Render-Book
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     services:
       postgres:
@@ -80,6 +80,7 @@ jobs:
           remotes::install_github("mtennekes/tmap")
           remotes::install_cran("dplyr")
           remotes::install_cran("spData")
+          remotes::install_github("Nowosad/spDataLarge")
           remotes::install_cran("curl")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
