@@ -355,6 +355,7 @@ Examples of multi-layer rasters include satellite imageries or temporal rasters.
 Satellite imageries usually consist of many bands (layers) for different wavelengths.
 The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure \@ref(fig:rgb-raster)).
 Temporal rasters store one attribute, but for many moments in time.
+<!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
 
 <!-- rgb raster example -->
