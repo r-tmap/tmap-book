@@ -348,9 +348,35 @@ tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
 tm_sta_all
 ```
 
-<!-- - single layer rasters vs multilayer rasters -->
-<!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->
-<!-- - rgb rasters -->
+Contrary to spatial vector data, basic raster stores just one attribute.
+It is, however, possible to stack together many single rasters (also known as raster layers).
+This allows us to store and operate on many rasters with the same dimensions at the same time.
+Examples of multi-layer rasters include satellite imageries or temporal rasters.
+Satellite imageries usually consist of many bands (layers) for different wavelengths.
+The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure \@ref(fig:rgb-raster)).
+Temporal rasters store one attribute, but for many moments in time.
+Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
+
+<!-- rgb raster example -->
+```{r rgb-raster, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands."}
+# we can/should change this example later
+landsat234 = raster::stack(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
+tmrgb1 = tm_shape(raster::brick(landsat234[[3]])) +
+  tm_raster(palette = "Greys") + 
+  tm_layout(legend.show = FALSE, main.title = "Red")
+tmrgb2 = tm_shape(raster::brick(landsat234[[2]])) +
+  tm_raster(palette = "Greys") + 
+  tm_layout(legend.show = FALSE, main.title = "Green")
+tmrgb3 = tm_shape(raster::brick(landsat234[[1]])) +
+  tm_raster(palette = "Greys") + 
+  tm_layout(legend.show = FALSE, main.title = "Blue")
+tmrgb4 = tm_shape(landsat234) +
+  tm_rgb(r = 3, g = 2, b = 1, max.value = 25780) + 
+  tm_layout(main.title = "Composite")
+tmap_arrange(tmrgb1, tmrgb2, tmrgb3, tmrgb4, nrow = 1)
+```
+
+
 
 \index{spatial file formats}
 <!-- - raster file formats -->
