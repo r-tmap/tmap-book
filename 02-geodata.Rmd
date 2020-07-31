@@ -383,7 +383,7 @@ Similarly to vector data, there is also a large number of raster file formats.
 Currently, the GeoTIFF format (`.tif` or `.tiff`) is one of the most popular spatial raster formats.
 It is an extended image TIF format that stores spatial metadata (e.g., map projection) along the values.
 Another popular spatial raster formats include Arc ASCII (`.asc`) and ERDAS Imagine (`.img`).
-
+<!-- ncdf??? -->
 
 ### Spatial data cubes
 
