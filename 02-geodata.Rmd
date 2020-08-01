@@ -387,6 +387,23 @@ Another popular spatial raster formats include Arc ASCII (`.asc`) and ERDAS Imag
 
 ### Spatial data cubes
 
+<!-- intro with examples -->
+Traditionally, spatial vector and raster data relate to one moment in time.
+For example, each polygon can have several attributes representing demographic variables for a given year.
+However, how to extend the vector data model to also allow for also storing data for many years?
+One approach would be to create a separate column for year variable in each year.<!--wide-->
+Alternatively, we can have one column representing the year, however, this approach would require multiplying each geometry as many times as we have time stamps.
+<!--long-->
+The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
+<!-- ref to stars?? -->
+
+Similarly, single raster data contains just one variable for a given area.
+As we mentioned in the previous section, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters.
+Additionally, each of the aforementioned rasters can be collected for many moments in time, adding another dimension to the data.
+<!-- ... -->
+<!-- ref to stars?? -->
+
+
 <!-- https://r-spatial.github.io/stars/ -->
 <!-- https://github.com/appelmar/gdalcubes_R -->
 <!-- https://ropensci.org/blog/2019/11/05/tidync/ -->
