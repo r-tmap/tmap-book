@@ -406,6 +406,8 @@ Additionally, each of the aforementioned rasters can be collected for many momen
 Spatial data cubes are suitable for many real-life applications.
 For example, demographic data on a country level gathered for many years, time-series of climate measurements for several stations, or satellite imageries over some period of time.
 
+<!-- two panels - one with vector cube and one with raster cube -->
+
 <!-- real-life examples of data  -->
 
 <!-- https://r-spatial.github.io/stars/ -->
