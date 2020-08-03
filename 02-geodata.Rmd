@@ -504,14 +504,43 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 \index{stars}
 \index{stars (package)|see {stars}}
 
-<!-- - how the stars objects are organized -->
+<!-- intro stars -->
+
 <!-- - how to read stars objects from files -->
+<!--improve example-->
+The `read_stars()` function allow to read spatial raster data from a file^[The **stars** package also has a function `read_ncdf()` aimed at improved reading of NetCDF files.].
+This function requires at least one argument with a filename to be read. 
+ 
+
+```{r}
+library(stars)
+file_path2 = system.file("raster/srtm.tif", package = "spDataLarge")    
+x2 = read_stars(file_path2)
+```
+
+<!-- - how the stars objects are organized -->
+
+```{r}
+x2
+```
+
+<!-- - stars proxy -->
+`read_stars()` also has several additional arguments, such as `sub` allowing to read one subset of data (e.g. band) and `RasterIO` that gives control over the input data extent and resolution.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
+<!--improve example-->
+```{r}
+file_path3 = system.file("raster/landsat.tif", package = "spDataLarge")
+x3 = read_stars(file_path3)
+```
+
+```{r}
+x3
+```
+
 <!-- - where to find info on how to operate on stars objects -->
 <!-- - https://r-spatial.github.io/stars/index.html -->
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
 <!-- data cubes!! -->
-<!-- - stars proxy -->
 <!-- https://r-spatial.github.io/stars/articles/stars4.html -->
 
 ## CRS-tmp 
