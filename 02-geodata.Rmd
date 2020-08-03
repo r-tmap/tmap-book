@@ -511,7 +511,6 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 The `read_stars()` function allow to read spatial raster data from a file^[The **stars** package also has a function `read_ncdf()` aimed at improved reading of NetCDF files.].
 This function requires at least one argument with a filename to be read. 
  
-
 ```{r}
 library(stars)
 file_path2 = system.file("raster/srtm.tif", package = "spDataLarge")    
@@ -519,6 +518,7 @@ x2 = read_stars(file_path2)
 ```
 
 <!-- - how the stars objects are organized -->
+<!-- attributes vs dimensions -->
 
 ```{r}
 x2
