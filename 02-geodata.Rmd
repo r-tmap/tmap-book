@@ -507,15 +507,18 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 <!-- intro stars -->
 
 <!-- - how to read stars objects from files -->
-<!--improve example-->
 The `read_stars()` function allow to read spatial raster data from a file^[The **stars** package also has a function `read_ncdf()` aimed at improved reading of NetCDF files.].
 This function requires at least one argument with a filename to be read. 
- 
+<!--improve example-->
 ```{r}
 library(stars)
 file_path2 = system.file("raster/srtm.tif", package = "spDataLarge")    
 x2 = read_stars(file_path2)
 ```
+
+The new object, `x2` has a `stars` class. 
+It is 
+
 
 <!-- - how the stars objects are organized -->
 <!-- attributes vs dimensions -->
@@ -525,23 +528,42 @@ x2
 ```
 
 <!-- - stars proxy -->
-`read_stars()` also has several additional arguments, such as `sub` allowing to read one subset of data (e.g. band) and `RasterIO` that gives control over the input data extent and resolution.
+`read_stars()` also has several additional arguments, `RasterIO` that gives control over the input data extent and resolution.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example-->
 ```{r}
 file_path3 = system.file("raster/landsat.tif", package = "spDataLarge")
-x3 = read_stars(file_path3)
+x3 = read_stars(file_path3, RasterIO = list(bands = c(1, 2)))
 ```
 
 ```{r}
 x3
 ```
 
+Internally, it is a list of `matrix` or `array` objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
+All of this information is read from the input file.
+
+Stars objects are constructed by dimensions and attributes.
+Dimensions relate to what kind of objects are stored as list elements. 
+For example, when it is a `matrix` then we just have two dimensions representing columns and rows.
+However, it is also possible to store multidimensional `array`s, which allow having many additional dimensions for bands, times, etc.
+Attributes, on the other hand, are stored as list elements.
+Each attribute can relate, for example to a different variable.
+
+Reading a simple GeoTIFF file would result in having just two dimensions and one attribute (a `matrix`).
+On the other hand, reading complex raster file formats, such as NetCDF could result in having more than two dimensions (e.g. time) and many attributes (e.g., an `array` with temperature, precipitation, humidity).
+
+
+
+
 <!-- - where to find info on how to operate on stars objects -->
 <!-- - https://r-spatial.github.io/stars/index.html -->
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
 <!-- data cubes!! -->
 <!-- https://r-spatial.github.io/stars/articles/stars4.html -->
+
+
+<!-- spatial vector data cubes??? - there should be at least a mention of them -->
 
 ## CRS-tmp 
 <!-- mtennekes part -->
