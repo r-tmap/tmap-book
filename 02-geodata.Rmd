@@ -528,6 +528,13 @@ x2
 ```
 
 <!-- - stars proxy -->
+<!-- more than 1e8 cells to read -->
+Before reading the file, the **stars** package checks if the input data is a curvilinear grid and what is the number of cells in the data.
+When the input data is small or curvilinear then the full data is read in computer memory.
+Otherwise, a `stars proxy` approach is used, where only metadata is read including pointers to where the complete data is.
+When we want to plot large raster data, then it is read at a lower resolution than the native one.
+<!-- ref to the section where we are explaining max.plot options -->
+
 `read_stars()` also has several additional arguments, `RasterIO` that gives control over the input data extent and resolution.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example-->
@@ -552,18 +559,14 @@ Each attribute can relate, for example to a different variable.
 
 Reading a simple GeoTIFF file would result in having just two dimensions and one attribute (a `matrix`).
 On the other hand, reading complex raster file formats, such as NetCDF could result in having more than two dimensions (e.g. time) and many attributes (e.g., an `array` with temperature, precipitation, humidity).
+<!-- how it relates to mapping? -->
 
+The **stars** package also has support for vector data cubes, where each geometry is just stored once (as a dimension), and each attribute is a `matrix` or an `array` with the number of rows equals to the number of geometries, the number of columns equals to another dimension (e.g., time), and possibly the number of `array` layers equals for additional dimensions.
+<!-- can we plot them in tmap? -->
+<!-- if so - there should be an example in the book + reference -->
 
-
-
-<!-- - where to find info on how to operate on stars objects -->
-<!-- - https://r-spatial.github.io/stars/index.html -->
+More information on how the `stars` objects are organized and how to operate on them can be found in the **stars** package vignettes at https://r-spatial.github.io/stars. 
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
-<!-- data cubes!! -->
-<!-- https://r-spatial.github.io/stars/articles/stars4.html -->
-
-
-<!-- spatial vector data cubes??? - there should be at least a mention of them -->
 
 ## CRS-tmp 
 <!-- mtennekes part -->
