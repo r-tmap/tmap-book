@@ -505,6 +505,10 @@ For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 432
 \index{stars (package)|see {stars}}
 
 <!-- intro stars -->
+The **stars** package allows for reading and processing raster data in R. 
+This package also has support for both spatial vector and raster data cubes.
+Its main class, `stars`, is built as a list of matrices or arrays with metadata describing their dimensions.
+The **stars** package is also well integrated with **sf**, with many `st_` functions (such as, `st_crs()`) working also on `stars` objects.
 
 <!-- - how to read stars objects from files -->
 The `read_stars()` function allow to read spatial raster data from a file^[The **stars** package also has a function `read_ncdf()` aimed at improved reading of NetCDF files.].
