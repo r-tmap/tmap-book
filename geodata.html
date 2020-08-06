@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Spatial data in R | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Spatial data in R | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-26" />
+<meta name="date" content="2020-08-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
@@ -146,24 +147,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="geodata.html"><a href="geodata.html"><i class="fa fa-check"></i><b>2</b> Spatial data in R</a><ul>
 <li class="chapter" data-level="2.1" data-path="geodata.html"><a href="geodata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#vector-data"><i class="fa fa-check"></i><b>2.2</b> Vector data</a><ul>
+<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#data-models"><i class="fa fa-check"></i><b>2.2</b> Data models</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="geodata.html"><a href="geodata.html#vector-data-model"><i class="fa fa-check"></i><b>2.2.1</b> Vector data model</a></li>
-<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.2.2</b> The sf package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.2.2</b> Raster data model</a></li>
+<li class="chapter" data-level="2.2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-cubes"><i class="fa fa-check"></i><b>2.2.3</b> Spatial data cubes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#raster-data"><i class="fa fa-check"></i><b>2.3</b> Raster data</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.3.1</b> Raster data model</a></li>
+<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-representations-in-r"><i class="fa fa-check"></i><b>2.3</b> Spatial data representations in R</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.3.1</b> The sf package</a></li>
 <li class="chapter" data-level="2.3.2" data-path="geodata.html"><a href="geodata.html#the-stars-package"><i class="fa fa-check"></i><b>2.3.2</b> The stars package</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs-tmp"><i class="fa fa-check"></i><b>2.4</b> CRS-tmp</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#how-to-model-the-surface-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> How to model the surface of the earth?</a></li>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#sectioncrs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#what-are-map-projections"><i class="fa fa-check"></i><b>4.1.1</b> What are map projections?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#a-model-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> A model of the Earth</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#platte-carrée-and-web-mercator"><i class="fa fa-check"></i><b>4.1.3</b> Platte Carrée and Web Mercator</a></li>
+<li class="chapter" data-level="4.1.4" data-path="tmshape.html"><a href="tmshape.html#types-of-map-projections"><i class="fa fa-check"></i><b>4.1.4</b> Types of map projections</a></li>
+<li class="chapter" data-level="4.1.5" data-path="tmshape.html"><a href="tmshape.html#which-projection-to-choose"><i class="fa fa-check"></i><b>4.1.5</b> Which projection to choose?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
@@ -210,25 +213,16 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section <a href="geodata.html#vector-data">2.2</a>) and raster (section <a href="geodata.html#raster-data">2.3</a>) models, and also their implementations in R in the form of the <strong>sf</strong> (section <a href="geodata.html#the-sf-package">2.2.2</a>) and <strong>stars</strong> (section <a href="geodata.html#the-stars-package">2.3.2</a>) packages.
-Next, it focuses on the map projections (<a href="tmshape.html#crs">4.1</a>).
+This chapter describes the vector (section <a href="geodata.html#vector-data-model">2.2.1</a>) and raster (section <a href="geodata.html#raster-data-model">2.2.2</a>) models, <!--+ DATA CUBES-->and also their implementations in R in the form of the <strong>sf</strong> (section <a href="geodata.html#the-sf-package">2.3.1</a>) and <strong>stars</strong> (section <a href="geodata.html#the-stars-package">2.3.2</a>) packages.
+Next, it focuses on the map projections (<a href="#crs"><strong>??</strong></a>).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
 <!-- geocompr, spatial data science, some crs book? -->
 <!-- explain that often there is a need to prepare spatial data before mapping --></p>
 </div>
-<div id="vector-data" class="section level2">
-<h2><span class="header-section-number">2.2</span> Vector data</h2>
-<p></p>
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for vector representation -->
-<p>R has several packages aimed to represent spatial vector data.
-Recently, the <strong>terra</strong> package has been released containing a new vector data representation.
-For more than a decade, the <strong>sp</strong> package <!--REF--> was a standard of vector data representation in R.
-However, now this package is in the maintenance mode only, and its successor, <strong>sf</strong> is recommended.
-The <strong>tmap</strong> package has been using <strong>sf</strong> since version 2.0.
-In the two next sections, we introduce vector data model (section <a href="geodata.html#vector-data-model">2.2.1</a>) and show how the <strong>sf</strong> package works with spatial data (section <a href="geodata.html#the-sf-package">2.2.2</a>).</p>
+<div id="data-models" class="section level2">
+<h2><span class="header-section-number">2.2</span> Data models</h2>
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
 <p>…</p>
@@ -282,7 +276,7 @@ For example, six points stored as POINT features will have six separate rows, wh
 <!-- redundancy -->
 <!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
-Finally, GeometryCollection exists that contain all of the possible geometry types.</p>
+Finally, GeometryCollection exists that contains all of the possible geometry types.</p>
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
 <!-- additional dimensions: -->
@@ -309,8 +303,112 @@ Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>
 <!-- - advantages/disadvantages -->
 <!-- - example figure (similar to the one in geocompr, but made with tmap) --></p>
 </div>
+<div id="raster-data-model" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Raster data model</h3>
+<p>
+<!-- - raster data model (grid) -->
+The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure <a href="geodata.html#fig:raster-intro">2.1</a>).
+Depending on the type of values, we can distinguish continuous and categorical rasters.
+In continuous rasters, such as elevation or precipitation, values vary progressively.
+Categorical rasters, on the other hand, uses integer values to represent classes.
+Their examples include land cover or soil types maps.
+Raster data can also contain cells for which we do not know the value (Figure <a href="geodata.html#fig:raster-intro">2.1</a>).
+For example, data for this part of the area was not collected, or these locations are outside of our area of interest.</p>
+<pre><code>#&gt; Loading required package: abind</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:raster-intro"></span>
+<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
+<p class="caption">
+FIGURE 2.1: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
+</p>
+</div>
+<!-- add examples of each type -->
+<p>When we think about raster data, most of the time we are referring to regular grids (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
+In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
+<!-- I know it is a simplification-->
+It is possible to transform regular rasters into rotated and sheared rasters (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
+Rotated grids are the result of transforming both coordinated, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the same rotation coefficients.
+Sheared grids are created when the rotation coefficients are not equal.
+Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
+In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.2</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
+<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
+<p class="caption">
+FIGURE 2.2: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
+</p>
+</div>
+<p>Contrary to spatial vector data, basic raster stores just one attribute.
+It is, however, possible to stack together many single rasters (also known as raster layers).
+This allows us to store and operate on many rasters with the same dimensions at the same time.
+Examples of multi-layer rasters include satellite imageries or temporal rasters.
+Satellite imageries usually consist of many bands (layers) for different wavelengths.
+The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure <a href="geodata.html#fig:rgb-raster">2.3</a>).
+Temporal rasters store one attribute, but for many moments in time.
+<!-- + comparing different attributes for the same area -->
+Additional information about multi-layer rasters can be also found in Section <a href="geodata.html#spatial-data-cubes">2.2.3</a>.</p>
+<!-- rgb raster example -->
+<div class="figure" style="text-align: center"><span id="fig:rgb-raster"></span>
+<img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
+<p class="caption">
+FIGURE 2.3: Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.
+</p>
+</div>
+<p>
+Similarly to vector data, there is also a large number of raster file formats.
+<!-- text files ?-->
+Currently, the GeoTIFF format (<code>.tif</code> or <code>.tiff</code>) is one of the most popular spatial raster formats.
+It is an extended image TIF format that stores spatial metadata (e.g., map projection) along the values.
+Another popular spatial raster formats include Arc ASCII (<code>.asc</code>) and ERDAS Imagine (<code>.img</code>).
+<!-- ncdf??? --></p>
+</div>
+<div id="spatial-data-cubes" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Spatial data cubes</h3>
+<!-- intro with examples -->
+<p>Traditionally, spatial vector and raster data relate to one moment in time.
+For example, each polygon can have several attributes representing demographic variables for a given year.
+However, how to extend the vector data model to also allow for also storing data for many years?
+One approach would be to create a separate column for year variable in each year.<!--wide-->
+Alternatively, we can have one column representing the year, however, this approach would require multiplying each geometry as many times as we have time stamps.
+<!--long-->
+The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
+<!-- ref to stars?? --></p>
+<p>Similarly, single raster data contains just one variable for a given area.
+As we mentioned in the previous section, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters.
+Additionally, each of the aforementioned rasters can be collected for many moments in time, adding another dimension to the data.
+<!-- ... -->
+<!-- ref to stars?? --></p>
+<p>Spatial data cubes are suitable for many real-life applications.
+For example, demographic data on a country level gathered for many years, time-series of climate measurements for several stations, or satellite imageries over some period of time.</p>
+<!-- two panels - one with vector cube and one with raster cube -->
+<!-- real-life examples of data  -->
+<!-- https://r-spatial.github.io/stars/ -->
+<!-- https://github.com/appelmar/gdalcubes_R -->
+<!-- https://ropensci.org/blog/2019/11/05/tidync/ -->
+<!-- https://ieeexplore.ieee.org/document/1525227 -->
+<!-- https://en.wikipedia.org/wiki/Data_cube -->
+<!-- https://www.researchgate.net/post/What_is_a_spatial_data_cube_and_how_to_draw_a_spatial_data_cube -->
+</div>
+</div>
+<div id="spatial-data-representations-in-r" class="section level2">
+<h2><span class="header-section-number">2.3</span> Spatial data representations in R</h2>
+<p></p>
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for vector representation -->
+<p>R has several packages aimed to represent spatial vector data.
+Recently, the <strong>terra</strong> package has been released containing a new vector data representation.
+For more than a decade, the <strong>sp</strong> package <!--REF--> was a standard of vector data representation in R.
+However, now this package is in the maintenance mode only, and its successor, <strong>sf</strong> is recommended.
+The <strong>tmap</strong> package has been using <strong>sf</strong> since version 2.0.
+In the two next sections, we introduce vector data model (section <a href="geodata.html#vector-data-model">2.2.1</a>) and show how the <strong>sf</strong> package works with spatial data (section <a href="geodata.html#the-sf-package">2.3.1</a>).</p>
+<p></p>
+<!-- - one/two intro sentences -->
+<!-- - including r packages used for raster representation -->
+<!-- packages REFs -->
+<p>Several R packages can be used to represent spatial raster data, including <strong>raster</strong> and its successor <strong>terra</strong>.
+The <strong>raster</strong> package was used as a backbone of raster data visualization until <strong>tmap</strong> version 3.0.
+In the two next sections, we present raster data model (section <a href="geodata.html#raster-data-model">2.2.2</a>)
+and introduce the <strong>stars</strong> package (section <a href="geodata.html#the-stars-package">2.3.2</a>).</p>
 <div id="the-sf-package" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> The sf package</h3>
+<h3><span class="header-section-number">2.3.1</span> The sf package</h3>
 <p>
 </p>
 <p>The <strong>sf</strong> package implements ideas behind the Simple Feature standard.
@@ -322,45 +420,45 @@ This column contains geometries in a form of well-known text (WKT), storing all 
 <!-- - how to read sf objects from files -->
 <p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
 <!--improve example--></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb1-3"><a href="geodata.html#cb1-3"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb1-4"><a href="geodata.html#cb1-4"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb2-3"><a href="geodata.html#cb2-3"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb2-4"><a href="geodata.html#cb2-4"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span></code></pre></div>
 <!-- explain example -->
 <p>The new object, <code>x</code>, has a <code>sf</code> class.
 It has 177 features (rows or geometries) and 10 fields (columns with attributes).
 There is also an 11th column, <code>geom</code>, that stores geometries of each feature.
 Objects of class <code>sf</code> also display a header containing spatial metadata.
 It includes geometry type, dimension (<code>XY</code>, <code>XYZ</code>, <code>XYM</code>, <code>XYZM</code>), bounding box (<code>bbox</code>), and information about the used Coordinate Reference System (<code>CRS</code>).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a>x</span>
-<span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span></span>
-<span id="cb2-3"><a href="geodata.html#cb2-3"></a><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></span>
-<span id="cb2-4"><a href="geodata.html#cb2-4"></a><span class="co">#&gt; dimension:      XY</span></span>
-<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6</span></span>
-<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; geographic CRS: WGS 84</span></span>
-<span id="cb2-7"><a href="geodata.html#cb2-7"></a><span class="co">#&gt; [90m# A tibble: 177 x 11[39m</span></span>
-<span id="cb2-8"><a href="geodata.html#cb2-8"></a><span class="co">#&gt;    iso_a2 name_long continent region_un subregion type </span></span>
-<span id="cb2-9"><a href="geodata.html#cb2-9"></a><span class="co">#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m</span></span>
-<span id="cb2-10"><a href="geodata.html#cb2-10"></a><span class="co">#&gt; [90m 1[39m FJ     Fiji      Oceania   Oceania   Melanesia Sove…</span></span>
-<span id="cb2-11"><a href="geodata.html#cb2-11"></a><span class="co">#&gt; [90m 2[39m TZ     Tanzania  Africa    Africa    Eastern … Sove…</span></span>
-<span id="cb2-12"><a href="geodata.html#cb2-12"></a><span class="co">#&gt; [90m 3[39m EH     Western … Africa    Africa    Northern… Inde…</span></span>
-<span id="cb2-13"><a href="geodata.html#cb2-13"></a><span class="co">#&gt; [90m 4[39m CA     Canada    North Am… Americas  Northern… Sove…</span></span>
-<span id="cb2-14"><a href="geodata.html#cb2-14"></a><span class="co">#&gt; [90m 5[39m US     United S… North Am… Americas  Northern… Coun…</span></span>
-<span id="cb2-15"><a href="geodata.html#cb2-15"></a><span class="co">#&gt; [90m 6[39m KZ     Kazakhst… Asia      Asia      Central … Sove…</span></span>
-<span id="cb2-16"><a href="geodata.html#cb2-16"></a><span class="co">#&gt; [90m 7[39m UZ     Uzbekist… Asia      Asia      Central … Sove…</span></span>
-<span id="cb2-17"><a href="geodata.html#cb2-17"></a><span class="co">#&gt; [90m 8[39m PG     Papua Ne… Oceania   Oceania   Melanesia Sove…</span></span>
-<span id="cb2-18"><a href="geodata.html#cb2-18"></a><span class="co">#&gt; [90m 9[39m ID     Indonesia Asia      Asia      South-Ea… Sove…</span></span>
-<span id="cb2-19"><a href="geodata.html#cb2-19"></a><span class="co">#&gt; [90m10[39m AR     Argentina South Am… Americas  South Am… Sove…</span></span>
-<span id="cb2-20"><a href="geodata.html#cb2-20"></a><span class="co">#&gt; [90m# … with 167 more rows, and 5 more variables:[39m</span></span>
-<span id="cb2-21"><a href="geodata.html#cb2-21"></a><span class="co">#&gt; [90m#   area_km2 [3m[90m&lt;dbl&gt;[90m[23m, pop [3m[90m&lt;dbl&gt;[90m[23m, lifeExp [3m[90m&lt;dbl&gt;[90m[23m,[39m</span></span>
-<span id="cb2-22"><a href="geodata.html#cb2-22"></a><span class="co">#&gt; [90m#   gdpPercap [3m[90m&lt;dbl&gt;[90m[23m, geom [3m[90m&lt;MULTIPOLYGON [°]&gt;[90m[23m[39m</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="geodata.html#cb3-1"></a>x</span>
+<span id="cb3-2"><a href="geodata.html#cb3-2"></a><span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span></span>
+<span id="cb3-3"><a href="geodata.html#cb3-3"></a><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></span>
+<span id="cb3-4"><a href="geodata.html#cb3-4"></a><span class="co">#&gt; dimension:      XY</span></span>
+<span id="cb3-5"><a href="geodata.html#cb3-5"></a><span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6</span></span>
+<span id="cb3-6"><a href="geodata.html#cb3-6"></a><span class="co">#&gt; geographic CRS: WGS 84</span></span>
+<span id="cb3-7"><a href="geodata.html#cb3-7"></a><span class="co">#&gt; [90m# A tibble: 177 x 11[39m</span></span>
+<span id="cb3-8"><a href="geodata.html#cb3-8"></a><span class="co">#&gt;    iso_a2 name_long continent region_un subregion type </span></span>
+<span id="cb3-9"><a href="geodata.html#cb3-9"></a><span class="co">#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m     [3m[90m&lt;chr&gt;[39m[23m</span></span>
+<span id="cb3-10"><a href="geodata.html#cb3-10"></a><span class="co">#&gt; [90m 1[39m FJ     Fiji      Oceania   Oceania   Melanesia Sove…</span></span>
+<span id="cb3-11"><a href="geodata.html#cb3-11"></a><span class="co">#&gt; [90m 2[39m TZ     Tanzania  Africa    Africa    Eastern … Sove…</span></span>
+<span id="cb3-12"><a href="geodata.html#cb3-12"></a><span class="co">#&gt; [90m 3[39m EH     Western … Africa    Africa    Northern… Inde…</span></span>
+<span id="cb3-13"><a href="geodata.html#cb3-13"></a><span class="co">#&gt; [90m 4[39m CA     Canada    North Am… Americas  Northern… Sove…</span></span>
+<span id="cb3-14"><a href="geodata.html#cb3-14"></a><span class="co">#&gt; [90m 5[39m US     United S… North Am… Americas  Northern… Coun…</span></span>
+<span id="cb3-15"><a href="geodata.html#cb3-15"></a><span class="co">#&gt; [90m 6[39m KZ     Kazakhst… Asia      Asia      Central … Sove…</span></span>
+<span id="cb3-16"><a href="geodata.html#cb3-16"></a><span class="co">#&gt; [90m 7[39m UZ     Uzbekist… Asia      Asia      Central … Sove…</span></span>
+<span id="cb3-17"><a href="geodata.html#cb3-17"></a><span class="co">#&gt; [90m 8[39m PG     Papua Ne… Oceania   Oceania   Melanesia Sove…</span></span>
+<span id="cb3-18"><a href="geodata.html#cb3-18"></a><span class="co">#&gt; [90m 9[39m ID     Indonesia Asia      Asia      South-Ea… Sove…</span></span>
+<span id="cb3-19"><a href="geodata.html#cb3-19"></a><span class="co">#&gt; [90m10[39m AR     Argentina South Am… Americas  South Am… Sove…</span></span>
+<span id="cb3-20"><a href="geodata.html#cb3-20"></a><span class="co">#&gt; [90m# … with 167 more rows, and 5 more variables:[39m</span></span>
+<span id="cb3-21"><a href="geodata.html#cb3-21"></a><span class="co">#&gt; [90m#   area_km2 [3m[90m&lt;dbl&gt;[90m[23m, pop [3m[90m&lt;dbl&gt;[90m[23m, lifeExp [3m[90m&lt;dbl&gt;[90m[23m,[39m</span></span>
+<span id="cb3-22"><a href="geodata.html#cb3-22"></a><span class="co">#&gt; [90m#   gdpPercap [3m[90m&lt;dbl&gt;[90m[23m, geom [3m[90m&lt;MULTIPOLYGON [°]&gt;[90m[23m[39m</span></span></code></pre></div>
 <p>The <code>x</code> object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
 Each polygon’s vertices are represented by a pair of values (<code>dimension: XY</code>).
 Bounding box allows to quickly understand the spatial extension of the input data.
 <!--...-->
 Finally, it has geographic CRS named WGS 84.
-You can learn more about Coordinate Reference Systems in section <a href="tmshape.html#crs">4.1</a>.</p>
-<!-- ref to CRS section -->
+You can learn more about Coordinate Reference Systems in section <a href="#crs"><strong>??</strong></a>.
+<!-- ref to CRS section --></p>
 <p>Spatial vector data of class <code>sf</code> can be also obtained using some of other R data packages.
 <!-- add REFs-->
 For example, <strong>rnaturalearth</strong> allows to download world map data, <strong>osmdata</strong> imports OpenStreetMap data as <code>sf</code> objects, and <strong>tigris</strong> loads TIGER/Line data.
@@ -369,69 +467,94 @@ For example, <strong>rnaturalearth</strong> allows to download world map data, <
 <p>The <strong>tmap</strong> package accepts spatial vector data objects from both <strong>sf</strong> and <strong>sp</strong> packages.
 In case of having vector objects in a different representation, they should be converted into <code>sf</code> objects first, before making maps.
 The <strong>sf</strong> package has the <code>st_as_sf()</code> function that translates objects of many classes, including <code>Spatial</code> (from the <strong>sp</strong> package), <code>ppp</code>, <code>psp</code>, and <code>lpp</code> (from the <strong>spatstat</strong> package), to the objects of class <code>sf</code>.
-The <code>st_as_sf()</code> function also allows to turn data frames into <code>sf</code> objects - the user need to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
+The <code>st_as_sf()</code> function also allows to turn data frames into <code>sf</code> objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
 For example <code>my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)</code>.</p>
-<!-- - where to find info on how to operate on sf objects -->
-<!-- - https://geocompr.github.io/ -->
-<!-- - vector simplification? -->
-</div>
-</div>
-<div id="raster-data" class="section level2">
-<h2><span class="header-section-number">2.3</span> Raster data</h2>
-<p></p>
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for raster representation -->
-<!-- packages REFs -->
-<p>Several R packages can be used to represent spatial raster data, including <strong>raster</strong> and its successor <strong>terra</strong>.
-The <strong>raster</strong> package was used as a backbone of raster data visualization until <strong>tmap</strong> version 3.0.
-In the two next sections, we present raster data model (section <a href="geodata.html#raster-data-model">2.3.1</a>)
-and introduce the <strong>stars</strong> package (section <a href="geodata.html#the-stars-package">2.3.2</a>).</p>
-<div id="raster-data-model" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> Raster data model</h3>
-<p>
-<!-- - raster data model (grid) -->
-The raster data model represents the world using a continuous grid of cells<!--pixels-->.
-<!-- - contionous and categorical rasters -->
-<!-- Each cell has an associated value  --></p>
-<p><a href="geodata.html#fig:raster-intro">2.1</a></p>
-<pre><code>#&gt; To access larger datasets in this package,
-#&gt; install the spDataLarge package with:
-#&gt; `install.packages(&#39;spDataLarge&#39;,
-#&gt; repos=&#39;https://nowosad.github.io/drat/&#39;,
-#&gt; type=&#39;source&#39;)`
-#&gt; Loading required package: abind</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:raster-intro"></span>
-<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
-<p class="caption">
-FIGURE 2.1: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
-</p>
-</div>
-<p><a href="geodata.html#fig:grid-types">2.2</a></p>
-<div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
-<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
-<p class="caption">
-FIGURE 2.2: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
-</p>
-</div>
-<!-- - examples -->
-<!-- - single layer rasters vs multilayer rasters -->
-<!-- - storing bands vs attributes (either here or in the next section) (data cubes) -->
-<!-- - rbg rasters -->
-<!-- - regular, rotated, sheared, rectilinear and curvilinear rasters -->
-<!-- - raster file formats -->
+<p>If you want to learn more about operating on <code>sf</code> objects, we recommend visiting the package website and vignettes at <a href="https://r-spatial.github.io/sf/index.html" class="uri">https://r-spatial.github.io/sf/index.html</a> and reading the Geocomputation with R book <span class="citation">(Lovelace, Nowosad, and Muenchow <a href="#ref-lovelace2019geocomputation" role="doc-biblioref">2019</a>)</span>.
+<!-- - vector simplification? --></p>
 </div>
 <div id="the-stars-package" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> The stars package</h3>
 <p>
 </p>
-<!-- - how the stars objects are organized -->
+<!-- intro stars -->
+<p>The <strong>stars</strong> package allows for reading and processing raster data in R.
+This package also has support for both spatial vector and raster data cubes.
+Its main class, <code>stars</code>, is built as a list of matrices or arrays with metadata describing their dimensions.
+The <strong>stars</strong> package is also well integrated with <strong>sf</strong>, with many <code>st_</code> functions (such as, <code>st_crs()</code>) working also on <code>stars</code> objects.</p>
 <!-- - how to read stars objects from files -->
+<p>The <code>read_stars()</code> function allow to read spatial raster data from a file<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
+This function requires at least one argument with a filename to be read.
+<!--improve example--></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a><span class="kw">library</span>(stars)</span>
+<span id="cb4-2"><a href="geodata.html#cb4-2"></a>file_path2 =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)    </span>
+<span id="cb4-3"><a href="geodata.html#cb4-3"></a>x2 =<span class="st"> </span><span class="kw">read_stars</span>(file_path2)</span></code></pre></div>
+<p>The new object, <code>x2</code>, is of a <code>stars</code> class.
+It has two dimensions, <code>x</code> and <code>y</code>, and one attribute <code>srtm.tif</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="geodata.html#cb5-1"></a>x2</span>
+<span id="cb5-2"><a href="geodata.html#cb5-2"></a><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
+<span id="cb5-3"><a href="geodata.html#cb5-3"></a><span class="co">#&gt; attribute(s):</span></span>
+<span id="cb5-4"><a href="geodata.html#cb5-4"></a><span class="co">#&gt;    srtm.tif    </span></span>
+<span id="cb5-5"><a href="geodata.html#cb5-5"></a><span class="co">#&gt;  Min.   :1024  </span></span>
+<span id="cb5-6"><a href="geodata.html#cb5-6"></a><span class="co">#&gt;  1st Qu.:1535  </span></span>
+<span id="cb5-7"><a href="geodata.html#cb5-7"></a><span class="co">#&gt;  Median :1837  </span></span>
+<span id="cb5-8"><a href="geodata.html#cb5-8"></a><span class="co">#&gt;  Mean   :1843  </span></span>
+<span id="cb5-9"><a href="geodata.html#cb5-9"></a><span class="co">#&gt;  3rd Qu.:2114  </span></span>
+<span id="cb5-10"><a href="geodata.html#cb5-10"></a><span class="co">#&gt;  Max.   :2892  </span></span>
+<span id="cb5-11"><a href="geodata.html#cb5-11"></a><span class="co">#&gt; dimension(s):</span></span>
+<span id="cb5-12"><a href="geodata.html#cb5-12"></a><span class="co">#&gt;   from  to  offset        delta refsys point values    </span></span>
+<span id="cb5-13"><a href="geodata.html#cb5-13"></a><span class="co">#&gt; x    1 465 -113.24  0.000833333 WGS 84 FALSE   NULL [x]</span></span>
+<span id="cb5-14"><a href="geodata.html#cb5-14"></a><span class="co">#&gt; y    1 457 37.5129 -0.000833333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
+<p>The <code>srtm.tif</code> attribute is a matrix, where is cell represents an elevation value.
+The <code>x</code> dimension has 465 elements (columns), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>-113.24</code>.
+Next, the coordinates of further cells increase by <code>0.000833333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension<code>. The</code>y<code>dimension has 457 elements (rows), starting from a coordinate (</code>offset<code>) of a cell boundary of</code>37.5129<code>.  For the</code>y<code>dimension, each further cell's coordinated decreases by</code>0.000833333<code>(notice the negative value of</code>delta<code>) - resolution in the</code>y<code>dimension</code>.
+Both dimensions also have the same CRS - <code>WGS 84</code>.</p>
+<p><code>read_stars()</code> also has several additional arguments, <code>RasterIO</code> that gives control over the input data extent and resolution.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
-<!-- - where to find info on how to operate on stars objects -->
-<!-- - https://r-spatial.github.io/stars/index.html -->
-<!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
-<!-- data cubes!! -->
+<!--improve example--></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="geodata.html#cb6-1"></a>file_path3 =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)</span>
+<span id="cb6-2"><a href="geodata.html#cb6-2"></a>x3 =<span class="st"> </span><span class="kw">read_stars</span>(file_path3, <span class="dt">RasterIO =</span> <span class="kw">list</span>(<span class="dt">bands =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="geodata.html#cb7-1"></a>x3</span>
+<span id="cb7-2"><a href="geodata.html#cb7-2"></a><span class="co">#&gt; stars object with 3 dimensions and 1 attribute</span></span>
+<span id="cb7-3"><a href="geodata.html#cb7-3"></a><span class="co">#&gt; attribute(s), summary of first 1e+05 cells:</span></span>
+<span id="cb7-4"><a href="geodata.html#cb7-4"></a><span class="co">#&gt;   landsat.tif   </span></span>
+<span id="cb7-5"><a href="geodata.html#cb7-5"></a><span class="co">#&gt;  Min.   : 7701  </span></span>
+<span id="cb7-6"><a href="geodata.html#cb7-6"></a><span class="co">#&gt;  1st Qu.: 8412  </span></span>
+<span id="cb7-7"><a href="geodata.html#cb7-7"></a><span class="co">#&gt;  Median : 8739  </span></span>
+<span id="cb7-8"><a href="geodata.html#cb7-8"></a><span class="co">#&gt;  Mean   : 8941  </span></span>
+<span id="cb7-9"><a href="geodata.html#cb7-9"></a><span class="co">#&gt;  3rd Qu.: 9258  </span></span>
+<span id="cb7-10"><a href="geodata.html#cb7-10"></a><span class="co">#&gt;  Max.   :14072  </span></span>
+<span id="cb7-11"><a href="geodata.html#cb7-11"></a><span class="co">#&gt; dimension(s):</span></span>
+<span id="cb7-12"><a href="geodata.html#cb7-12"></a><span class="co">#&gt;      from   to  offset delta                refsys</span></span>
+<span id="cb7-13"><a href="geodata.html#cb7-13"></a><span class="co">#&gt; x       1 1128  301905    30 WGS 84 / UTM zone 12N</span></span>
+<span id="cb7-14"><a href="geodata.html#cb7-14"></a><span class="co">#&gt; y       1 1428 4154085   -30 WGS 84 / UTM zone 12N</span></span>
+<span id="cb7-15"><a href="geodata.html#cb7-15"></a><span class="co">#&gt; band    1    2      NA    NA                    NA</span></span>
+<span id="cb7-16"><a href="geodata.html#cb7-16"></a><span class="co">#&gt;      point values    </span></span>
+<span id="cb7-17"><a href="geodata.html#cb7-17"></a><span class="co">#&gt; x    FALSE   NULL [x]</span></span>
+<span id="cb7-18"><a href="geodata.html#cb7-18"></a><span class="co">#&gt; y    FALSE   NULL [y]</span></span>
+<span id="cb7-19"><a href="geodata.html#cb7-19"></a><span class="co">#&gt; band    NA   NULL</span></span></code></pre></div>
+<p>Internally, it is a list of <code>matrix</code> or <code>array</code> objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
+All of this information is read from the input file.</p>
+<p>Stars objects are constructed by dimensions and attributes.
+Dimensions relate to what kind of objects are stored as list elements.
+For example, when it is a <code>matrix</code> then we just have two dimensions representing columns and rows.
+However, it is also possible to store multidimensional <code>array</code>s, which allow having many additional dimensions for bands, times, etc.
+Attributes, on the other hand, are stored as list elements.
+Each attribute can relate, for example to a different variable.</p>
+<p>Reading a simple GeoTIFF file would result in having just two dimensions and one attribute (a <code>matrix</code>).
+On the other hand, reading complex raster file formats, such as NetCDF could result in having more than two dimensions (e.g. time) and many attributes (e.g., an <code>array</code> with temperature, precipitation, humidity).
+<!-- how it relates to mapping? --></p>
 <!-- - stars proxy -->
+<!-- more than 1e8 cells to read -->
+<p>Before reading the file, the <strong>stars</strong> package checks if the input data is a curvilinear grid and what is the number of cells in the data.
+When the input data is small or curvilinear then the full data is read in computer memory.
+Otherwise, a <code>stars proxy</code> approach is used, where only metadata is read including pointers to where the complete data is.
+When we want to plot large raster data, then it is read at a lower resolution than the native one.
+<!-- ref to the section where we are explaining max.plot options --></p>
+<p>The <strong>stars</strong> package also has support for vector data cubes, where each geometry is just stored once (as a dimension), and each attribute is a <code>matrix</code> or an <code>array</code> with the number of rows equals to the number of geometries, the number of columns equals to another dimension (e.g., time), and possibly the number of <code>array</code> layers equals for additional dimensions.
+<!-- can we plot them in tmap? -->
+<!-- if so - there should be an example in the book + reference --></p>
+<p>More information on how the <code>stars</code> objects are organized and how to operate on them can be found in the <strong>stars</strong> package vignettes at <a href="https://r-spatial.github.io/stars" class="uri">https://r-spatial.github.io/stars</a>.
+<!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map --></p>
 </div>
 </div>
 <div id="crs-tmp" class="section level2">
@@ -441,11 +564,18 @@ FIGURE 2.2: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Shear
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-lovelace2019geocomputation">
+<p>Lovelace, R, J Nowosad, and J Muenchow. 2019. <em>Geocomputation with R</em>. Chapman and Hall/CRC Press.</p>
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="1">
 <li id="fn1"><p>However, any other names are also possible.<a href="geodata.html#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>It is also possible to read spatial vector data using the <code>st_read()</code> function, which differs from <code>read_sf()</code> by having different default arguments.<a href="geodata.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>The <strong>stars</strong> package also has a function <code>read_ncdf()</code> aimed at improved reading of NetCDF files.<a href="geodata.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>

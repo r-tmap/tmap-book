@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Layout | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Layout | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-26" />
+<meta name="date" content="2020-08-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
@@ -146,24 +147,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="geodata.html"><a href="geodata.html"><i class="fa fa-check"></i><b>2</b> Spatial data in R</a><ul>
 <li class="chapter" data-level="2.1" data-path="geodata.html"><a href="geodata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#vector-data"><i class="fa fa-check"></i><b>2.2</b> Vector data</a><ul>
+<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#data-models"><i class="fa fa-check"></i><b>2.2</b> Data models</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="geodata.html"><a href="geodata.html#vector-data-model"><i class="fa fa-check"></i><b>2.2.1</b> Vector data model</a></li>
-<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.2.2</b> The sf package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.2.2</b> Raster data model</a></li>
+<li class="chapter" data-level="2.2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-cubes"><i class="fa fa-check"></i><b>2.2.3</b> Spatial data cubes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#raster-data"><i class="fa fa-check"></i><b>2.3</b> Raster data</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.3.1</b> Raster data model</a></li>
+<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-representations-in-r"><i class="fa fa-check"></i><b>2.3</b> Spatial data representations in R</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.3.1</b> The sf package</a></li>
 <li class="chapter" data-level="2.3.2" data-path="geodata.html"><a href="geodata.html#the-stars-package"><i class="fa fa-check"></i><b>2.3.2</b> The stars package</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs-tmp"><i class="fa fa-check"></i><b>2.4</b> CRS-tmp</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#how-to-model-the-surface-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> How to model the surface of the earth?</a></li>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#sectioncrs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#what-are-map-projections"><i class="fa fa-check"></i><b>4.1.1</b> What are map projections?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#a-model-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> A model of the Earth</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#platte-carrée-and-web-mercator"><i class="fa fa-check"></i><b>4.1.3</b> Platte Carrée and Web Mercator</a></li>
+<li class="chapter" data-level="4.1.4" data-path="tmshape.html"><a href="tmshape.html#types-of-map-projections"><i class="fa fa-check"></i><b>4.1.4</b> Types of map projections</a></li>
+<li class="chapter" data-level="4.1.5" data-path="tmshape.html"><a href="tmshape.html#which-projection-to-choose"><i class="fa fa-check"></i><b>4.1.5</b> Which projection to choose?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>

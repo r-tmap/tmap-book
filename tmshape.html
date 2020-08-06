@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Specifying spatial data with tm_shape | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Specifying spatial data with tm_shape | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-06-26" />
+<meta name="date" content="2020-08-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,7 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
@@ -146,24 +147,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="geodata.html"><a href="geodata.html"><i class="fa fa-check"></i><b>2</b> Spatial data in R</a><ul>
 <li class="chapter" data-level="2.1" data-path="geodata.html"><a href="geodata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#vector-data"><i class="fa fa-check"></i><b>2.2</b> Vector data</a><ul>
+<li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#data-models"><i class="fa fa-check"></i><b>2.2</b> Data models</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="geodata.html"><a href="geodata.html#vector-data-model"><i class="fa fa-check"></i><b>2.2.1</b> Vector data model</a></li>
-<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.2.2</b> The sf package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.2.2</b> Raster data model</a></li>
+<li class="chapter" data-level="2.2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-cubes"><i class="fa fa-check"></i><b>2.2.3</b> Spatial data cubes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#raster-data"><i class="fa fa-check"></i><b>2.3</b> Raster data</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.3.1</b> Raster data model</a></li>
+<li class="chapter" data-level="2.3" data-path="geodata.html"><a href="geodata.html#spatial-data-representations-in-r"><i class="fa fa-check"></i><b>2.3</b> Spatial data representations in R</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="geodata.html"><a href="geodata.html#the-sf-package"><i class="fa fa-check"></i><b>2.3.1</b> The sf package</a></li>
 <li class="chapter" data-level="2.3.2" data-path="geodata.html"><a href="geodata.html#the-stars-package"><i class="fa fa-check"></i><b>2.3.2</b> The stars package</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="geodata.html"><a href="geodata.html#crs-tmp"><i class="fa fa-check"></i><b>2.4</b> CRS-tmp</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#crs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#how-to-put-an-orange-peel-flat-on-the-table"><i class="fa fa-check"></i><b>4.1.1</b> How to put an orange peel flat on the table?</a></li>
-<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#how-to-model-the-surface-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> How to model the surface of the earth?</a></li>
+<li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#sectioncrs"><i class="fa fa-check"></i><b>4.1</b> Map projections (CRS)</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="tmshape.html"><a href="tmshape.html#what-are-map-projections"><i class="fa fa-check"></i><b>4.1.1</b> What are map projections?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="tmshape.html"><a href="tmshape.html#a-model-of-the-earth"><i class="fa fa-check"></i><b>4.1.2</b> A model of the Earth</a></li>
 <li class="chapter" data-level="4.1.3" data-path="tmshape.html"><a href="tmshape.html#platte-carrée-and-web-mercator"><i class="fa fa-check"></i><b>4.1.3</b> Platte Carrée and Web Mercator</a></li>
+<li class="chapter" data-level="4.1.4" data-path="tmshape.html"><a href="tmshape.html#types-of-map-projections"><i class="fa fa-check"></i><b>4.1.4</b> Types of map projections</a></li>
+<li class="chapter" data-level="4.1.5" data-path="tmshape.html"><a href="tmshape.html#which-projection-to-choose"><i class="fa fa-check"></i><b>4.1.5</b> Which projection to choose?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#overview-of-map-projections"><i class="fa fa-check"></i><b>4.2</b> Overview of map projections</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
@@ -199,10 +202,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tmshape" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Specifying spatial data with <code>tm_shape</code></h1>
-<div id="crs" class="section level2">
+<div id="sectioncrs" class="section level2">
 <h2><span class="header-section-number">4.1</span> Map projections (CRS)</h2>
-<div id="how-to-put-an-orange-peel-flat-on-the-table" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> How to put an orange peel flat on the table?</h3>
+<div id="what-are-map-projections" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> What are map projections?</h3>
 <!--probably best to move it to Chapter 2, I (Martijn) will do this when the draft is more or less finished.-->
 <p>We use maps so often in everyday life that most of us probably forget that a map is just a two-dimensional representation of a three-dimensional object, namely the earth.
 For centuries, geographers and mathematicians wondered what the best way is to do this.
@@ -219,21 +222,22 @@ FIGURE 4.1: How to peel an orange?
 <p>When we peel the orange, ideally we want to rip the peel near areas of the earth that are less interesting.
 What is interesting depends on the application; for applications where land mass is more important than wetlands, it is a good idea to make the rips in the oceans.
 The (interrupted) Goode homolosine projection, which is shown below, embodies this idea.
-All continents and countries are preserved, except Antarctica and Greenland.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-03"></span>
-<img src="04-tm-shape_files/figure-html/crs-03-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
+All continents and countries are preserved, except Antarctica and Greenland.
+There is also a version of the Goode homolosine projection which preserves the oceans.</p>
+<div class="figure" style="text-align: center"><span id="fig:crs-goode"></span>
+<img src="04-tm-shape_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
 <p class="caption">
 FIGURE 4.2: The (interrupted) Goode homolosine projection
 </p>
 </div>
 <p>To make the analogy between the orange peel and the surface of the earth complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 These properties are needed in order to make a non-interrupted map, as we will see in the next sections.</p>
-<p>A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-03">4.2</a> is an example, is called a <em>map projection</em>. Technically, it is also known as a <em>coordinate reference system</em> (<em>crs</em>), which specifies the corresponding coordinate system, as well as the transformations to other map projections.</p>
+<p>A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="tmshape.html#fig:crs-goode">4.2</a> is an example, is called a <em>map projection</em>. Technically, it is also known as a <em>coordinate reference system</em> (<em>crs</em>), which specifies the corresponding coordinate system, as well as the transformations to other map projections.</p>
 </div>
-<div id="how-to-model-the-surface-of-the-earth" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> How to model the surface of the earth?</h3>
-<p>The orange and the earth have another thing in common; both are spheres, but not perfect ones.
-The earth is metaphorically speaking a little fat: the circumference around the equator is 40,075 km whereas around the circumference that crosses both poles is 40,009 km.
+<div id="a-model-of-the-earth" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> A model of the Earth</h3>
+<p>The orange and the Earth have another thing in common; both are spheres, but not perfect ones.
+The Earth is metaphorically speaking a little fat: the circumference around the equator is 40,075 km whereas around the circumference that crosses both poles is 40,009 km.
 <!--source: https://en.wikipedia.org/wiki/Earth_physical_characteristics_tables-->
 Therefore, the earth can better be described as an ellipsoid.
 The same applies to an orange; every orange is a little different, but probably very few oranges are perfect spheres.</p>
@@ -289,63 +293,312 @@ The cylinder and plain map that uses this projection are shown in Figure <a href
 FIGURE 4.4: Web Mercator projection (EPSG3857)
 </p>
 </div>
-<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is correct (which can be seen by comparing with Figure <a href="tmshape.html#fig:orange">4.1</a>).
+<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="tmshape.html#fig:orange">4.1</a>).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
 We will discuss this in the next section.</p>
 </div>
-</div>
-<div id="overview-of-map-projections" class="section level2">
-<h2><span class="header-section-number">4.2</span> Overview of map projections</h2>
+<div id="types-of-map-projections" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Types of map projections</h3>
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
+https://www.researchgate.net/publication/303311220_Projection_Wizard_-_An_Online_Map_Projection_Selection_Tool
+https://projectionwizard.org/
+https://kartoweb.itc.nl/geometrics/Map%20projections/body.htm
+http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/map%20coordinate%20systems/how%20to%20choose%20a%20projection.htm
+https://books.google.nl/books?id=E0JZDwAAQBAJ&pg=PA244&lpg=PA244&dq=Equidistant+projections+important&source=bl&ots=UqDt0ZBgEP&sig=ACfU3U3R1XN0i33v6Izh8fQZGJbpLF9ULw&hl=en&sa=X&ved=2ahUKEwi84tT_68rqAhUQ26QKHRcWD3AQ6AEwEHoECAgQAQ#v=onepage&q=Equidistant%20projections%20important&f=false
 -->
-<div class="figure" style="text-align: center"><span id="fig:crs-06"></span>
-<img src="04-tm-shape_files/figure-html/crs-06-1.png" alt="Lambert azimuthal equal-area projection (EPSG3035)" width="672" />
+<p>Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth?
+Although there are many ways, four basic map projection types can be distinguished.
+These are depicted in Figure <a href="tmshape.html#fig:crs-types">4.5</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:crs-types"></span>
+<img src="04-tm-shape_files/figure-html/crs-types-1.png" alt="Four types of map projections" width="100%" />
 <p class="caption">
-FIGURE 4.5: Lambert azimuthal equal-area projection (EPSG3035)
+FIGURE 4.5: Four types of map projections
 </p>
 </div>
-<p>Map projections can be classified by whether the following map properties are preserved:</p>
-<p>The standard set of comparison operators can be used in the <code>filter()</code> function, as illustrated in Table <a href="tmshape.html#tab:operators">4.1</a>:</p>
-<table>
-<caption><span id="tab:operators">TABLE 4.1: </span>Map projection properties.</caption>
-<thead>
-<tr class="header">
-<th align="left">Name</th>
-<th align="left">Preserved property</th>
-</tr>
-</thead>
+<p>Examples for cylindrical projections have already been given in the previous section; both Platte Carrée and Web-Mercator are cylindrical.
+There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
+An example is the Robinson projection shown in Figure <a href="tmshape.html#fig:crs-robin">4.6</a>.
+Almost all commonly used standard World map projections are (pseudo-)cylindrical.</p>
+<div class="figure" style="text-align: center"><span id="fig:crs-robin"></span>
+<img src="04-tm-shape_files/figure-html/crs-robin-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
+<p class="caption">
+FIGURE 4.6: The Robinson projection, which is pseudo-cylindrical.
+</p>
+</div>
+<p>An example of a conic map projection is shown in <a href="tmshape.html#fig:crs-conic-planar">4.7</a>(a).
+As a result of unfolding a cone on a flat surface, a gap is created.
+The size (angle) of this gap depends on the width of the cone.
+There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
+Conic map projections are useful for mid-latitude areas where the surfaces of the earth and the cone are almost parallel to each other.</p>
+<p>Planar map projections, also known as azimuthal projections, project the Earth on a disk.
+This can be done in several ways.
+This can best be explained by the position of an imaginary light source.
+It can be placed inside the globe, at the surface of the globe opposite to the disk, and at an infinite distance opposite to the disk.
+The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.</p>
+<p>Planar map projections are often used for a specific country or continent.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="tmshape.html#fig:crs-conic-planar">4.7</a>(b), which is optimized for Europe.
+It can be classified as a stereographic projection, although the light beams are not straight but curved.
+Another example of a planar map projection is the orange shown in Figure <a href="#fig:crs-02"><strong>??</strong></a>.
+This is an orthogonal projection.</p>
+<div class="figure" style="text-align: center"><span id="fig:crs-conic-planar"></span>
+<img src="04-tm-shape_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="672" />
+<p class="caption">
+FIGURE 4.7: Examples of a conic (a) and a planar (b) projection.
+</p>
+</div>
+<p>The (interrupted) Goode homolosine projection shown in Figure <a href="tmshape.html#fig:crs-goode">4.2</a> is an example of an interrupted projection.
+A special class of these projections are polyhedral projections, which consists of planar faces.
+In Figure <a href="tmshape.html#fig:crs-types">4.5</a> a polyhedral of six faces is illustrated.
+There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.</p>
+</div>
+<div id="which-projection-to-choose" class="section level3">
+<h3><span class="header-section-number">4.1.5</span> Which projection to choose?</h3>
+<p>Hopefully it is clear that there is no perfect projection, since each projection has its pros and cons.
+Whether a projection is good for a certain application, depends on two factors.
+The first factor is the type of application and in particular which map projection properties are useful or even required for that application.
+For instance, navigation requires other map projection properties than statistical maps.
+The second factor is the area of interest.
+Is the whole World visualized or only a part, and in the latter case, which part?
+In this section, guidelines are provided to choose a proper projection based on those two aspects.</p>
+<p>Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="tmshape.html#fig:crs-conic-planar">4.7</a>(b).
+If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
+However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.</p>
+<p><strong>Map projection properties</strong></p>
+<p>The type of application is important for the choice of a map projection.
+However, it would be quite tedious to list all possible applications and provide projection recommendations for each of them.
+Instead, we focus on four map projection properties.
+The key step is to find out which of these properties are useful or even required for the target application.
+The four properties are listed in the following table.</p>
+<table class="table" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:crs-properties">TABLE 4.1: </span>Map projection properties.
+</caption>
 <tbody>
-<tr class="odd">
-<td align="left">Conformal</td>
-<td align="left">Local angle (shape)</td>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Property
+</td>
+<td style="text-align:left;">
+Conformal
+</td>
+<td style="text-align:left;width: 14em; ">
+Equal area
+</td>
+<td style="text-align:left;">
+Equidistant
+</td>
+<td style="text-align:left;width: 14em; ">
+Azimuthal
+</td>
 </tr>
-<tr class="even">
-<td align="left">Equal area</td>
-<td align="left">Area</td>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Preserves
+</td>
+<td style="text-align:left;">
+Local angle (shape)
+</td>
+<td style="text-align:left;width: 14em; ">
+Area
+</td>
+<td style="text-align:left;">
+Distance
+</td>
+<td style="text-align:left;width: 14em; ">
+Direction
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Equidistant</td>
-<td align="left">Distance</td>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Applications
+</td>
+<td style="text-align:left;">
+Navigation, climate
+</td>
+<td style="text-align:left;width: 14em; ">
+Statistics
+</td>
+<td style="text-align:left;">
+Geology
+</td>
+<td style="text-align:left;width: 14em; ">
+Geology
+</td>
 </tr>
-<tr class="even">
-<td align="left">Azimuthal</td>
-<td align="left">Direction</td>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Examples (cyclindrical)
+</td>
+<td style="text-align:left;">
+Mercator
+</td>
+<td style="text-align:left;width: 14em; ">
+Gall-Peters, Eckert IV
+</td>
+<td style="text-align:left;">
+Equirectangular
+</td>
+<td style="text-align:left;width: 14em; ">
+none
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Examples (conic)
+</td>
+<td style="text-align:left;">
+Lambert conformal conic
+</td>
+<td style="text-align:left;width: 14em; ">
+Albers conic
+</td>
+<td style="text-align:left;">
+Equidistant conic
+</td>
+<td style="text-align:left;width: 14em; ">
+none
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Examples (planar)
+</td>
+<td style="text-align:left;">
+Stereographic
+</td>
+<td style="text-align:left;width: 14em; ">
+Lambert azimuthal equal-area
+</td>
+<td style="text-align:left;">
+Azimuthal equidistant
+</td>
+<td style="text-align:left;width: 14em; ">
+Stereographic, Lambert azimuthal equal-area
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; font-weight: bold;">
+Examples (interrupted)
+</td>
+<td style="text-align:left;">
+Myriahedral
+</td>
+<td style="text-align:left;width: 14em; ">
+Goode homolosine, Myriahedral
+</td>
+<td style="text-align:left;">
+none
+</td>
+<td style="text-align:left;width: 14em; ">
+none
+</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><em>Conformal (true local angles/shapes)</em>: A map projection is called <em>conformal</em> when local angles are preserved, and therefore local shapes.
-The Mercator is an example.</li>
-<li><em>Equal-area (true areas)</em>: A map projection is called <em>equal-area</em> if the areas are proportional to the true areas.</li>
-<li><em>Equidistant (true distances)</em> A map projection is called <em>equidistant</em> if there is one point (usually the center) from which the distances to any other point in the map are preserved.</li>
-<li><em>Azimuthal (true-direction)</em> A map projection is called <em>azimuthal</em> if the directions from one point (the center) to any other point are same as the true direction following the surface of the earth.</li>
-</ul>
-<p>Take home message: plain latitude/longitude coordinates (EPSG 4326) and the Mercator projection (3857) are great for navigation, but less suitable for maps with data, especially world maps.</p>
-<p>Take home message: before you start mapping, think about which projection is good for the area of interest and for the specific task at hand.</p>
+<p>A <em>conformal</em> projection means that local angles are preserved.
+In practice, that means that for instance a map of a crossroad preserves the angles between the roads.
+Therefore, this property is required for navigational purposes.
+As a consequence that local angles are preserved, local shapes are also preserved.
+That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
+The Web Mercator shown in Figure <a href="tmshape.html#fig:crs-05">4.4</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
+<p>A map projection is called <em>equal-area</em> if the areas are proportional to the true areas.
+This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
+Figure <a href="tmshape.html#fig:crs-bias">4.8</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North-Africa and Australia emerge as vast low-populated areas.</p>
+<div class="figure" style="text-align: center"><span id="fig:crs-bias"></span>
+<img src="04-tm-shape_files/figure-html/crs-bias-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
+<p class="caption">
+FIGURE 4.8: The Robinson projection, which is pseudo-cylindrical.
+</p>
+</div>
+<p>The other two map projection properties are related to one central point on the map.
+A map projection is called <em>equidistant</em> if the distances to any other point in the map are preserved, and <em>azimuthal</em> if the directions to any other point are preserved.
+These properties are in particular useful in the field of geology.
+One example is a seismic map around the epicenter of a recent earthquake, where it is important to how far and in which direction the vibrations are spreading.</p>
+<p>A map projection can satisfy at most two of these properties.
+Many map projection do not satisfy any property but are intended as a compromise.
+An example is the Robinson projection, shown in Figure (fig:crs-robin).</p>
+<p><strong>Area of interest</strong></p>
+<p>The next aspect that is important for the choice of a map projection is the area of interest.
+In general, the larger the area, the more concessions have to be made, since the larger the area, the more difficult it is to make a two-dimensional projection.</p>
+<p>The following table provides recommendations of map projection types based on the area size and on the latitude of the area.</p>
+<table class="table" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:crs-recommendations">TABLE 4.2: </span>Recommended projections.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+View
+</th>
+<th style="text-align:left;">
+Low latitude (equator)
+</th>
+<th style="text-align:left;">
+Mid latitude
+</th>
+<th style="text-align:left;">
+High latitude (poles)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 10em; ">
+World
+</td>
+<td style="text-align:left;">
+Pseudo-cylindrical
+</td>
+<td style="text-align:left;">
+Pseudo-cylindrical
+</td>
+<td style="text-align:left;">
+Pseudo-cylindrical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Hemisphere
+</td>
+<td style="text-align:left;">
+Azimuthal
+</td>
+<td style="text-align:left;">
+Azimuthal
+</td>
+<td style="text-align:left;">
+Azimuthal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Continent or smaller
+</td>
+<td style="text-align:left;">
+Cylindrical
+</td>
+<td style="text-align:left;">
+Conic
+</td>
+<td style="text-align:left;">
+Azimuthal
+</td>
+</tr>
+</tbody>
+</table>
+<p>For World maps, pseudo-cylindrical such as the Robinson projection (Figure (fig:crs-robin)) and the Eckert IV projection (Figure (fig:crs-bias)(b)) are most popular, and not without a reason;
+in general, they have less distortion than other map projection types.</p>
+<p>Azimuthal map projection are recommended for hemisphere maps.
+There are four hemishperes that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemishere, which includes the other continets.
+However, other hemispheres are often used implicitely.
+For instance the Lambert Azimuthal Equal-Area projection shown in Figure <a href="tmshape.html#fig:crs-conic-planar">4.7</a>(b) shows the hemisphere centered on Europe.</p>
 
+</div>
 </div>
 </div>
 <script>
