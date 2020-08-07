@@ -12,7 +12,7 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, <!--+ DATA CUBES-->and also their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
+This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, spatial data cubes (section \@ref(spatial-data-cubes)), and also their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
 Next, it focuses on the map projections (\@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
@@ -446,7 +446,7 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 \index{sf}
 \index{sf (package)|see {sf}}
 
-The **sf** package implements ideas behind the Simple Feature standard.
+The **sf** package implements ideas behind the Simple Feature standard, which describe how to represent spatial vector data.
 Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns. 
@@ -525,14 +525,15 @@ It has two dimensions, `x` and `y`, and one attribute `srtm.tif`.
 x2
 ```
 
-The `srtm.tif` attribute is a matrix, where is cell represents an elevation value.
+The `srtm.tif` attribute is a matrix, where each cell represents an elevation value.
 The `x` dimension has 465 elements (columns), starting from a coordinate (`offset`) of a cell boundary of `-113.24`. 
-Next, the coordinates of further cells increase by `0.000833333` (`delta`) - resolution in the `x` dimension`.
+Next, the coordinates of further cells increase by `0.000833333` (`delta`) - resolution in the `x` dimension.
 The `y` dimension has 457 elements (rows), starting from a coordinate (`offset`) of a cell boundary of `37.5129`. 
-For the `y` dimension, each further cell's coordinated decreases by `0.000833333` (notice the negative value of `delta`) - resolution in the `y` dimension`.
+For the `y` dimension, each further cell's coordinated decreases by `0.000833333` (notice the negative value of `delta`) - resolution in the `y` dimension.
 Both dimensions also have the same CRS - `WGS 84`.
 
 `read_stars()` also has several additional arguments, `RasterIO` that gives control over the input data extent and resolution.
+For example, the below code will read just the first and second bands.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example-->
 ```{r}
@@ -540,11 +541,7 @@ file_path3 = system.file("raster/landsat.tif", package = "spDataLarge")
 x3 = read_stars(file_path3, RasterIO = list(bands = c(1, 2)))
 ```
 
-```{r}
-x3
-```
-
-Internally, it is a list of `matrix` or `array` objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
+Internally, a `stars` object is a list of `matrix` or `array` objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
 All of this information is read from the input file.
 
 Stars objects are constructed by dimensions and attributes.
@@ -569,6 +566,8 @@ When we want to plot large raster data, then it is read at a lower resolution th
 The **stars** package also has support for vector data cubes, where each geometry is just stored once (as a dimension), and each attribute is a `matrix` or an `array` with the number of rows equals to the number of geometries, the number of columns equals to another dimension (e.g., time), and possibly the number of `array` layers equals for additional dimensions.
 <!-- can we plot them in tmap? -->
 <!-- if so - there should be an example in the book + reference -->
+
+<!-- The **tmap** package accepts spatial raster data objects from both **stars** and **raster** packages. -->
 
 More information on how the `stars` objects are organized and how to operate on them can be found in the **stars** package vignettes at https://r-spatial.github.io/stars. 
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
