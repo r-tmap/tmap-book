@@ -22,9 +22,11 @@ It also explains basic terms and gives an overview of map projections.
 
 ## Data models
 
+<!-- intro to the next three sections -->
+
 ### Vector data model
 
-...
+<!-- intro to vector data model -->
 
 \index{vector data model}
 \index{spatial geometries}
@@ -163,7 +165,7 @@ tmap_arrange(tm_point_data,
 
 \index{simple feature}
 The above ideas could be implemented in many ways. <!--...-->
-Currently, the Simple Feature Access seems to be the most widely used standard <!--architecture-->
+Currently, the Simple Feature Access seems to be the most widely used standard. <!--architecture-->
 <!-- REF -->
 <!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
 In it, a feature is every object or concept that have spatial location or extent. 
@@ -202,18 +204,6 @@ Finally, GeometryCollection exists that contains all of the possible geometry ty
 #     tm_symbols(col = "id") +
 #   tm_layout(inner.margins = 0.15)
 ```
-
-
-<!-- additional dimensions: -->
-<!-- - more than two coordinates (XYZM) -->
-<!-- - multiobjects -->
-<!-- - additional geometries -->
-
-<!-- - what is the vector data model (point coordinates) -->
-<!-- - examples -->
-<!-- - what's the simple features standard -->
-<!-- - main geometry types -->
-<!-- - relation between geometries and attributes -->
 
 \index{spatial file formats}
 There are a couple hundreds of file formats that can store spatial vector data.
@@ -388,6 +378,7 @@ Another popular spatial raster formats include Arc ASCII (`.asc`) and ERDAS Imag
 ### Spatial data cubes
 
 <!-- intro with examples -->
+\index{spatial data cubes}
 Traditionally, spatial vector and raster data relate to one moment in time.
 For example, each polygon can have several attributes representing demographic variables for a given year.
 However, how to extend the vector data model to also allow for also storing data for many years?
@@ -416,6 +407,12 @@ For example, demographic data on a country level gathered for many years, time-s
 <!-- https://ieeexplore.ieee.org/document/1525227 -->
 <!-- https://en.wikipedia.org/wiki/Data_cube -->
 <!-- https://www.researchgate.net/post/What_is_a_spatial_data_cube_and_how_to_draw_a_spatial_data_cube -->
+
+\index{spatial file formats}
+One way to create spatial data cubes is by connecting many independent vector or raster objects.
+Second way is to read a spatial data cube using one of the file formats allowing for storing complex data.
+It includes formats such as NetCDF (`.nc`) and HDF (`.hdf`).
+<!-- spatial vector data cubes file formats? -->
 
 ## Spatial data representations in R
 
