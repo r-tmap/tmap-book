@@ -223,9 +223,10 @@ It also explains basic terms and gives an overview of map projections.
 </div>
 <div id="data-models" class="section level2">
 <h2><span class="header-section-number">2.2</span> Data models</h2>
+<!-- intro to the next three sections -->
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
-<p>…</p>
+<!-- intro to vector data model -->
 <p>
 
 
@@ -265,7 +266,7 @@ Each row, on the other hand, relates to a single geometry.</p>
 <p><img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 The above ideas could be implemented in many ways. <!--...-->
-Currently, the Simple Feature Access seems to be the most widely used standard <!--architecture-->
+Currently, the Simple Feature Access seems to be the most widely used standard. <!--architecture-->
 <!-- REF -->
 <!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
 In it, a feature is every object or concept that have spatial location or extent.
@@ -279,15 +280,6 @@ The simple feature standard also describes a number of additional geometry types
 Finally, GeometryCollection exists that contains all of the possible geometry types.</p>
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
-<!-- additional dimensions: -->
-<!-- - more than two coordinates (XYZM) -->
-<!-- - multiobjects -->
-<!-- - additional geometries -->
-<!-- - what is the vector data model (point coordinates) -->
-<!-- - examples -->
-<!-- - what's the simple features standard -->
-<!-- - main geometry types -->
-<!-- - relation between geometries and attributes -->
 <p>
 There are a couple hundreds of file formats that can store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (<code>.csv</code>) or as a spreadsheet (<code>.xls</code> or <code>.xlsx</code>).
@@ -363,7 +355,8 @@ Another popular spatial raster formats include Arc ASCII (<code>.asc</code>) and
 <div id="spatial-data-cubes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Spatial data cubes</h3>
 <!-- intro with examples -->
-<p>Traditionally, spatial vector and raster data relate to one moment in time.
+<p>
+Traditionally, spatial vector and raster data relate to one moment in time.
 For example, each polygon can have several attributes representing demographic variables for a given year.
 However, how to extend the vector data model to also allow for also storing data for many years?
 One approach would be to create a separate column for year variable in each year.<!--wide-->
@@ -386,6 +379,11 @@ For example, demographic data on a country level gathered for many years, time-s
 <!-- https://ieeexplore.ieee.org/document/1525227 -->
 <!-- https://en.wikipedia.org/wiki/Data_cube -->
 <!-- https://www.researchgate.net/post/What_is_a_spatial_data_cube_and_how_to_draw_a_spatial_data_cube -->
+<p>
+One way to create spatial data cubes is by connecting many independent vector or raster objects.
+Second way is to read a spatial data cube using one of the file formats allowing for storing complex data.
+It includes formats such as NetCDF (<code>.nc</code>) and HDF (<code>.hdf</code>).
+<!-- spatial vector data cubes file formats? --></p>
 </div>
 </div>
 <div id="spatial-data-representations-in-r" class="section level2">
