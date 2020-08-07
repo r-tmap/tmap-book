@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-06" />
+<meta name="date" content="2020-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,7 +213,7 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section <a href="geodata.html#vector-data-model">2.2.1</a>) and raster (section <a href="geodata.html#raster-data-model">2.2.2</a>) models, <!--+ DATA CUBES-->and also their implementations in R in the form of the <strong>sf</strong> (section <a href="geodata.html#the-sf-package">2.3.1</a>) and <strong>stars</strong> (section <a href="geodata.html#the-stars-package">2.3.2</a>) packages.
+This chapter describes the vector (section <a href="geodata.html#vector-data-model">2.2.1</a>) and raster (section <a href="geodata.html#raster-data-model">2.2.2</a>) models, spatial data cubes (section <a href="geodata.html#spatial-data-cubes">2.2.3</a>), and also their implementations in R in the form of the <strong>sf</strong> (section <a href="geodata.html#the-sf-package">2.3.1</a>) and <strong>stars</strong> (section <a href="geodata.html#the-stars-package">2.3.2</a>) packages.
 Next, it focuses on the map projections (<a href="#crs"><strong>??</strong></a>).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
@@ -411,7 +411,7 @@ and introduce the <strong>stars</strong> package (section <a href="geodata.html#
 <h3><span class="header-section-number">2.3.1</span> The sf package</h3>
 <p>
 </p>
-<p>The <strong>sf</strong> package implements ideas behind the Simple Feature standard.
+<p>The <strong>sf</strong> package implements ideas behind the Simple Feature standard, which describe how to represent spatial vector data.
 Its main class, <code>sf</code>, has the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns.
@@ -504,35 +504,19 @@ It has two dimensions, <code>x</code> and <code>y</code>, and one attribute <cod
 <span id="cb5-12"><a href="geodata.html#cb5-12"></a><span class="co">#&gt;   from  to  offset        delta refsys point values    </span></span>
 <span id="cb5-13"><a href="geodata.html#cb5-13"></a><span class="co">#&gt; x    1 465 -113.24  0.000833333 WGS 84 FALSE   NULL [x]</span></span>
 <span id="cb5-14"><a href="geodata.html#cb5-14"></a><span class="co">#&gt; y    1 457 37.5129 -0.000833333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
-<p>The <code>srtm.tif</code> attribute is a matrix, where is cell represents an elevation value.
+<p>The <code>srtm.tif</code> attribute is a matrix, where each cell represents an elevation value.
 The <code>x</code> dimension has 465 elements (columns), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>-113.24</code>.
-Next, the coordinates of further cells increase by <code>0.000833333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension<code>. The</code>y<code>dimension has 457 elements (rows), starting from a coordinate (</code>offset<code>) of a cell boundary of</code>37.5129<code>.  For the</code>y<code>dimension, each further cell's coordinated decreases by</code>0.000833333<code>(notice the negative value of</code>delta<code>) - resolution in the</code>y<code>dimension</code>.
+Next, the coordinates of further cells increase by <code>0.000833333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension.
+The <code>y</code> dimension has 457 elements (rows), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>37.5129</code>.
+For the <code>y</code> dimension, each further cell’s coordinated decreases by <code>0.000833333</code> (notice the negative value of <code>delta</code>) - resolution in the <code>y</code> dimension.
 Both dimensions also have the same CRS - <code>WGS 84</code>.</p>
 <p><code>read_stars()</code> also has several additional arguments, <code>RasterIO</code> that gives control over the input data extent and resolution.
+For example, the below code will read just the first and second bands.
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example--></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="geodata.html#cb6-1"></a>file_path3 =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)</span>
 <span id="cb6-2"><a href="geodata.html#cb6-2"></a>x3 =<span class="st"> </span><span class="kw">read_stars</span>(file_path3, <span class="dt">RasterIO =</span> <span class="kw">list</span>(<span class="dt">bands =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)))</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="geodata.html#cb7-1"></a>x3</span>
-<span id="cb7-2"><a href="geodata.html#cb7-2"></a><span class="co">#&gt; stars object with 3 dimensions and 1 attribute</span></span>
-<span id="cb7-3"><a href="geodata.html#cb7-3"></a><span class="co">#&gt; attribute(s), summary of first 1e+05 cells:</span></span>
-<span id="cb7-4"><a href="geodata.html#cb7-4"></a><span class="co">#&gt;   landsat.tif   </span></span>
-<span id="cb7-5"><a href="geodata.html#cb7-5"></a><span class="co">#&gt;  Min.   : 7701  </span></span>
-<span id="cb7-6"><a href="geodata.html#cb7-6"></a><span class="co">#&gt;  1st Qu.: 8412  </span></span>
-<span id="cb7-7"><a href="geodata.html#cb7-7"></a><span class="co">#&gt;  Median : 8739  </span></span>
-<span id="cb7-8"><a href="geodata.html#cb7-8"></a><span class="co">#&gt;  Mean   : 8941  </span></span>
-<span id="cb7-9"><a href="geodata.html#cb7-9"></a><span class="co">#&gt;  3rd Qu.: 9258  </span></span>
-<span id="cb7-10"><a href="geodata.html#cb7-10"></a><span class="co">#&gt;  Max.   :14072  </span></span>
-<span id="cb7-11"><a href="geodata.html#cb7-11"></a><span class="co">#&gt; dimension(s):</span></span>
-<span id="cb7-12"><a href="geodata.html#cb7-12"></a><span class="co">#&gt;      from   to  offset delta                refsys</span></span>
-<span id="cb7-13"><a href="geodata.html#cb7-13"></a><span class="co">#&gt; x       1 1128  301905    30 WGS 84 / UTM zone 12N</span></span>
-<span id="cb7-14"><a href="geodata.html#cb7-14"></a><span class="co">#&gt; y       1 1428 4154085   -30 WGS 84 / UTM zone 12N</span></span>
-<span id="cb7-15"><a href="geodata.html#cb7-15"></a><span class="co">#&gt; band    1    2      NA    NA                    NA</span></span>
-<span id="cb7-16"><a href="geodata.html#cb7-16"></a><span class="co">#&gt;      point values    </span></span>
-<span id="cb7-17"><a href="geodata.html#cb7-17"></a><span class="co">#&gt; x    FALSE   NULL [x]</span></span>
-<span id="cb7-18"><a href="geodata.html#cb7-18"></a><span class="co">#&gt; y    FALSE   NULL [y]</span></span>
-<span id="cb7-19"><a href="geodata.html#cb7-19"></a><span class="co">#&gt; band    NA   NULL</span></span></code></pre></div>
-<p>Internally, it is a list of <code>matrix</code> or <code>array</code> objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
+<p>Internally, a <code>stars</code> object is a list of <code>matrix</code> or <code>array</code> objects with additional attributes describing spatial metadata, such as a number of columns and rows, resolution, coordinate reference system, etc.
 All of this information is read from the input file.</p>
 <p>Stars objects are constructed by dimensions and attributes.
 Dimensions relate to what kind of objects are stored as list elements.
@@ -553,6 +537,7 @@ When we want to plot large raster data, then it is read at a lower resolution th
 <p>The <strong>stars</strong> package also has support for vector data cubes, where each geometry is just stored once (as a dimension), and each attribute is a <code>matrix</code> or an <code>array</code> with the number of rows equals to the number of geometries, the number of columns equals to another dimension (e.g., time), and possibly the number of <code>array</code> layers equals for additional dimensions.
 <!-- can we plot them in tmap? -->
 <!-- if so - there should be an example in the book + reference --></p>
+<!-- The **tmap** package accepts spatial raster data objects from both **stars** and **raster** packages. -->
 <p>More information on how the <code>stars</code> objects are organized and how to operate on them can be found in the <strong>stars</strong> package vignettes at <a href="https://r-spatial.github.io/stars" class="uri">https://r-spatial.github.io/stars</a>.
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map --></p>
 </div>
