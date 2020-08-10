@@ -11,9 +11,11 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, and how they can be used to create spatial data cubes (section \@ref(spatial-data-cubes)).
-It also presents their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
-Next, it focuses on the map projections (\@ref(crs)).
+This chapter stars by describing several popular spatial data models (section \@ref(data-models)).
+Each data model is introduced, explained how it is built, and how it is stored using different file formats.
+Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r).
+It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
+Finally, it focuses on the map projections (\@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
@@ -30,11 +32,13 @@ Therefore, we also present the concept of spatial data cubes (section \@ref(spat
 
 ### Vector data model
 
-<!-- intro to vector data model -->
-
 \index{vector data model}
 \index{spatial geometries}
 \index{spatial attributes}
+
+<!-- intro to vector data model -->
+
+
 The vector data model consists of two main elements: geometries and attributes.
 
 The role of geometry is to describe the location and shape of spatial objects.
