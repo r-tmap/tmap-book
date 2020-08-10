@@ -22,7 +22,11 @@ It also explains basic terms and gives an overview of map projections.
 
 ## Data models
 
-<!-- intro to the next three sections -->
+Traditionally, spatial data is described by two basic data models: 
+vector data model aimed at (section \@ref(vector-data-model)) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (section \@ref(raster-data-model)).
+Additionally, now we have an abundance of available spatial data and a variety of ways to obtain it.
+It includes having many district variables and repeated measurements for the same area.
+Therefore, we also present the concept of spatial data cubes (section \@ref(spatial-data-cubes)).
 
 ### Vector data model
 
