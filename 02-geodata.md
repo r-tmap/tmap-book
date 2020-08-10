@@ -10,10 +10,12 @@ Vector and raster data models are two basic models used to represent spatial dat
 These spatial data models are closely related to map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
-<!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, spatial data cubes (section \@ref(spatial-data-cubes)), and also their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
-Next, it focuses on the map projections (\@ref(crs)).
+This chapter stars by describing several popular spatial data models (section \@ref(data-models)).
+Each data model is introduced, explained how it is built, and how it is stored using different file formats.
+Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r).
+It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
+Finally, it focuses on the map projections (\@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
@@ -22,30 +24,31 @@ It also explains basic terms and gives an overview of map projections.
 
 ## Data models
 
-<!-- intro to the next three sections -->
+Traditionally, spatial data is described by two basic data models: 
+vector data model aimed at (section \@ref(vector-data-model)) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (section \@ref(raster-data-model)).
+Additionally, now we have an abundance of available spatial data and a variety of ways to obtain it.
+It includes having many district variables and repeated measurements for the same area.
+Therefore, we also present the concept of spatial data cubes (section \@ref(spatial-data-cubes)).
 
 ### Vector data model
-
-<!-- intro to vector data model -->
 
 \index{vector data model}
 \index{spatial geometries}
 \index{spatial attributes}
-The vector data model consists of two main elements: geometries and attributes.
-
+The vector data model represent the world as a set of spatial geometries with non-spatial attributes. 
 The role of geometry is to describe the location and shape of spatial objects.
-There are three basic types of geometries: points, lines, and polygons.
-All of them are build using the same main idea of coordinates.
+Attributes, on the other hand, are used to store the properties of the data.
 
+\index{spatial geometries}
+There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
 A point is represented by a pair of coordinates, usually described as X and Y.
 It allows for locating this point in some space.
 <!-- short CRS intro -->
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
-Points can represent features on different scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
+Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
-
 A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
@@ -55,7 +58,6 @@ Lines are used to representing linear features, such as roads, rivers, boundarie
 In this case, we can express line features' attributes using either lines' color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
-
 A polygon is again a set of ordered points connected by straight lines. 
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- examples of polygons -->
@@ -65,6 +67,7 @@ A polygon hole represents an area inside of the polygon but does not belong to i
 For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons' attributes can be represented by the areas (fill) colors.
 
+\index{spatial attributes}
 The second part of the vector data model relates to attributes. 
 Attributes are usually stored as a table describing the properties of the data.
 In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.

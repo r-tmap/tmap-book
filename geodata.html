@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-07" />
+<meta name="date" content="2020-08-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -211,10 +211,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 These spatial data models are closely related to map making, with each model having its own pros and cons.
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
-<!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section <a href="geodata.html#vector-data-model">2.2.1</a>) and raster (section <a href="geodata.html#raster-data-model">2.2.2</a>) models, spatial data cubes (section <a href="geodata.html#spatial-data-cubes">2.2.3</a>), and also their implementations in R in the form of the <strong>sf</strong> (section <a href="geodata.html#the-sf-package">2.3.1</a>) and <strong>stars</strong> (section <a href="geodata.html#the-stars-package">2.3.2</a>) packages.
-Next, it focuses on the map projections (<a href="#crs"><strong>??</strong></a>).
+This chapter stars by describing several popular spatial data models (section <a href="geodata.html#data-models">2.2</a>).
+Each data model is introduced, explained how it is built, and how it is stored using different file formats.
+Next, this chapter presents how these different data models are implemented in R (section <a href="geodata.html#spatial-data-representations-in-r">2.3</a>.
+It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
+Finally, it focuses on the map projections (<a href="#crs"><strong>??</strong></a>).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
@@ -223,26 +225,30 @@ It also explains basic terms and gives an overview of map projections.
 </div>
 <div id="data-models" class="section level2">
 <h2><span class="header-section-number">2.2</span> Data models</h2>
-<!-- intro to the next three sections -->
+<p>Traditionally, spatial data is described by two basic data models:
+vector data model aimed at (section <a href="geodata.html#vector-data-model">2.2.1</a>) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (section <a href="geodata.html#raster-data-model">2.2.2</a>).
+Additionally, now we have an abundance of available spatial data and a variety of ways to obtain it.
+It includes having many district variables and repeated measurements for the same area.
+Therefore, we also present the concept of spatial data cubes (section <a href="geodata.html#spatial-data-cubes">2.2.3</a>).</p>
 <div id="vector-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Vector data model</h3>
-<!-- intro to vector data model -->
 <p>
 
 
-The vector data model consists of two main elements: geometries and attributes.</p>
-<p>The role of geometry is to describe the location and shape of spatial objects.
-There are three basic types of geometries: points, lines, and polygons.
-All of them are build using the same main idea of coordinates.</p>
-<p>A point is represented by a pair of coordinates, usually described as X and Y.
+The vector data model represent the world as a set of spatial geometries with non-spatial attributes.
+The role of geometry is to describe the location and shape of spatial objects.
+Attributes, on the other hand, are used to store the properties of the data.</p>
+<p>
+There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
+A point is represented by a pair of coordinates, usually described as X and Y.
 It allows for locating this point in some space.
 <!-- short CRS intro -->
 X and Y could be unitless, in degrees, or in some measure units, such as meters.
 <!-- maybe ref to CRS section here -->
-Points can represent features on different scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
+Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
-Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.</p>
-<p>A line extends the idea of a point.
+Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
+A line extends the idea of a point.
 It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
@@ -250,8 +256,8 @@ It gives the illusion that the line is curved.
 Lines are used to representing linear features, such as roads, rivers, boundaries, footpaths, etc.
 In this case, we can express line features’ attributes using either lines’ color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
-<!-- in theory lty could be also used - but it is not implemented in tmap --></p>
-<p>A polygon is again a set of ordered points connected by straight lines.
+<!-- in theory lty could be also used - but it is not implemented in tmap -->
+A polygon is again a set of ordered points connected by straight lines.
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- examples of polygons -->
 The polygon representation is used to represent shapes and locations of different objects, from a lake or a patch of vegetation, through a building or a city block, to some administrative units.
@@ -259,7 +265,8 @@ Polygons also have one unique feature - they could have holes.
 A polygon hole represents an area inside of the polygon but does not belong to it.
 For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons’ attributes can be represented by the areas (fill) colors.</p>
-<p>The second part of the vector data model relates to attributes.
+<p>
+The second part of the vector data model relates to attributes.
 Attributes are usually stored as a table describing the properties of the data.
 In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single geometry.</p>
