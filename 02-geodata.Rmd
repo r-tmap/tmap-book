@@ -10,9 +10,9 @@ Vector and raster data models are two basic models used to represent spatial dat
 These spatial data models are closely related to map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
-<!-- - references to the next sections -->
 <!-- - maybe also mention some data sources -->
-This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, spatial data cubes (section \@ref(spatial-data-cubes)), and also their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
+This chapter describes the vector (section \@ref(vector-data-model)) and raster (section \@ref(raster-data-model)) models, and how they can be used to create spatial data cubes (section \@ref(spatial-data-cubes)).
+It also presents their implementations in R in the form of the **sf** (section \@ref(the-sf-package)) and **stars** (section \@ref(the-stars-package)) packages.
 Next, it focuses on the map projections (\@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
