@@ -41,11 +41,8 @@ Attributes, on the other hand, are used to store the properties of the data.
 
 \index{spatial geometries}
 There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
-A point is represented by a pair of coordinates, usually described as X and Y.
-It allows for locating this point in some space.
-<!-- short CRS intro -->
-X and Y could be unitless, in degrees, or in some measure units, such as meters.
-<!-- maybe ref to CRS section here -->
+A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
+X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section \@ref(crs)).
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
@@ -68,10 +65,9 @@ For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons' attributes can be represented by the areas (fill) colors.
 
 \index{spatial attributes}
-The second part of the vector data model relates to attributes. 
-Attributes are usually stored as a table describing the properties of the data.
-In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
-Each row, on the other hand, relates to a single geometry. 
+The second part of the vector data model relates to non-spatial attributes. 
+Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a single spatial geometry. 
 
 
 
@@ -79,14 +75,18 @@ Each row, on the other hand, relates to a single geometry.
 
 
 
-<img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="672" />
+<p class="caption">(\#fig:vector-data-model)Instances of spatial vector data model: POINTS, LINES, and POLYGONS.</p>
+</div>
+
+<!-- the above figure should be improved -->
 
 \index{simple feature}
 The above ideas could be implemented in many ways. <!--...-->
-Currently, the Simple Feature Access seems to be the most widely used standard. <!--architecture-->
-<!-- REF -->
-<!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
+Currently, [the Simple Feature Access](http://portal.opengeospatial.org/files/?artifact_id=25355) seems to be the most widely used standard.
 In it, a feature is every object or concept that have spatial location or extent. 
+
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 

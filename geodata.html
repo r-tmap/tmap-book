@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-10" />
+<meta name="date" content="2020-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -239,11 +239,8 @@ The role of geometry is to describe the location and shape of spatial objects.
 Attributes, on the other hand, are used to store the properties of the data.</p>
 <p>
 There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
-A point is represented by a pair of coordinates, usually described as X and Y.
-It allows for locating this point in some space.
-<!-- short CRS intro -->
-X and Y could be unitless, in degrees, or in some measure units, such as meters.
-<!-- maybe ref to CRS section here -->
+A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
+X and Y could be unitless, in degrees, or in some measure units, such as meters (extended discussion on coordinates and related topics is in section <a href="geodata.html#crs">2.4</a>).
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
@@ -265,18 +262,21 @@ A polygon hole represents an area inside of the polygon but does not belong to i
 For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons’ attributes can be represented by the areas (fill) colors.</p>
 <p>
-The second part of the vector data model relates to attributes.
-Attributes are usually stored as a table describing the properties of the data.
-In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
-Each row, on the other hand, relates to a single geometry.</p>
-<p><img src="02-geodata_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+The second part of the vector data model relates to non-spatial attributes.
+Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a single spatial geometry.</p>
+<div class="figure" style="text-align: center"><span id="fig:vector-data-model"></span>
+<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="672" />
+<p class="caption">
+FIGURE 2.1: Instances of spatial vector data model: POINTS, LINES, and POLYGONS.
+</p>
+</div>
+<!-- the above figure should be improved -->
 <p>
 The above ideas could be implemented in many ways. <!--...-->
-Currently, the Simple Feature Access seems to be the most widely used standard. <!--architecture-->
-<!-- REF -->
-<!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
-In it, a feature is every object or concept that have spatial location or extent.
-Simple feature standard makes a clear distinction between single- and multi-element features.
+Currently, <a href="http://portal.opengeospatial.org/files/?artifact_id=25355">the Simple Feature Access</a> seems to be the most widely used standard.
+In it, a feature is every object or concept that have spatial location or extent.</p>
+<p>Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables.
 For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
@@ -305,33 +305,33 @@ Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>
 <h3><span class="header-section-number">2.2.2</span> Raster data model</h3>
 <p>
 <!-- - raster data model (grid) -->
-The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure <a href="geodata.html#fig:raster-intro">2.1</a>).
+The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure <a href="geodata.html#fig:raster-intro">2.2</a>).
 Depending on the type of values, we can distinguish continuous and categorical rasters.
 In continuous rasters, such as elevation or precipitation, values vary progressively.
 Categorical rasters, on the other hand, uses integer values to represent classes.
 Their examples include land cover or soil types maps.
-Raster data can also contain cells for which we do not know the value (Figure <a href="geodata.html#fig:raster-intro">2.1</a>).
+Raster data can also contain cells for which we do not know the value (Figure <a href="geodata.html#fig:raster-intro">2.2</a>).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.</p>
 <pre><code>#&gt; Loading required package: abind</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:raster-intro"></span>
 <img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
 <p class="caption">
-FIGURE 2.1: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
+FIGURE 2.2: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
 </p>
 </div>
 <!-- add examples of each type -->
-<p>When we think about raster data, most of the time we are referring to regular grids (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
+<p>When we think about raster data, most of the time we are referring to regular grids (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
 In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
 <!-- I know it is a simplification-->
-It is possible to transform regular rasters into rotated and sheared rasters (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
+It is possible to transform regular rasters into rotated and sheared rasters (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
 Rotated grids are the result of transforming both coordinated, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the same rotation coefficients.
 Sheared grids are created when the rotation coefficients are not equal.
-Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.2</a>).
-In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.2</a>).</p>
+Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
+In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
 <img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
 <p class="caption">
-FIGURE 2.2: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
+FIGURE 2.3: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
 </p>
 </div>
 <p>Contrary to spatial vector data, basic raster stores just one attribute.
@@ -339,7 +339,7 @@ It is, however, possible to stack together many single rasters (also known as ra
 This allows us to store and operate on many rasters with the same dimensions at the same time.
 Examples of multi-layer rasters include satellite imageries or temporal rasters.
 Satellite imageries usually consist of many bands (layers) for different wavelengths.
-The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure <a href="geodata.html#fig:rgb-raster">2.3</a>).
+The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure <a href="geodata.html#fig:rgb-raster">2.4</a>).
 Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section <a href="geodata.html#spatial-data-cubes">2.2.3</a>.</p>
@@ -347,7 +347,7 @@ Additional information about multi-layer rasters can be also found in Section <a
 <div class="figure" style="text-align: center"><span id="fig:rgb-raster"></span>
 <img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
 <p class="caption">
-FIGURE 2.3: Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.
+FIGURE 2.4: Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.
 </p>
 </div>
 <p>
@@ -560,7 +560,7 @@ The question is how to do this.</p>
 <div class="figure" style="text-align: center"><span id="fig:orange"></span>
 <img src="images/orange_world.png" alt="How to peel an orange?" width="606" />
 <p class="caption">
-FIGURE 2.4: How to peel an orange?
+FIGURE 2.5: How to peel an orange?
 </p>
 </div>
 <p>When we peel the orange, ideally we want to rip the peel near areas of the earth that are less interesting.
@@ -571,12 +571,12 @@ There is also a version of the Goode homolosine projection which preserves the o
 <div class="figure" style="text-align: center"><span id="fig:crs-goode"></span>
 <img src="02-geodata_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
 <p class="caption">
-FIGURE 2.5: The (interrupted) Goode homolosine projection
+FIGURE 2.6: The (interrupted) Goode homolosine projection
 </p>
 </div>
 <p>To make the analogy between the orange peel and the surface of the earth complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 These properties are needed in order to make a non-interrupted map, as we will see in the next sections.</p>
-<p>A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="geodata.html#fig:crs-goode">2.5</a> is an example, is called a <em>map projection</em>.
+<p>A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="geodata.html#fig:crs-goode">2.6</a> is an example, is called a <em>map projection</em>.
 Technically, it is also known as a <em>coordinate reference system</em> (<em>CRS</em>), which specifies the corresponding coordinate system, as well as the transformations to other map projections.</p>
 </div>
 <div id="a-model-of-the-earth" class="section level3">
@@ -600,7 +600,7 @@ The latitude specifies the north-south position in degrees, where latitude = 0<s
 The latitudes for the north and south pole are 90<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(-90^\circ\)</span> respectively.
 The longitude specifies the east-west position in degrees, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses the Royal Observatory in Greenwich, UK.
 The Longitude range is -180<span class="math inline">\(^\circ\)</span> to 180<span class="math inline">\(^\circ\)</span>, and since this is a full circle, -180<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(^\circ\)</span> specify the same longitude.</p>
-<p>When we see the earth in its three-dimensional form, as in Figure <a href="geodata.html#fig:orange">2.4</a>, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth. The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.
+<p>When we see the earth in its three-dimensional form, as in Figure <a href="geodata.html#fig:orange">2.5</a>, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth. The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.
 In all the figures in this section, latitude parallels are shown as gray lines for <span class="math inline">\(-60^\circ\)</span>, <span class="math inline">\(-30^\circ\)</span>, <span class="math inline">\(0^\circ\)</span>, <span class="math inline">\(30^\circ\)</span> and <span class="math inline">\(60^\circ\)</span>, and longitude meridians from <span class="math inline">\(-180^\circ\)</span> to <span class="math inline">\(180^\circ\)</span> at every <span class="math inline">\(30^\circ\)</span>.</p>
 <p>Please keep in mind that only a latitude and longitude are not sufficient to specify a geographic location.
 A datum is required.
@@ -616,29 +616,29 @@ EPSG is an institute that maintains a database of standard map projections.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-04"></span>
 <img src="02-geodata_files/figure-html/crs-04-1.png" alt="The WGS84 coordinate system (EPSG4326)" width="672" />
 <p class="caption">
-FIGURE 2.6: The WGS84 coordinate system (EPSG4326)
+FIGURE 2.7: The WGS84 coordinate system (EPSG4326)
 </p>
 </div>
-<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="geodata.html#fig:crs-04">2.6</a> (left).
+<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="geodata.html#fig:crs-04">2.7</a> (left).
 Note that the lontitude lines have become straight vertical lines.
-When we unroll this cylinder, we obtain a map where the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates are the longitude and latitude respectively. This CRS, which is known as EPSG4326, is shown in Figure <a href="geodata.html#fig:crs-04">2.6</a> (right).</p>
+When we unroll this cylinder, we obtain a map where the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates are the longitude and latitude respectively. This CRS, which is known as EPSG4326, is shown in Figure <a href="geodata.html#fig:crs-04">2.7</a> (right).</p>
 <p>EPSG4326 is an <em>unprojected</em> CRS, since the longitude and latitude have not been transformed. With <em>projected</em> CRSs, the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates refer to specific measurement units, usually meters.
-The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="geodata.html#fig:crs-04">2.6</a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
+The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="geodata.html#fig:crs-04">2.7</a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
 <p>Observe since we stretched the poles open, the area near the poles have been stretched out as well.
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
-A good example is Greenland, which is normally a ‘tall’ area (as can be seen in Figure <a href="geodata.html#fig:orange">2.4</a>).</p>
+A good example is Greenland, which is normally a ‘tall’ area (as can be seen in Figure <a href="geodata.html#fig:orange">2.5</a>).</p>
 <p>In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
-The cylinder and plain map that uses this projection are shown in Figure <a href="geodata.html#fig:crs-05">2.7</a>.</p>
+The cylinder and plain map that uses this projection are shown in Figure <a href="geodata.html#fig:crs-05">2.8</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-05"></span>
 <img src="02-geodata_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
 <p class="caption">
-FIGURE 2.7: Web Mercator projection (EPSG3857)
+FIGURE 2.8: Web Mercator projection (EPSG3857)
 </p>
 </div>
-<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="geodata.html#fig:orange">2.4</a>).
+<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="geodata.html#fig:orange">2.5</a>).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
@@ -656,11 +656,11 @@ https://books.google.nl/books?id=E0JZDwAAQBAJ&pg=PA244&lpg=PA244&dq=Equidistant+
 -->
 <p>Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth?
 Although there are many ways, four basic map projection types can be distinguished.
-These are depicted in Figure <a href="geodata.html#fig:crs-types">2.8</a>.</p>
+These are depicted in Figure <a href="geodata.html#fig:crs-types">2.9</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-types"></span>
 <img src="02-geodata_files/figure-html/crs-types-1.png" alt="Four types of map projections" width="100%" />
 <p class="caption">
-FIGURE 2.8: Four types of map projections
+FIGURE 2.9: Four types of map projections
 </p>
 </div>
 <p>Examples for cylindrical projections have already been given in the previous section; both Platte Carrée and Web-Mercator are cylindrical.
@@ -669,15 +669,15 @@ The cylinder is not placed upright, but horizontal.
 There are 60 positions in which this cylinder can be placed, where in each position, the cylinder faces a longitude range of 6 degrees.
 In other words the UTM is not a single projection, but a series of 60 projections.</p>
 <p>There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
-An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.9</a>.
+An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.10</a>.
 Almost all commonly used standard World map projections are (pseudo-)cylindrical.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-robin"></span>
 <img src="02-geodata_files/figure-html/crs-robin-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.9: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.10: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
-<p>An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.10</a>(a).
+<p>An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.11</a>(a).
 As a result of unfolding a cone on a flat surface, a gap is created.
 The size (angle) of this gap depends on the width of the cone.
 There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
@@ -688,19 +688,19 @@ This can best be explained by the position of an imaginary light source.
 It can be placed inside the globe, at the surface of the globe opposite to the disk, and at an infinite distance opposite to the disk.
 The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.</p>
 <p>Planar map projections are often used for a specific country or continent.
-An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.10</a>(b), which is optimized for Europe.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b), which is optimized for Europe.
 It can be classified as a stereographic projection, although the light beams are not straight but curved.
 Another example of a planar map projection is the orange shown in Figure <a href="#fig:crs-02"><strong>??</strong></a>.
 This is an orthogonal projection.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-conic-planar"></span>
 <img src="02-geodata_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="672" />
 <p class="caption">
-FIGURE 2.10: Examples of a conic (a) and a planar (b) projection.
+FIGURE 2.11: Examples of a conic (a) and a planar (b) projection.
 </p>
 </div>
-<p>The (interrupted) Goode homolosine projection shown in Figure <a href="geodata.html#fig:crs-goode">2.5</a> is an example of an interrupted projection.
+<p>The (interrupted) Goode homolosine projection shown in Figure <a href="geodata.html#fig:crs-goode">2.6</a> is an example of an interrupted projection.
 A special class of these projections are polyhedral projections, which consists of planar faces.
-In Figure <a href="geodata.html#fig:crs-types">2.8</a> a polyhedral of six faces is illustrated.
+In Figure <a href="geodata.html#fig:crs-types">2.9</a> a polyhedral of six faces is illustrated.
 There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.</p>
 </div>
 <div id="which-projection-to-choose" class="section level3">
@@ -713,7 +713,7 @@ The second factor is the area of interest.
 Is the whole World visualized or only a part, and in the latter case, which part?
 In this section, guidelines are provided to choose a proper projection based on those two aspects.</p>
 <p>Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.10</a>(b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b).
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.</p>
 <p><strong>Map projection properties</strong></p>
@@ -853,15 +853,15 @@ In practice, that means that for instance a map of a crossroad preserves the ang
 Therefore, this property is required for navigational purposes.
 As a consequence that local angles are preserved, local shapes are also preserved.
 That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
-The Web Mercator shown in Figure <a href="geodata.html#fig:crs-05">2.7</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
+The Web Mercator shown in Figure <a href="geodata.html#fig:crs-05">2.8</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
 <p>A map projection is called <em>equal-area</em> if the areas are proportional to the true areas.
 This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
-Figure <a href="geodata.html#fig:crs-bias">2.11</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+Figure <a href="geodata.html#fig:crs-bias">2.12</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
 The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North-Africa and Australia emerge as vast low-populated areas.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-bias"></span>
 <img src="02-geodata_files/figure-html/crs-bias-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.11: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.12: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
 <p>The other two map projection properties are related to one central point on the map.
@@ -870,7 +870,7 @@ These properties are in particular useful in the field of geology.
 One example is a seismic map around the epicenter of a recent earthquake, where it is important to how far and in which direction the vibrations are spreading.</p>
 <p>A map projection can satisfy at most two of these properties.
 Many map projection do not satisfy any property but are intended as a compromise.
-An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.9</a>.</p>
+An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.10</a>.</p>
 <p><strong>Area of interest</strong></p>
 <p>The next aspect that is important for the choice of a map projection is the area of interest.
 In general, the larger the area, the more concessions have to be made, since the larger the area, the more difficult it is to make a two-dimensional projection.</p>
@@ -940,10 +940,10 @@ Azimuthal
 </tr>
 </tbody>
 </table>
-<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.9</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.11</a>(b)) are very popular because they have less distortion other map projections.
+<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.10</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.12</a>(b)) are very popular because they have less distortion other map projections.
 For areas that cover a half of the sphere, i.e. a hemisphere, azimuthal map projection are recommended.
 There are four hemispheres that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemisphere, which includes the other continents.
-However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.10</a>(b).</p>
+However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b).</p>
 <p>For areas with the size of a continent or country, the azimuthal map projection type can be used when centered on the area of interest.
 In particular, the Lambert Azimuthal Equal-Area projection when equal area is required, and the Azimuthal Equidistant projection when preserving distances is important.
 Alternatively, cylindrical and conic map projection types can be used for areas at low and mid latitudes respectively.
