@@ -127,7 +127,7 @@ polygon_data = st_sf(
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 ```
 
-```{r, echo=FALSE, fig.asp=0.33}
+```{r vector-data-model, echo=FALSE, fig.asp=3, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
 all_data = rbind(point_data, lines_data, polygon_data)
 tm_point_data = tm_shape(point_data, bbox = all_data) +
   tm_grid() + 
@@ -162,12 +162,13 @@ tmap_arrange(tm_point_data,
              nrow = 3)
 ```
 
+<!-- the above figure should be improved -->
+
 \index{simple feature}
 The above ideas could be implemented in many ways. <!--...-->
-Currently, the Simple Feature Access seems to be the most widely used standard. <!--architecture-->
-<!-- REF -->
-<!-- http://portal.opengeospatial.org/files/?artifact_id=25355 -->
+Currently, [the Simple Feature Access](http://portal.opengeospatial.org/files/?artifact_id=25355) seems to be the most widely used standard.
 In it, a feature is every object or concept that have spatial location or extent. 
+
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
