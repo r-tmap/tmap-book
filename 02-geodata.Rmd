@@ -364,7 +364,7 @@ tmap_arrange(tmrgb1, tmrgb2, tmrgb3, tmrgb4, nrow = 1)
 ```
 
 \index{spatial file formats}
-Similarly to vector data, there is also a large number of raster file formats.
+Similarly to vector data, a large number of raster file formats exists.
 <!-- text files ?-->
 Currently, the GeoTIFF format (`.tif` or `.tiff`) is one of the most popular spatial raster formats.
 It is an extended image TIF format that stores spatial metadata (e.g., map projection) along the values.
