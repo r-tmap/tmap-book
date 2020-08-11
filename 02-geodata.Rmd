@@ -127,7 +127,7 @@ polygon_data = st_sf(
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 ```
 
-```{r vector-data-model, echo=FALSE, fig.asp=3, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
+```{r vector-data-model, echo=FALSE, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
 all_data = rbind(point_data, lines_data, polygon_data)
 tm_point_data = tm_shape(point_data, bbox = all_data) +
   tm_grid() + 
@@ -220,7 +220,6 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 ### Raster data model
 
 \index{raster data model}
-<!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure \@ref(fig:raster-intro)).
 Depending on the type of values, we can distinguish continuous and categorical rasters.
 In continuous rasters, such as elevation or precipitation, values vary progressively.
@@ -266,16 +265,17 @@ tm_raster3 = tm_shape(sta) +
 tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
 
-<!-- add examples of each type -->
+\index{raster data grid types}
 When we think about raster data, most of the time we are referring to regular grids (Figure \@ref(fig:grid-types)).
-In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
+In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right^[Regular grids can also have coordinated changing in different directions, e.g., from bottom to top.].
 <!-- I know it is a simplification-->
-It is possible to transform regular rasters into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
+Regular rasters can be transformed into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
 Rotated grids are the result of transforming both coordinated, $x$ and $y$ using the same rotation coefficients.
 Sheared grids are created when the rotation coefficients are not equal.
 Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure \@ref(fig:grid-types)).
 In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure \@ref(fig:grid-types)).
 
+<!-- Q:should the counting in the below figure start from bottom left? -->
 ```{r grid-types, echo=FALSE, warning=FALSE, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
