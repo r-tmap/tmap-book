@@ -41,10 +41,8 @@ Attributes, on the other hand, are used to store the properties of the data.
 
 \index{spatial geometries}
 There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
-A point is represented by a pair of coordinates, usually described as X and Y.
-It allows for locating this point in some space.
-<!-- short CRS intro -->
-X and Y could be unitless, in degrees, or in some measure units, such as meters.
+A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
+X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section \@ref(crs)).
 <!-- maybe ref to CRS section here -->
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
