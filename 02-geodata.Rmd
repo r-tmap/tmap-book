@@ -43,7 +43,6 @@ Attributes, on the other hand, are used to store the properties of the data.
 There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
 A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
 X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section \@ref(crs)).
-<!-- maybe ref to CRS section here -->
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
@@ -66,10 +65,9 @@ For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons' attributes can be represented by the areas (fill) colors.
 
 \index{spatial attributes}
-The second part of the vector data model relates to attributes. 
-Attributes are usually stored as a table describing the properties of the data.
-In this table, each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
-Each row, on the other hand, relates to a single geometry. 
+The second part of the vector data model relates to non-spatial attributes. 
+Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
+Each row, on the other hand, relates to a single spatial geometry. 
 
 ```{r, echo=FALSE, message=FALSE}
 library(sf)
