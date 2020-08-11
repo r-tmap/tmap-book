@@ -90,9 +90,8 @@ In it, a feature is every object or concept that have spatial location or extent
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
-For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
-<!-- redundancy -->
-<!-- Example -->
+For example, six points stored as POINT features will fill six separate rows, while six points stored as just one MULTIPOINT feature will occupy one row.
+<!-- redundancy --><!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
 Finally, GeometryCollection exists that contains all of the possible geometry types.
 
@@ -105,11 +104,10 @@ Finally, GeometryCollection exists that contains all of the possible geometry ty
 
 
 \index{spatial file formats}
-There are a couple hundreds of file formats that can store spatial vector data.
+A couple hundreds of file formats exist to store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (`.csv`) or as a spreadsheet (`.xls` or `.xlsx`). 
 While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
-Text files are also not suitable for storing information about the coordinate reference system used.
-<!--ref to the CRS section??-->
+Text files are also not suitable for storing information about the coordinate reference system used (section \@ref(crs)).
 Historically, the shapefile format (`.shp`) developed by the ESRI company gained a lot of interest and become the most widely supported spatial vector file format. 
 Despite its popularity, this format has a number of shortcomings, including the need to store several files, attribute names limited to ten characters, the ability to store up to 255 attributes and files up to 2GB, and many more.
 A fairly recent file format, OGC GeoPackage (`.gpkg`), was developed as an alternative. 
@@ -117,12 +115,10 @@ It is a single file database free from the limitation of the shapefile format.
 Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.gpx`), and KML (`.kml`). 
 <!-- FlatGeobuf?? -->
 <!-- - advantages/disadvantages -->
-<!-- - example figure (similar to the one in geocompr, but made with tmap) -->
 
 ### Raster data model
 
 \index{raster data model}
-<!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure \@ref(fig:raster-intro)).
 Depending on the type of values, we can distinguish continuous and categorical rasters.
 In continuous rasters, such as elevation or precipitation, values vary progressively.
@@ -141,24 +137,25 @@ For example, data for this part of the area was not collected, or these location
 <p class="caption">(\#fig:raster-intro)Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map</p>
 </div>
 
-<!-- add examples of each type -->
+\index{raster data grid types}
 When we think about raster data, most of the time we are referring to regular grids (Figure \@ref(fig:grid-types)).
-In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
+In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right^[Regular grids can also have coordinated changing in different directions, e.g., from bottom to top.].
 <!-- I know it is a simplification-->
-It is possible to transform regular rasters into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
+Regular rasters can be transformed into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
 Rotated grids are the result of transforming both coordinated, $x$ and $y$ using the same rotation coefficients.
 Sheared grids are created when the rotation coefficients are not equal.
 Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure \@ref(fig:grid-types)).
 In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure \@ref(fig:grid-types)).
 
+<!-- Q:should the counting in the below figure start from bottom left? -->
 <div class="figure" style="text-align: center">
 <img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
 <p class="caption">(\#fig:grid-types)Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear</p>
 </div>
 
-Contrary to spatial vector data, basic raster stores just one attribute.
+Contrary to spatial vector data, a basic raster data stores just one attribute.
 It is, however, possible to stack together many single rasters (also known as raster layers).
-This allows us to store and operate on many rasters with the same dimensions at the same time.
+This allows us to store and operate on many rasters having the same dimensions at the same time.
 Examples of multi-layer rasters include satellite imageries or temporal rasters.
 Satellite imageries usually consist of many bands (layers) for different wavelengths.
 The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure \@ref(fig:rgb-raster)).
@@ -166,14 +163,13 @@ Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
 
-<!-- rgb raster example -->
 <div class="figure" style="text-align: center">
 <img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
 <p class="caption">(\#fig:rgb-raster)Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.</p>
 </div>
 
 \index{spatial file formats}
-Similarly to vector data, there is also a large number of raster file formats.
+Similarly to vector data, a large number of raster file formats exists.
 <!-- text files ?-->
 Currently, the GeoTIFF format (`.tif` or `.tiff`) is one of the most popular spatial raster formats.
 It is an extended image TIF format that stores spatial metadata (e.g., map projection) along the values.

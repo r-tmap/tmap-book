@@ -279,32 +279,28 @@ In it, a feature is every object or concept that have spatial location or extent
 <p>Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables.
-For example, six points stored as POINT features will have six separate rows, while six points stored as just one MULTIPOINT feature will have one row.
-<!-- redundancy -->
-<!-- Example -->
+For example, six points stored as POINT features will fill six separate rows, while six points stored as just one MULTIPOINT feature will occupy one row.
+<!-- redundancy --><!-- Example -->
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
 Finally, GeometryCollection exists that contains all of the possible geometry types.</p>
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
 <p>
-There are a couple hundreds of file formats that can store spatial vector data.
+A couple hundreds of file formats exist to store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (<code>.csv</code>) or as a spreadsheet (<code>.xls</code> or <code>.xlsx</code>).
 While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
-Text files are also not suitable for storing information about the coordinate reference system used.
-<!--ref to the CRS section??-->
+Text files are also not suitable for storing information about the coordinate reference system used (section <a href="geodata.html#crs">2.4</a>).
 Historically, the shapefile format (<code>.shp</code>) developed by the ESRI company gained a lot of interest and become the most widely supported spatial vector file format.
 Despite its popularity, this format has a number of shortcomings, including the need to store several files, attribute names limited to ten characters, the ability to store up to 255 attributes and files up to 2GB, and many more.
 A fairly recent file format, OGC GeoPackage (<code>.gpkg</code>), was developed as an alternative.
 It is a single file database free from the limitation of the shapefile format.
 Other popular spatial vector file formats include GeoJSON (<code>.geojson</code>), GPX (<code>.gpx</code>), and KML (<code>.kml</code>).
 <!-- FlatGeobuf?? -->
-<!-- - advantages/disadvantages -->
-<!-- - example figure (similar to the one in geocompr, but made with tmap) --></p>
+<!-- - advantages/disadvantages --></p>
 </div>
 <div id="raster-data-model" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Raster data model</h3>
 <p>
-<!-- - raster data model (grid) -->
 The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure <a href="geodata.html#fig:raster-intro">2.2</a>).
 Depending on the type of values, we can distinguish continuous and categorical rasters.
 In continuous rasters, such as elevation or precipitation, values vary progressively.
@@ -319,31 +315,31 @@ For example, data for this part of the area was not collected, or these location
 FIGURE 2.2: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
 </p>
 </div>
-<!-- add examples of each type -->
-<p>When we think about raster data, most of the time we are referring to regular grids (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
-In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right.
+<p>
+When we think about raster data, most of the time we are referring to regular grids (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
+In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
 <!-- I know it is a simplification-->
-It is possible to transform regular rasters into rotated and sheared rasters (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
+Regular rasters can be transformed into rotated and sheared rasters (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
 Rotated grids are the result of transforming both coordinated, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the same rotation coefficients.
 Sheared grids are created when the rotation coefficients are not equal.
 Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
 In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).</p>
+<!-- Q:should the counting in the below figure start from bottom left? -->
 <div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
 <img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
 <p class="caption">
 FIGURE 2.3: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
 </p>
 </div>
-<p>Contrary to spatial vector data, basic raster stores just one attribute.
+<p>Contrary to spatial vector data, a basic raster data stores just one attribute.
 It is, however, possible to stack together many single rasters (also known as raster layers).
-This allows us to store and operate on many rasters with the same dimensions at the same time.
+This allows us to store and operate on many rasters having the same dimensions at the same time.
 Examples of multi-layer rasters include satellite imageries or temporal rasters.
 Satellite imageries usually consist of many bands (layers) for different wavelengths.
 The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure <a href="geodata.html#fig:rgb-raster">2.4</a>).
 Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section <a href="geodata.html#spatial-data-cubes">2.2.3</a>.</p>
-<!-- rgb raster example -->
 <div class="figure" style="text-align: center"><span id="fig:rgb-raster"></span>
 <img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
 <p class="caption">
@@ -351,7 +347,7 @@ FIGURE 2.4: Example of three satellite imagery bands: red, green, blue, and the 
 </p>
 </div>
 <p>
-Similarly to vector data, there is also a large number of raster file formats.
+Similarly to vector data, a large number of raster file formats exists.
 <!-- text files ?-->
 Currently, the GeoTIFF format (<code>.tif</code> or <code>.tiff</code>) is one of the most popular spatial raster formats.
 It is an extended image TIF format that stores spatial metadata (e.g., map projection) along the values.
@@ -419,10 +415,10 @@ and introduce the <strong>stars</strong> package (section <a href="geodata.html#
 Its main class, <code>sf</code>, has the form of an extended data frame, where each row is a spatial feature.
 <!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns.
-It also has one additional column, most often named <code>geom</code> or <code>geometry</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
+It also has one additional column, most often named <code>geom</code> or <code>geometry</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.</p>
 <!-- - how to read sf objects from files -->
-<p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
+<p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
 <!--improve example--></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
 <span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="kw">library</span>(sf)</span>
@@ -486,7 +482,7 @@ This package also has support for both spatial vector and raster data cubes.
 Its main class, <code>stars</code>, is built as a list of matrices or arrays with metadata describing their dimensions.
 The <strong>stars</strong> package is also well integrated with <strong>sf</strong>, with many <code>st_</code> functions (such as, <code>st_crs()</code>) working also on <code>stars</code> objects.</p>
 <!-- - how to read stars objects from files -->
-<p>The <code>read_stars()</code> function allow to read spatial raster data from a file<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
+<p>The <code>read_stars()</code> function allow to read spatial raster data from a file<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.
 This function requires at least one argument with a filename to be read.
 <!--improve example--></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a><span class="kw">library</span>(stars)</span>
@@ -1021,9 +1017,10 @@ The second way to create a <code>crs</code> object is to extract it from an exis
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>However, any other names are also possible.<a href="geodata.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>It is also possible to read spatial vector data using the <code>st_read()</code> function, which differs from <code>read_sf()</code> by having different default arguments.<a href="geodata.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>The <strong>stars</strong> package also has a function <code>read_ncdf()</code> aimed at improved reading of NetCDF files.<a href="geodata.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Regular grids can also have coordinated changing in different directions, e.g., from bottom to top.<a href="geodata.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>However, any other names are also possible.<a href="geodata.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>It is also possible to read spatial vector data using the <code>st_read()</code> function, which differs from <code>read_sf()</code> by having different default arguments.<a href="geodata.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>The <strong>stars</strong> package also has a function <code>read_ncdf()</code> aimed at improved reading of NetCDF files.<a href="geodata.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
