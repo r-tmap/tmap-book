@@ -184,6 +184,7 @@ For example, each feature in a polygon dataset and each cell in a raster dataset
 However, to solve real-life problems, we need to store and operate on more complex data structures.
 It includes situations when we have many attributes, often for several moments in time.
 
+\index{spatial vector data cubes}
 Storing multiple attributes is not a problem for the vector data model, when an attribute table can have many columns.
 The question is how to extend the spatial vector data model to include measurements for many times.
 For example, let's consider a polygon with many attributes representing demographic variables for several years.
@@ -193,6 +194,7 @@ Alternatively, we can have one column representing the year and one column for e
 The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
 The last idea is used in spatial vector data cubes (section \@ref(the-stars-package)).
 
+\index{spatial raster data cubes}
 A single raster dataset can store just one variable for a given area.
 To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (section \@ref(raster-data-model)).
 Additionally, each of the aforementioned rasters can be collected for many moments in time, adding other layers to the data.
