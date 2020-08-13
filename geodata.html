@@ -1007,12 +1007,70 @@ In the following example, a <code>crs</code> object is created from an EPSG code
 <p>A <code>crs</code> object is represented with Well Known Text (WKT).
 It includes a specification of the used datum as well as information how to transform it into other CRSs.
 Understanding the exact content of the WTK is not important for most users, since it is not needed to write a WKT yourself.</p>
-<p>A <code>crs</code> object can be created in two ways.
-The first is with a user input specification, which is either an EPSG number, as shown above, or a so-called <em>proj4</em> character string.
+<p>A <code>crs</code> object can be created in three ways:</p>
+<ol style="list-style-type: decimal">
+<li>The first is with an EPSG number as user input specification as shown above.</li>
+<li>The second is also with a user input specification, but with a so-called <em>proj4</em> character string.
 The <em>proj4</em> character string for the LAEA projection is <code>"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"</code>.
 However, <em>proj4</em> character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
-Also note that the name <em>proj4</em> stands for the <strong>PROJ</strong> library version 4, while the current major version of <strong>PROJ</strong> at the time of writing is already 7.
-The second way to create a <code>crs</code> object is to extract it from an existing spatial data object (e.g. an <strong>sf</strong> or <strong>stars</strong> object).</p>
+Also note that the name <em>proj4</em> stands for the <strong>PROJ</strong> library version 4, while the current major version of <strong>PROJ</strong> at the time of writing is already 7.</li>
+<li>The third way to create a <code>crs</code> object is to extract it from an existing spatial data object (e.g. an <strong>sf</strong> or <strong>stars</strong> object).</li>
+</ol>
+<p>A <code>crs</code> object can be used to define a new spatial object or to transform an existing spatial object into another projection.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="geodata.html#cb8-1"></a><span class="co"># create a data.frame of three famous waterfalls</span></span>
+<span id="cb8-2"><a href="geodata.html#cb8-2"></a>waterfalls =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Iguazu Falls&quot;</span>, <span class="st">&quot;Niagara Falls&quot;</span>, <span class="st">&quot;Victoria Falls&quot;</span>), </span>
+<span id="cb8-3"><a href="geodata.html#cb8-3"></a>                        <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">25.686785</span>, <span class="fl">43.092461</span>, <span class="fl">-17.931805</span>), </span>
+<span id="cb8-4"><a href="geodata.html#cb8-4"></a>                        <span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">54.444981</span>, <span class="fl">-79.047150</span>, <span class="fl">25.825558</span>))</span>
+<span id="cb8-5"><a href="geodata.html#cb8-5"></a></span>
+<span id="cb8-6"><a href="geodata.html#cb8-6"></a><span class="co"># create sf object (without specifying the crs)</span></span>
+<span id="cb8-7"><a href="geodata.html#cb8-7"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>))</span>
+<span id="cb8-8"><a href="geodata.html#cb8-8"></a></span>
+<span id="cb8-9"><a href="geodata.html#cb8-9"></a><span class="co"># extract crs (not defined yet)</span></span>
+<span id="cb8-10"><a href="geodata.html#cb8-10"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
+<span id="cb8-11"><a href="geodata.html#cb8-11"></a><span class="co">#&gt; Coordinate Reference System: NA</span></span>
+<span id="cb8-12"><a href="geodata.html#cb8-12"></a></span>
+<span id="cb8-13"><a href="geodata.html#cb8-13"></a><span class="co"># specify crs</span></span>
+<span id="cb8-14"><a href="geodata.html#cb8-14"></a><span class="kw">st_crs</span>(waterfalls_sf) =<span class="st"> </span><span class="dv">4326</span></span>
+<span id="cb8-15"><a href="geodata.html#cb8-15"></a></span>
+<span id="cb8-16"><a href="geodata.html#cb8-16"></a><span class="co"># extract crs</span></span>
+<span id="cb8-17"><a href="geodata.html#cb8-17"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
+<span id="cb8-18"><a href="geodata.html#cb8-18"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span id="cb8-19"><a href="geodata.html#cb8-19"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span id="cb8-20"><a href="geodata.html#cb8-20"></a><span class="co">#&gt;   wkt:</span></span>
+<span id="cb8-21"><a href="geodata.html#cb8-21"></a><span class="co">#&gt; GEOGCRS[&quot;WGS 84&quot;,</span></span>
+<span id="cb8-22"><a href="geodata.html#cb8-22"></a><span class="co">#&gt;     DATUM[&quot;World Geodetic System 1984&quot;,</span></span>
+<span id="cb8-23"><a href="geodata.html#cb8-23"></a><span class="co">#&gt;         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,</span></span>
+<span id="cb8-24"><a href="geodata.html#cb8-24"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]]],</span></span>
+<span id="cb8-25"><a href="geodata.html#cb8-25"></a><span class="co">#&gt;     PRIMEM[&quot;Greenwich&quot;,0,</span></span>
+<span id="cb8-26"><a href="geodata.html#cb8-26"></a><span class="co">#&gt;         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-27"><a href="geodata.html#cb8-27"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span id="cb8-28"><a href="geodata.html#cb8-28"></a><span class="co">#&gt;         AXIS[&quot;geodetic latitude (Lat)&quot;,north,</span></span>
+<span id="cb8-29"><a href="geodata.html#cb8-29"></a><span class="co">#&gt;             ORDER[1],</span></span>
+<span id="cb8-30"><a href="geodata.html#cb8-30"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-31"><a href="geodata.html#cb8-31"></a><span class="co">#&gt;         AXIS[&quot;geodetic longitude (Lon)&quot;,east,</span></span>
+<span id="cb8-32"><a href="geodata.html#cb8-32"></a><span class="co">#&gt;             ORDER[2],</span></span>
+<span id="cb8-33"><a href="geodata.html#cb8-33"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-34"><a href="geodata.html#cb8-34"></a><span class="co">#&gt;     USAGE[</span></span>
+<span id="cb8-35"><a href="geodata.html#cb8-35"></a><span class="co">#&gt;         SCOPE[&quot;unknown&quot;],</span></span>
+<span id="cb8-36"><a href="geodata.html#cb8-36"></a><span class="co">#&gt;         AREA[&quot;World&quot;],</span></span>
+<span id="cb8-37"><a href="geodata.html#cb8-37"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span id="cb8-38"><a href="geodata.html#cb8-38"></a><span class="co">#&gt;     ID[&quot;EPSG&quot;,4326]]</span></span>
+<span id="cb8-39"><a href="geodata.html#cb8-39"></a></span>
+<span id="cb8-40"><a href="geodata.html#cb8-40"></a><span class="co"># alternatively, create sf object with specifying the crs</span></span>
+<span id="cb8-41"><a href="geodata.html#cb8-41"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="geodata.html#cb9-1"></a><span class="co"># transform to the Equal Earth projection (EPSG 8857)</span></span>
+<span id="cb9-2"><a href="geodata.html#cb9-2"></a>waterfalls_sf_trans =<span class="st"> </span><span class="kw">st_transform</span>(waterfalls_sf, <span class="dv">8857</span>)</span>
+<span id="cb9-3"><a href="geodata.html#cb9-3"></a>waterfalls_sf_trans</span>
+<span id="cb9-4"><a href="geodata.html#cb9-4"></a><span class="co">#&gt; Simple feature collection with 3 features and 1 field</span></span>
+<span id="cb9-5"><a href="geodata.html#cb9-5"></a><span class="co">#&gt; geometry type:  POINT</span></span>
+<span id="cb9-6"><a href="geodata.html#cb9-6"></a><span class="co">#&gt; dimension:      XY</span></span>
+<span id="cb9-7"><a href="geodata.html#cb9-7"></a><span class="co">#&gt; bbox:           xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000</span></span>
+<span id="cb9-8"><a href="geodata.html#cb9-8"></a><span class="co">#&gt; projected CRS:  WGS 84 / Equal Earth Greenwich</span></span>
+<span id="cb9-9"><a href="geodata.html#cb9-9"></a><span class="co">#&gt;             name                  geometry</span></span>
+<span id="cb9-10"><a href="geodata.html#cb9-10"></a><span class="co">#&gt; 1   Iguazu Falls POINT (-4969711 -3244138)</span></span>
+<span id="cb9-11"><a href="geodata.html#cb9-11"></a><span class="co">#&gt; 2  Niagara Falls  POINT (-6583123 5261565)</span></span>
+<span id="cb9-12"><a href="geodata.html#cb9-12"></a><span class="co">#&gt; 3 Victoria Falls  POINT (2416945 -2285044)</span></span></code></pre></div>
+<p><img src="02-geodata_files/figure-html/crs-trans-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

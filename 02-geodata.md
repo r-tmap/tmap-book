@@ -824,11 +824,85 @@ A `crs` object is represented with Well Known Text (WKT).
 It includes a specification of the used datum as well as information how to transform it into other CRSs.
 Understanding the exact content of the WTK is not important for most users, since it is not needed to write a WKT yourself.
 
-A `crs` object can be created in two ways.
-The first is with a user input specification, which is either an EPSG number, as shown above, or a so-called *proj4* character string.
+A `crs` object can be created in three ways:
+
+1. The first is with an EPSG number as user input specification as shown above.
+2. The second is also with a user input specification, but with a so-called *proj4* character string. 
 The *proj4* character string for the LAEA projection is `"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`.
 However, *proj4* character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
 Also note that the name *proj4* stands for the **PROJ** library version 4, while the current major version of **PROJ** at the time of writing is already 7.
-The second way to create a `crs` object is to extract it from an existing spatial data object (e.g. an **sf** or **stars** object).
+3. The third way to create a `crs` object is to extract it from an existing spatial data object (e.g. an **sf** or **stars** object).
+
+A `crs` object can be used to define a new spatial object or to transform an existing spatial object into another projection.
+
+
+```r
+# create a data.frame of three famous waterfalls
+waterfalls = data.frame(name = c("Iguazu Falls", "Niagara Falls", "Victoria Falls"), 
+                        lat = c(-25.686785, 43.092461, -17.931805), 
+                        lon = c(-54.444981, -79.047150, 25.825558))
+
+# create sf object (without specifying the crs)
+waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"))
+
+# extract crs (not defined yet)
+st_crs(waterfalls_sf)
+#> Coordinate Reference System: NA
+
+# specify crs
+st_crs(waterfalls_sf) = 4326
+
+# extract crs
+st_crs(waterfalls_sf)
+#> Coordinate Reference System:
+#>   User input: EPSG:4326 
+#>   wkt:
+#> GEOGCRS["WGS 84",
+#>     DATUM["World Geodetic System 1984",
+#>         ELLIPSOID["WGS 84",6378137,298.257223563,
+#>             LENGTHUNIT["metre",1]]],
+#>     PRIMEM["Greenwich",0,
+#>         ANGLEUNIT["degree",0.0174532925199433]],
+#>     CS[ellipsoidal,2],
+#>         AXIS["geodetic latitude (Lat)",north,
+#>             ORDER[1],
+#>             ANGLEUNIT["degree",0.0174532925199433]],
+#>         AXIS["geodetic longitude (Lon)",east,
+#>             ORDER[2],
+#>             ANGLEUNIT["degree",0.0174532925199433]],
+#>     USAGE[
+#>         SCOPE["unknown"],
+#>         AREA["World"],
+#>         BBOX[-90,-180,90,180]],
+#>     ID["EPSG",4326]]
+
+# alternatively, create sf object with specifying the crs
+waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
+```
+
+
+```r
+# transform to the Equal Earth projection (EPSG 8857)
+waterfalls_sf_trans = st_transform(waterfalls_sf, 8857)
+waterfalls_sf_trans
+#> Simple feature collection with 3 features and 1 field
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000
+#> projected CRS:  WGS 84 / Equal Earth Greenwich
+#>             name                  geometry
+#> 1   Iguazu Falls POINT (-4969711 -3244138)
+#> 2  Niagara Falls  POINT (-6583123 5261565)
+#> 3 Victoria Falls  POINT (2416945 -2285044)
+```
+
+
+<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" width="672" style="display: block; margin: auto;" />
+
+
+
+
+
+
 
 
