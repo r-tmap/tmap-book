@@ -127,11 +127,6 @@ Their examples include land cover or soil types maps.
 Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
-
-```
-#> Loading required package: abind
-```
-
 <div class="figure" style="text-align: center">
 <img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
 <p class="caption">(\#fig:raster-intro)Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map</p>
