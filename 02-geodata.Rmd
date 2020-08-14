@@ -420,25 +420,20 @@ It includes formats such as NetCDF (`.nc`) and HDF (`.hdf`).
 ## Spatial data representations in R
 
 \index{vector data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for vector representation -->
 R has several packages aimed to represent spatial vector data.
-Recently, the **terra** package has been released containing a new vector data representation.
+<!-- Recently, the **terra** package has been released containing a new vector data representation. -->
 For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
 However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
 The **tmap** package has been using **sf** since version 2.0.
-In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
+
 
 \index{raster data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for raster representation -->
-<!-- packages REFs -->
+\index{spatial data cubes}
 Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
 The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
-In the two next sections, we present raster data model (section \@ref(raster-data-model))
-and introduce the **stars** package (section \@ref(the-stars-package)).
+Nowadays, the **stars** package is used by **tmap** to operate on raster data and spatial data cubes.
+
+In the two next sections, we introduce the **sf** package (\@ref(the-sf-package)) and the **stars** package (section \@ref(the-stars-package)).
 
 <!-- spatial data cubes -->
 <!-- https://github.com/appelmar/gdalcubes_R -->
