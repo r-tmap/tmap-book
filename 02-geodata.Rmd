@@ -228,7 +228,7 @@ Their examples include land cover or soil types maps.
 Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
-```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map"}
+```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map", message=FALSE}
 #replace example later
 library(tmap)
 library(spData)
