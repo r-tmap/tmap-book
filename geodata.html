@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-13" />
+<meta name="date" content="2020-08-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -396,23 +396,18 @@ It includes formats such as NetCDF (<code>.nc</code>) and HDF (<code>.hdf</code>
 </div>
 <div id="spatial-data-representations-in-r" class="section level2">
 <h2><span class="header-section-number">2.3</span> Spatial data representations in R</h2>
-<p></p>
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for vector representation -->
-<p>R has several packages aimed to represent spatial vector data.
-Recently, the <strong>terra</strong> package has been released containing a new vector data representation.
+<p>
+R has several packages aimed to represent spatial vector data.
+<!-- Recently, the **terra** package has been released containing a new vector data representation. -->
 For more than a decade, the <strong>sp</strong> package <!--REF--> was a standard of vector data representation in R.
 However, now this package is in the maintenance mode only, and its successor, <strong>sf</strong> is recommended.
-The <strong>tmap</strong> package has been using <strong>sf</strong> since version 2.0.
-In the two next sections, we introduce vector data model (section <a href="geodata.html#vector-data-model">2.2.1</a>) and show how the <strong>sf</strong> package works with spatial data (section <a href="geodata.html#the-sf-package">2.3.1</a>).</p>
-<p></p>
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for raster representation -->
-<!-- packages REFs -->
-<p>Several R packages can be used to represent spatial raster data, including <strong>raster</strong> and its successor <strong>terra</strong>.
+The <strong>tmap</strong> package has been using <strong>sf</strong> since version 2.0.</p>
+<p>
+
+Several R packages can be used to represent spatial raster data, including <strong>raster</strong> and its successor <strong>terra</strong>.
 The <strong>raster</strong> package was used as a backbone of raster data visualization until <strong>tmap</strong> version 3.0.
-In the two next sections, we present raster data model (section <a href="geodata.html#raster-data-model">2.2.2</a>)
-and introduce the <strong>stars</strong> package (section <a href="geodata.html#the-stars-package">2.3.2</a>).</p>
+Nowadays, the <strong>stars</strong> package is used by <strong>tmap</strong> to operate on raster data and spatial data cubes.</p>
+<p>In the two next sections, we introduce the <strong>sf</strong> package (<a href="geodata.html#the-sf-package">2.3.1</a>) and the <strong>stars</strong> package (section <a href="geodata.html#the-stars-package">2.3.2</a>).</p>
 <!-- spatial data cubes -->
 <!-- https://github.com/appelmar/gdalcubes_R -->
 <!-- https://ropensci.org/blog/2019/11/05/tidync/ -->
@@ -422,18 +417,16 @@ and introduce the <strong>stars</strong> package (section <a href="geodata.html#
 </p>
 <p>The <strong>sf</strong> package implements ideas behind the Simple Feature standard, which describe how to represent spatial vector data.
 Its main class, <code>sf</code>, has the form of an extended data frame, where each row is a spatial feature.
-<!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns.
 It also has one additional column, most often named <code>geom</code> or <code>geometry</code><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.</p>
 <!-- - how to read sf objects from files -->
-<p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in the previous section using the <code>read_sf()</code> function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
+<p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in section <a href="geodata.html#vector-data-model">2.2.1</a> using the <code>read_sf()</code> function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
 <!--improve example--></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
 <span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="kw">library</span>(sf)</span>
 <span id="cb2-3"><a href="geodata.html#cb2-3"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
 <span id="cb2-4"><a href="geodata.html#cb2-4"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span></code></pre></div>
-<!-- explain example -->
 <p>The new object, <code>x</code>, has a <code>sf</code> class.
 It has 177 features (rows or geometries) and 10 fields (columns with attributes).
 There is also an 11th column, <code>geom</code>, that stores geometries of each feature.
@@ -478,7 +471,7 @@ In case of having vector objects in a different representation, they should be c
 The <strong>sf</strong> package has the <code>st_as_sf()</code> function that translates objects of many classes, including <code>Spatial</code> (from the <strong>sp</strong> package), <code>ppp</code>, <code>psp</code>, and <code>lpp</code> (from the <strong>spatstat</strong> package), to the objects of class <code>sf</code>.
 The <code>st_as_sf()</code> function also allows to turn data frames into <code>sf</code> objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
 For example <code>my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)</code>.</p>
-<p>If you want to learn more about operating on <code>sf</code> objects, we recommend visiting the package website and vignettes at <a href="https://r-spatial.github.io/sf/index.html" class="uri">https://r-spatial.github.io/sf/index.html</a> and reading the Geocomputation with R book <span class="citation">(Lovelace, Nowosad, and Muenchow <a href="#ref-lovelace2019geocomputation" role="doc-biblioref">2019</a>)</span>.
+<p>If you want to learn more about operating on <code>sf</code> objects, we recommend visiting the package website and vignettes at <a href="https://r-spatial.github.io/sf/index.html" class="uri">https://r-spatial.github.io/sf/index.html</a> and reading <a href="https://geocompr.github.io/">the Geocomputation with R book</a> <span class="citation">(Lovelace, Nowosad, and Muenchow <a href="#ref-lovelace2019geocomputation" role="doc-biblioref">2019</a>)</span>.
 <!-- - vector simplification? --></p>
 </div>
 <div id="the-stars-package" class="section level3">
@@ -489,7 +482,7 @@ For example <code>my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs 
 <p>The <strong>stars</strong> package allows for reading and processing raster data in R.
 This package also has support for both spatial vector and raster data cubes.
 Its main class, <code>stars</code>, is built as a list of matrices or arrays with metadata describing their dimensions.
-The <strong>stars</strong> package is also well integrated with <strong>sf</strong>, with many <code>st_</code> functions (such as, <code>st_crs()</code>) working also on <code>stars</code> objects.</p>
+The <strong>stars</strong> package is also well integrated with <strong>sf</strong>, with many <code>st_</code> functions (such as <code>st_crs()</code>) working also on <code>stars</code> objects.</p>
 <!-- - how to read stars objects from files -->
 <p>The <code>read_stars()</code> function allow to read spatial raster data from a file<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.
 This function requires at least one argument with a filename to be read.
@@ -519,8 +512,8 @@ Next, the coordinates of further cells increase by <code>0.000833333</code> (<co
 The <code>y</code> dimension has 457 elements (rows), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>37.5129</code>.
 For the <code>y</code> dimension, each further cell’s coordinated decreases by <code>0.000833333</code> (notice the negative value of <code>delta</code>) - resolution in the <code>y</code> dimension.
 Both dimensions also have the same CRS - <code>WGS 84</code>.</p>
-<p><code>read_stars()</code> also has several additional arguments, <code>RasterIO</code> that gives control over the input data extent and resolution.
-For example, the below code will read just the first and second bands.
+<p><code>read_stars()</code> also has several additional arguments including <code>RasterIO</code>, which gives control over the input data extent and resolution.
+For example, the below code will read just the first and second bands (results not shown).
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example--></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="geodata.html#cb6-1"></a>file_path3 =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)</span>

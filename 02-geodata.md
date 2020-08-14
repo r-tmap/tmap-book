@@ -225,25 +225,19 @@ It includes formats such as NetCDF (`.nc`) and HDF (`.hdf`).
 ## Spatial data representations in R
 
 \index{vector data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for vector representation -->
 R has several packages aimed to represent spatial vector data.
-Recently, the **terra** package has been released containing a new vector data representation.
+<!-- Recently, the **terra** package has been released containing a new vector data representation. -->
 For more than a decade, the **sp** package <!--REF--> was a standard of vector data representation in R.
 However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
 The **tmap** package has been using **sf** since version 2.0.
-In the two next sections, we introduce vector data model (section \@ref(vector-data-model)) and show how the **sf** package works with spatial data (section \@ref(the-sf-package)).
 
 \index{raster data model}
-
-<!-- - one/two intro sentences -->
-<!-- - including r packages used for raster representation -->
-<!-- packages REFs -->
+\index{spatial data cubes}
 Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
 The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
-In the two next sections, we present raster data model (section \@ref(raster-data-model))
-and introduce the **stars** package (section \@ref(the-stars-package)).
+Nowadays, the **stars** package is used by **tmap** to operate on raster data and spatial data cubes.
+
+In the two next sections, we introduce the **sf** package (\@ref(the-sf-package)) and the **stars** package (section \@ref(the-stars-package)).
 
 <!-- spatial data cubes -->
 <!-- https://github.com/appelmar/gdalcubes_R -->
@@ -256,13 +250,12 @@ and introduce the **stars** package (section \@ref(the-stars-package)).
 
 The **sf** package implements ideas behind the Simple Feature standard, which describe how to represent spatial vector data.
 Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
-<!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns. 
 It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
 
 <!-- - how to read sf objects from files -->
-The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
+The **sf** package can read all of the spatial data formats mentioned in section \@ref(vector-data-model) using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
 <!--improve example-->
 
 ```r
@@ -271,7 +264,6 @@ library(sf)
 file_path = system.file("shapes/world.gpkg", package = "spData")
 x = read_sf(file_path)
 ```
-<!-- explain example -->
 
 The new object, `x`, has a `sf` class. 
 It has 177 features (rows or geometries) and 10 fields (columns with attributes). 
@@ -325,7 +317,7 @@ The **sf** package has the `st_as_sf()` function that translates objects of many
 The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
 For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
 
-If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading the Geocomputation with R book [@lovelace2019geocomputation].
+If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace2019geocomputation].
 <!-- - vector simplification? -->
 
 ### The stars package
@@ -337,7 +329,7 @@ If you want to learn more about operating on `sf` objects, we recommend visiting
 The **stars** package allows for reading and processing raster data in R. 
 This package also has support for both spatial vector and raster data cubes.
 Its main class, `stars`, is built as a list of matrices or arrays with metadata describing their dimensions.
-The **stars** package is also well integrated with **sf**, with many `st_` functions (such as, `st_crs()`) working also on `stars` objects.
+The **stars** package is also well integrated with **sf**, with many `st_` functions (such as `st_crs()`) working also on `stars` objects.
 
 <!-- - how to read stars objects from files -->
 The `read_stars()` function allow to read spatial raster data from a file^[The **stars** package also has a function `read_ncdf()` aimed at improved reading of NetCDF files.].
@@ -378,8 +370,8 @@ The `y` dimension has 457 elements (rows), starting from a coordinate (`offset`)
 For the `y` dimension, each further cell's coordinated decreases by `0.000833333` (notice the negative value of `delta`) - resolution in the `y` dimension.
 Both dimensions also have the same CRS - `WGS 84`.
 
-`read_stars()` also has several additional arguments, `RasterIO` that gives control over the input data extent and resolution.
-For example, the below code will read just the first and second bands.
+`read_stars()` also has several additional arguments including `RasterIO`, which gives control over the input data extent and resolution.
+For example, the below code will read just the first and second bands (results not shown).
 <!-- - including reading chunks, changing resolution, and selecting bands -->
 <!--improve example-->
 
