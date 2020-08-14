@@ -426,7 +426,6 @@ For more than a decade, the **sp** package <!--REF--> was a standard of vector d
 However, now this package is in the maintenance mode only, and its successor, **sf** is recommended.
 The **tmap** package has been using **sf** since version 2.0.
 
-
 \index{raster data model}
 \index{spatial data cubes}
 Several R packages can be used to represent spatial raster data, including **raster** and its successor **terra**. 
@@ -446,13 +445,12 @@ In the two next sections, we introduce the **sf** package (\@ref(the-sf-package)
 
 The **sf** package implements ideas behind the Simple Feature standard, which describe how to represent spatial vector data.
 Its main class, `sf`, has the form of an extended data frame, where each row is a spatial feature.
-<!-- - how the sf objects are organized -->
 In it, attributes of the vector data are stored as columns. 
 It also has one additional column, most often named `geom` or `geometry`^[However, any other names are also possible.].
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
 
 <!-- - how to read sf objects from files -->
-The **sf** package can read all of the spatial data formats mentioned in the previous section using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
+The **sf** package can read all of the spatial data formats mentioned in section \@ref(vector-data-model) using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
 <!--improve example-->
 ```{r}
 # replace this data with some new tmap dataset
@@ -460,7 +458,6 @@ library(sf)
 file_path = system.file("shapes/world.gpkg", package = "spData")
 x = read_sf(file_path)
 ```
-<!-- explain example -->
 
 The new object, `x`, has a `sf` class. 
 It has `r nrow(x)` features (rows or geometries) and `r ncol(x) - 1` fields (columns with attributes). 
@@ -492,7 +489,7 @@ The **sf** package has the `st_as_sf()` function that translates objects of many
 The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
 For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
 
-If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading the Geocomputation with R book [@lovelace2019geocomputation].
+If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace2019geocomputation].
 <!-- - vector simplification? -->
 
 ### The stars package
