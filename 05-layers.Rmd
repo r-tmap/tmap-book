@@ -1,1 +1,24 @@
 # Layers {#layers}
+
+```{r}
+layers_basic_df = tibble::tribble(
+  ~Function, ~Element, ~Geometry,
+  "`tm_polygons()`", "polygons (borders and fill)", "polygons",
+  "`tm_symbols()`", "symbols", "points, polygons, and lines", 
+  "`tm_lines()`", "lines", "lines", 
+  "`tm_raster()`", "raster", "raster",
+  "`tm_text()`", "text", "points, polygons, and lines"
+)
+layers_extended_df = tibble::tribble(
+  ~Function, ~Element, ~Geometry,
+  "`tm_borders()`", "polygons (borders)", "polygons",
+  "`tm_fill()`", "polygons (fill)", "polygons",
+  "`tm_bubbles()`", "bubbles", "points, polygons, and lines",
+  "`tm_dots()`", "dots", "points, polygons, and lines",
+  "`tm_markers()`", "marker symbols", "points, polygons, and lines",
+  "`tm_square()`", "squares", "points, polygons, and lines",
+  "`tm_iso()`", "lines with text labels", "lines",
+  "`tm_rgb()`/`tm_rgba()`", "raster (RGB image)", "raster"
+)
+```
+
