@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-17" />
+<meta name="date" content="2020-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,7 @@
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
@@ -201,6 +202,180 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="layers" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Layers</h1>
+<p><a href="layers.html#tab:layers-table">5.1</a></p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:layers-table">TABLE 5.1: </span>Map layers.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+Element
+</th>
+<th style="text-align:left;">
+Geometry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="5">
+<td colspan="3" style="border-bottom: 1px solid;">
+<strong>Basic functions</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_polygons()
+</td>
+<td style="text-align:left;">
+polygons (borders and fill)
+</td>
+<td style="text-align:left;">
+polygons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_symbols()
+</td>
+<td style="text-align:left;">
+symbols
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_lines()
+</td>
+<td style="text-align:left;">
+lines
+</td>
+<td style="text-align:left;">
+lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_raster()
+</td>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;">
+raster
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_text()
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="3" style="border-bottom: 1px solid;">
+<strong>Derived functions</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_borders()
+</td>
+<td style="text-align:left;">
+polygons (borders)
+</td>
+<td style="text-align:left;">
+polygons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_fill()
+</td>
+<td style="text-align:left;">
+polygons (fill)
+</td>
+<td style="text-align:left;">
+polygons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_bubbles()
+</td>
+<td style="text-align:left;">
+bubbles
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_dots()
+</td>
+<td style="text-align:left;">
+dots
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_markers()
+</td>
+<td style="text-align:left;">
+marker symbols
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_square()
+</td>
+<td style="text-align:left;">
+squares
+</td>
+<td style="text-align:left;">
+points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_iso()
+</td>
+<td style="text-align:left;">
+lines with text labels
+</td>
+<td style="text-align:left;">
+lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+tm_rgb()/tm_rgba()
+</td>
+<td style="text-align:left;">
+raster (RGB image)
+</td>
+<td style="text-align:left;">
+raster
+</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 <script>
