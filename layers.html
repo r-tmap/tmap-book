@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-18" />
+<meta name="date" content="2020-08-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -168,7 +168,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a></li>
-<li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a></li>
+<li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
+<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.1</b> The color scale styles <!--JN: I am not sure when this section should go--></a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
 <li class="chapter" data-level="8" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>8</b> Interactive settings</a></li>
@@ -376,7 +378,26 @@ raster
 </tr>
 </tbody>
 </table>
+<div id="the-color-scale-styles" class="section level2">
+<h2><span class="header-section-number">5.1</span> The color scale styles <!--JN: I am not sure when this section should go--></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="layers.html#cb9-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb9-2"><a href="layers.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb9-3"><a href="layers.html#cb9-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
+<span id="cb9-4"><a href="layers.html#cb9-4"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb9-5"><a href="layers.html#cb9-5"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb9-6"><a href="layers.html#cb9-6"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
+<span id="cb9-7"><a href="layers.html#cb9-7"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
+<!-- one plot with five panels: one color/adjacent polygons/categorical/discrete/continuous? -->
+<!-- or maybe start with one color/adjacent polygons -->
+<!-- and next present three main types of color palettes -->
+<!-- after that categorical/discrete/continuous?? -->
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb10-3"><a href="layers.html#cb10-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb10-4"><a href="layers.html#cb10-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+<p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
 
+</div>
 </div>
 <script>
 /*
