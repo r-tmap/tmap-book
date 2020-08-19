@@ -42,3 +42,28 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
 
+## The color scale styles <!--JN: I am not sure when this section should go-->
+
+```{r}
+# replace this data with some new tmap dataset
+library(sf)
+library(tmap)
+file_path = system.file("shapes/world.gpkg", package = "spData")
+world = read_sf(file_path)
+world_moll = st_transform(world, crs = "+proj=moll")
+```
+
+<!-- one plot with five panels: one color/adjacent polygons/categorical/discrete/continuous? -->
+<!-- or maybe start with one color/adjacent polygons -->
+<!-- and next present three main types of color palettes -->
+<!-- after that categorical/discrete/continuous?? -->
+
+```{r}
+tm_one = tm_shape(world_moll) +
+  tm_polygons(col = "lightblue")
+tm_uni = tm_shape(world_moll) +
+  tm_polygons(col = "MAP_COLORS")
+```
+
+
+To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
