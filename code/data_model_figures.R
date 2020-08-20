@@ -226,3 +226,69 @@ draw_vector_data = function(scale = 1) {
   upViewport(2)
 }
 
+
+draw_vector_cubes = function() {
+  # NOTE: data values do not correspond with reality, e.g. some provinces should have much higher values for "urban". Either we should use non-informative category labels like "A", "B", etc., or real land use data.
+  
+  library(grid)
+  library(sf)
+  library(stars)
+  library(tmap)
+  
+  data(NLD_prov)
+  
+  tif = system.file("tif/L7_ETMs.tif", package = "stars")
+  sensorA = read_stars(tif)[, 1:12, 1:5, 1]
+  sensorA[[1]] = (sensorA[[1]] - min(sensorA[[1]])) / (max(sensorA[[1]]) - min(sensorA[[1]]))
+  
+  m = cut(sensorA[[1]], breaks = seq(0, 1, by = .1), right = FALSE, include.lowest = TRUE, labels = FALSE)[,,1]
+  cols = viridisLite::magma(10, begin = 0.3, end = 1)
+  
+  
+  grid.newpage()
+  pushViewport(viewport(width = unit(1.5, "snpc"), height = unit(1, "snpc")))
+  #grid.rect(gp = gpar(fill = "grey90"))
+  pushViewport(viewport(width = .7, height = .6, y = .4, x = .6))
+  #grid.rect()
+  stackLayers(k = 8, m = m, cols = cols)
+  upViewport()
+  
+  
+  mapWidth = .3
+  mapHeight = .5
+  mapX = .2
+  mapY = .7
+  
+  print({
+    tm_shape(NLD_prov) +
+      tm_polygons(col = "grey95") +
+      tm_layout(inner.margins = 0, outer.margins = 0, frame = FALSE)
+  }, vp = viewport(width = mapWidth, height = mapHeight, x = mapX, y = mapY))
+  
+  # calculate centroid of provinces in [0, 1] range (inside viewport)
+  co = st_coordinates(st_centroid(NLD_prov))[,1:2]
+  bb = st_bbox(NLD_prov)
+  cx = (co[,1] - bb[1]) / (bb[3] - bb[1])
+  cy = (co[,2] - bb[2]) / (bb[4] - bb[2])
+  
+  # transform coordinates to outside viewport
+  cx2 = cx * mapWidth + mapX - mapWidth/2
+  cy2 = cy * mapHeight + mapY - mapHeight/2
+  
+  co2 = cbind(cx2, cy2)
+  # grid.points(x = unit(cx2, "npc"), y = unit(cy2, "npc"))
+  
+  
+  # grid.points(x = unit(c(.25, .42), "npc"), y = unit(c(.32, .5), "npc"))
+  co3 = cbind(seq(.41, .25, length.out = 12),
+              seq(.5, .32, length.out = 12))
+  # grid.points(co3[,1], co3[,2])
+  
+  xall = as.vector(rbind(co2[,1], co3[,1]))
+  yall = as.vector(rbind(co2[,2], co3[,2]))
+  
+  grid.polyline(x = xall, y = yall, id = rep(1:12, each = 2), gp = gpar(col = "grey30"))
+  grid.text(c("urban", "forest", "crops", "grass", "water"), x = unit(seq(.47, .90, length.out = 5),"npc"), y = unit(.55,"npc"), gp = gpar(col = "grey30"))
+  
+}
+
