@@ -44,13 +44,6 @@ cellplot = function(row, col, width = 1, height = 1, e) {
   upViewport(2)
 }
 
-# nr = 5
-# nc = 4
-# 
-# n = nr * nc
-# 
-# m = matrix(1:n, nrow = nr, ncol = nc)
-# 
 
 draw_data_cubes = function() {
   require(stars)
@@ -106,4 +99,130 @@ draw_data_cubes = function() {
 
 
 
+
+draw_table = function(df, col_heading = "white", col_rows = "black", bg_heading = "grey40", bg_main = "white", borders = "grey40", scale = 1) {
+  nrows = nrow(df) + 1
+  ncols = ncol(df)
+  col_rows = rep(col_rows, length.out = nrows - 1)
+  
+  pushViewport(viewport(layout = grid.layout(nrow = nrows, ncol = ncols)))
+  
+  for (i in 1:ncols) {
+    cellplot(1, i, e = {
+      grid.rect(gp=gpar(col = borders, lwd = scale, fill = bg_heading))
+      grid.text(label = names(df)[i], gp = gpar(col = col_heading, cex = scale, lwd = scale, fontface = "bold"))
+    })  
+    for (j in 2:nrows) {
+      cellplot(j, i, e = {
+        grid.rect(gp=gpar(col = borders, lwd = scale, fill = bg_main))
+        grid.text(label = df[j-1, i], gp = gpar(col = col_rows[j-1], cex = scale, lwd = scale))
+      })
+    }
+  }
+  upViewport()
+}
+
+draw_vector_data = function(scale = 1) {
+  library(grid)
+  library(sf)
+  library(tmap)
+  library(dplyr)
+  
+  cols = RColorBrewer::brewer.pal(3, "Dark2")
+  
+  sf_pnts = st_sf(ID = 1:3, name = c("City A", "City B", "City C"), population = c(400, 100, 800), beautiful = c(FALSE, TRUE, TRUE), cols = cols,
+                  geometry = st_sfc(st_point(c(2, 7)),
+                                    st_point(c(9, 5)),
+                                    st_point(c(6, 3))), crs = 4326)
+  
+  sf_lns = st_sf(ID = 1:3, name = c("Road A", "Road B", "Road C"), lanes = c(4, 3, 2), cycling = c(FALSE, TRUE, TRUE), cols = cols,
+                 geometry = st_sfc(st_linestring(rbind(c(3,8),
+                                                       c(6,7),
+                                                       c(8,6))),
+                                   st_linestring(rbind(c(5,5),
+                                                       c(9,4),
+                                                       c(11.5,6))),
+                                   st_linestring(rbind(c(1,3),
+                                                       c(6,2),
+                                                       c(10,1),
+                                                       c(11,3)))), crs = 4326)
+  sf_lns_pnts = sf_lns
+  sf_lns_pnts$geometry = st_cast(sf_lns_pnts$geometry, "MULTIPOINT")
+  
+  
+  sf_plg = st_sf(ID = 1:3, name = c("County A", "County B", "County C"), population = c(1000, 500, 900), beautiful = c(TRUE, TRUE, TRUE), cols = cols,
+                 geometry = st_sfc(st_polygon(list(rbind(c(3,8),
+                                                         c(4.5,9.5),
+                                                         c(5,7),
+                                                         c(4,6),
+                                                         c(3,8)))),
+                                   st_polygon(list(rbind(c(7,5),
+                                                         c(9,4),
+                                                         c(11.5,6),
+                                                         c(9,9),
+                                                         c(7,5)))),
+                                   st_polygon(list(rbind(c(5,4),
+                                                         c(6,2),
+                                                         c(10,1),
+                                                         c(11,3),
+                                                         c(5,4))))), crs = 4326)
+  
+  sf_plg_pnts = sf_plg
+  sf_plg_pnts$geometry = st_cast(sf_plg_pnts$geometry, "MULTIPOINT")
+  
+  grid.newpage()
+  pushViewport(viewport(width = unit(1,"snpc"), height = unit(1,"snpc"))) # to make sure asp ratio is 1
+  grid.rect(gp=gpar(fill="grey95", col = "grey30", lwd = scale))
+  pushViewport(viewport(layout = grid.layout(nrow = 7, ncol = 5, widths = c(0.05, 0.3, 0.05, 0.55, 0.05), heights = c(0.076, 0.232, 0.076, 0.232, 0.076, 0.232, 0.076))))
+  
+  print({
+    tm_shape(sf_pnts, bbox = c(0, 0, 12.931, 10)) +
+      tm_dots(size = 0.2, col = "cols") +
+      tm_text("ID", xmod = .5, ymod = .5) +
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+  }, vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
+  
+  print({
+    tm_shape(sf_lns, bbox = c(0, 0, 12.931, 10)) +
+      tm_lines(lwd = 2, col = "cols") +
+      tm_text("ID", xmod = .5, ymod = c(.5, 1, .5)) +
+      tm_shape(sf_lns_pnts) + 
+      tm_dots(size = 0.2, col = "cols") +
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+  }, vp = viewport(layout.pos.row = 4, layout.pos.col = 2))
+  
+  print({
+    tm_shape(sf_plg, bbox = c(0, 0, 12.931, 10)) +
+      tm_polygons(lwd = 2, col = "cols", border.col = "grey30") +
+      tm_text("ID", col = "white") +
+      tm_shape(sf_plg_pnts) + 
+      tm_dots(size = 0.2, col = "grey30") +
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+  }, vp = viewport(layout.pos.row = 6, layout.pos.col = 2))
+  
+  cellplot(2, 4, e = {
+    draw_table(sf_pnts %>% st_drop_geometry() %>% select(ID, name, population, beautiful), col_rows = cols, scale = scale)
+  })
+  
+  cellplot(4, 4, e = {
+    draw_table(sf_lns %>% st_drop_geometry() %>% select(ID, name, lanes, cycling), col_rows = cols, scale = scale)
+  })
+  
+  cellplot(6, 4, e = {
+    draw_table(sf_plg %>% st_drop_geometry() %>% select(ID, name, population, beautiful), col_rows = cols, scale = scale)
+  })
+  
+  cellplot(1, 4, e = {
+    grid.text("Example attributes for point data", y = .4, gp=gpar(cex = 1.25 * scale, col = "grey30"))
+  })
+  
+  cellplot(3, 4, e = {
+    grid.text("Example attributes for line data", y = .4, gp=gpar(cex = 1.25 * scale, col = "grey30"))
+  })
+  
+  cellplot(5, 4, e = {
+    grid.text("Example attributes for polygon data", y = .4, gp=gpar(cex = 1.25 * scale, col = "grey30"))
+  })
+  upViewport(2)
+}
 
