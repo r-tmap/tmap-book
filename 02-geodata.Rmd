@@ -127,39 +127,9 @@ polygon_data = st_sf(
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 ```
 
-```{r vector-data-model, echo=FALSE, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
-all_data = rbind(point_data, lines_data, polygon_data)
-tm_point_data = tm_shape(point_data, bbox = all_data) +
-  tm_grid() + 
-  tm_symbols(col = "id", palette = "Set2") +
-  tm_layout(main.title = "POINTS",
-            legend.show = FALSE,
-            inner.margins = 0.1)
-
-tm_lines_data = tm_shape(lines_data, bbox = all_data) +
-  # tm_grid(x = c(0.75, 1, 1.25, 1.5, 1.75, 2, 2.25),
-  #         y = c(0.5, 1, 1.5, 2, 2.5)) + 
-  tm_grid() + 
-  tm_lines(col = "id", lwd = 7, palette = "Set2") +
-  tm_shape(lines_data_p) +
-  tm_dots(size = 0.25) +
-  tm_layout(main.title = "LINES",
-            legend.show = FALSE,
-            inner.margins = 0.1)
-
-tm_polygons_data = tm_shape(polygon_data, bbox = all_data) +
-  tm_grid() + 
-  tm_polygons(col = "id", lwd = 2, palette = "-Set2") +
-  tm_shape(polygon_data_p) +
-  tm_dots(size = 0.25) +
-  tm_layout(main.title = "POLYGONS",
-            legend.show = FALSE,
-            inner.margins = 0.1)
-
-tmap_arrange(tm_point_data,
-             tm_lines_data,
-             tm_polygons_data,
-             nrow = 3)
+```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
+source("code/data_model_figures.R")
+draw_vector_data(scale = .75)
 ```
 
 <!-- the above figure should be improved -->
@@ -228,7 +198,7 @@ Their examples include land cover or soil types maps.
 Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
-```{r raster-intro, echo=FALSE, warning=FALSE, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map", message=FALSE}
+```{r raster-intro, echo=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map", message=FALSE}
 #replace example later
 library(tmap)
 library(spData)
@@ -276,7 +246,7 @@ Rectilinear grids, on the other hand, have orthogonal axes, but consist of recta
 In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure \@ref(fig:grid-types)).
 
 <!-- Q:should the counting in the below figure start from bottom left? -->
-```{r grid-types, echo=FALSE, warning=FALSE, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
+```{r grid-types, echo=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
@@ -345,7 +315,7 @@ Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
 
-```{r rgb-raster, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands."}
+```{r rgb-raster, echo=FALSE, message=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands."}
 # we can/should change this example later
 landsat234 = raster::stack(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
 tmrgb1 = tm_shape(raster::brick(landsat234[[3]])) +
@@ -402,6 +372,11 @@ The question here is how to efficiently store multi-layer raster data to underst
 Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (section \@ref(the-stars-package)).
 
 ```{r raster-data-cubes, echo=FALSE, message=FALSE, fig.cap="Add caption", fig.asp=0.5}
+source("code/data_model_figures.R")
+draw_data_cubes()
+```
+
+```{r raster-data-cubes, fig.asp=0.5, message = FALSE, echo=FALSE, fig.cap="Raster data cubes."}
 source("code/data_model_figures.R")
 draw_data_cubes()
 ```
