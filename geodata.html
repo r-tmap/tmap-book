@@ -384,6 +384,12 @@ The last idea is used in spatial vector data cubes (section <a href="geodata.htm
 <!-- # https://github.com/hypertidy/anglr/wiki/Examples#stacked-plot? -->
 <!-- figure: example of a spatial vector data cube -->
 <!-- e.g. similar to https://r-spatial.github.io/stars/ -->
+<div class="figure" style="text-align: center"><span id="fig:vector-data-cubes"></span>
+<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cubes." width="672" />
+<p class="caption">
+FIGURE 2.5: Vector data cubes.
+</p>
+</div>
 <p>
 A single raster dataset can store just one variable for a given area.
 To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (section <a href="geodata.html#raster-data-model">2.2.2</a>).
@@ -394,7 +400,7 @@ Similarly to spatial vector data cubes, we can think of separating spatial dimen
 <div class="figure" style="text-align: center"><span id="fig:raster-data-cubes"></span>
 <img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cubes." width="672" />
 <p class="caption">
-FIGURE 2.5: Raster data cubes.
+FIGURE 2.6: Raster data cubes.
 </p>
 </div>
 <p>Spatial data cubes are suitable for many real-life applications.
@@ -573,7 +579,7 @@ The question is how to do this.</p>
 <div class="figure" style="text-align: center"><span id="fig:orange"></span>
 <img src="images/orange_world.png" alt="How to peel an orange?" width="606" />
 <p class="caption">
-FIGURE 2.6: How to peel an orange?
+FIGURE 2.7: How to peel an orange?
 </p>
 </div>
 <p>When we peel the orange, ideally we want to rip the peel near areas of the earth that are less interesting.
@@ -584,14 +590,14 @@ There is also a version of the Goode homolosine projection that focuses on prese
 <div class="figure" style="text-align: center"><span id="fig:crs-goode"></span>
 <img src="02-geodata_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
 <p class="caption">
-FIGURE 2.7: The (interrupted) Goode homolosine projection
+FIGURE 2.8: The (interrupted) Goode homolosine projection
 </p>
 </div>
 <p>To make the analogy between the orange peel and the surface of the earth complete, we have to assign two fictitious properties to the orange peel, namely that it is stretchable and deformable.
 These properties are needed in order to make a non-interrupted map, as we will see in the next sections.</p>
 <p>
 
-A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="geodata.html#fig:crs-goode">2.7</a> is an example, is called a <em>map projection</em>.
+A method to flatten down the earth, for which the Goode homolosine projection shown Figure <a href="geodata.html#fig:crs-goode">2.8</a> is an example, is called a <em>map projection</em>.
 Technically, it is also known as a <em>coordinate reference system</em> (<em>CRS</em>), which specifies the corresponding coordinate system, as well as the transformations to other map projections.</p>
 </div>
 <div id="a-model-of-the-earth" class="section level3">
@@ -620,7 +626,7 @@ The latitudes for the north and south pole are 90<span class="math inline">\(^\c
 The longitude specifies the east-west position in degrees, where by convention, the longitude = 0<span class="math inline">\(^\circ\)</span> meridian crosses the Royal Observatory in Greenwich, UK.
 The Longitude range is -180<span class="math inline">\(^\circ\)</span> to 180<span class="math inline">\(^\circ\)</span>, and since this is a full circle, -180<span class="math inline">\(^\circ\)</span> and <span class="math inline">\(^\circ\)</span> specify the same longitude.</p>
 <p>
-When we see the earth in its three-dimensional form, as in Figure <a href="geodata.html#fig:orange">2.6</a>, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth.
+When we see the earth in its three-dimensional form, as in Figure <a href="geodata.html#fig:orange">2.7</a>, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth.
 The set of longitude meridians and latitude parallels is also referred to as <em>graticule</em>.
 In all the figures in this section, latitude parallels are shown as gray lines for <span class="math inline">\(-60^\circ\)</span>, <span class="math inline">\(-30^\circ\)</span>, <span class="math inline">\(0^\circ\)</span>, <span class="math inline">\(30^\circ\)</span> and <span class="math inline">\(60^\circ\)</span>, and longitude meridians from <span class="math inline">\(-180^\circ\)</span> to <span class="math inline">\(180^\circ\)</span> at every <span class="math inline">\(30^\circ\)</span>.</p>
 <p>Please keep in mind that only a latitude and longitude are not sufficient to specify a geographic location.
@@ -639,35 +645,35 @@ EPSG is an institute that maintains a database of standard map projections.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-04"></span>
 <img src="02-geodata_files/figure-html/crs-04-1.png" alt="The WGS84 coordinate system (EPSG4326)" width="672" />
 <p class="caption">
-FIGURE 2.8: The WGS84 coordinate system (EPSG4326)
+FIGURE 2.9: The WGS84 coordinate system (EPSG4326)
 </p>
 </div>
-<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="geodata.html#fig:crs-04">2.8</a> (left).
+<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="geodata.html#fig:crs-04">2.9</a> (left).
 Note that the longitude lines have become straight vertical lines.
 When we unroll this cylinder, we obtain a map where the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates are the longitude and latitude respectively.
-This CRS, which is known as EPSG4326, is shown in Figure <a href="geodata.html#fig:crs-04">2.8</a> (right).</p>
+This CRS, which is known as EPSG4326, is shown in Figure <a href="geodata.html#fig:crs-04">2.9</a> (right).</p>
 <p>
 
 
 EPSG4326 is an <em>unprojected</em> CRS, since the longitude and latitude have not been transformed.
 With <em>projected</em> CRSs, the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates refer to specific measurement units, usually meters.
-The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="geodata.html#fig:crs-04">2.8</a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
+The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="geodata.html#fig:crs-04">2.9</a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
 <p>Observe since we stretched the poles open, the area near the poles have been stretched out as well.
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
-A good example is Greenland, which is normally a ‘tall’ area (as can be seen in Figure <a href="geodata.html#fig:orange">2.6</a>).</p>
+A good example is Greenland, which is normally a ‘tall’ area (as can be seen in Figure <a href="geodata.html#fig:orange">2.7</a>).</p>
 <p>
 In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
-The cylinder and plain map that uses this projection are shown in Figure <a href="geodata.html#fig:crs-05">2.9</a>.</p>
+The cylinder and plain map that uses this projection are shown in Figure <a href="geodata.html#fig:crs-05">2.10</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-05"></span>
 <img src="02-geodata_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
 <p class="caption">
-FIGURE 2.9: Web Mercator projection (EPSG3857)
+FIGURE 2.10: Web Mercator projection (EPSG3857)
 </p>
 </div>
-<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="geodata.html#fig:orange">2.6</a>).
+<p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="geodata.html#fig:orange">2.7</a>).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
@@ -686,11 +692,11 @@ https://books.google.nl/books?id=E0JZDwAAQBAJ&pg=PA244&lpg=PA244&dq=Equidistant+
 <p>
 Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth?
 Although there are many ways, four basic map projection types can be distinguished.
-These are depicted in Figure <a href="geodata.html#fig:crs-types">2.10</a>.</p>
+These are depicted in Figure <a href="geodata.html#fig:crs-types">2.11</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-types"></span>
 <img src="02-geodata_files/figure-html/crs-types-1.png" alt="Four types of map projections" width="100%" />
 <p class="caption">
-FIGURE 2.10: Four types of map projections
+FIGURE 2.11: Four types of map projections
 </p>
 </div>
 <p>
@@ -700,16 +706,16 @@ The cylinder is not placed upright, but horizontal.
 There are 60 positions in which this cylinder can be placed, where in each position, the cylinder faces a longitude range of 6 degrees.
 In other words the UTM is not a single projection, but a series of 60 projections.</p>
 <p>There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
-An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.11</a>.
+An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.12</a>.
 Almost all commonly used standard World map projections are (pseudo-)cylindrical.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-robin"></span>
 <img src="02-geodata_files/figure-html/crs-robin-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.11: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.12: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
 <p>
-An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.12</a>(a).
+An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.13</a>(a).
 As a result of unfolding a cone on a flat surface, a gap is created.
 The size (angle) of this gap depends on the width of the cone.
 There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
@@ -721,20 +727,20 @@ This can best be explained by the position of an imaginary light source.
 It can be placed inside the globe, at the surface of the globe opposite to the disk, and at an infinite distance opposite to the disk.
 The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.</p>
 <p>Planar map projections are often used for a specific country or continent.
-An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.12</a>(b), which is optimized for Europe.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b), which is optimized for Europe.
 It can be classified as a stereographic projection, although the light beams are not straight but curved.
-Another example of a planar map projection is the orange shown in Figure <a href="geodata.html#fig:orange">2.6</a>.
+Another example of a planar map projection is the orange shown in Figure <a href="geodata.html#fig:orange">2.7</a>.
 This is an orthogonal projection.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-conic-planar"></span>
 <img src="02-geodata_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="672" />
 <p class="caption">
-FIGURE 2.12: Examples of a conic (a) and a planar (b) projection.
+FIGURE 2.13: Examples of a conic (a) and a planar (b) projection.
 </p>
 </div>
 <p>
-The (interrupted) Goode homolosine projection shown in Figure <a href="geodata.html#fig:crs-goode">2.7</a> is an example of an interrupted projection.
+The (interrupted) Goode homolosine projection shown in Figure <a href="geodata.html#fig:crs-goode">2.8</a> is an example of an interrupted projection.
 A special class of these projections are polyhedral projections, which consists of planar faces.
-In Figure <a href="geodata.html#fig:crs-types">2.10</a> a polyhedral of six faces is illustrated.
+In Figure <a href="geodata.html#fig:crs-types">2.11</a> a polyhedral of six faces is illustrated.
 There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.</p>
 </div>
 <div id="which-projection-to-choose" class="section level3">
@@ -748,7 +754,7 @@ The second factor is the area of interest.
 Is the whole World visualized or only a part, and in the latter case, which part?
 In this section, guidelines are provided to choose a proper projection based on those two aspects.</p>
 <p>Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.12</a>(b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b).
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.</p>
 <p><strong>Map projection properties</strong></p>
@@ -890,16 +896,16 @@ In practice, that means that for instance a map of a crossroad preserves the ang
 Therefore, this property is required for navigational purposes.
 As a consequence that local angles are preserved, local shapes are also preserved.
 That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
-The Web Mercator shown in Figure <a href="geodata.html#fig:crs-05">2.9</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
+The Web Mercator shown in Figure <a href="geodata.html#fig:crs-05">2.10</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
 <p>
 A map projection is called <em>equal-area</em> if the areas are proportional to the true areas.
 This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
-Figure <a href="geodata.html#fig:crs-bias">2.13</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+Figure <a href="geodata.html#fig:crs-bias">2.14</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
 The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North Africa and Australia emerge as vast low-populated areas.</p>
 <div class="figure" style="text-align: center"><span id="fig:crs-bias"></span>
 <img src="02-geodata_files/figure-html/crs-bias-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.13: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.14: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
 <p>
@@ -911,7 +917,7 @@ One example is a seismic map around the epicenter of a recent earthquake, where 
 <p>
 A map projection can satisfy at most two of these properties.
 Many map projection do not satisfy any property but are intended as a compromise.
-An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.11</a>.</p>
+An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.12</a>.</p>
 <p><strong>Area of interest</strong></p>
 <p>
 The next aspect that is important for the choice of a map projection is the area of interest.
@@ -982,10 +988,10 @@ Azimuthal
 </tr>
 </tbody>
 </table>
-<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.11</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.13</a>(b)) are very popular because they have less distortion other map projections.
+<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.12</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.14</a>(b)) are very popular because they have less distortion other map projections.
 For areas that cover a half of the sphere, i.e. a hemisphere, azimuthal map projections are recommended.
 There are four hemispheres that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemisphere, which includes the other continents.
-However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.12</a>(b).</p>
+However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b).</p>
 <p>For areas with the size of a continent or country, the azimuthal map projection type can be used when centered on the area of interest.
 In particular, the Lambert Azimuthal Equal-Area projection when equal area is required, and the Azimuthal Equidistant projection when preserving distances is important.
 Alternatively, cylindrical and conic map projection types can be used for areas at low and mid latitudes respectively.

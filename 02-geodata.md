@@ -205,6 +205,11 @@ The last idea is used in spatial vector data cubes (section \@ref(the-stars-pack
 <!-- figure: example of a spatial vector data cube -->
 <!-- e.g. similar to https://r-spatial.github.io/stars/ -->
 
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cubes." width="672" />
+<p class="caption">(\#fig:vector-data-cubes)Vector data cubes.</p>
+</div>
+
 \index{spatial raster data cubes}
 A single raster dataset can store just one variable for a given area.
 To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (section \@ref(raster-data-model)).
