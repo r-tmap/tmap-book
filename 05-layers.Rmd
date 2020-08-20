@@ -42,7 +42,36 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
 
-## The color scale styles <!--JN: I am not sure when this section should go-->
+## Color palettes <!--JN: I am not sure where this section should go-->
+
+<!-- three ways to set colors in tmap: -->
+<!-- 1. vector of colors (names vs hex) -->
+<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
+<!-- <!-- including viridis --> -->
+<!-- also the `n` argument -->
+<!-- also the `-` sign -->
+
+<!-- three main types of color palettes -->
+<!-- categorical -->
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- sequential -->
+
+<!-- diverging -->
+<!-- mention midpoint -->
+
+<!-- black and white -->
+<!-- color blindness -->
+<!-- palette properties -->
+<!-- anti-rainbow -->
+
+<!-- resources: -->
+<!-- - colorspace -->
+<!-- - Polychrome -->
+<!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
+<!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+
+## The color scale styles <!--JN: I am not sure where this section should go-->
 
 ```{r}
 # replace this data with some new tmap dataset
