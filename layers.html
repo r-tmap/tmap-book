@@ -169,7 +169,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
-<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.1</b> The color scale styles <!--JN: I am not sure when this section should go--></a></li>
+<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.2</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -378,8 +379,34 @@ raster
 </tr>
 </tbody>
 </table>
+<div id="color-palettes" class="section level2">
+<h2><span class="header-section-number">5.1</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
+<!-- three ways to set colors in tmap: -->
+<!-- 1. vector of colors (names vs hex) -->
+<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() -->
+<p>–&gt;
+<!-- <!-- including viridis --> –&gt;
+<!-- also the `n` argument -->
+<!-- also the `-` sign --></p>
+<!-- three main types of color palettes -->
+<!-- categorical -->
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- sequential -->
+<!-- diverging -->
+<!-- mention midpoint -->
+<!-- black and white -->
+<!-- color blindness -->
+<!-- palette properties -->
+<!-- anti-rainbow -->
+<!-- resources: -->
+<!-- - colorspace -->
+<!-- - Polychrome -->
+<!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
+<!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+</div>
 <div id="the-color-scale-styles" class="section level2">
-<h2><span class="header-section-number">5.1</span> The color scale styles <!--JN: I am not sure when this section should go--></h2>
+<h2><span class="header-section-number">5.2</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
 <span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="kw">library</span>(sf)</span>
 <span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>

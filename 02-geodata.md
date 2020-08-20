@@ -213,10 +213,6 @@ Additionally, each of the aforementioned rasters can be collected for many momen
 The question here is how to efficiently store multi-layer raster data to understand what layers related to which attribute and time.
 Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (section \@ref(the-stars-package)).
 
-<!-- # https://github.com/hypertidy/anglr/wiki/Examples#stacked-plot? -->
-<!-- figure: example of a spatial raster data cube -->
-<!-- e.g. similar to https://r-spatial.github.io/stars/ -->
-
 <div class="figure" style="text-align: center">
 <img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cubes." width="672" />
 <p class="caption">(\#fig:raster-data-cubes)Raster data cubes.</p>
