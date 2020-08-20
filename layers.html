@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-19" />
+<meta name="date" content="2020-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -380,21 +380,21 @@ raster
 </table>
 <div id="the-color-scale-styles" class="section level2">
 <h2><span class="header-section-number">5.1</span> The color scale styles <!--JN: I am not sure when this section should go--></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="layers.html#cb9-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb9-2"><a href="layers.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb9-3"><a href="layers.html#cb9-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
-<span id="cb9-4"><a href="layers.html#cb9-4"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb9-5"><a href="layers.html#cb9-5"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb9-6"><a href="layers.html#cb9-6"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
-<span id="cb9-7"><a href="layers.html#cb9-7"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
+<span id="cb10-4"><a href="layers.html#cb10-4"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb10-5"><a href="layers.html#cb10-5"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb10-6"><a href="layers.html#cb10-6"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
+<span id="cb10-7"><a href="layers.html#cb10-7"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
 <!-- one plot with five panels: one color/adjacent polygons/categorical/discrete/continuous? -->
 <!-- or maybe start with one color/adjacent polygons -->
 <!-- and next present three main types of color palettes -->
 <!-- after that categorical/discrete/continuous?? -->
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
-<span id="cb10-3"><a href="layers.html#cb10-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb10-4"><a href="layers.html#cb10-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb11-3"><a href="layers.html#cb11-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb11-4"><a href="layers.html#cb11-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
 
 </div>

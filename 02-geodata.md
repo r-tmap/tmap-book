@@ -75,8 +75,20 @@ Each row, on the other hand, relates to a single spatial geometry.
 
 
 
+
+```
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="672" />
+<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="480" />
 <p class="caption">(\#fig:vector-data-model)Instances of spatial vector data model: POINTS, LINES, and POLYGONS.</p>
 </div>
 
@@ -204,6 +216,11 @@ Similarly to spatial vector data cubes, we can think of separating spatial dimen
 <!-- # https://github.com/hypertidy/anglr/wiki/Examples#stacked-plot? -->
 <!-- figure: example of a spatial raster data cube -->
 <!-- e.g. similar to https://r-spatial.github.io/stars/ -->
+
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cubes." width="672" />
+<p class="caption">(\#fig:raster-data-cubes)Raster data cubes.</p>
+</div>
 
 Spatial data cubes are suitable for many real-life applications.
 For example, time-series of climate measurements for several stations, demographic data on a country level gathered for many years, or satellite imageries over some period of time.
