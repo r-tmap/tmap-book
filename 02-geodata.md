@@ -110,11 +110,6 @@ Finally, GeometryCollection exists that contains all of the possible geometry ty
 <!-- JN: maybe too much information-->
 <!-- simple features standard also defines possible topological rules -->
 
-
-
-
-
-
 \index{spatial file formats}
 A couple hundreds of file formats exist to store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (`.csv`) or as a spreadsheet (`.xls` or `.xlsx`). 
