@@ -86,13 +86,31 @@
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
-<!-- three ways to set colors in tmap: -->
-<!-- 1. vector of colors (names vs hex) -->
-<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
-<!-- <!-- including viridis --> -->
-<!-- also the `n` argument -->
-<!-- also the `-` sign -->
+<!-- what is a color palette intro -->
+
+There are three main types of color palettes (Figure \@ref(fig:palette-types)):
+
+- Categorical (also known as Qualitative) - they are used for presenting categorical information, for example, categories or groups. 
+Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
+<!-- examples -->
+- Sequential - they are used for presenting continuous variables, in which order matters.
+Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
+<!-- examples -->
+- Diverging - they are also used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
+<!-- examples -->
+
+<!-- add some notes about more complex approaches (e.g. cividis) -->
+
+ <!--    Sequential: For coding ordered/numeric information, i.e., where colors go from high to low (or vice versa). -->
+ <!--    Diverging: Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. -->
+
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
+<p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
+</div>
+
 
 <!-- three main types of color palettes -->
 <!-- categorical -->
@@ -102,10 +120,22 @@
 <!-- diverging -->
 <!-- mention midpoint -->
 
-<!-- black and white -->
+<!-- black and white (also in contrast to the three main palettes types)-->
 <!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
+<!-- limitation of the number of colors -->
+<!-- interpolation between colors -->
+
+<!-- three ways to set colors in tmap: -->
+<!-- 1. vector of colors (names vs hex) -->
+<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
+<!-- <!-- including viridis --> -->
+<!-- also the `n` argument -->
+<!-- also the `-` sign -->
+<!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
+<!-- alpha? -->
 
 <!-- resources: -->
 <!-- - colorspace -->
