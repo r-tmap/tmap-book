@@ -44,13 +44,75 @@ knitr::kable(layers_df,
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
-<!-- three ways to set colors in tmap: -->
-<!-- 1. vector of colors (names vs hex) -->
-<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
-<!-- <!-- including viridis --> -->
-<!-- also the `n` argument -->
-<!-- also the `-` sign -->
+<!-- what is a color palette intro -->
+
+There are three main types of color palettes (Figure \@ref(fig:palette-types)):
+
+- Categorical (also known as Qualitative) - they are used for presenting categorical information, for example, categories or groups. 
+Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
+<!-- examples -->
+- Sequential - they are used for presenting continuous variables, in which order matters.
+Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
+<!-- examples -->
+- Diverging - they are also used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
+<!-- examples -->
+
+<!-- add some notes about more complex approaches (e.g. cividis) -->
+
+ <!--    Sequential: For coding ordered/numeric information, i.e., where colors go from high to low (or vice versa). -->
+ <!--    Diverging: Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. -->
+
+
+```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE}
+# y - a named list of palettes
+plot_palette_types = function(y){
+  
+  my_n = length(y[[1]])
+  n_colors = length(y)
+  ylim = c(0, n_colors)
+  
+  oldpar = par(mgp = c(2, 0.25, 0))
+  on.exit(par(oldpar))
+  plot(
+    1,
+    1,
+    xlim = c(0, max(my_n)),
+    ylim = ylim,
+    type = "n",
+    axes = FALSE,
+    bty = "n",
+    xlab = "",
+    ylab = ""
+  )
+  
+  for (i in seq_len(n_colors)) {
+    rect(
+      xleft = 0:(my_n - 1),
+      ybottom = i - 1,
+      xright = 1:my_n,
+      ytop = i - 0.2,
+      col = y[[i]],
+      border = "light grey"
+    )
+  }
+  text(
+    rep(0, n_colors),
+    (1:n_colors) - 0.6,
+    labels = paste(names(y), " "),
+    xpd = TRUE,
+    adj = 1
+  )
+}
+# JN: probably this figure should use the default tmap color palettes
+p_cat = hcl.colors(7, "Set3")
+p_seq = rev(hcl.colors(7, "YlOrBr"))
+p_div = hcl.colors(7, "RdYlGn")
+# p_vir = 
+y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
+plot_palette_types(y)
+```
+
 
 <!-- three main types of color palettes -->
 <!-- categorical -->
@@ -60,10 +122,22 @@ knitr::kable(layers_df,
 <!-- diverging -->
 <!-- mention midpoint -->
 
-<!-- black and white -->
+<!-- black and white (also in contrast to the three main palettes types)-->
 <!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
+<!-- limitation of the number of colors -->
+<!-- interpolation between colors -->
+
+<!-- three ways to set colors in tmap: -->
+<!-- 1. vector of colors (names vs hex) -->
+<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
+<!-- <!-- including viridis --> -->
+<!-- also the `n` argument -->
+<!-- also the `-` sign -->
+<!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
+<!-- alpha? -->
 
 <!-- resources: -->
 <!-- - colorspace -->
