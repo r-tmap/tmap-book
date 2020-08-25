@@ -130,10 +130,9 @@ draw_vector_data = function(scale = 1) {
   
   cols = RColorBrewer::brewer.pal(3, "Dark2")
   
-  sf_pnts = st_sf(ID = 1:3, name = c("City A", "City B", "City C"), population = c(400, 100, 800), beautiful = c(FALSE, TRUE, TRUE), cols = cols,
-                  geometry = st_sfc(st_point(c(2, 7)),
-                                    st_point(c(9, 5)),
-                                    st_point(c(6, 3))), crs = 4326)
+  sf_pnts = st_sf(ID = 1:2, name = c("Broadleaf", "Conifer"), has = c("Leaves", "Needles"), evergreen = c(FALSE, TRUE), cols = cols[1:2],
+                  geometry = st_sfc(st_multipoint(rbind(c(2, 7), c(6, 3.5), c(6, 8))),
+                                    st_multipoint(rbind(c(9, 4), c(4, 2), c(11, 6), c(10, 7.5))), crs = 4326))
   
   sf_lns = st_sf(ID = 1:3, name = c("Road A", "Road B", "Road C"), lanes = c(4, 3, 2), cycling = c(FALSE, TRUE, TRUE), cols = cols,
                  geometry = st_sfc(st_linestring(rbind(c(3,8),
@@ -150,22 +149,24 @@ draw_vector_data = function(scale = 1) {
   sf_lns_pnts$geometry = st_cast(sf_lns_pnts$geometry, "MULTIPOINT")
   
   
-  sf_plg = st_sf(ID = 1:3, name = c("County A", "County B", "County C"), population = c(1000, 500, 900), beautiful = c(TRUE, TRUE, TRUE), cols = cols,
-                 geometry = st_sfc(st_polygon(list(rbind(c(3,8),
-                                                         c(4.5,9.5),
-                                                         c(5,7),
-                                                         c(4,6),
-                                                         c(3,8)))),
-                                   st_polygon(list(rbind(c(7,5),
-                                                         c(9,4),
-                                                         c(11.5,6),
-                                                         c(9,9),
-                                                         c(7,5)))),
-                                   st_polygon(list(rbind(c(5,4),
-                                                         c(6,2),
-                                                         c(10,1),
-                                                         c(11,3),
-                                                         c(5,4))))), crs = 4326)
+  sf_plg = st_sf(ID = 1:2, name = c("Country A", "Country B"), population = c(1000, 500), touristic = c(FALSE, TRUE), cols = cols[1:2],
+                 geometry = st_sfc(st_multipolygon(list(list(rbind(c(1, 9),
+                                                         c(6, 9),
+                                                         c(5, 5),
+                                                         c(3.5, 4.5),
+                                                         c(1, 4.5),
+                                                         c(1, 9))))),
+                                   st_multipolygon(list(list(rbind(c(5, 5),
+                                                         c(6,9),
+                                                         c(9, 8.5),
+                                                         c(8, 5.5),
+                                                         c(5,5))),
+                                                   list(rbind(c(10, 4.25),
+                                                              c(11,5),
+                                                              c(11.5, 3),
+                                                              c(8, 2.75),
+                                                              c(8, 3.5),
+                                                              c(10, 4.25)))))), crs = 4326)
   
   sf_plg_pnts = sf_plg
   sf_plg_pnts$geometry = st_cast(sf_plg_pnts$geometry, "MULTIPOINT")
@@ -192,7 +193,7 @@ draw_vector_data = function(scale = 1) {
   }, vp = viewport(layout.pos.row = 4, layout.pos.col = 2))
   
   print({
-    tm_shape(sf_plg, bbox = c(0, 0, 12.931, 10)) +
+    tm_shape(sf_plg, bbox = c(0, 0, 12.931, 10), point.per = "segment") +
       tm_polygons(lwd = 2, col = "cols", border.col = "grey30") +
       tm_text("ID", col = "white") +
       tm_shape(sf_plg_pnts) + 
@@ -201,7 +202,7 @@ draw_vector_data = function(scale = 1) {
   }, vp = viewport(layout.pos.row = 6, layout.pos.col = 2))
   
   cellplot(2, 4, e = {
-    draw_table(sf_pnts %>% st_drop_geometry() %>% select(ID, name, population, beautiful), col_rows = cols, scale = scale)
+    draw_table(sf_pnts %>% st_drop_geometry() %>% select(ID, name, has, evergreen), col_rows = cols, scale = scale)
   })
   
   cellplot(4, 4, e = {
@@ -209,7 +210,7 @@ draw_vector_data = function(scale = 1) {
   })
   
   cellplot(6, 4, e = {
-    draw_table(sf_plg %>% st_drop_geometry() %>% select(ID, name, population, beautiful), col_rows = cols, scale = scale)
+    draw_table(sf_plg %>% st_drop_geometry() %>% select(ID, name, population, touristic), col_rows = cols, scale = scale)
   })
   
   cellplot(1, 4, e = {
