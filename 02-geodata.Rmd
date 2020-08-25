@@ -35,12 +35,12 @@ Therefore, we also present the concept of spatial data cubes (section \@ref(spat
 \index{vector data model}
 \index{spatial geometries}
 \index{spatial attributes}
-The vector data model represent the world as a set of spatial geometries with non-spatial attributes. 
+The vector data model represent the world as a set of spatial geometries with non-spatial attributes (Figure \@ref(fig:vector-data-model)). 
 The role of geometry is to describe the location and shape of spatial objects.
 Attributes, on the other hand, are used to store the properties of the data.
 
 \index{spatial geometries}
-There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates.
+There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates (left part of Figure \@ref(fig:vector-data-model)).
 A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
 X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section \@ref(crs)).
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
@@ -65,7 +65,7 @@ For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons' attributes can be represented by the areas (fill) colors.
 
 \index{spatial attributes}
-The second part of the vector data model relates to non-spatial attributes. 
+The second part of the vector data model relates to non-spatial attributes  (right part of Figure \@ref(fig:vector-data-model)). 
 Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single spatial geometry. 
 
@@ -129,10 +129,8 @@ polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 
 ```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
 source("code/data_model_figures.R")
-draw_vector_data(scale = .75)
+draw_vector_data(scale = .8)
 ```
-
-<!-- the above figure should be improved -->
 
 \index{simple feature}
 The above ideas could be implemented in many ways. <!--...-->
@@ -141,9 +139,13 @@ In it, a feature is every object or concept that have spatial location or extent
 
 Simple feature standard makes a clear distinction between single- and multi-element features.
 We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING and MULTILINESTRING, and POLYGON and MULTIPOLYGON.
-The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen in attribute tables. 
-For example, six points stored as POINT features will fill six separate rows, while six points stored as just one MULTIPOINT feature will occupy one row.
-<!-- redundancy --><!-- Example -->
+The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen by looking at attribute tables. 
+For example, six points stored as POINT features fill six separate rows, while six points stored as just one MULTIPOINT feature occupy just one row.
+<!-- redundancy -->
+Examples of single- and multi-element features can be seen in Figure \@ref(fig:vector-data-model). 
+The top example shows point data represented as MULTIPOINT feature: although we have seven points (seven distinct pairs of coordinates), they are gathered into two groups, green and orange, which can be seen in the associated attribute table.
+The central example, on the other hand, uses single-element features, where each line geometry relates to one row in the attribute table.
+Finally, the bottom example again uses multi-element features, where the second feature (`Country B`) consist of two separate geometries.
 The simple feature standard also describes a number of additional geometry types, including Curve, Surface, or Triangle.
 Finally, GeometryCollection exists that contains all of the possible geometry types.
 
