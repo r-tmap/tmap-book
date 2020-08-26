@@ -330,12 +330,14 @@ It includes situations when we have many attributes, often for several moments i
 \index{spatial vector data cubes}
 Storing multiple attributes is not a problem for the vector data model, when an attribute table can have many columns.
 The question is how to extend the spatial vector data model to include measurements for many times.
-For example, let's consider a polygon with many attributes representing demographic variables for several years.
+For example, let's consider a polygon data with many attributes representing shares of land-use types for several years (Figure \@ref(fig:vector-data-cubes)).
 One approach would be to create a separate column for each variable in each year.<!--wide--><!--pros and cons-->
 Alternatively, we can have one column representing the year and one column for each attribute, however, this approach would require multiplying each geometry as many times as we have time stamps.
 <!--long--><!--pros and cons-->
 The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
 The last idea is used in spatial vector data cubes (section \@ref(the-stars-package)).
+An example of the spatial vector data cubes idea can be seen in Figure \@ref(fig:vector-data-cubes).
+It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Netherlands and an array connected to it that stores shares of land-use types for several years. 
 
 ```{r vector-data-cubes, fig.width = 6, fig.asp=0.60606, message = FALSE, warning = FALSE, echo=FALSE, fig.cap="Vector data cube."}
 source("code/data_model_figures.R")
