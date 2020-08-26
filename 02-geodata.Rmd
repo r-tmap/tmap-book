@@ -129,7 +129,7 @@ polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 
 ```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
 source("code/data_model_figures.R")
-draw_vector_data(scale = .8)
+draw_vector_data(scale = .75)
 ```
 
 \index{simple feature}
@@ -337,11 +337,7 @@ Alternatively, we can have one column representing the year and one column for e
 The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
 The last idea is used in spatial vector data cubes (section \@ref(the-stars-package)).
 
-<!-- # https://github.com/hypertidy/anglr/wiki/Examples#stacked-plot? -->
-<!-- figure: example of a spatial vector data cube -->
-<!-- e.g. similar to https://r-spatial.github.io/stars/ -->
-
-```{r vector-data-cubes, fig.width = 6, fig.asp=0.60606, message = FALSE, warning = FALSE, echo=FALSE, fig.cap="Vector data cubes."}
+```{r vector-data-cubes, fig.width = 6, fig.asp=0.60606, message = FALSE, warning = FALSE, echo=FALSE, fig.cap="Vector data cube."}
 source("code/data_model_figures.R")
 draw_vector_cubes()
 ```
@@ -354,7 +350,7 @@ Additionally, each of the aforementioned rasters can be collected for many momen
 The question here is how to efficiently store multi-layer raster data to understand what layers related to which attribute and time.
 Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (section \@ref(the-stars-package)).
 
-```{r raster-data-cubes, fig.asp=0.25, message = FALSE, echo=FALSE, fig.cap="Raster data cubes."}
+```{r raster-data-cubes, fig.asp=0.25, message = FALSE, echo=FALSE, fig.cap="Raster data cube."}
 source("code/data_model_figures.R")
 draw_data_cubes()
 ```
