@@ -48,13 +48,13 @@ knitr::kable(layers_df,
 
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
 
-- Categorical (also known as Qualitative) - they are used for presenting categorical information, for example, categories or groups. 
+- Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
 <!-- examples -->
-- Sequential - they are used for presenting continuous variables, in which order matters.
+- Sequential - used for presenting continuous variables, in which order matters.
 Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
 <!-- examples -->
-- Diverging - they are also used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+- Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
 
@@ -64,7 +64,7 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
  <!--    Diverging: Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. -->
 
 
-```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE}
+```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
 # y - a named list of palettes
 plot_palette_types = function(y){
   
@@ -72,7 +72,7 @@ plot_palette_types = function(y){
   n_colors = length(y)
   ylim = c(0, n_colors)
   
-  oldpar = par(mgp = c(2, 0.25, 0))
+  oldpar = par(mgp = c(2, 0.25, 0), mar = c(0, 5, 0, 0))
   on.exit(par(oldpar))
   plot(
     1,
