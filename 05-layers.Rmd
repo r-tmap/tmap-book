@@ -58,11 +58,9 @@ Colors in this palette type changes from low to high (or vice versa), which is u
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
 
+
+
 <!-- add some notes about more complex approaches (e.g. cividis) -->
-
- <!--    Sequential: For coding ordered/numeric information, i.e., where colors go from high to low (or vice versa). -->
- <!--    Diverging: Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. -->
-
 
 ```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
 # y - a named list of palettes
