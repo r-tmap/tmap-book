@@ -46,6 +46,16 @@ knitr::kable(layers_df,
 
 <!-- what is a color palette intro -->
 
+<!-- how color palettes can be created -->
+<!-- vector of color names or hex colors -->
+<!-- color names - `colors()` -->
+<!-- hex names - whats that -->
+<!-- it allows everyone to create their own color palettes -->
+<!-- however this is a hard thing to do right -->
+<!-- color perception, relation to data, color blindness, etc. -->
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
 
 - Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
@@ -57,10 +67,6 @@ Colors in this palette type changes from low to high (or vice versa), which is u
 - Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
-
-
-
-<!-- add some notes about more complex approaches (e.g. cividis) -->
 
 ```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
 # y - a named list of palettes
@@ -111,14 +117,7 @@ y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
 plot_palette_types(y)
 ```
 
-
-<!-- three main types of color palettes -->
-<!-- categorical -->
-<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-<!-- sequential -->
-
-<!-- diverging -->
-<!-- mention midpoint -->
+<!-- add some notes about more complex approaches (e.g. cividis) -->
 
 <!-- black and white (also in contrast to the three main palettes types)-->
 <!-- color blindness -->
