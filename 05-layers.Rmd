@@ -42,7 +42,23 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
 
+## Shapes and markers <!--JN: I am not sure where this section should go-->
+
 ## Color palettes <!--JN: I am not sure where this section should go-->
+
+<!-- As we discussed in ..., -->
+<!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
+<!-- https://en.wikipedia.org/wiki/Color_scheme -->
+Colors in R are created based either on the color name or its hexadecimal form.
+R understands 657 built-in color names, such as `"red"`, `"lightblue"` or `"gray90"`, that are available using the `colors()` function.
+<!-- demo("colors") -->
+<!-- http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf -->
+Hexadecimal form, on the other hand, can represent 16,777,216 unique colors.
+It consists of six-digits prefixed by the `#` (hash) symbol, where red, green, and blue values are each represented by two characters.
+In hexadecimal form, `00` is interpreted as `0.0` which means a lack of a particular color and `FF` means `1.0` and shows that the given color has maximal intensity.
+For example, `#000000` represents black color, `#FFFFFF` white color, and `#00FF00` green color.
+<!-- hex alpha?? -->
+<!-- , for example `#92A8D1`. -->
 
 <!-- what is a color palette intro -->
 
@@ -68,6 +84,8 @@ Colors in this palette type changes from low to high (or vice versa), which is u
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
 
+<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
+<!-- idea: add spectral schemes -->
 ```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
 # y - a named list of palettes
 plot_palette_types = function(y){
@@ -116,6 +134,7 @@ p_div = hcl.colors(7, "RdYlGn")
 y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
 plot_palette_types(y)
 ```
+<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 
 <!-- add some notes about more complex approaches (e.g. cividis) -->
 
@@ -141,6 +160,7 @@ plot_palette_types(y)
 <!-- - Polychrome -->
 <!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- add some references about colors theory, color blindness, etc. -->
 
 ## The color scale styles <!--JN: I am not sure where this section should go-->
 
