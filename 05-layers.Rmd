@@ -58,18 +58,13 @@ It consists of six-digits prefixed by the `#` (hash) symbol, where red, green, a
 In hexadecimal form, `00` is interpreted as `0.0` which means a lack of a particular color and `FF` means `1.0` and shows that the given color has maximal intensity.
 For example, `#000000` represents black color, `#FFFFFF` white color, and `#00FF00` green color.
 <!-- hex alpha?? -->
-<!-- , for example `#92A8D1`. -->
 
 <!-- what is a color palette intro -->
-
-<!-- how color palettes can be created -->
-<!-- vector of color names or hex colors -->
-<!-- color names - `colors()` -->
-<!-- hex names - whats that -->
-<!-- it allows everyone to create their own color palettes -->
-<!-- however this is a hard thing to do right -->
-<!-- color perception, relation to data, color blindness, etc. -->
-<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+Using a single color we are able to draw points, lines, polygon borders, or their areas.
+In that scenario, all of the elements will have the same color. 
+However, often we want to represent different values in our data using different colors. 
+This is a role for color palettes.
+A color palette is a set of colors used to distinguish the values of variables on maps.
 
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
@@ -135,6 +130,15 @@ y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
 plot_palette_types(y)
 ```
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+
+Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
+For example, `c("red", "green", "blue")` or `c("#66C2A5", "#FC8D62", "#8DA0CB")`.
+It allows every one of us to create our own color palettes. 
+<!-- Hovewer, this decision is hard... -->
+<!-- it allows everyone to create their own color palettes -->
+<!-- however this is a hard thing to do right -->
+<!-- color perception, relation to data, color blindness, etc. -->
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
 <!-- add some notes about more complex approaches (e.g. cividis) -->
 
