@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-08-25" />
+<meta name="date" content="2020-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,7 +52,9 @@
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- a placeholder for a google analytics script -->
 <script>
 </script>
@@ -169,8 +171,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data with <code>tm_shape</code></a></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
-<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.2</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#shapes-and-markers"><i class="fa fa-check"></i><b>5.1</b> Shapes and markers <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.2</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.3</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -230,7 +233,7 @@ Geometry
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_polygons()
 </td>
 <td style="text-align:left;">
@@ -241,7 +244,7 @@ polygons
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_symbols()
 </td>
 <td style="text-align:left;">
@@ -252,7 +255,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_lines()
 </td>
 <td style="text-align:left;">
@@ -263,7 +266,7 @@ lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_raster()
 </td>
 <td style="text-align:left;">
@@ -274,7 +277,7 @@ raster
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_text()
 </td>
 <td style="text-align:left;">
@@ -290,7 +293,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_borders()
 </td>
 <td style="text-align:left;">
@@ -301,7 +304,7 @@ polygons
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_fill()
 </td>
 <td style="text-align:left;">
@@ -312,7 +315,7 @@ polygons
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_bubbles()
 </td>
 <td style="text-align:left;">
@@ -323,7 +326,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_dots()
 </td>
 <td style="text-align:left;">
@@ -334,7 +337,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_markers()
 </td>
 <td style="text-align:left;">
@@ -345,7 +348,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_square()
 </td>
 <td style="text-align:left;">
@@ -356,7 +359,7 @@ points, polygons, and lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_iso()
 </td>
 <td style="text-align:left;">
@@ -367,7 +370,7 @@ lines
 </td>
 </tr>
 <tr>
-<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
 tm_rgb()/tm_rgba()
 </td>
 <td style="text-align:left;">
@@ -379,36 +382,67 @@ raster
 </tr>
 </tbody>
 </table>
+<div id="shapes-and-markers" class="section level2">
+<h2><span class="header-section-number">5.1</span> Shapes and markers <!--JN: I am not sure where this section should go--></h2>
+</div>
 <div id="color-palettes" class="section level2">
-<h2><span class="header-section-number">5.1</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
+<!-- As we discussed in ..., -->
+<!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
+<!-- https://en.wikipedia.org/wiki/Color_scheme -->
+<p>Colors in R are created based either on the color name or its hexadecimal form.
+R understands 657 built-in color names, such as <code>"red"</code>, <code>"lightblue"</code> or <code>"gray90"</code>, that are available using the <code>colors()</code> function.
+<!-- demo("colors") -->
+<!-- http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf -->
+Hexadecimal form, on the other hand, can represent 16,777,216 unique colors.
+It consists of six-digits prefixed by the <code>#</code> (hash) symbol, where red, green, and blue values are each represented by two characters.
+In hexadecimal form, <code>00</code> is interpreted as <code>0.0</code> which means a lack of a particular color and <code>FF</code> means <code>1.0</code> and shows that the given color has maximal intensity.
+For example, <code>#000000</code> represents black color, <code>#FFFFFF</code> white color, and <code>#00FF00</code> green color.
+<!-- hex alpha?? --></p>
 <!-- what is a color palette intro -->
+<p>Using a single color we are able to draw points, lines, polygon borders, or their areas.
+In that scenario, all of the elements will have the same color.
+However, often we want to represent different values in our data using different colors.
+This is a role for color palettes.
+A color palette is a set of colors used to distinguish the values of variables on maps.</p>
+<p>Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
+For example, <code>c("red", "green", "blue")</code> or <code>c("#66C2A5", "#FC8D62", "#8DA0CB")</code>.
+It allows every one of us to create our own color palettes.
+However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.
+Firstly, what kind of variable we want to show?
+<!-- a next sentence is a simplification, as always -->
+Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values can be ordered.
+<!-- http://colorspace.r-forge.r-project.org/articles/palette_visualization.html -->
+The variable type impacts how it should be presented on the map.
+For categorical variables, each color usually should receive the same perceptual weight, which is done by using colors with the same brightness<!--luminance-->, but different hue<!--type of color-->.
+On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
+This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
+For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases and brightness decreases.
+<!-- color perception, relation to data, color blindness, etc. -->
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science --></p>
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <p>There are three main types of color palettes (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
 <ul>
-<li>Categorical (also known as Qualitative) - they are used for presenting categorical information, for example, categories or groups.
+<li>Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups.
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
 <!-- examples --></li>
-<li>Sequential - they are used for presenting continuous variables, in which order matters.
+<li>Sequential - used for presenting continuous variables, in which order matters.
 Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
 <!-- examples --></li>
-<li>Diverging - they are also used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+<li>Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples --></li>
 </ul>
-<!-- add some notes about more complex approaches (e.g. cividis) -->
-<!--    Sequential: For coding ordered/numeric information, i.e., where colors go from high to low (or vice versa). -->
-<!--    Diverging: Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. -->
+<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
+<!-- idea: add spectral schemes -->
 <div class="figure" style="text-align: center"><span id="fig:palette-types"></span>
 <img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
 <p class="caption">
 FIGURE 5.1: Examples of three main types of color palettes: categorical, sequential, and diverging
 </p>
 </div>
-<!-- three main types of color palettes -->
-<!-- categorical -->
-<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-<!-- sequential -->
-<!-- diverging -->
-<!-- mention midpoint -->
+<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+<!-- add some notes about more complex approaches (e.g. cividis) -->
 <!-- black and white (also in contrast to the three main palettes types)-->
 <!-- color blindness -->
 <!-- palette properties -->
@@ -430,9 +464,10 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <!-- - Polychrome -->
 <!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- add some references about colors theory, color blindness, etc. -->
 </div>
 <div id="the-color-scale-styles" class="section level2">
-<h2><span class="header-section-number">5.2</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
 <span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="kw">library</span>(sf)</span>
 <span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>

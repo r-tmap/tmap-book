@@ -191,20 +191,18 @@ It includes situations when we have many attributes, often for several moments i
 \index{spatial vector data cubes}
 Storing multiple attributes is not a problem for the vector data model, when an attribute table can have many columns.
 The question is how to extend the spatial vector data model to include measurements for many times.
-For example, let's consider a polygon with many attributes representing demographic variables for several years.
+For example, let's consider a polygon data with many attributes representing shares of land-use types for several years (Figure \@ref(fig:vector-data-cubes)).
 One approach would be to create a separate column for each variable in each year.<!--wide--><!--pros and cons-->
 Alternatively, we can have one column representing the year and one column for each attribute, however, this approach would require multiplying each geometry as many times as we have time stamps.
 <!--long--><!--pros and cons-->
 The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
 The last idea is used in spatial vector data cubes (section \@ref(the-stars-package)).
-
-<!-- # https://github.com/hypertidy/anglr/wiki/Examples#stacked-plot? -->
-<!-- figure: example of a spatial vector data cube -->
-<!-- e.g. similar to https://r-spatial.github.io/stars/ -->
+An example of the spatial vector data cubes idea can be seen in Figure \@ref(fig:vector-data-cubes).
+It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Netherlands and an array connected to it that stores shares of land-use types for several years. 
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cubes." width="672" />
-<p class="caption">(\#fig:vector-data-cubes)Vector data cubes.</p>
+<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cube." width="576" />
+<p class="caption">(\#fig:vector-data-cubes)Vector data cube.</p>
 </div>
 
 \index{spatial raster data cubes}
@@ -212,12 +210,16 @@ A single raster dataset can store just one variable for a given area.
 To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (section \@ref(raster-data-model)).
 Additionally, each of the aforementioned rasters can be collected for many moments in time, adding other layers to the data.
 <!--pros and cons-->
-The question here is how to efficiently store multi-layer raster data to understand what layers related to which attribute and time.
+The question here is how to efficiently store multi-layer raster data to understand what layers relate to which attribute and time.
 Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (section \@ref(the-stars-package)).
+Figure \@ref(fig:raster-data-cubes) gives an example of a raster data cube.
+It consists of several single-layer rasters with the same spatial properties, such as resolution, extent, and CRS.
+These rasters are organized to store four-dimensions of the data: latitude, longitude, time, and attributes.
+It has values of three attributes for five moments in time in total.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cubes." width="672" />
-<p class="caption">(\#fig:raster-data-cubes)Raster data cubes.</p>
+<img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cube." width="672" />
+<p class="caption">(\#fig:raster-data-cubes)Raster data cube.</p>
 </div>
 
 Spatial data cubes are suitable for many real-life applications.

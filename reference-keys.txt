@@ -38,6 +38,7 @@ crs-in-r
 nutshell
 tmshape
 layers
+shapes-and-markers
 color-palettes
 the-color-scale-styles
 othertypes
