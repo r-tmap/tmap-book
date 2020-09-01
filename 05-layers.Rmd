@@ -66,6 +66,22 @@ However, often we want to represent different values in our data using different
 This is a role for color palettes.
 A color palette is a set of colors used to distinguish the values of variables on maps.
 
+Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
+For example, `c("red", "green", "blue")` or `c("#66C2A5", "#FC8D62", "#8DA0CB")`.
+It allows every one of us to create our own color palettes. 
+However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.
+Firstly, what kind of variable we want to show? 
+<!-- a next sentence is a simplification, as always -->
+Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values can be ordered.
+<!-- http://colorspace.r-forge.r-project.org/articles/palette_visualization.html -->
+The variable type impacts how it should be presented on the map.
+For categorical variables, each color usually should receive the same perceptual weight, which is done by using colors with the same brightness<!--luminance-->, but different hue<!--type of color-->.
+On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
+This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
+For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases and brightness decreases. 
+<!-- color perception, relation to data, color blindness, etc. -->
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
 
@@ -78,6 +94,8 @@ Colors in this palette type changes from low to high (or vice versa), which is u
 - Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
+
+
 
 <!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
 <!-- idea: add spectral schemes -->
@@ -130,15 +148,6 @@ y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
 plot_palette_types(y)
 ```
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
-
-Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
-For example, `c("red", "green", "blue")` or `c("#66C2A5", "#FC8D62", "#8DA0CB")`.
-It allows every one of us to create our own color palettes. 
-<!-- Hovewer, this decision is hard... -->
-<!-- it allows everyone to create their own color palettes -->
-<!-- however this is a hard thing to do right -->
-<!-- color perception, relation to data, color blindness, etc. -->
-<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
 <!-- add some notes about more complex approaches (e.g. cividis) -->
 
