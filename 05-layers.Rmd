@@ -46,6 +46,9 @@ knitr::kable(layers_df,
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
+<!-- color as VISUAL VARIABLE! -->
+<!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
 <!-- https://en.wikipedia.org/wiki/Color_scheme -->
@@ -72,14 +75,21 @@ It allows every one of us to create our own color palettes.
 However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.
 Firstly, what kind of variable we want to show? 
 <!-- a next sentence is a simplification, as always -->
-Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values can be ordered.
+Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values have order?
 <!-- http://colorspace.r-forge.r-project.org/articles/palette_visualization.html -->
 The variable type impacts how it should be presented on the map.
 For categorical variables, each color usually should receive the same perceptual weight, which is done by using colors with the same brightness<!--luminance-->, but different hue<!--type of color-->.
 On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
 This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
 For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases and brightness decreases. 
-<!-- color perception, relation to data, color blindness, etc. -->
+<!-- color perception-->
+<!-- color blindness -->
+Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
+<!-- https://en.wikipedia.org/wiki/Color_blindness -->
+There are several types of color blindness, with the red-green color blindness (*deuteranomaly*) being the most common.
+It is estimated that about XX of the world population is color blind.
+<!-- look for stats/references.. -->
+<!-- bw -->
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
@@ -157,6 +167,7 @@ plot_palette_types(y)
 <!-- anti-rainbow -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
+<!-- relation in the background oclor and other colors -->
 
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
