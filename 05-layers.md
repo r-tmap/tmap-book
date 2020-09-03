@@ -115,6 +115,7 @@ Color palettes in R are usually stored as a vector of either color names or hexa
 For example, `c("red", "green", "blue")` or `c("#66C2A5", "#FC8D62", "#8DA0CB")`.
 It allows every one of us to create our own color palettes. 
 However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.
+
 Firstly, what kind of variable we want to show? 
 <!-- a next sentence is a simplification, as always -->
 Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values have order?
@@ -124,14 +125,25 @@ For categorical variables, each color usually should receive the same perceptual
 On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
 This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
 For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases and brightness decreases. 
+
 <!-- color perception-->
+Next consideration is related to how people <!--(reader/viewers)--> perceive some colors.
+Usually, we want them to be able to preliminary understand which values the colors represent without looking at the legend -- colors should be intuitive.
+For example, in the case of categorical variables representing land use, we usually want to use some type of blue color for rivers, green for trees, and white for ice.
+This idea also extends to numerical variables, where we should think about the association between colors and cultural values.
+The blue color is usually connected to cold temperature, while the red color is hot or can represent danger or something not good.
+However, we need to be aware that the connection between colors and cultural values varied between cultures.
+<!-- http://uxblog.idvsolutions.com/2013/07/language-and-color.html -->
+
 <!-- color blindness -->
 Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (*deuteranomaly*) being the most common.
 It is estimated that about XX of the world population is color blind.
 <!-- look for stats/references.. -->
+
 <!-- bw -->
+<!-- backgroud -->
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
