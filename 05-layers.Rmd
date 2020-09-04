@@ -48,6 +48,9 @@ knitr::kable(layers_df,
 
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
+Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
+On the other hand, poor decisions about colors can lead to misinterpretation of the map.
 
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
