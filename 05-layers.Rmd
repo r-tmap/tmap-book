@@ -104,9 +104,14 @@ It is estimated that about XX of the world population is color blind.
 <!-- look for stats/references.. -->
 
 <!-- bw -->
-<!-- backgroud -->
-<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
+
+<!-- backgroud -->
+The last thing to consider is the relation between the selected color palette and other map elements or the map background.
+Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
+
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
 
