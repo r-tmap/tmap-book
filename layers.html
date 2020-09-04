@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-03" />
+<meta name="date" content="2020-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -387,8 +387,12 @@ raster
 </div>
 <div id="color-palettes" class="section level2">
 <h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+<p>Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
+Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information.
+On the other hand, poor decisions about colors can lead to misinterpretation of the map.</p>
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
 <!-- https://en.wikipedia.org/wiki/Color_scheme -->
@@ -436,9 +440,19 @@ It is estimated that about XX of the world population is color blind.
 <!-- look for stats/references.. --></p>
 <!-- bw -->
 <!-- backgroud -->
+<!-- Simultaneous contrast. -->
+<p>The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
+Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.</p>
+<!-- aesthetic -->
+<!-- The last thing to consider is .. -->
+<!-- similar to lines types, fonts, etc, positions -->
+<!-- hard to grasp, hard to learn, look for good examples and be inspired -->
+<!-- also related to what is the main goal - website, journal article? -->
+<!-- is it A4 or a postcard size?-->
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+<p>Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-<p>There are three main types of color palettes (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
+There are three main types of color palettes (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
 <ul>
 <li>Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups.
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -464,9 +478,12 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
+<!-- https://eagereyes.org/basics/rainbow-color-map -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
 <!-- relation in the background oclor and other colors -->
+<!-- using two or more palettes (e.g. lines and points): -->
+<!-- color palettes then should be complementary -->
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
 <!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
@@ -483,6 +500,7 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
+<!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 </div>
 <div id="the-color-scale-styles" class="section level2">
 <h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>

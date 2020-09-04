@@ -88,8 +88,13 @@
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
+
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
+Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
+On the other hand, poor decisions about colors can lead to misinterpretation of the map.
 
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
@@ -143,9 +148,22 @@ It is estimated that about XX of the world population is color blind.
 <!-- look for stats/references.. -->
 
 <!-- bw -->
-<!-- backgroud -->
-<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 
+
+<!-- backgroud -->
+<!-- Simultaneous contrast. -->
+The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
+Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
+
+<!-- aesthetic -->
+<!-- The last thing to consider is .. -->
+<!-- similar to lines types, fonts, etc, positions -->
+<!-- hard to grasp, hard to learn, look for good examples and be inspired -->
+<!-- also related to what is the main goal - website, journal article? -->
+<!-- is it A4 or a postcard size?-->
+
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 There are three main types of color palettes (Figure \@ref(fig:palette-types)):
 
@@ -175,9 +193,12 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 <!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
+<!-- https://eagereyes.org/basics/rainbow-color-map -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
 <!-- relation in the background oclor and other colors -->
+<!-- using two or more palettes (e.g. lines and points): -->
+<!-- color palettes then should be complementary -->
 
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
@@ -195,6 +216,7 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 <!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
+<!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
 ## The color scale styles <!--JN: I am not sure where this section should go-->
 
