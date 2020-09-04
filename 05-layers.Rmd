@@ -46,6 +46,8 @@ knitr::kable(layers_df,
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
+
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
@@ -107,8 +109,16 @@ It is estimated that about XX of the world population is color blind.
 
 
 <!-- backgroud -->
-The last thing to consider is the relation between the selected color palette and other map elements or the map background.
+<!-- Simultaneous contrast. -->
+The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
 Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
+
+<!-- aesthetic -->
+<!-- The last thing to consider is .. -->
+<!-- similar to lines types, fonts, etc, positions -->
+<!-- hard to grasp, hard to learn, look for good examples and be inspired -->
+<!-- also related to what is the main goal - website, journal article? -->
+<!-- is it A4 or a postcard size?-->
 
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
@@ -185,9 +195,12 @@ plot_palette_types(y)
 <!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
+<!-- https://eagereyes.org/basics/rainbow-color-map -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
 <!-- relation in the background oclor and other colors -->
+<!-- using two or more palettes (e.g. lines and points): -->
+<!-- color palettes then should be complementary -->
 
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
@@ -205,6 +218,7 @@ plot_palette_types(y)
 <!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
+<!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
 ## The color scale styles <!--JN: I am not sure where this section should go-->
 
