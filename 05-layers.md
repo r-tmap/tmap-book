@@ -92,6 +92,7 @@
 
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+<!-- IDEA: one or more section per each visual variable (color/size/shape) -->
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
 On the other hand, poor decisions about colors can lead to misinterpretation of the map.
@@ -144,7 +145,7 @@ However, we need to be aware that the connection between colors and cultural val
 Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (*deuteranomaly*) being the most common.
-It is estimated that about XX of the world population is color blind.
+<!-- It is estimated that about XX of the world population is color blind [@birch_worldwide_2012]. -->
 <!-- look for stats/references.. -->
 
 <!-- bw -->
