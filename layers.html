@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.4 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-07" />
+<meta name="date" content="2020-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#thematic-maps"><i class="fa fa-check"></i><b>1.2</b> Thematic maps</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="geodata.html"><a href="geodata.html"><i class="fa fa-check"></i><b>2</b> Spatial data in R</a><ul>
-<li class="chapter" data-level="2.1" data-path="geodata.html"><a href="geodata.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.1" data-path="geodata.html"><a href="geodata.html#intro-geodata"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="geodata.html"><a href="geodata.html#data-models"><i class="fa fa-check"></i><b>2.2</b> Data models</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="geodata.html"><a href="geodata.html#vector-data-model"><i class="fa fa-check"></i><b>2.2.1</b> Vector data model</a></li>
 <li class="chapter" data-level="2.2.2" data-path="geodata.html"><a href="geodata.html#raster-data-model"><i class="fa fa-check"></i><b>2.2.2</b> Raster data model</a></li>
@@ -439,21 +439,44 @@ However, we need to be aware that the connection between colors and cultural val
 There are several types of color blindness, with the red-green color blindness (<em>deuteranomaly</em>) being the most common.
 <!-- It is estimated that about XX of the world population is color blind [@birch_worldwide_2012]. -->
 <!-- look for stats/references.. --></p>
-<!-- bw -->
 <!-- backgroud -->
 <!-- Simultaneous contrast. -->
 <p>The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
 Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.</p>
+<!-- The last thing to consider is related to the  -->
+<!-- also related to what is the main goal - website, journal article? -->
+<!-- bw -->
+<!-- is it A4 or a postcard size?-->
+<!-- should we add: (?) -->
 <!-- aesthetic -->
-<!-- The last thing to consider is .. -->
 <!-- similar to lines types, fonts, etc, positions -->
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
-<!-- also related to what is the main goal - website, journal article? -->
-<!-- is it A4 or a postcard size?-->
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 <p>Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
+Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contains hundreds of color palettes.
+The most popular among them are <strong>RColorBrewer</strong> and <strong>viridis</strong>.
+<!-- add references -->
+<!-- explain RColorBrewer shortely + links-->
+<!-- explain viridis shortely + links-->
+<!-- add some notes about more complex approaches (e.g. cividis)  + links -->
+<!-- grDevices::hcl.colors  + links-->
+<!-- grDevices::palette  + links--></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>, <span class="st">&quot;RdBu&quot;</span>)</span>
+<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="co">#&gt; [1] &quot;#B2182B&quot; &quot;#EF8A62&quot; &quot;#FDDBC7&quot; &quot;#F7F7F7&quot; &quot;#D1E5F0&quot;</span></span>
+<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; [6] &quot;#67A9CF&quot; &quot;#2166AC&quot;</span></span>
+<span id="cb10-4"><a href="layers.html#cb10-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
+<span id="cb10-5"><a href="layers.html#cb10-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
+<span id="cb10-6"><a href="layers.html#cb10-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span>
+<span id="cb10-7"><a href="layers.html#cb10-7"></a>grDevices<span class="op">::</span><span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Oslo&quot;</span>)</span>
+<span id="cb10-8"><a href="layers.html#cb10-8"></a><span class="co">#&gt; [1] &quot;#FCFCFC&quot; &quot;#C2CEE8&quot; &quot;#86A2D3&quot; &quot;#3C79C0&quot; &quot;#275182&quot;</span></span>
+<span id="cb10-9"><a href="layers.html#cb10-9"></a><span class="co">#&gt; [6] &quot;#132B48&quot; &quot;#040404&quot;</span></span>
+<span id="cb10-10"><a href="layers.html#cb10-10"></a>grDevices<span class="op">::</span><span class="kw">palette.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Okabe-Ito&quot;</span>)</span>
+<span id="cb10-11"><a href="layers.html#cb10-11"></a><span class="co">#&gt;       black      orange     skyblue bluishgreen </span></span>
+<span id="cb10-12"><a href="layers.html#cb10-12"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
+<span id="cb10-13"><a href="layers.html#cb10-13"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
+<span id="cb10-14"><a href="layers.html#cb10-14"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-There are three main types of color palettes (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
+<p>Generaly, color palettes can be divided into three main types (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
 <ul>
 <li>Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups.
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -474,9 +497,6 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 </p>
 </div>
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
-<!-- add some notes about more complex approaches (e.g. cividis) -->
-<!-- black and white (also in contrast to the three main palettes types)-->
-<!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
 <!-- https://eagereyes.org/basics/rainbow-color-map -->
@@ -505,21 +525,21 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 </div>
 <div id="the-color-scale-styles" class="section level2">
 <h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
-<span id="cb10-4"><a href="layers.html#cb10-4"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb10-5"><a href="layers.html#cb10-5"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb10-6"><a href="layers.html#cb10-6"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
-<span id="cb10-7"><a href="layers.html#cb10-7"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb11-3"><a href="layers.html#cb11-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
+<span id="cb11-4"><a href="layers.html#cb11-4"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb11-5"><a href="layers.html#cb11-5"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb11-6"><a href="layers.html#cb11-6"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
+<span id="cb11-7"><a href="layers.html#cb11-7"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
 <!-- one plot with five panels: one color/adjacent polygons/categorical/discrete/continuous? -->
 <!-- or maybe start with one color/adjacent polygons -->
 <!-- and next present three main types of color palettes -->
 <!-- after that categorical/discrete/continuous?? -->
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
-<span id="cb11-3"><a href="layers.html#cb11-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb11-4"><a href="layers.html#cb11-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="layers.html#cb12-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb12-2"><a href="layers.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb12-3"><a href="layers.html#cb12-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb12-4"><a href="layers.html#cb12-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
 
 </div>

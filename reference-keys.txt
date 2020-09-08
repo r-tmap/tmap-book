@@ -20,7 +20,7 @@ intro
 what-is-tmap
 thematic-maps
 geodata
-introduction
+intro-geodata
 data-models
 vector-data-model
 raster-data-model

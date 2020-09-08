@@ -148,25 +148,54 @@ There are several types of color blindness, with the red-green color blindness (
 <!-- It is estimated that about XX of the world population is color blind [@birch_worldwide_2012]. -->
 <!-- look for stats/references.. -->
 
-<!-- bw -->
-
-
 <!-- backgroud -->
 <!-- Simultaneous contrast. -->
 The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
 Using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
 
+<!-- The last thing to consider is related to the  -->
+<!-- also related to what is the main goal - website, journal article? -->
+<!-- bw -->
+<!-- is it A4 or a postcard size?-->
+
+<!-- should we add: (?) -->
 <!-- aesthetic -->
-<!-- The last thing to consider is .. -->
 <!-- similar to lines types, fonts, etc, positions -->
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
-<!-- also related to what is the main goal - website, journal article? -->
-<!-- is it A4 or a postcard size?-->
 
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
+Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
+) contains hundreds of color palettes. 
+The most popular among them are **RColorBrewer** and **viridis**.
+<!-- add references -->
+<!-- explain RColorBrewer shortely + links-->
+<!-- explain viridis shortely + links-->
+<!-- add some notes about more complex approaches (e.g. cividis)  + links -->
+<!-- grDevices::hcl.colors  + links-->
+<!-- grDevices::palette  + links-->
+
+
+```r
+RColorBrewer::brewer.pal(7, "RdBu")
+#> [1] "#B2182B" "#EF8A62" "#FDDBC7" "#F7F7F7" "#D1E5F0"
+#> [6] "#67A9CF" "#2166AC"
+viridis::viridis(7)
+#> [1] "#440154FF" "#443A83FF" "#31688EFF" "#21908CFF"
+#> [5] "#35B779FF" "#8FD744FF" "#FDE725FF"
+grDevices::hcl.colors(7, "Oslo")
+#> [1] "#FCFCFC" "#C2CEE8" "#86A2D3" "#3C79C0" "#275182"
+#> [6] "#132B48" "#040404"
+grDevices::palette.colors(7, "Okabe-Ito")
+#>       black      orange     skyblue bluishgreen 
+#>   "#000000"   "#E69F00"   "#56B4E9"   "#009E73" 
+#>      yellow        blue  vermillion 
+#>   "#F0E442"   "#0072B2"   "#D55E00"
+```
+
+
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-There are three main types of color palettes (Figure \@ref(fig:palette-types)):
+Generaly, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
 
 - Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -178,8 +207,6 @@ Colors in this palette type changes from low to high (or vice versa), which is u
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 <!-- examples -->
 
-
-
 <!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
 <!-- idea: add spectral schemes -->
 <div class="figure" style="text-align: center">
@@ -188,10 +215,6 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 </div>
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 
-<!-- add some notes about more complex approaches (e.g. cividis) -->
-
-<!-- black and white (also in contrast to the three main palettes types)-->
-<!-- color blindness -->
 <!-- palette properties -->
 <!-- anti-rainbow -->
 <!-- https://eagereyes.org/basics/rainbow-color-map -->

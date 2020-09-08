@@ -4,7 +4,7 @@
 
 \index{spatial data}
 
-## Introduction
+## Introduction {#intro-geodata}
 
 Vector and raster data models are two basic models used to represent spatial data.
 These spatial data models are closely related to map making, with each model having its own pros and cons. 
