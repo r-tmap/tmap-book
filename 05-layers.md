@@ -170,7 +170,6 @@ Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-col
 The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
 **RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at https://colorbrewer2.org.
 The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
-<!-- explain viridis shortely + links--> 
 The **viridis** package has five color palettes are perceptually-uniform and suitable for people with color blindness.
 Four palettes is this package ("viridis", "magma", "plasma", and "inferno") are derived from the work on the color palettes for [the matplotlib Python library](http://bids.github.io/colormap/).
 The last one, "cividis", is based on the work of @nunez_optimizing_2018.
