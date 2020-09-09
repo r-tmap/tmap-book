@@ -145,7 +145,7 @@ However, we need to be aware that the connection between colors and cultural val
 Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (*deuteranomaly*) being the most common.
-<!-- It is estimated that about XX of the world population is color blind [@birch_worldwide_2012]. -->
+It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind [@birch_worldwide_2012;@sharpe_opsin_1999].
 <!-- look for stats/references.. -->
 
 <!-- backgroud -->
@@ -167,13 +167,13 @@ Using a bright or dark background color on a map has an impact on how people wil
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
 ) contains hundreds of color palettes. 
-The most popular among them are **RColorBrewer** and **viridis**.
-<!-- add references -->
-<!-- explain RColorBrewer shortely + links-->
-<!-- explain viridis shortely + links-->
-<!-- add some notes about more complex approaches (e.g. cividis)  + links -->
-<!-- grDevices::hcl.colors  + links-->
-<!-- grDevices::palette  + links-->
+The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
+**RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at https://colorbrewer2.org.
+The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
+<!-- explain viridis shortely + links--> 
+The **viridis** package has five color palettes are perceptually-uniform and suitable for people with color blindness.
+Four palettes is this package ("viridis", "magma", "plasma", and "inferno") are derived from the work on the color palettes for [the matplotlib Python library](http://bids.github.io/colormap/).
+The last one, "cividis", is based on the work of @nunez_optimizing_2018.
 
 
 ```r
@@ -183,6 +183,12 @@ RColorBrewer::brewer.pal(7, "RdBu")
 viridis::viridis(7)
 #> [1] "#440154FF" "#443A83FF" "#31688EFF" "#21908CFF"
 #> [5] "#35B779FF" "#8FD744FF" "#FDE725FF"
+```
+
+<!-- grDevices::hcl.colors  + links-->
+<!-- grDevices::palette  + links-->
+
+```r
 grDevices::hcl.colors(7, "Oslo")
 #> [1] "#FCFCFC" "#C2CEE8" "#86A2D3" "#3C79C0" "#275182"
 #> [6] "#132B48" "#040404"
@@ -192,7 +198,6 @@ grDevices::palette.colors(7, "Okabe-Ito")
 #>      yellow        blue  vermillion 
 #>   "#F0E442"   "#0072B2"   "#D55E00"
 ```
-
 
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 Generaly, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
