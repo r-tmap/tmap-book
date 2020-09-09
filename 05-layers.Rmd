@@ -125,21 +125,23 @@ Using a bright or dark background color on a map has an impact on how people wil
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
 ) contains hundreds of color palettes. 
-The most popular among them are **RColorBrewer** and **viridis**.
-<!-- add references -->
-<!-- explain RColorBrewer shortely + links-->
-<!-- explain viridis shortely + links-->
+The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
+**RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003], which can be also explored at the associated website https://colorbrewer2.org.
+The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
+<!-- explain viridis shortely + links--> 
+The **viridis** package  http://bids.github.io/colormap/
 <!-- add some notes about more complex approaches (e.g. cividis)  + links -->
-<!-- grDevices::hcl.colors  + links-->
-<!-- grDevices::palette  + links-->
-
 ```{r}
 RColorBrewer::brewer.pal(7, "RdBu")
 viridis::viridis(7)
+```
+
+<!-- grDevices::hcl.colors  + links-->
+<!-- grDevices::palette  + links-->
+```{r}
 grDevices::hcl.colors(7, "Oslo")
 grDevices::palette.colors(7, "Okabe-Ito")
 ```
-
 
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 Generaly, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
