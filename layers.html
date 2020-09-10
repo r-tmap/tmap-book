@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.5 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-09" />
+<meta name="date" content="2020-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -451,33 +451,7 @@ Using a bright or dark background color on a map has an impact on how people wil
 <!-- aesthetic -->
 <!-- similar to lines types, fonts, etc, positions -->
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
-<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
-<p>Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
-Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contains hundreds of color palettes.
-The most popular among them are <strong>RColorBrewer</strong> <span class="citation">(Neuwirth <a href="#ref-R-RColorBrewer" role="doc-biblioref">2014</a>)</span> and <strong>viridis</strong> <span class="citation">(Garnier <a href="#ref-R-viridis" role="doc-biblioref">2018</a>)</span>.
-<strong>RColorBrewer</strong> builds upon a set of perceptually ordered color palettes <span class="citation">(Harrower and Brewer <a href="#ref-harrower_colorbrewer_2003" role="doc-biblioref">2003</a>)</span> and the associated website at <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a>.
-The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
-The <strong>viridis</strong> package has five color palettes are perceptually-uniform and suitable for people with color blindness.
-Four palettes is this package (“viridis”, “magma”, “plasma”, and “inferno”) are derived from the work on the color palettes for <a href="http://bids.github.io/colormap/">the matplotlib Python library</a>.
-The last one, “cividis”, is based on the work of <span class="citation">Nuñez, Anderton, and Renslow (<a href="#ref-nunez_optimizing_2018" role="doc-biblioref">2018</a>)</span>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>, <span class="st">&quot;RdBu&quot;</span>)</span>
-<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="co">#&gt; [1] &quot;#B2182B&quot; &quot;#EF8A62&quot; &quot;#FDDBC7&quot; &quot;#F7F7F7&quot; &quot;#D1E5F0&quot;</span></span>
-<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; [6] &quot;#67A9CF&quot; &quot;#2166AC&quot;</span></span>
-<span id="cb10-4"><a href="layers.html#cb10-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
-<span id="cb10-5"><a href="layers.html#cb10-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
-<span id="cb10-6"><a href="layers.html#cb10-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
-<!-- grDevices::hcl.colors  + links-->
-<!-- grDevices::palette  + links-->
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a>grDevices<span class="op">::</span><span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Oslo&quot;</span>)</span>
-<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="co">#&gt; [1] &quot;#FCFCFC&quot; &quot;#C2CEE8&quot; &quot;#86A2D3&quot; &quot;#3C79C0&quot; &quot;#275182&quot;</span></span>
-<span id="cb11-3"><a href="layers.html#cb11-3"></a><span class="co">#&gt; [6] &quot;#132B48&quot; &quot;#040404&quot;</span></span>
-<span id="cb11-4"><a href="layers.html#cb11-4"></a>grDevices<span class="op">::</span><span class="kw">palette.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Okabe-Ito&quot;</span>)</span>
-<span id="cb11-5"><a href="layers.html#cb11-5"></a><span class="co">#&gt;       black      orange     skyblue bluishgreen </span></span>
-<span id="cb11-6"><a href="layers.html#cb11-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
-<span id="cb11-7"><a href="layers.html#cb11-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
-<span id="cb11-8"><a href="layers.html#cb11-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
-<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-<p>Generaly, color palettes can be divided into three main types (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
+<p>Generally, color palettes can be divided into three main types (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
 <ul>
 <li>Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups.
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -498,6 +472,37 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 </p>
 </div>
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+<!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
+<p>Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
+Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contains hundreds of color palettes.
+The most popular among them are <strong>RColorBrewer</strong> <span class="citation">(Neuwirth <a href="#ref-R-RColorBrewer" role="doc-biblioref">2014</a>)</span> and <strong>viridis</strong> <span class="citation">(Garnier <a href="#ref-R-viridis" role="doc-biblioref">2018</a>)</span>.
+<strong>RColorBrewer</strong> builds upon a set of perceptually ordered color palettes <span class="citation">(Harrower and Brewer <a href="#ref-harrower_colorbrewer_2003" role="doc-biblioref">2003</a>)</span> and the associated website at <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a>.
+The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
+The <strong>viridis</strong> package has five color palettes are perceptually-uniform and suitable for people with color blindness.
+Four palettes is this package (“viridis”, “magma”, “plasma”, and “inferno”) are derived from the work on the color palettes for <a href="http://bids.github.io/colormap/">the matplotlib Python library</a>.
+The last one, “cividis”, is based on the work of <span class="citation">Nuñez, Anderton, and Renslow (<a href="#ref-nunez_optimizing_2018" role="doc-biblioref">2018</a>)</span>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>, <span class="st">&quot;RdBu&quot;</span>)</span>
+<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="co">#&gt; [1] &quot;#B2182B&quot; &quot;#EF8A62&quot; &quot;#FDDBC7&quot; &quot;#F7F7F7&quot; &quot;#D1E5F0&quot;</span></span>
+<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="co">#&gt; [6] &quot;#67A9CF&quot; &quot;#2166AC&quot;</span></span>
+<span id="cb10-4"><a href="layers.html#cb10-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
+<span id="cb10-5"><a href="layers.html#cb10-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
+<span id="cb10-6"><a href="layers.html#cb10-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
+<p>In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
+The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
+You can get the list of available palette names for <code>hcl.colors()</code> using the <code>hcl.pals()</code> function and visualize all of the palettes with <code>colorspace::hcl_palettes(plot = TRUE)</code>.
+<!-- https://arxiv.org/abs/1903.06490 -->
+The <code>palette.colors()</code> function adds <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html">several palettes for categorical data</a>.
+It includes <code>"Okabe-Ito"</code> <a href="https://jfly.uni-koeln.de/color/">suited for color vision deficiencies</a> or <code>"Polychrome 36"</code> that has 36 unique colors <span class="citation">(Coombes et al. <a href="#ref-coombes_polychrome_2019" role="doc-biblioref">2019</a>)</span>.
+You can find the available names of the palettes for this function using <code>palette.pals()</code></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a>grDevices<span class="op">::</span><span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Oslo&quot;</span>)</span>
+<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="co">#&gt; [1] &quot;#FCFCFC&quot; &quot;#C2CEE8&quot; &quot;#86A2D3&quot; &quot;#3C79C0&quot; &quot;#275182&quot;</span></span>
+<span id="cb11-3"><a href="layers.html#cb11-3"></a><span class="co">#&gt; [6] &quot;#132B48&quot; &quot;#040404&quot;</span></span>
+<span id="cb11-4"><a href="layers.html#cb11-4"></a>grDevices<span class="op">::</span><span class="kw">palette.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Okabe-Ito&quot;</span>)</span>
+<span id="cb11-5"><a href="layers.html#cb11-5"></a><span class="co">#&gt;       black      orange     skyblue bluishgreen </span></span>
+<span id="cb11-6"><a href="layers.html#cb11-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
+<span id="cb11-7"><a href="layers.html#cb11-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
+<span id="cb11-8"><a href="layers.html#cb11-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
 <!-- palette properties -->
 <!-- anti-rainbow -->
 <!-- https://eagereyes.org/basics/rainbow-color-map -->
@@ -550,6 +555,9 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <div id="ref-birch_worldwide_2012">
 <p>Birch, Jennifer. 2012. “Worldwide Prevalence of Red-Green Color Deficiency.” <em>Journal of the Optical Society of America A</em> 29 (3): 313. <a href="https://doi.org/10/ggkw82">https://doi.org/10/ggkw82</a>.</p>
 </div>
+<div id="ref-coombes_polychrome_2019">
+<p>Coombes, Kevin R., Guy Brock, Zachary B. Abrams, and Lynne V. Abruzzo. 2019. “<strong>Polychrome</strong> : Creating and Assessing Qualitative Palettes with Many Colors.” <em>Journal of Statistical Software</em> 90 (Code Snippet 1). <a href="https://doi.org/10/ggkqvs">https://doi.org/10/ggkqvs</a>.</p>
+</div>
 <div id="ref-R-viridis">
 <p>Garnier, Simon. 2018. <em>Viridis: Default Color Maps from ’Matplotlib’</em>. <a href="https://CRAN.R-project.org/package=viridis">https://CRAN.R-project.org/package=viridis</a>.</p>
 </div>
@@ -559,12 +567,24 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <div id="ref-R-RColorBrewer">
 <p>Neuwirth, Erich. 2014. <em>RColorBrewer: ColorBrewer Palettes</em>. <a href="https://CRAN.R-project.org/package=RColorBrewer">https://CRAN.R-project.org/package=RColorBrewer</a>.</p>
 </div>
+<div id="ref-R-rcartocolor">
+<p>Nowosad, Jakub. 2018. <em>’CARTOColors’ Palettes</em>. <a href="https://nowosad.github.io/rcartocolor">https://nowosad.github.io/rcartocolor</a>.</p>
+</div>
 <div id="ref-nunez_optimizing_2018">
 <p>Nuñez, Jamie R., Christopher R. Anderton, and Ryan S. Renslow. 2018. “Optimizing Colormaps with Consideration for Color Vision Deficiency to Enable Accurate Interpretation of Scientific Data.” Edited by Jesús Malo. <em>PLOS ONE</em> 13 (7): e0199239. <a href="https://doi.org/10/gdzkg4">https://doi.org/10/gdzkg4</a>.</p>
+</div>
+<div id="ref-R-scico">
+<p>Pedersen, Thomas Lin, and Fabio Crameri. 2020. <em>Scico: Colour Palettes Based on the Scientific Colour-Maps</em>. <a href="https://CRAN.R-project.org/package=scico">https://CRAN.R-project.org/package=scico</a>.</p>
 </div>
 <div id="ref-sharpe_opsin_1999">
 <p>Sharpe, Lindsay T, Andrew Stockman, Herbert Jägle, and Jeremy Nathans. 1999. “Opsin Genes, Cone Photopigments, Color Vision, and Color Blindness.” In <em>Color Vision: From Genes to Perception</em>, edited by T Gegenfurtner and Lindsay T Sharpe, 50. Cambridge: Cambridge University Press.</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Learn more about them at <a href="https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/" class="uri">https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/</a> and <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html" class="uri">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a>.<a href="layers.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 <script>
 /*

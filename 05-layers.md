@@ -163,6 +163,26 @@ Using a bright or dark background color on a map has an impact on how people wil
 <!-- similar to lines types, fonts, etc, positions -->
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
 
+Generally, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
+
+- Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
+Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
+<!-- examples -->
+- Sequential - used for presenting continuous variables, in which order matters.
+Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
+<!-- examples -->
+- Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
+<!-- examples -->
+
+<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
+<!-- idea: add spectral schemes -->
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
+<p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
+</div>
+<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
@@ -184,8 +204,15 @@ viridis::viridis(7)
 #> [5] "#35B779FF" "#8FD744FF" "#FDE725FF"
 ```
 
-<!-- grDevices::hcl.colors  + links-->
-<!-- grDevices::palette  + links-->
+In the last few years, the **grDevices** package that is an internal part of R, have received several improvements over color palette handling.^[Learn more about them at https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/ and https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html.]
+It includes creation of `hcl.colors()` and `palette.colors()`.
+The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@R-rcartocolor], and **scico** [@R-scico].
+You can get the list of available palette names for `hcl.colors()` using the `hcl.pals()` function and visualize all of the palettes with `colorspace::hcl_palettes(plot = TRUE)`.
+<!-- https://arxiv.org/abs/1903.06490 -->
+The `palette.colors()` function adds [several palettes for categorical data](https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html).
+It includes `"Okabe-Ito"` [suited for color vision deficiencies](https://jfly.uni-koeln.de/color/) or `"Polychrome 36"` that has 36 unique colors [@coombes_polychrome_2019]. 
+You can find the available names of the palettes for this function using `palette.pals()`
+
 
 ```r
 grDevices::hcl.colors(7, "Oslo")
@@ -198,26 +225,7 @@ grDevices::palette.colors(7, "Okabe-Ito")
 #>   "#F0E442"   "#0072B2"   "#D55E00"
 ```
 
-<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
-Generaly, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
 
-- Categorical (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
-Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
-<!-- examples -->
-- Sequential - used for presenting continuous variables, in which order matters.
-Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
-<!-- examples -->
-- Diverging - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
-Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
-<!-- examples -->
-
-<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
-<!-- idea: add spectral schemes -->
-<div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
-<p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
-</div>
-<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 
 <!-- palette properties -->
 <!-- anti-rainbow -->
