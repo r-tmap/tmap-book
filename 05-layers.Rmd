@@ -142,7 +142,7 @@ plot_palette_types = function(y){
   my_n = length(y[[1]])
   n_colors = length(y)
   ylim = c(0, n_colors)
-  
+
   oldpar = par(mgp = c(2, 0.25, 0), mar = c(0, 5, 0, 0))
   on.exit(par(oldpar))
   plot(
@@ -180,9 +180,12 @@ p_cat = hcl.colors(7, "Set3")
 p_seq = rev(hcl.colors(7, "YlOrBr"))
 p_div = hcl.colors(7, "RdYlGn")
 # p_vir = 
-y = list(Diverging = p_div, Sequential = p_seq, Categorical = p_cat)
+y = list(Diverging = p_div,
+         Sequential = p_seq,
+         Categorical = p_cat)
 plot_palette_types(y)
 ```
+
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
@@ -215,14 +218,11 @@ grDevices::hcl.colors(7, "Oslo")
 grDevices::palette.colors(7, "Okabe-Ito")
 ```
 
-
-
-<!-- palette properties -->
 <!-- anti-rainbow -->
 <!-- https://eagereyes.org/basics/rainbow-color-map -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
-<!-- relation in the background oclor and other colors -->
+<!-- relation between the background col and other colors -->
 <!-- using two or more palettes (e.g. lines and points): -->
 <!-- color palettes then should be complementary -->
 
@@ -237,10 +237,10 @@ grDevices::palette.colors(7, "Okabe-Ito")
 <!-- alpha? -->
 
 <!-- resources: -->
-<!-- - colorspace -->
-<!-- - Polychrome -->
-<!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
-<!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- colorspace -->
+<!-- Polychrome -->
+<!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
