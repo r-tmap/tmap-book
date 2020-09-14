@@ -226,11 +226,40 @@ grDevices::palette.colors(7, "Okabe-Ito")
 <!-- using two or more palettes (e.g. lines and points): -->
 <!-- color palettes then should be complementary -->
 
+<!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
+By default, the **tmap** package attempts to identify the type of the used variable.
+Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"`.
+<!-- info about tm_layout or reference to a section about it -->
+It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names.
+
+```{r, echo=FALSE, warning=FALSE}
+# replace this data with some new tmap dataset
+library(tmap)
+library(sf)
+file_path = system.file("shapes/world.gpkg", package = "spData")
+x = read_sf(file_path)
+x = st_transform(x, 8857)
+```
+
+```{r, warning=FALSE}
+tm_pal1 = tm_shape(x) +
+  tm_polygons("lifeExp")
+tm_pal2 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
+tm_pal3 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
+tm_pal4 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = "YlGn")
+tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
+             ncol = 2)
+```
+
+
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
 <!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
-<!-- <!-- including viridis --> -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() -->
+<!-- <!-- including viridis --> 
 <!-- also the `n` argument -->
 <!-- also the `-` sign -->
 <!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
