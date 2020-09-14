@@ -181,6 +181,7 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 <img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
 <p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
 </div>
+
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 
 <!-- therefore, there is a lot of existing color palettes, and many of them are grounded in science -->
@@ -225,32 +226,73 @@ grDevices::palette.colors(7, "Okabe-Ito")
 #>   "#F0E442"   "#0072B2"   "#D55E00"
 ```
 
-
-
-<!-- palette properties -->
 <!-- anti-rainbow -->
 <!-- https://eagereyes.org/basics/rainbow-color-map -->
 <!-- limitation of the number of colors -->
 <!-- interpolation between colors -->
-<!-- relation in the background oclor and other colors -->
+<!-- relation between the background col and other colors -->
 <!-- using two or more palettes (e.g. lines and points): -->
 <!-- color palettes then should be complementary -->
+
+
+```
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
+```
+
+<!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
+By default, the **tmap** package attempts to identify the type of the used variable.
+Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"`  (Figure \@ref(fig:tmpals)).
+<!-- info about tm_layout or reference to a section about it -->
+
+
+```r
+tm_shape(x) + tm_polygons("lifeExp")
+```
+
+It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
+A vector of colors can be specified using color names or hexadecimal representations.
+Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
+**tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
+
+
+```r
+tm_shape(x) +
+  tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
+```
+
+
+```r
+tm_shape(x) +
+  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
+```
+
+
+```r
+tm_shape(x) +
+  tm_polygons("lifeExp", palette = "YlGn")
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes." width="672" />
+<p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.</p>
+</div>
+
 
 <!-- three ways to set colors in tmap: -->
 <!-- 1. vector of colors (names vs hex) -->
 <!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() --> -->
-<!-- <!-- including viridis --> -->
+<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() -->
+<!-- <!-- including viridis --> 
 <!-- also the `n` argument -->
 <!-- also the `-` sign -->
 <!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
 <!-- alpha? -->
 
 <!-- resources: -->
-<!-- - colorspace -->
-<!-- - Polychrome -->
-<!-- - https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
-<!-- - https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- colorspace -->
+<!-- Polychrome -->
+<!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
@@ -260,7 +302,6 @@ grDevices::palette.colors(7, "Okabe-Ito")
 ```r
 # replace this data with some new tmap dataset
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
 library(tmap)
 file_path = system.file("shapes/world.gpkg", package = "spData")
 world = read_sf(file_path)

@@ -16,6 +16,7 @@ fig:crs-bias
 tab:crs-recommendations
 tab:layers-table
 fig:palette-types
+fig:tmpals
 intro
 what-is-tmap
 thematic-maps
