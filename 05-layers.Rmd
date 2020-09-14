@@ -226,12 +226,6 @@ grDevices::palette.colors(7, "Okabe-Ito")
 <!-- using two or more palettes (e.g. lines and points): -->
 <!-- color palettes then should be complementary -->
 
-<!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
-By default, the **tmap** package attempts to identify the type of the used variable.
-Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"`.
-<!-- info about tm_layout or reference to a section about it -->
-It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names.
-
 ```{r, echo=FALSE, warning=FALSE}
 # replace this data with some new tmap dataset
 library(tmap)
@@ -241,15 +235,48 @@ x = read_sf(file_path)
 x = st_transform(x, 8857)
 ```
 
-```{r, warning=FALSE}
-tm_pal1 = tm_shape(x) +
-  tm_polygons("lifeExp")
-tm_pal2 = tm_shape(x) +
+<!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
+By default, the **tmap** package attempts to identify the type of the used variable.
+Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"`  (Figure \@ref(fig:tmpals)).
+<!-- info about tm_layout or reference to a section about it -->
+
+```{r, eval=FALSE}
+tm_shape(x) + tm_polygons("lifeExp")
+```
+
+It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
+A vector of colors can be specified using color names or hexadecimal representations.
+Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
+**tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
+
+```{r, eval=FALSE}
+tm_shape(x) +
   tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
-tm_pal3 = tm_shape(x) +
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
   tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
-tm_pal4 = tm_shape(x) +
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
   tm_polygons("lifeExp", palette = "YlGn")
+```
+
+```{r tmpals, warning=FALSE, fig.cap="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.", echo=FALSE}
+tm_pal1 = tm_shape(x) +
+  tm_polygons("lifeExp") +
+  tm_layout(title = "1")
+tm_pal2 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = c("yellow", "darkgreen")) +
+  tm_layout(title = "2")
+tm_pal3 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl"))) +
+  tm_layout(title = "3")
+tm_pal4 = tm_shape(x) +
+  tm_polygons("lifeExp", palette = "YlGn") +
+  tm_layout(title = "4")
 tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
              ncol = 2)
 ```
