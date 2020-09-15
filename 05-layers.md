@@ -260,11 +260,19 @@ tm_shape(x) +
   tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
 ```
 
+Another approach is to provide the output of a palette function. 
+In the example below, we derived seven colors from `"ag_GrnYl"` palette.
+This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
+Thus, we also used the `rev()` function here. 
+
 
 ```r
 tm_shape(x) +
   tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
 ```
+
+The last approach is to use one of the names of color palettes build-in in **tmap**.
+In this example, we used the `"YlGn"` palette that goes from yellow to green.
 
 
 ```r
@@ -272,20 +280,17 @@ tm_shape(x) +
   tm_polygons("lifeExp", palette = "YlGn")
 ```
 
+You can find all of the named color palettes using an interactive app with `tmaptools::palette_explorer()`. 
+It is also possible to reverse the order of any named color palette by using the `-` prefix.
+Therefore, `"-YlGn"` will return a palette going from green to yellow.
+
 <div class="figure" style="text-align: center">
 <img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes." width="672" />
 <p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.</p>
 </div>
 
-
-<!-- three ways to set colors in tmap: -->
-<!-- 1. vector of colors (names vs hex) -->
-<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() -->
-<!-- <!-- including viridis --> 
+<!-- state that the above example of setting colors works for most of palettes -->
 <!-- also the `n` argument -->
-<!-- also the `-` sign -->
-<!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
 <!-- alpha? -->
 
 <!-- resources: -->

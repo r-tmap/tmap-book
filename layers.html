@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-14" />
+<meta name="date" content="2020-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -522,24 +522,27 @@ Importantly, the length of the provided vector does not need to be equal to the 
 <strong>tmap</strong> automatically interpolates new colors in the case when a smaller number of colors is provided.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>))</span></code></pre></div>
+<p>Another approach is to provide the output of a palette function.
+In the example below, we derived seven colors from <code>"ag_GrnYl"</code> palette.
+This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
+Thus, we also used the <code>rev()</code> function here.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb15-2"><a href="layers.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">rev</span>(<span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;ag_GrnYl&quot;</span>)))</span></code></pre></div>
+<p>The last approach is to use one of the names of color palettes build-in in <strong>tmap</strong>.
+In this example, we used the <code>"YlGn"</code> palette that goes from yellow to green.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlGn&quot;</span>)</span></code></pre></div>
+<p>You can find all of the named color palettes using an interactive app with <code>tmaptools::palette_explorer()</code>.
+It is also possible to reverse the order of any named color palette by using the <code>-</code> prefix.
+Therefore, <code>"-YlGn"</code> will return a palette going from green to yellow.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmpals"></span>
 <img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes." width="672" />
 <p class="caption">
 FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.
 </p>
 </div>
-<!-- three ways to set colors in tmap: -->
-<!-- 1. vector of colors (names vs hex) -->
-<!-- 2. palette functions (e.g. RColorBrewer, rcartocolor, grDevices::hcl.colors) -->
-<!-- 3. build-in names in tmap <!-- tmaptools::palette_explorer() -->
-<!-- <!-- including viridis -->
+<!-- state that the above example of setting colors works for most of palettes -->
 <!-- also the `n` argument -->
-<!-- also the `-` sign -->
-<!-- The type of palette from aes.palette is automatically determined, but can be overwritten: use "seq" for sequential, "div" for diverging, and "cat" for categorical. -->
 <!-- alpha? -->
 <!-- resources: -->
 <!-- colorspace -->
