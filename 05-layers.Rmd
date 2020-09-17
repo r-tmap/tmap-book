@@ -99,11 +99,10 @@ However, we need to be aware that the connection between colors and cultural val
 <!-- http://uxblog.idvsolutions.com/2013/07/language-and-color.html -->
 
 <!-- color blindness -->
-Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
+Another thing to consider is to use a color palette that is accessible for people with color vision deficiencies (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (*deuteranomaly*) being the most common.
 It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind [@birch_worldwide_2012;@sharpe_opsin_1999].
-<!-- look for stats/references.. -->
 
 <!-- background -->
 <!-- Simultaneous contrast. -->
@@ -204,7 +203,7 @@ viridis::viridis(7)
 
 In the last few years, the **grDevices** package that is an internal part of R, have received several improvements over color palette handling.^[Learn more about them at https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/ and https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html.]
 It includes creation of `hcl.colors()` and `palette.colors()`.
-The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@R-rcartocolor], and **scico** [@R-scico].
+The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@carto_cartocolors_2019;@R-rcartocolor], and **scico** [@crameri_geodynamic_2018;@R-scico].
 You can get the list of available palette names for `hcl.colors()` using the `hcl.pals()` function and visualize all of the palettes with `colorspace::hcl_palettes(plot = TRUE)`.
 <!-- https://arxiv.org/abs/1903.06490 -->
 The `palette.colors()` function adds [several palettes for categorical data](https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html).
@@ -216,8 +215,13 @@ grDevices::hcl.colors(7, "Oslo")
 grDevices::palette.colors(7, "Okabe-Ito")
 ```
 
-<!-- anti-rainbow -->
-<!-- https://eagereyes.org/basics/rainbow-color-map -->
+One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
+It was inspired by colors of rainbows - a set of seven colors going from red to violet.
+However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies [@borland_rainbow_2007;@stauffer_somewhere_2015;@quinan_examining_2019]. 
+Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential "viridis" and "ag_Sunset" or diverging "Purple-Green" and "Fall".
+All of them can be created with the `grDevices::hcl.colors()` function.
+More examples showing alternatives to the "rainbow" palette are in the documentation of the **colorspace** package at 
+https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
 
 ```{r, echo=FALSE, warning=FALSE}
 # replace this data with some new tmap dataset
