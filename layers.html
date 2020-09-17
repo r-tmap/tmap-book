@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-16" />
+<meta name="date" content="2020-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -433,11 +433,10 @@ The blue color is usually connected to cold temperature, while the red color is 
 However, we need to be aware that the connection between colors and cultural values varied between cultures.
 <!-- http://uxblog.idvsolutions.com/2013/07/language-and-color.html --></p>
 <!-- color blindness -->
-<p>Another thing to consider is to use a color palette that is accessible for people with color vision deficiency (color blindness).
+<p>Another thing to consider is to use a color palette that is accessible for people with color vision deficiencies (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (<em>deuteranomaly</em>) being the most common.
-It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind <span class="citation">(Birch <a href="#ref-birch_worldwide_2012" role="doc-biblioref">2012</a>; Sharpe et al. <a href="#ref-sharpe_opsin_1999" role="doc-biblioref">1999</a>)</span>.
-<!-- look for stats/references.. --></p>
+It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind <span class="citation">(Birch <a href="#ref-birch_worldwide_2012" role="doc-biblioref">2012</a>; Sharpe et al. <a href="#ref-sharpe_opsin_1999" role="doc-biblioref">1999</a>)</span>.</p>
 <!-- background -->
 <!-- Simultaneous contrast. -->
 <p>The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
@@ -488,7 +487,7 @@ The last one, “cividis”, is based on the work of <span class="citation">Nuñ
 <span id="cb10-6"><a href="layers.html#cb10-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
 <p>In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
 It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
-The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
+The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(CARTO <a href="#ref-carto_cartocolors_2019" role="doc-biblioref">2019</a>; Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Crameri <a href="#ref-crameri_geodynamic_2018" role="doc-biblioref">2018</a>; Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
 You can get the list of available palette names for <code>hcl.colors()</code> using the <code>hcl.pals()</code> function and visualize all of the palettes with <code>colorspace::hcl_palettes(plot = TRUE)</code>.
 <!-- https://arxiv.org/abs/1903.06490 -->
 The <code>palette.colors()</code> function adds <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html">several palettes for categorical data</a>.
@@ -502,8 +501,13 @@ You can find the available names of the palettes for this function using <code>p
 <span id="cb11-6"><a href="layers.html#cb11-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
 <span id="cb11-7"><a href="layers.html#cb11-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
 <span id="cb11-8"><a href="layers.html#cb11-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
-<!-- anti-rainbow -->
-<!-- https://eagereyes.org/basics/rainbow-color-map -->
+<p>One of the most widely used color palettes is “rainbow” (the <code>rainbow()</code> function in R).
+It was inspired by colors of rainbows - a set of seven colors going from red to violet.
+However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies <span class="citation">(Borland and Taylor Ii <a href="#ref-borland_rainbow_2007" role="doc-biblioref">2007</a>; Stauffer et al. <a href="#ref-stauffer_somewhere_2015" role="doc-biblioref">2015</a>; Quinan et al. <a href="#ref-quinan_examining_2019" role="doc-biblioref">2019</a>)</span>.
+Depending on a given situation, there are many palettes better suited for visualization than “rainbow”, including sequential “viridis” and “ag_Sunset” or diverging “Purple-Green” and “Fall”.
+All of them can be created with the <code>grDevices::hcl.colors()</code> function.
+More examples showing alternatives to the “rainbow” palette are in the documentation of the <strong>colorspace</strong> package at
+<a href="https://colorspace.r-forge.r-project.org/articles/endrainbow.html" class="uri">https://colorspace.r-forge.r-project.org/articles/endrainbow.html</a> <span class="citation">(Zeileis et al. <a href="#ref-R-colorspace" role="doc-biblioref">2019</a>)</span>.</p>
 <pre><code>#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</code></pre>
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
 <p>By default, the <strong>tmap</strong> package attempts to identify the type of the used variable.
@@ -571,8 +575,17 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 <div id="ref-birch_worldwide_2012">
 <p>Birch, Jennifer. 2012. “Worldwide Prevalence of Red-Green Color Deficiency.” <em>Journal of the Optical Society of America A</em> 29 (3): 313. <a href="https://doi.org/10/ggkw82">https://doi.org/10/ggkw82</a>.</p>
 </div>
+<div id="ref-borland_rainbow_2007">
+<p>Borland, David, and Russell Taylor Ii. 2007. “Rainbow Color Map (Still) Considered Harmful.” <em>IEEE Computer Graphics and Applications</em> 27 (2): 14–17. <a href="https://doi.org/10/cf7nms">https://doi.org/10/cf7nms</a>.</p>
+</div>
+<div id="ref-carto_cartocolors_2019">
+<p>CARTO. 2019. “CARTOColors Data-Driven Color Schemes.” https://carto.com/carto-colors/.</p>
+</div>
 <div id="ref-coombes_polychrome_2019">
 <p>Coombes, Kevin R., Guy Brock, Zachary B. Abrams, and Lynne V. Abruzzo. 2019. “<strong>Polychrome</strong> : Creating and Assessing Qualitative Palettes with Many Colors.” <em>Journal of Statistical Software</em> 90 (Code Snippet 1). <a href="https://doi.org/10/ggkqvs">https://doi.org/10/ggkqvs</a>.</p>
+</div>
+<div id="ref-crameri_geodynamic_2018">
+<p>Crameri, Fabio. 2018. “Geodynamic Diagnostics, Scientific Visualisation and StagLab 3.0.” <em>Geoscientific Model Development</em> 11 (6): 2541–62. <a href="https://doi.org/10/gdt4tg">https://doi.org/10/gdt4tg</a>.</p>
 </div>
 <div id="ref-R-viridis">
 <p>Garnier, Simon. 2018. <em>Viridis: Default Color Maps from ’Matplotlib’</em>. <a href="https://CRAN.R-project.org/package=viridis">https://CRAN.R-project.org/package=viridis</a>.</p>
@@ -592,8 +605,17 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 <div id="ref-R-scico">
 <p>Pedersen, Thomas Lin, and Fabio Crameri. 2020. <em>Scico: Colour Palettes Based on the Scientific Colour-Maps</em>. <a href="https://CRAN.R-project.org/package=scico">https://CRAN.R-project.org/package=scico</a>.</p>
 </div>
+<div id="ref-quinan_examining_2019">
+<p>Quinan, P. S., L. M. Padilla, S. H. Creem-Regehr, and M. Meyer. 2019. “Examining Implicit Discretization in Spectral Schemes.” <em>Computer Graphics Forum</em> 38 (3): 363–74. <a href="https://doi.org/10/ggb9nd">https://doi.org/10/ggb9nd</a>.</p>
+</div>
 <div id="ref-sharpe_opsin_1999">
 <p>Sharpe, Lindsay T, Andrew Stockman, Herbert Jägle, and Jeremy Nathans. 1999. “Opsin Genes, Cone Photopigments, Color Vision, and Color Blindness.” In <em>Color Vision: From Genes to Perception</em>, edited by T Gegenfurtner and Lindsay T Sharpe, 50. Cambridge: Cambridge University Press.</p>
+</div>
+<div id="ref-stauffer_somewhere_2015">
+<p>Stauffer, Reto, Georg J. Mayr, Markus Dabernig, and Achim Zeileis. 2015. “Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations.” <em>Bulletin of the American Meteorological Society</em> 96 (2): 203–16. <a href="https://doi.org/10/f3sttk">https://doi.org/10/f3sttk</a>.</p>
+</div>
+<div id="ref-R-colorspace">
+<p>Zeileis, Achim, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, and Claus O. Wilke. 2019. “colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.” ArXiv 1903.06490. arXiv.org E-Print Archive. <a href="http://arxiv.org/abs/1903.06490">http://arxiv.org/abs/1903.06490</a>.</p>
 </div>
 </div>
 <div class="footnotes">
