@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-17" />
+<meta name="date" content="2020-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -387,17 +387,21 @@ raster
 </div>
 <div id="color-palettes" class="section level2">
 <h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
-<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
+<p>
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ --></p>
 <!-- color as VISUAL VARIABLE! -->
 <!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
 <!-- IDEA: one or more section per each visual variable (color/size/shape) -->
-<p>Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
+<p>
+Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information.
 On the other hand, poor decisions about colors can lead to misinterpretation of the map.</p>
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
 <!-- https://en.wikipedia.org/wiki/Color_scheme -->
-<p>Colors in R are created based either on the color name or its hexadecimal form.
+<p>
+
+Colors in R are created based either on the color name or its hexadecimal form.
 R understands 657 built-in color names, such as <code>"red"</code>, <code>"lightblue"</code> or <code>"gray90"</code>, that are available using the <code>colors()</code> function.
 <!-- demo("colors") -->
 <!-- http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf -->
@@ -411,11 +415,13 @@ In that scenario, all of the elements will have the same color.
 However, often we want to represent different values in our data using different colors.
 This is a role for color palettes.
 A color palette is a set of colors used to distinguish the values of variables on maps.</p>
-<p>Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
+<p>
+Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
 For example, <code>c("red", "green", "blue")</code> or <code>c("#66C2A5", "#FC8D62", "#8DA0CB")</code>.
 It allows every one of us to create our own color palettes.
 However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.</p>
-<p>Firstly, what kind of variable we want to show?
+<p>
+Firstly, what kind of variable we want to show?
 <!-- a next sentence is a simplification, as always -->
 Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values have order?
 <!-- http://colorspace.r-forge.r-project.org/articles/palette_visualization.html -->
@@ -424,21 +430,22 @@ For categorical variables, each color usually should receive the same perceptual
 On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
 This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
 For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases and brightness decreases.</p>
-<!-- color perception-->
-<p>Next consideration is related to how people <!--(reader/viewers)--> perceive some colors.
+<p>
+Next consideration is related to how people <!--(reader/viewers)--> perceive some colors.
 Usually, we want them to be able to preliminary understand which values the colors represent without looking at the legend – colors should be intuitive.
 For example, in the case of categorical variables representing land use, we usually want to use some type of blue color for rivers, green for trees, and white for ice.
 This idea also extends to numerical variables, where we should think about the association between colors and cultural values.
 The blue color is usually connected to cold temperature, while the red color is hot or can represent danger or something not good.
 However, we need to be aware that the connection between colors and cultural values varied between cultures.
 <!-- http://uxblog.idvsolutions.com/2013/07/language-and-color.html --></p>
-<!-- color blindness -->
-<p>Another thing to consider is to use a color palette that is accessible for people with color vision deficiencies (color blindness).
+<p>
+Another thing to consider is to use a color palette that is accessible for people with color vision deficiencies (color blindness).
 <!-- https://en.wikipedia.org/wiki/Color_blindness -->
 There are several types of color blindness, with the red-green color blindness (<em>deuteranomaly</em>) being the most common.
-It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind <span class="citation">(Birch <a href="#ref-birch_worldwide_2012" role="doc-biblioref">2012</a>; Sharpe et al. <a href="#ref-sharpe_opsin_1999" role="doc-biblioref">1999</a>)</span>.</p>
-<!-- background -->
+It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind <span class="citation">(Birch <a href="#ref-birch_worldwide_2012" role="doc-biblioref">2012</a>; Sharpe et al. <a href="#ref-sharpe_opsin_1999" role="doc-biblioref">1999</a>)</span>.
+<!-- tools in R for checking for colorblindness --></p>
 <!-- Simultaneous contrast. -->
+<!-- background -->
 <p>The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
 For example, using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
 <!-- relation between the background col and other colors -->
@@ -448,7 +455,8 @@ For example, using a bright or dark background color on a map has an impact on h
 <!-- aesthetic -->
 <!-- similar to lines types, fonts, etc, positions -->
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
-<p>Generally, color palettes can be divided into three main types (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
+<p>
+Generally, color palettes can be divided into three main types (Figure <a href="layers.html#fig:palette-types">5.1</a>):</p>
 <ul>
 <li><strong>Categorical</strong> (also known as Qualitative) - used for presenting categorical information, for example, categories or groups.
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -471,7 +479,8 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 </p>
 </div>
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
-<p>Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
+<p>
+Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contains hundreds of color palettes.
 The most popular among them are <strong>RColorBrewer</strong> <span class="citation">(Neuwirth <a href="#ref-R-RColorBrewer" role="doc-biblioref">2014</a>)</span> and <strong>viridis</strong> <span class="citation">(Garnier <a href="#ref-R-viridis" role="doc-biblioref">2018</a>)</span>.
 <strong>RColorBrewer</strong> builds upon a set of perceptually ordered color palettes <span class="citation">(Harrower and Brewer <a href="#ref-harrower_colorbrewer_2003" role="doc-biblioref">2003</a>)</span> and the associated website at <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a>.
@@ -489,7 +498,6 @@ The last one, “cividis”, is based on the work of <span class="citation">Nuñ
 It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
 The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(CARTO <a href="#ref-carto_cartocolors_2019" role="doc-biblioref">2019</a>; Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Crameri <a href="#ref-crameri_geodynamic_2018" role="doc-biblioref">2018</a>; Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
 You can get the list of available palette names for <code>hcl.colors()</code> using the <code>hcl.pals()</code> function and visualize all of the palettes with <code>colorspace::hcl_palettes(plot = TRUE)</code>.
-<!-- https://arxiv.org/abs/1903.06490 -->
 The <code>palette.colors()</code> function adds <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html">several palettes for categorical data</a>.
 It includes <code>"Okabe-Ito"</code> <a href="https://jfly.uni-koeln.de/color/">suited for color vision deficiencies</a> or <code>"Polychrome 36"</code> that has 36 unique colors <span class="citation">(Coombes et al. <a href="#ref-coombes_polychrome_2019" role="doc-biblioref">2019</a>)</span>.
 You can find the available names of the palettes for this function using <code>palette.pals()</code></p>
