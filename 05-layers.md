@@ -295,6 +295,7 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
 <!-- state that the above example of setting colors works for most of palettes -->
 <!-- also the `n` argument -->
+<!-- midpoint argument -->
 <!-- alpha? -->
 
 <!-- resources: -->
@@ -317,8 +318,7 @@ world = read_sf(file_path)
 world_moll = st_transform(world, crs = "+proj=moll")
 ```
 
-<!-- one plot with five panels: one color/adjacent polygons/categorical/discrete/continuous? -->
-<!-- or maybe start with one color/adjacent polygons -->
+<!-- start with one color/adjacent polygons -->
 <!-- and next present three main types of color palettes -->
 <!-- after that categorical/discrete/continuous?? -->
 
@@ -328,7 +328,73 @@ tm_one = tm_shape(world_moll) +
   tm_polygons(col = "lightblue")
 tm_uni = tm_shape(world_moll) +
   tm_polygons(col = "MAP_COLORS")
+tmap_arrange(tm_one, tm_uni)
 ```
 
+<img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- categorical -->
+
+```r
+tm_cat = tm_shape(world_moll) +
+  tm_polygons(col = "region_un")
+tm_cat
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- "cat",  -->
+
+<!-- discrete -->
+
+```r
+tm_pre = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap")
+tm_fix = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap", 
+              breaks = c(0, 10000, 30000, 121000),
+              labels = c("low", "medium", "high"))
+tm_jen = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap", 
+              style = "jenks")
+tm_lop = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap", 
+              style = "log10_pretty")
+tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
+#> Warning: non-rounded breaks occur, because style =
+#> "log10_pretty" is designed for large values
+
+#> Warning: non-rounded breaks occur, because style =
+#> "log10_pretty" is designed for large values
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- "pretty","fixed","jenks", and "log10_pretty" -->
+
+<!-- Mention: -->
+<!-- "equal", "quantile",  -->
+<!-- "sd", "kmeans", "hclust", "bclust", "fisher", -->
+<!-- "dpih", "headtails" -->
+
+<!-- continuous -->
+
+
+```r
+tm_con = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap",
+              style = "cont")
+tm_ord = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap",
+              style = "order")
+tm_log = tm_shape(world_moll) +
+  tm_polygons(col = "gdpPercap",
+              style = "log10")
+tmap_arrange(tm_con, tm_ord, tm_log)
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- "cont", "order", and "log10" -->
 
 To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
