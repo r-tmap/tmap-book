@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-21" />
+<meta name="date" content="2020-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -561,46 +561,41 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 </div>
 <div id="the-color-scale-styles" class="section level2">
 <h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb17-3"><a href="layers.html#cb17-3"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb17-4"><a href="layers.html#cb17-4"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb17-5"><a href="layers.html#cb17-5"></a>world =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
-<span id="cb17-6"><a href="layers.html#cb17-6"></a>world_moll =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dt">crs =</span> <span class="st">&quot;+proj=moll&quot;</span>)</span></code></pre></div>
-<!-- start with one color/adjacent polygons -->
-<!-- and next present three main types of color palettes -->
-<!-- after that categorical/discrete/continuous?? -->
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a>tm_one =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span>
-<span id="cb18-3"><a href="layers.html#cb18-3"></a>tm_uni =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
-<span id="cb18-4"><a href="layers.html#cb18-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span>
-<span id="cb18-5"><a href="layers.html#cb18-5"></a><span class="kw">tmap_arrange</span>(tm_one, tm_uni)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- intro about setting colors -->
+<!-- info that generalized to points, lines, polygons, and rasters... -->
+<p><code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
+The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>), is provided (Figure <a href="layers.html#fig:colorscales1">5.3</a>).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
+<div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
+<img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom)." width="672" />
+<p class="caption">
+FIGURE 5.3: Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom).
+</p>
+</div>
 <!-- categorical -->
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a>tm_cat =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a>tm_cat =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span>
 <span id="cb19-3"><a href="layers.html#cb19-3"></a>tm_cat</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- "cat",  -->
 <!-- discrete -->
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a>tm_pre =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a>tm_pre =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span>
-<span id="cb20-3"><a href="layers.html#cb20-3"></a>tm_fix =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb20-3"><a href="layers.html#cb20-3"></a>tm_fix =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-4"><a href="layers.html#cb20-4"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb20-5"><a href="layers.html#cb20-5"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
 <span id="cb20-6"><a href="layers.html#cb20-6"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span>
-<span id="cb20-7"><a href="layers.html#cb20-7"></a>tm_jen =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb20-7"><a href="layers.html#cb20-7"></a>tm_jen =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-8"><a href="layers.html#cb20-8"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb20-9"><a href="layers.html#cb20-9"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span>
-<span id="cb20-10"><a href="layers.html#cb20-10"></a>tm_lop =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb20-10"><a href="layers.html#cb20-10"></a>tm_lop =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-11"><a href="layers.html#cb20-11"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb20-12"><a href="layers.html#cb20-12"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span>
-<span id="cb20-13"><a href="layers.html#cb20-13"></a><span class="kw">tmap_arrange</span>(tm_pre, tm_fix, tm_jen, tm_lop)</span>
-<span id="cb20-14"><a href="layers.html#cb20-14"></a><span class="co">#&gt; Warning: non-rounded breaks occur, because style =</span></span>
-<span id="cb20-15"><a href="layers.html#cb20-15"></a><span class="co">#&gt; &quot;log10_pretty&quot; is designed for large values</span></span>
-<span id="cb20-16"><a href="layers.html#cb20-16"></a></span>
-<span id="cb20-17"><a href="layers.html#cb20-17"></a><span class="co">#&gt; Warning: non-rounded breaks occur, because style =</span></span>
-<span id="cb20-18"><a href="layers.html#cb20-18"></a><span class="co">#&gt; &quot;log10_pretty&quot; is designed for large values</span></span></code></pre></div>
+<span id="cb20-13"><a href="layers.html#cb20-13"></a><span class="kw">tmap_arrange</span>(tm_pre, tm_fix, tm_jen, tm_lop)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 <!-- Mention: -->
@@ -608,13 +603,13 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 <!-- "sd", "kmeans", "hclust", "bclust", "fisher", -->
 <!-- "dpih", "headtails" -->
 <!-- continuous -->
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a>tm_con =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a>tm_con =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb21-3"><a href="layers.html#cb21-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span>
-<span id="cb21-4"><a href="layers.html#cb21-4"></a>tm_ord =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb21-4"><a href="layers.html#cb21-4"></a>tm_ord =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb21-5"><a href="layers.html#cb21-5"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb21-6"><a href="layers.html#cb21-6"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span>
-<span id="cb21-7"><a href="layers.html#cb21-7"></a>tm_log =<span class="st"> </span><span class="kw">tm_shape</span>(world_moll) <span class="op">+</span></span>
+<span id="cb21-7"><a href="layers.html#cb21-7"></a>tm_log =<span class="st"> </span><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb21-8"><a href="layers.html#cb21-8"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb21-9"><a href="layers.html#cb21-9"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span>
 <span id="cb21-10"><a href="layers.html#cb21-10"></a><span class="kw">tmap_arrange</span>(tm_con, tm_ord, tm_log)</span></code></pre></div>

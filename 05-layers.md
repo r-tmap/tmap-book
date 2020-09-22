@@ -308,35 +308,35 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
 ## The color scale styles <!--JN: I am not sure where this section should go-->
 
-
-```r
-# replace this data with some new tmap dataset
-library(sf)
-library(tmap)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-world = read_sf(file_path)
-world_moll = st_transform(world, crs = "+proj=moll")
-```
-
-<!-- start with one color/adjacent polygons -->
-<!-- and next present three main types of color palettes -->
-<!-- after that categorical/discrete/continuous?? -->
+<!-- intro about setting colors -->
+<!-- info that generalized to points, lines, polygons, and rasters... -->
+`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument.
+The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section \@ref(color-palettes)), is provided (Figure  \@ref(fig:colorscales1)).
 
 
 ```r
-tm_one = tm_shape(world_moll) +
+tm_shape(x) +
   tm_polygons(col = "lightblue")
-tm_uni = tm_shape(world_moll) +
-  tm_polygons(col = "MAP_COLORS")
-tmap_arrange(tm_one, tm_uni)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "MAP_COLORS")
+```
+
+<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom)." width="672" />
+<p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom).</p>
+</div>
 
 <!-- categorical -->
 
 ```r
-tm_cat = tm_shape(world_moll) +
+tm_cat = tm_shape(x) +
   tm_polygons(col = "region_un")
 tm_cat
 ```
@@ -348,24 +348,19 @@ tm_cat
 <!-- discrete -->
 
 ```r
-tm_pre = tm_shape(world_moll) +
+tm_pre = tm_shape(x) +
   tm_polygons(col = "gdpPercap")
-tm_fix = tm_shape(world_moll) +
+tm_fix = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               breaks = c(0, 10000, 30000, 121000),
               labels = c("low", "medium", "high"))
-tm_jen = tm_shape(world_moll) +
+tm_jen = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               style = "jenks")
-tm_lop = tm_shape(world_moll) +
+tm_lop = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               style = "log10_pretty")
 tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
-#> Warning: non-rounded breaks occur, because style =
-#> "log10_pretty" is designed for large values
-
-#> Warning: non-rounded breaks occur, because style =
-#> "log10_pretty" is designed for large values
 ```
 
 <img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
@@ -381,13 +376,13 @@ tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
 
 
 ```r
-tm_con = tm_shape(world_moll) +
+tm_con = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "cont")
-tm_ord = tm_shape(world_moll) +
+tm_ord = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "order")
-tm_log = tm_shape(world_moll) +
+tm_log = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "log10")
 tmap_arrange(tm_con, tm_ord, tm_log)

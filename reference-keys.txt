@@ -17,6 +17,7 @@ tab:crs-recommendations
 tab:layers-table
 fig:palette-types
 fig:tmpals
+fig:colorscales1
 intro
 what-is-tmap
 thematic-maps
