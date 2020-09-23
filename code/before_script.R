@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
   fig.pos = "h", #"t"
   fig.path = "figures/",
   fig.align = "center",
+  fig.height = 7,
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold"#,out.width = "100%"
