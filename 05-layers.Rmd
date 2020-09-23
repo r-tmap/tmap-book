@@ -322,22 +322,15 @@ tm_shape(x) +
   tm_polygons(col = "lightblue")
 ```
 
-
-```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "MAP_COLORS")
-```
-
 <!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
 
-```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color (left) and with adjacent polygons having different colors (right).", echo=FALSE, fig.asp=NA, fig.height=2}
+```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color.", echo=FALSE, fig.asp=NA, fig.height=2}
 tm_one = tm_shape(x) +
   tm_polygons(col = "lightblue")
-tm_uni = tm_shape(x) +
-  tm_polygons(col = "MAP_COLORS")
-tmap_arrange(tm_one, tm_uni, nrow = 1, asp = NA,
-             outer.margins = 0)
+tm_one
 ```
+
+<!-- The last way of specifying the fill color is to ... -->
 
 ```{r, eval=FALSE}
 tm_shape(x) +
@@ -437,5 +430,21 @@ tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
 ```
 
 <!-- "cont", "order", and "log10" -->
+
+The `tm_polygons()` also offer a third way of specifying the fill color.
+When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure \@ref(fig:colorscalesmc)).
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "MAP_COLORS")
+```
+
+In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
+
+```{r colorscalesmc, warning=FALSE, fig.cap="Example of a map with adjacent polygons having different colors.", echo=FALSE, fig.asp=NA, fig.height=2}
+tm_uni = tm_shape(x) +
+  tm_polygons(col = "MAP_COLORS")
+tm_uni
+```
 
 To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
