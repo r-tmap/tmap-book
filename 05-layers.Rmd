@@ -330,25 +330,56 @@ tm_shape(x) +
 
 <!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
 
-```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom).", echo=FALSE}
+```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color (left) and with adjacent polygons having different colors (right).", echo=FALSE, fig.asp=NA, fig.height=2}
 tm_one = tm_shape(x) +
   tm_polygons(col = "lightblue")
 tm_uni = tm_shape(x) +
   tm_polygons(col = "MAP_COLORS")
-tmap_arrange(tm_one, tm_uni)
+tmap_arrange(tm_one, tm_uni, nrow = 1, asp = NA,
+             outer.margins = 0)
 ```
 
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "region_un")
+```
+
+
 <!-- categorical -->
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.asp=NA, fig.height=2, message=FALSE, echo=FALSE}
 tm_cat = tm_shape(x) +
   tm_polygons(col = "region_un")
 tm_cat
 ```
 
 <!-- "cat",  -->
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap")
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap", 
+              breaks = c(0, 10000, 30000, 121000),
+              labels = c("low", "medium", "high"))
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap", 
+              style = "jenks")
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap", 
+              style = "log10_pretty")
+```
+
 
 <!-- discrete -->
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE}
 tm_pre = tm_shape(x) +
   tm_polygons(col = "gdpPercap")
 tm_fix = tm_shape(x) +
@@ -361,7 +392,8 @@ tm_jen = tm_shape(x) +
 tm_lop = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               style = "log10_pretty")
-tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
+tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
+             outer.margins = 0)
 ```
 
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
@@ -372,8 +404,25 @@ tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
 <!-- "dpih", "headtails" -->
 
 <!-- continuous -->
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap",
+              style = "cont")
+```
 
-```{r, warning=FALSE}
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap",
+              style = "order")
+```
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap",
+              style = "log10")
+```
+
+```{r, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE}
 tm_con = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "cont")
@@ -383,7 +432,8 @@ tm_ord = tm_shape(x) +
 tm_log = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "log10")
-tmap_arrange(tm_con, tm_ord, tm_log)
+tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
+             outer.margins = 0)
 ```
 
 <!-- "cont", "order", and "log10" -->
