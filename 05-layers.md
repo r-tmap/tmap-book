@@ -319,51 +319,57 @@ tm_shape(x) +
   tm_polygons(col = "lightblue")
 ```
 
+<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="672" />
+<p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color.</p>
+</div>
+
+<!-- The last way of specifying the fill color is to ... -->
 
 
 ```r
 tm_shape(x) +
-  tm_polygons(col = "MAP_COLORS")
+  tm_polygons(col = "region_un")
 ```
 
-<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
-
-<div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom)." width="672" />
-<p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color (top) and with adjacent polygons having different colors (bottom).</p>
-</div>
 
 <!-- categorical -->
-
-```r
-tm_cat = tm_shape(x) +
-  tm_polygons(col = "region_un")
-tm_cat
-```
-
 <img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "cat",  -->
 
-<!-- discrete -->
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap")
+```
+
 
 ```r
-tm_pre = tm_shape(x) +
-  tm_polygons(col = "gdpPercap")
-tm_fix = tm_shape(x) +
+tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               breaks = c(0, 10000, 30000, 121000),
               labels = c("low", "medium", "high"))
-tm_jen = tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
-              style = "jenks")
-tm_lop = tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
-              style = "log10_pretty")
-tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap", 
+              style = "jenks")
+```
+
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap", 
+              style = "log10_pretty")
+```
+
+
+<!-- discrete -->
+<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 
@@ -374,22 +380,44 @@ tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop)
 
 <!-- continuous -->
 
-
 ```r
-tm_con = tm_shape(x) +
+tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "cont")
-tm_ord = tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
-              style = "order")
-tm_log = tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
-              style = "log10")
-tmap_arrange(tm_con, tm_ord, tm_log)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap",
+              style = "order")
+```
+
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap",
+              style = "log10")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "cont", "order", and "log10" -->
+
+The `tm_polygons()` also offer a third way of specifying the fill color.
+When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure \@ref(fig:colorscalesmc)).
+
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "MAP_COLORS")
+```
+
+In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
+<p class="caption">(\#fig:colorscalesmc)Example of a map with adjacent polygons having different colors.</p>
+</div>
 
 To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.

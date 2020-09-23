@@ -18,6 +18,7 @@ tab:layers-table
 fig:palette-types
 fig:tmpals
 fig:colorscales1
+fig:colorscalesmc
 intro
 what-is-tmap
 thematic-maps
