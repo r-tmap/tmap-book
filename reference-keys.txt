@@ -41,6 +41,9 @@ which-projection-to-choose
 crs-in-r
 nutshell
 tmshape
+shapes-and-layers
+shape-projection-bounding-box
+simplification
 layers
 shapes-and-markers
 color-palettes
