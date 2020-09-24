@@ -319,24 +319,32 @@ tm_shape(x) +
   tm_polygons(col = "lightblue")
 ```
 
-<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
-
 <div class="figure" style="text-align: center">
 <img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="672" />
 <p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color.</p>
 </div>
 
-<!-- The last way of specifying the fill color is to ... -->
+The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
+**tmap** behaves differently depending on the input variable type.
+In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
+However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.
+
+An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
+We created it by providing a character variable, `"region_un"`, as the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.].
 
 
 ```r
 tm_shape(x) +
   tm_polygons(col = "region_un")
 ```
-
-
 <!-- categorical -->
-<img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on a categorical variable." width="672" />
+<p class="caption">(\#fig:colorscales2)Example of a map in which polygons are colored based on a categorical variable.</p>
+</div>
+
+<!-- 1. ref to the previous section -->
+<!-- 2. add a sentence about changing palettes -->
 
 <!-- "cat",  -->
 
@@ -369,7 +377,7 @@ tm_shape(x) +
 
 
 <!-- discrete -->
-<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 
@@ -400,7 +408,7 @@ tm_shape(x) +
               style = "log10")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "cont", "order", and "log10" -->
 
