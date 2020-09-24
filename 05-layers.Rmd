@@ -322,28 +322,33 @@ tm_shape(x) +
   tm_polygons(col = "lightblue")
 ```
 
-<!-- To create a map, where adjacent polygons do not get the same color, we need to provide a keyword "MAP_COLORS". -->
-
 ```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color.", echo=FALSE, fig.asp=NA, fig.height=2}
 tm_one = tm_shape(x) +
   tm_polygons(col = "lightblue")
 tm_one
 ```
 
-<!-- The last way of specifying the fill color is to ... -->
+The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
+**tmap** behaves differently depending on the input variable type.
+In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
+However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.
+
+An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
+We created it by providing a character variable, `"region_un"`, as the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.].
 
 ```{r, eval=FALSE}
 tm_shape(x) +
   tm_polygons(col = "region_un")
 ```
-
-
 <!-- categorical -->
-```{r, warning=FALSE, fig.asp=NA, fig.height=2, message=FALSE, echo=FALSE}
+```{r colorscales2, warning=FALSE, fig.asp=NA, fig.height=2, message=FALSE, echo=FALSE, fig.cap="Example of a map in which polygons are colored based on a categorical variable."}
 tm_cat = tm_shape(x) +
   tm_polygons(col = "region_un")
 tm_cat
 ```
+
+<!-- 1. ref to the previous section -->
+<!-- 2. add a sentence about changing palettes -->
 
 <!-- "cat",  -->
 ```{r, eval=FALSE}
