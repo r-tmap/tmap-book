@@ -250,7 +250,8 @@ Based on the result, it selects one of the build-in palettes: categorical `"Set3
 
 
 ```r
-tm_shape(x) + tm_polygons("lifeExp")
+tm_shape(x) + 
+  tm_polygons("lifeExp")
 ```
 
 It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
@@ -298,6 +299,33 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 <!-- midpoint argument -->
 <!-- alpha? -->
 
+Additionally, **tmap** has a special way to set colors for categorical maps manually.
+It works by providing a named vector to the `palette` argument.
+In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
+You can see it in the example below, where we plot the `"region_un"` categorical variable (Figure \@ref(fig:tmcatpals)).
+Each category in this variable (e.g., `"Africa"`) has a new, connected to it color (e.g., `"#11467b"`).
+<!--improve colors-->
+<!-- also - improve example - maybe use less colors/categories -->
+
+```r
+tm_shape(x) + 
+  tm_polygons("region_un", 
+    palette = c(
+      "Africa" = "#11467b",
+      "Americas" = "#ffd14d", 
+      "Antarctica" = "#86909a", 
+      "Asia" = "#14909a",
+      "Europe" = "#7fbee9",
+      "Oceania" = "#df5454",
+      "Seven seas (open ocean)" = "#7b1072")
+    )
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
+<p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors</p>
+</div>
+
 <!-- resources: -->
 <!-- colorspace -->
 <!-- Polychrome -->
@@ -325,12 +353,12 @@ tm_shape(x) +
 </div>
 
 The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
-**tmap** behaves differently depending on the input variable type.
+**tmap** behaves differently depending on the input variable type, but always automatically adds a map legend.
 In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
 However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.
 
 An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
-We created it by providing a character variable, `"region_un"`, as the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.].
+We created it by providing a character variable's name, `"region_un"`, as the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 
 ```r
@@ -342,6 +370,11 @@ tm_shape(x) +
 <img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on a categorical variable." width="672" />
 <p class="caption">(\#fig:colorscales2)Example of a map in which polygons are colored based on a categorical variable.</p>
 </div>
+
+It is possible to change the names of legend labels with the `labels` argument.
+However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.
+
+
 
 <!-- 1. ref to the previous section -->
 <!-- 2. add a sentence about changing palettes -->
@@ -377,7 +410,7 @@ tm_shape(x) +
 
 
 <!-- discrete -->
-<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 
@@ -408,7 +441,7 @@ tm_shape(x) +
               style = "log10")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "cont", "order", and "log10" -->
 

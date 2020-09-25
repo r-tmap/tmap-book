@@ -17,6 +17,7 @@ tab:crs-recommendations
 tab:layers-table
 fig:palette-types
 fig:tmpals
+fig:tmcatpals
 fig:colorscales1
 fig:colorscales2
 fig:colorscalesmc

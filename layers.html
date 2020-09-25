@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-24" />
+<meta name="date" content="2020-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -525,7 +525,8 @@ More examples showing alternatives to the “rainbow” palette are in the docum
 <p>By default, the <strong>tmap</strong> package attempts to identify the type of the used variable.
 Based on the result, it selects one of the build-in palettes: categorical <code>"Set3"</code>, sequential <code>"YlOrBr"</code>, or diverging <code>"RdYlGn"</code> (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 <!-- info about tm_layout or reference to a section about it --></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-2"><a href="layers.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
 <p>It also offers three main ways to specify color palettes using the <code>palette</code> argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 A vector of colors can be specified using color names or hexadecimal representations.
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend.
@@ -555,6 +556,30 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 <!-- also the `n` argument -->
 <!-- midpoint argument -->
 <!-- alpha? -->
+<p>Additionally, <strong>tmap</strong> has a special way to set colors for categorical maps manually.
+It works by providing a named vector to the <code>palette</code> argument.
+In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
+You can see it in the example below, where we plot the <code>"region_un"</code> categorical variable (Figure <a href="layers.html#fig:tmcatpals">5.3</a>).
+Each category in this variable (e.g., <code>"Africa"</code>) has a new, connected to it color (e.g., <code>"#11467b"</code>).
+<!--improve colors-->
+<!-- also - improve example - maybe use less colors/categories --></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;region_un&quot;</span>, </span>
+<span id="cb19-3"><a href="layers.html#cb19-3"></a>    <span class="dt">palette =</span> <span class="kw">c</span>(</span>
+<span id="cb19-4"><a href="layers.html#cb19-4"></a>      <span class="st">&quot;Africa&quot;</span> =<span class="st"> &quot;#11467b&quot;</span>,</span>
+<span id="cb19-5"><a href="layers.html#cb19-5"></a>      <span class="st">&quot;Americas&quot;</span> =<span class="st"> &quot;#ffd14d&quot;</span>, </span>
+<span id="cb19-6"><a href="layers.html#cb19-6"></a>      <span class="st">&quot;Antarctica&quot;</span> =<span class="st"> &quot;#86909a&quot;</span>, </span>
+<span id="cb19-7"><a href="layers.html#cb19-7"></a>      <span class="st">&quot;Asia&quot;</span> =<span class="st"> &quot;#14909a&quot;</span>,</span>
+<span id="cb19-8"><a href="layers.html#cb19-8"></a>      <span class="st">&quot;Europe&quot;</span> =<span class="st"> &quot;#7fbee9&quot;</span>,</span>
+<span id="cb19-9"><a href="layers.html#cb19-9"></a>      <span class="st">&quot;Oceania&quot;</span> =<span class="st"> &quot;#df5454&quot;</span>,</span>
+<span id="cb19-10"><a href="layers.html#cb19-10"></a>      <span class="st">&quot;Seven seas (open ocean)&quot;</span> =<span class="st"> &quot;#7b1072&quot;</span>)</span>
+<span id="cb19-11"><a href="layers.html#cb19-11"></a>    )</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:tmcatpals"></span>
+<img src="05-layers_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
+<p class="caption">
+FIGURE 5.3: An example of a categorical map with manually selected colors
+</p>
+</div>
 <!-- resources: -->
 <!-- colorspace -->
 <!-- Polychrome -->
@@ -568,73 +593,75 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 <p><code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
-The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>), is provided (Figure <a href="layers.html#fig:colorscales1">5.3</a>).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>), is provided (Figure <a href="layers.html#fig:colorscales1">5.4</a>).</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
 <img src="05-layers_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="672" />
 <p class="caption">
-FIGURE 5.3: Example of a map with all polygons filled with the same color.
+FIGURE 5.4: Example of a map with all polygons filled with the same color.
 </p>
 </div>
 <p>The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
-<strong>tmap</strong> behaves differently depending on the input variable type.
+<strong>tmap</strong> behaves differently depending on the input variable type, but always automatically adds a map legend.
 In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
 However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.</p>
-<p>An example of a categorical map can be seen in Figure <a href="layers.html#fig:colorscales2">5.4</a>.
-We created it by providing a character variable, <code>"region_un"</code>, as the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
+<p>An example of a categorical map can be seen in Figure <a href="layers.html#fig:colorscales2">5.5</a>.
+We created it by providing a character variable’s name, <code>"region_un"</code>, as the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <!-- categorical -->
 <div class="figure" style="text-align: center"><span id="fig:colorscales2"></span>
 <img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on a categorical variable." width="672" />
 <p class="caption">
-FIGURE 5.4: Example of a map in which polygons are colored based on a categorical variable.
+FIGURE 5.5: Example of a map in which polygons are colored based on a categorical variable.
 </p>
 </div>
+<p>It is possible to change the names of legend labels with the <code>labels</code> argument.
+However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.</p>
 <!-- 1. ref to the previous section -->
 <!-- 2. add a sentence about changing palettes -->
 <!-- "cat",  -->
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb22-3"><a href="layers.html#cb22-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
-<span id="cb22-4"><a href="layers.html#cb22-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
+<span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb23-2"><a href="layers.html#cb23-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb23-3"><a href="layers.html#cb23-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
+<span id="cb23-3"><a href="layers.html#cb23-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
+<span id="cb23-4"><a href="layers.html#cb23-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
+<span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
+<span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
 <!-- discrete -->
-<p><img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 <!-- Mention: -->
 <!-- "equal", "quantile",  -->
 <!-- "sd", "kmeans", "hclust", "bclust", "fisher", -->
 <!-- "dpih", "headtails" -->
 <!-- continuous -->
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb26-3"><a href="layers.html#cb26-3"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span></code></pre></div>
+<span id="cb26-3"><a href="layers.html#cb26-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb27-3"><a href="layers.html#cb27-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb27-3"><a href="layers.html#cb27-3"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
+<span id="cb28-3"><a href="layers.html#cb28-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- "cont", "order", and "log10" -->
 <p>The <code>tm_polygons()</code> also offer a third way of specifying the fill color.
-When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.5</a>).</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.6</a>).</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>In this case, it is also possible to change the default colors with the <code>palette</code> argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting <code>minimize = TRUE</code>.</p>
 <div class="figure" style="text-align: center"><span id="fig:colorscalesmc"></span>
 <img src="05-layers_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
 <p class="caption">
-FIGURE 5.5: Example of a map with adjacent polygons having different colors.
+FIGURE 5.6: Example of a map with adjacent polygons having different colors.
 </p>
 </div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
