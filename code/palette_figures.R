@@ -24,11 +24,13 @@ plot_palette_types = function(y) {
     
     # labels
     pushViewport(viewport(layout.pos.col = 2, layout.pos.row = rows[i]))
-    grid.text(names(y[[i]])[[1]], gp = gpar(col = "grey10", fontsize = 8))
+    grid.text(names(y[[i]])[[1]], x = 0.1, just = "left",
+              gp = gpar(col = "grey10", fontsize = 8))
     popViewport()
     
     pushViewport(viewport(layout.pos.col = 2, layout.pos.row = rows[i] + 2))
-    grid.text(names(y[[i]])[[2]], gp = gpar(col = "grey10", fontsize = 8))
+    grid.text(names(y[[i]])[[2]], x = 0.1, just = "left", 
+              gp = gpar(col = "grey10", fontsize = 8))
     popViewport()
     
     # palettes
