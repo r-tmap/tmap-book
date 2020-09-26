@@ -141,54 +141,20 @@ It can also be used on maps to represent difference or change as well.
 
 <!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
 <!-- idea: add spectral schemes -->
-```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
+```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.667}
 # y - a named list of palettes
-plot_palette_types = function(y){
-  
-  my_n = length(y[[1]])
-  n_colors = length(y)
-  ylim = c(0, n_colors)
-
-  oldpar = par(mgp = c(2, 0.25, 0), mar = c(0, 5, 0, 0))
-  on.exit(par(oldpar))
-  plot(
-    1,
-    1,
-    xlim = c(0, max(my_n)),
-    ylim = ylim,
-    type = "n",
-    axes = FALSE,
-    bty = "n",
-    xlab = "",
-    ylab = ""
-  )
-  
-  for (i in seq_len(n_colors)) {
-    rect(
-      xleft = 0:(my_n - 1),
-      ybottom = i - 1,
-      xright = 1:my_n,
-      ytop = i - 0.2,
-      col = y[[i]],
-      border = "light grey"
-    )
-  }
-  text(
-    rep(0, n_colors),
-    (1:n_colors) - 0.6,
-    labels = paste(names(y), " "),
-    xpd = TRUE,
-    adj = 1
-  )
-}
-# JN: probably this figure should use the default tmap color palettes
+source("code/palette_figures.R")
 p_cat = hcl.colors(7, "Set3")
 p_seq = rev(hcl.colors(7, "YlOrBr"))
 p_div = hcl.colors(7, "RdYlGn")
-# p_vir = 
-y = list(Diverging = p_div,
-         Sequential = p_seq,
-         Categorical = p_cat)
+
+p_cat2 = tmaptools::get_brewer_pal("Set2", n = 7, plot = FALSE)
+p_seq2 = rev(hcl.colors(7, "viridis"))
+p_div2 = hcl.colors(7, "BrBG")
+
+y = list(Categorical = list(p_cat, p_cat2),
+         Sequential = list(p_seq, p_seq2),
+         Diverging = list(p_div, p_div2))
 plot_palette_types(y)
 ```
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
