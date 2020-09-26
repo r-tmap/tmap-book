@@ -141,7 +141,7 @@ It can also be used on maps to represent difference or change as well.
 
 <!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
 <!-- idea: add spectral schemes -->
-```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.667}
+```{r palette-types, fig.cap="Examples of three main types of color palettes: categorical, sequential, and diverging", echo=FALSE, fig.asp=0.5}
 # y - a named list of palettes
 source("code/palette_figures.R")
 p_cat = hcl.colors(7, "Set3")
@@ -152,9 +152,9 @@ p_cat2 = tmaptools::get_brewer_pal("Set2", n = 7, plot = FALSE)
 p_seq2 = rev(hcl.colors(7, "viridis"))
 p_div2 = hcl.colors(7, "BrBG")
 
-y = list(Categorical = list(p_cat, p_cat2),
-         Sequential = list(p_seq, p_seq2),
-         Diverging = list(p_div, p_div2))
+y = list(Categorical = list(Set3 = p_cat, Set2 = p_cat2),
+         Sequential = list(YlOrBr = p_seq, viridis = p_seq2),
+         Diverging = list(RdYlGn = p_div, BrBG = p_div2))
 plot_palette_types(y)
 ```
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
