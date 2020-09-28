@@ -372,13 +372,18 @@ tm_shape(x) +
 </div>
 
 It is possible to change the names of legend labels with the `labels` argument.
-However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.
+However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.<!--should we explain how to do it?-->
+As mentioned in the section \@ref(color-palettes), we can also change the color palette with the `palette` argument.
 
 
 
-<!-- 1. ref to the previous section -->
-<!-- 2. add a sentence about changing palettes -->
+Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
+In other words, values are divided into several groups based on their properties.
+Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
+**tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
+All of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
+By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
 <!-- "cat",  -->
 
 ```r
@@ -410,7 +415,10 @@ tm_shape(x) +
 
 
 <!-- discrete -->
-<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
+<p class="caption">(\#fig:discrete-methods)Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
+</div>
 
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 
@@ -441,7 +449,7 @@ tm_shape(x) +
               style = "log10")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- "cont", "order", and "log10" -->
 

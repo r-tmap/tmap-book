@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-26" />
+<meta name="date" content="2020-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -618,10 +618,15 @@ FIGURE 5.5: Example of a map in which polygons are colored based on a categorica
 </p>
 </div>
 <p>It is possible to change the names of legend labels with the <code>labels</code> argument.
-However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.</p>
-<!-- 1. ref to the previous section -->
-<!-- 2. add a sentence about changing palettes -->
-<!-- "cat",  -->
+However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.<!--should we explain how to do it?-->
+As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the color palette with the <code>palette</code> argument.</p>
+<p>Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
+In other words, values are divided into several groups based on their properties.
+Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values.
+<strong>tmap</strong> has 14 different methods to create discrete maps<!--list??--> that can be specified with the <code>style</code> argument.
+All of them use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
+<p>By default, the <code>"pretty"</code> style is used (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
+<!-- "cat",  --></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
@@ -635,7 +640,12 @@ However, to change the order of legend labels, we need to provide an ordered fac
 <span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
 <!-- discrete -->
-<p><img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:discrete-methods"></span>
+<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
+<p class="caption">
+FIGURE 5.6: Examples of four method of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
+</p>
+</div>
 <!-- "pretty","fixed","jenks", and "log10_pretty" -->
 <!-- Mention: -->
 <!-- "equal", "quantile",  -->
@@ -651,17 +661,17 @@ However, to change the order of legend labels, we need to provide an ordered fac
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb28-3"><a href="layers.html#cb28-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- "cont", "order", and "log10" -->
 <p>The <code>tm_polygons()</code> also offer a third way of specifying the fill color.
-When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.6</a>).</p>
+When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.7</a>).</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>In this case, it is also possible to change the default colors with the <code>palette</code> argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting <code>minimize = TRUE</code>.</p>
 <div class="figure" style="text-align: center"><span id="fig:colorscalesmc"></span>
 <img src="05-layers_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
 <p class="caption">
-FIGURE 5.6: Example of a map with adjacent polygons having different colors.
+FIGURE 5.7: Example of a map with adjacent polygons having different colors.
 </p>
 </div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
@@ -672,6 +682,9 @@ FIGURE 5.6: Example of a map with adjacent polygons having different colors.
 <div id="refs" class="references">
 <div id="ref-birch_worldwide_2012">
 <p>Birch, Jennifer. 2012. “Worldwide Prevalence of Red-Green Color Deficiency.” <em>Journal of the Optical Society of America A</em> 29 (3): 313. <a href="https://doi.org/10/ggkw82">https://doi.org/10/ggkw82</a>.</p>
+</div>
+<div id="ref-R-classInt">
+<p>Bivand, Roger. 2020. <em>ClassInt: Choose Univariate Class Intervals</em>. <a href="https://CRAN.R-project.org/package=classInt">https://CRAN.R-project.org/package=classInt</a>.</p>
 </div>
 <div id="ref-borland_rainbow_2007">
 <p>Borland, David, and Russell Taylor Ii. 2007. “Rainbow Color Map (Still) Considered Harmful.” <em>IEEE Computer Graphics and Applications</em> 27 (2): 14–17. <a href="https://doi.org/10/cf7nms">https://doi.org/10/cf7nms</a>.</p>
