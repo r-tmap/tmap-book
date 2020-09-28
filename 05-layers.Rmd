@@ -336,16 +336,21 @@ tm_cat
 ```
 
 It is possible to change the names of legend labels with the `labels` argument.
-However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.
+However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.<!--should we explain how to do it?-->
+As mentioned in the section \@ref(color-palettes), we can also change the color palette with the `palette` argument.
 
 ```{r, eval=FALSE, echo=FALSE}
 tm_shape(x) +
   tm_polygons(col = "region_un", labels = as.character(1:7))
 ```
 
-<!-- 1. ref to the previous section -->
-<!-- 2. add a sentence about changing palettes -->
+Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
+In other words, values are divided into several groups based on their properties.
+Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
+**tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
+All of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
+By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
 <!-- "cat",  -->
 ```{r, eval=FALSE}
 tm_shape(x) +
@@ -373,19 +378,23 @@ tm_shape(x) +
 
 
 <!-- discrete -->
-```{r, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE}
+```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method."}
 tm_pre = tm_shape(x) +
-  tm_polygons(col = "gdpPercap")
+  tm_polygons(col = "gdpPercap") +
+  tm_layout(title = "1")
 tm_fix = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               breaks = c(0, 10000, 30000, 121000),
-              labels = c("low", "medium", "high"))
+              labels = c("low", "medium", "high")) +
+  tm_layout(title = "2")
 tm_jen = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
-              style = "jenks")
+              style = "jenks") +
+  tm_layout(title = "3")
 tm_lop = tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
-              style = "log10_pretty")
+              style = "log10_pretty") +
+  tm_layout(title = "4")
 tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
              outer.margins = 0)
 ```
