@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-28" />
+<meta name="date" content="2020-09-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -553,7 +553,6 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 </p>
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
-<!-- also the `n` argument -->
 <!-- midpoint argument -->
 <!-- alpha? -->
 <p>Additionally, <strong>tmap</strong> has a special way to set colors for categorical maps manually.
@@ -626,13 +625,19 @@ Several approaches can be used to convert continuous variables to discrete ones,
 <strong>tmap</strong> has 14 different methods to create discrete maps<!--list??--> that can be specified with the <code>style</code> argument.
 All of them use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
 <p>By default, the <code>"pretty"</code> style is used (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
-<!-- "cat",  --></p>
+This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
+<p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
+Not every <code>n</code> is possible depending on the input values, but <strong>tmap</strong> will try to create a number of classes as close to possible to the preferred one.</p>
+<p>The next approach is to manually select the limits of each break with the <code>breaks</code> function.
+It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
+Additionally, we can add a label to each break with the <code>labels</code> argument.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb23-2"><a href="layers.html#cb23-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb23-3"><a href="layers.html#cb23-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
 <span id="cb23-4"><a href="layers.html#cb23-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
+<!-- interval.closure    -->
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
@@ -734,6 +739,7 @@ FIGURE 5.7: Example of a map with adjacent polygons having different colors.
 <ol start="5">
 <li id="fn5"><p>Learn more about them at <a href="https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/" class="uri">https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/</a> and <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html" class="uri">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a>.<a href="layers.html#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>

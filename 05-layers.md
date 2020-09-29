@@ -295,7 +295,6 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 </div>
 
 <!-- state that the above example of setting colors works for most of palettes -->
-<!-- also the `n` argument -->
 <!-- midpoint argument -->
 <!-- alpha? -->
 
@@ -384,12 +383,20 @@ Several approaches can be used to convert continuous variables to discrete ones,
 All of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
 By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
-<!-- "cat",  -->
+This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
+
 
 ```r
 tm_shape(x) +
   tm_polygons(col = "gdpPercap")
 ```
+
+It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
+Not every `n` is possible depending on the input values, but **tmap** will try to create a number of classes as close to possible to the preferred one.
+
+The next approach is to manually select the limits of each break with the `breaks` function.
+It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
+Additionally, we can add a label to each break with the `labels` argument.
 
 
 ```r
@@ -398,6 +405,9 @@ tm_shape(x) +
               breaks = c(0, 10000, 30000, 121000),
               labels = c("low", "medium", "high"))
 ```
+
+<!-- interval.closure	 -->
+
 
 
 ```r
