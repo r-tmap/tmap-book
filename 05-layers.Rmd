@@ -360,12 +360,19 @@ tm_shape(x) +
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
 Not every `n` is possible depending on the input values, but **tmap** will try to create a number of classes as close to possible to the preferred one.
 
+The next approach is to manually select the limits of each break with the `breaks` function.
+It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
+Additionally, we can add a label to each break with the `labels` argument.
+
 ```{r, eval=FALSE}
 tm_shape(x) +
   tm_polygons(col = "gdpPercap", 
               breaks = c(0, 10000, 30000, 121000),
               labels = c("low", "medium", "high"))
 ```
+
+<!-- interval.closure	 -->
+
 
 ```{r, eval=FALSE}
 tm_shape(x) +
