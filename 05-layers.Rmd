@@ -265,7 +265,6 @@ tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
 ```
 
 <!-- state that the above example of setting colors works for most of palettes -->
-<!-- also the `n` argument -->
 <!-- midpoint argument -->
 <!-- alpha? -->
 
@@ -351,11 +350,15 @@ Several approaches can be used to convert continuous variables to discrete ones,
 All of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
 By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
-<!-- "cat",  -->
+This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
+
 ```{r, eval=FALSE}
 tm_shape(x) +
   tm_polygons(col = "gdpPercap")
 ```
+
+It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
+Not every `n` is possible depending on the input values, but **tmap** will try to create a number of classes as close to possible to the preferred one.
 
 ```{r, eval=FALSE}
 tm_shape(x) +
