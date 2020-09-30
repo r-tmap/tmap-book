@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-29" />
+<meta name="date" content="2020-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -619,6 +619,7 @@ FIGURE 5.5: Example of a map in which polygons are colored based on a categorica
 <p>It is possible to change the names of legend labels with the <code>labels</code> argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.<!--should we explain how to do it?-->
 As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the color palette with the <code>palette</code> argument.</p>
+<!-- optimal number of classes? 3-7 -->
 <p>Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
 In other words, values are divided into several groups based on their properties.
 Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values.
@@ -638,6 +639,18 @@ Additionally, we can add a label to each break with the <code>labels</code> argu
 <span id="cb23-3"><a href="layers.html#cb23-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
 <span id="cb23-4"><a href="layers.html#cb23-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
 <!-- interval.closure    -->
+<p>Another approach is to create breaks automatically using one of many existing classification methods.
+Two basic methods are <code>"equal"</code> and <code>"quantile"</code> styles.
+Let’s consider a variable with 100 observations ranging from 0 to 10.
+The <code>"equal"</code> style divides the range of values into <em>n</em> equal-sized intervals.
+This style works well when the values change fairly continuously and do not contain any outliers.
+In <strong>tmap</strong>, we can specify the number of classes with the <code>n</code> argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
+For example, when we set <code>n</code> to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
+The <code>"quantile"</code> style, on the other hand, creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
+This method has an advantage or not having any empty classes or classes with too few or too many values.</p>
+<p>However, the resulting intervals from the <code>"quantile"</code> style can often be misleading, where very different values could be located in the same class.</p>
+<!-- EXT: A quantile classification is well suited to linearly distributed data.  -->
+<!-- how about adding ggplot2 histograms?? -->
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
