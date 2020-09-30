@@ -343,6 +343,8 @@ tm_shape(x) +
   tm_polygons(col = "region_un", labels = as.character(1:7))
 ```
 
+<!-- optimal number of classes? 3-7 -->
+
 Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
 In other words, values are divided into several groups based on their properties.
 Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
@@ -373,6 +375,22 @@ tm_shape(x) +
 
 <!-- interval.closure	 -->
 
+Another approach is to create breaks automatically using one of many existing classification methods. 
+Two basic methods are `"equal"` and `"quantile"` styles.
+Let's consider a variable with 100 observations ranging from 0 to 10.
+The `"equal"` style divides the range of values into *n* equal-sized intervals.
+This style works well when the values change fairly continuously and do not contain any outliers.
+In **tmap**, we can specify the number of classes with the `n` argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
+For example, when we set `n` to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
+The `"quantile"` style, on the other hand, creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
+This method has an advantage or not having any empty classes or classes with too few or too many values.
+
+However, the resulting intervals from the `"quantile"` style can often be misleading, where very different values could be located in the same class.
+
+<!-- EXT: A quantile classification is well suited to linearly distributed data.  -->
+
+
+<!-- how about adding ggplot2 histograms?? -->
 
 ```{r, eval=FALSE}
 tm_shape(x) +
