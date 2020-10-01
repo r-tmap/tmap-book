@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-09-30" />
+<meta name="date" content="2020-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -631,7 +631,7 @@ This style creates breaks that are whole numbers and spaces them evenly.<a href=
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
 Not every <code>n</code> is possible depending on the input values, but <strong>tmap</strong> will try to create a number of classes as close to possible to the preferred one.</p>
-<p>The next approach is to manually select the limits of each break with the <code>breaks</code> function.
+<p>The next approach is to manually select the limits of each break with the <code>breaks</code> function (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the <code>labels</code> argument.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
@@ -640,20 +640,31 @@ Additionally, we can add a label to each break with the <code>labels</code> argu
 <span id="cb23-4"><a href="layers.html#cb23-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
 <!-- interval.closure    -->
 <p>Another approach is to create breaks automatically using one of many existing classification methods.
-Two basic methods are <code>"equal"</code> and <code>"quantile"</code> styles.
+Three basic methods are <code>"equal"</code>, <code>"sd"</code>, and <code>"quantile"</code> styles.
 Let’s consider a variable with 100 observations ranging from 0 to 10.
 The <code>"equal"</code> style divides the range of values into <em>n</em> equal-sized intervals.
 This style works well when the values change fairly continuously and do not contain any outliers.
 In <strong>tmap</strong>, we can specify the number of classes with the <code>n</code> argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
 For example, when we set <code>n</code> to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
-The <code>"quantile"</code> style, on the other hand, creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
-This method has an advantage or not having any empty classes or classes with too few or too many values.</p>
-<p>However, the resulting intervals from the <code>"quantile"</code> style can often be misleading, where very different values could be located in the same class.</p>
-<!-- EXT: A quantile classification is well suited to linearly distributed data.  -->
+The <code>"sd"</code> style represents how much values of a given variable varies from its mean.
+In this style, each interval, which has a constant width, is a proportion of the standard deviation.
+The <code>"quantile"</code> style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
+This method has an advantage or not having any empty classes or classes with too few or too many values.
+However, the resulting intervals from the <code>"quantile"</code> style can often be misleading, with very different values located in the same class.</p>
+<p>To create classes that, on the one hand, contains similar values, and on the other hand, are different from the other classes, we can use some optimization method.
+The most common optimization method used in cartography is the Jenks optimization method implemented at the <code>"jenks"</code> style (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).</p>
 <!-- how about adding ggplot2 histograms?? -->
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
+<p>A similar role has the Fisher method (<code>style = "fisher"</code>), which creates groups with maximized homogeneity <span class="citation">(Fisher <a href="#ref-fisher_grouping_1958" role="doc-biblioref">1958</a>)</span>.
+Another group of classification methods uses existing methods.
+It includes k-means clustering (<code>"kmeans"</code>), bagged clustering (<code>"bclust"</code>), and hierarchical clustering (<code>"hclust"</code>).
+<!-- ... --></p>
+<!-- Mention: -->
+<!-- "dpih", "headtails" -->
+<!-- "log10_pretty" -->
+<p>(Figure <a href="layers.html#fig:discrete-methods">5.6</a>)</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
@@ -664,11 +675,6 @@ This method has an advantage or not having any empty classes or classes with too
 FIGURE 5.6: Examples of four method of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
 </p>
 </div>
-<!-- "pretty","fixed","jenks", and "log10_pretty" -->
-<!-- Mention: -->
-<!-- "equal", "quantile",  -->
-<!-- "sd", "kmeans", "hclust", "bclust", "fisher", -->
-<!-- "dpih", "headtails" -->
 <!-- continuous -->
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
@@ -715,6 +721,9 @@ FIGURE 5.7: Example of a map with adjacent polygons having different colors.
 </div>
 <div id="ref-crameri_geodynamic_2018">
 <p>Crameri, Fabio. 2018. “Geodynamic Diagnostics, Scientific Visualisation and StagLab 3.0.” <em>Geoscientific Model Development</em> 11 (6): 2541–62. <a href="https://doi.org/10/gdt4tg">https://doi.org/10/gdt4tg</a>.</p>
+</div>
+<div id="ref-fisher_grouping_1958">
+<p>Fisher, Walter D. 1958. “On Grouping for Maximum Homogeneity.” <em>Journal of the American Statistical Association</em>, 10.</p>
 </div>
 <div id="ref-R-viridis">
 <p>Garnier, Simon. 2018. <em>Viridis: Default Color Maps from ’Matplotlib’</em>. <a href="https://CRAN.R-project.org/package=viridis">https://CRAN.R-project.org/package=viridis</a>.</p>
