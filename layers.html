@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-01" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -647,24 +647,32 @@ This style works well when the values change fairly continuously and do not cont
 In <strong>tmap</strong>, we can specify the number of classes with the <code>n</code> argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
 For example, when we set <code>n</code> to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
 The <code>"sd"</code> style represents how much values of a given variable varies from its mean.
-In this style, each interval, which has a constant width, is a proportion of the standard deviation.
+In this style, each interval, which has a constant width of the standard deviation.
 The <code>"quantile"</code> style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
 This method has an advantage or not having any empty classes or classes with too few or too many values.
 However, the resulting intervals from the <code>"quantile"</code> style can often be misleading, with very different values located in the same class.</p>
 <p>To create classes that, on the one hand, contains similar values, and on the other hand, are different from the other classes, we can use some optimization method.
 The most common optimization method used in cartography is the Jenks optimization method implemented at the <code>"jenks"</code> style (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).</p>
 <!-- how about adding ggplot2 histograms?? -->
+<!-- should we add that these methods usually do not allow to compare between datasets? -->
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
 <p>A similar role has the Fisher method (<code>style = "fisher"</code>), which creates groups with maximized homogeneity <span class="citation">(Fisher <a href="#ref-fisher_grouping_1958" role="doc-biblioref">1958</a>)</span>.
-Another group of classification methods uses existing methods.
+A different approach is used by the <code>dpih</code> style, which uses kernel density estimations to select the width of the intervals <span class="citation">(Wand <a href="#ref-wand_databased_1997" role="doc-biblioref">1997</a>)</span>.
+You can visit <code>?KernSmooth::dpih</code> for more details.</p>
+<p>Another group of classification methods uses existing methods.
 It includes k-means clustering (<code>"kmeans"</code>), bagged clustering (<code>"bclust"</code>), and hierarchical clustering (<code>"hclust"</code>).
 <!-- ... --></p>
-<!-- Mention: -->
-<!-- "dpih", "headtails" -->
-<!-- "log10_pretty" -->
-<p>(Figure <a href="layers.html#fig:discrete-methods">5.6</a>)</p>
+<p>Finally, there are some methods created to work well for a variable with a heavy-tailed distribution.
+It includes <code>"headtails"</code> and <code>"log10_pretty"</code>.
+The <code>"headtails"</code> style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
+In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed <span class="citation">(Jiang <a href="#ref-jiang_head_2013" role="doc-biblioref">2013</a>)</span>.
+The <code>"log10_pretty"</code> style uses a logarithmic base-10 transformation (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
+In this style, each class starts with a value ten times larger than the start of the previous class.
+In other words, each class shows us the next order of magnitude.
+This style allows for a better distinction between low, medium, and high values.
+However, maps using a logarithmic transformation are usually less intuitive for the readers and requires more attention from them.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
@@ -731,6 +739,9 @@ FIGURE 5.7: Example of a map with adjacent polygons having different colors.
 <div id="ref-harrower_colorbrewer_2003">
 <p>Harrower, Mark, and Cynthia A. Brewer. 2003. “ColorBrewer.Org: An Online Tool for Selecting Colour Schemes for Maps.” <em>The Cartographic Journal</em> 40 (1): 27–37. <a href="https://doi.org/10.1179/000870403235002042">https://doi.org/10.1179/000870403235002042</a>.</p>
 </div>
+<div id="ref-jiang_head_2013">
+<p>Jiang, Bin. 2013. “Head/Tail Breaks: A New Classification Scheme for Data with a Heavy-Tailed Distribution.” <em>The Professional Geographer</em> 65 (3): 482–94. <a href="https://doi.org/10/f24r6j">https://doi.org/10/f24r6j</a>.</p>
+</div>
 <div id="ref-R-RColorBrewer">
 <p>Neuwirth, Erich. 2014. <em>RColorBrewer: ColorBrewer Palettes</em>. <a href="https://CRAN.R-project.org/package=RColorBrewer">https://CRAN.R-project.org/package=RColorBrewer</a>.</p>
 </div>
@@ -751,6 +762,9 @@ FIGURE 5.7: Example of a map with adjacent polygons having different colors.
 </div>
 <div id="ref-stauffer_somewhere_2015">
 <p>Stauffer, Reto, Georg J. Mayr, Markus Dabernig, and Achim Zeileis. 2015. “Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations.” <em>Bulletin of the American Meteorological Society</em> 96 (2): 203–16. <a href="https://doi.org/10/f3sttk">https://doi.org/10/f3sttk</a>.</p>
+</div>
+<div id="ref-wand_databased_1997">
+<p>Wand, M. P. 1997. “Data-Based Choice of Histogram Bin Width.” <em>The American Statistician</em> 51 (1): 59. <a href="https://doi.org/10/fvsfdb">https://doi.org/10/fvsfdb</a>.</p>
 </div>
 <div id="ref-R-colorspace">
 <p>Zeileis, Achim, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, and Claus O. Wilke. 2019. “colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.” ArXiv 1903.06490. arXiv.org E-Print Archive. <a href="http://arxiv.org/abs/1903.06490">http://arxiv.org/abs/1903.06490</a>.</p>

@@ -418,7 +418,7 @@ This style works well when the values change fairly continuously and do not cont
 In **tmap**, we can specify the number of classes with the `n` argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
 For example, when we set `n` to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
 The `"sd"` style represents how much values of a given variable varies from its mean.
-In this style, each interval, which has a constant width, is a proportion of the standard deviation. 
+In this style, each interval, which has a constant width of the standard deviation. 
 The `"quantile"` style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
 This method has an advantage or not having any empty classes or classes with too few or too many values.
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
@@ -427,6 +427,7 @@ To create classes that, on the one hand, contains similar values, and on the oth
 The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods)).
 
 <!-- how about adding ggplot2 histograms?? -->
+<!-- should we add that these methods usually do not allow to compare between datasets? -->
 
 
 ```r
@@ -436,15 +437,22 @@ tm_shape(x) +
 ```
 
 A similar role has the Fisher method (`style = "fisher"`), which creates groups with maximized homogeneity [@fisher_grouping_1958].
+A different approach is used by the `dpih` style, which uses kernel density estimations to select the width of the intervals [@wand_databased_1997].
+You can visit `?KernSmooth::dpih` for more details.
+
 Another group of classification methods uses existing methods.
 It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and hierarchical clustering (`"hclust"`). 
 <!-- ... -->
 
-
-<!-- Mention: -->
-<!-- "dpih", "headtails" -->
-<!-- "log10_pretty" -->
- (Figure \@ref(fig:discrete-methods))
+Finally, there are some methods created to work well for a variable with a heavy-tailed distribution.
+It includes `"headtails"` and `"log10_pretty"`.
+The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
+In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
+The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@ref(fig:discrete-methods)).
+In this style, each class starts with a value ten times larger than the start of the previous class.
+In other words, each class shows us the next order of magnitude.
+This style allows for a better distinction between low, medium, and high values.
+However, maps using a logarithmic transformation are usually less intuitive for the readers and requires more attention from them.
 
 
 ```r
