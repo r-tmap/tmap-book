@@ -383,7 +383,7 @@ This style works well when the values change fairly continuously and do not cont
 In **tmap**, we can specify the number of classes with the `n` argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
 For example, when we set `n` to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
 The `"sd"` style represents how much values of a given variable varies from its mean.
-In this style, each interval, which has a constant width, is a proportion of the standard deviation. 
+In this style, each interval, which has a constant width of the standard deviation. 
 The `"quantile"` style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
 This method has an advantage or not having any empty classes or classes with too few or too many values.
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
@@ -400,6 +400,9 @@ tm_shape(x) +
 ```
 
 A similar role has the Fisher method (`style = "fisher"`), which creates groups with maximized homogeneity [@fisher_grouping_1958].
+Different approach is used by the `dpih` style, which uses kernel density estimations to select the width of the intervals [@wand_databased_1997].
+You can visit `?KernSmooth::dpih` for more details.
+
 Another group of classification methods uses existing methods.
 It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and hierarchical clustering (`"hclust"`). 
 <!-- ... -->
