@@ -392,6 +392,7 @@ To create classes that, on the one hand, contains similar values, and on the oth
 The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods)).
 
 <!-- how about adding ggplot2 histograms?? -->
+<!-- should we add that these methods usually do not allow to compare between datasets? -->
 
 ```{r, eval=FALSE}
 tm_shape(x) +
@@ -407,9 +408,12 @@ Another group of classification methods uses existing methods.
 It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and hierarchical clustering (`"hclust"`). 
 <!-- ... -->
 
-
+Finally, there are some methods created to work well for a variable with a heavy-tailed distribution.
+It includes `"headtails"` and `"log10_pretty"`.
+The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right skewed data.
+In it, values of the given variable are divided around the mean into two parts, and the process continues iteratively for the values above  the  mean (the head) until the head part values are no longer heavy-tailed  distributed [@jiang_head_2013].
 <!-- Mention: -->
-<!-- "dpih", "headtails" -->
+<!-- "headtails" -->
 <!-- "log10_pretty" -->
  (Figure \@ref(fig:discrete-methods))
 
