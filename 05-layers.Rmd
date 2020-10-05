@@ -416,7 +416,7 @@ The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@r
 In this style, each class starts with a value ten times larger than the start of the previous class.
 In other words, each class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
-However, maps using a logarithmic transformation are usually less intuitive for the readers and requires more attention from them.
+However, maps with logarithmically transformed variables are usually less intuitive for the readers and requires more attention from them.
 
 ```{r, eval=FALSE}
 tm_shape(x) +
@@ -424,9 +424,8 @@ tm_shape(x) +
               style = "log10_pretty")
 ```
 
-
 <!-- discrete -->
-```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method."}
+```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method."}
 tm_pre = tm_shape(x) +
   tm_polygons(col = "gdpPercap") +
   tm_layout(title = "1")
@@ -447,8 +446,12 @@ tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
              outer.margins = 0)
 ```
 
+Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
+Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
+Values change increasingly in all of them, but they differ in the distances between colors.
 
-
+The `cont` style creates a smooth, linear gradient.
+In other words, the change in values is directly related to the change in colors.
 <!-- continuous -->
 ```{r, eval=FALSE}
 tm_shape(x) +
@@ -468,7 +471,7 @@ tm_shape(x) +
               style = "log10")
 ```
 
-```{r, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE}
+```{r cont-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method."}
 tm_con = tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "cont")
