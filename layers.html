@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-02" />
+<meta name="date" content="2020-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -672,18 +674,23 @@ The <code>"log10_pretty"</code> style uses a logarithmic base-10 transformation 
 In this style, each class starts with a value ten times larger than the start of the previous class.
 In other words, each class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
-However, maps using a logarithmic transformation are usually less intuitive for the readers and requires more attention from them.</p>
+However, maps with logarithmically transformed variables are usually less intuitive for the readers and requires more attention from them.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
 <!-- discrete -->
 <div class="figure" style="text-align: center"><span id="fig:discrete-methods"></span>
-<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
+<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
 <p class="caption">
-FIGURE 5.6: Examples of four method of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
+FIGURE 5.6: Examples of four methods of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
 </p>
 </div>
-<!-- continuous -->
+<p>Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
+Three continuous methods exist in <strong>tmap</strong>: <code>cont</code>, <code>order</code>, and <code>log10</code>.
+Values change increasingly in all of them, but they differ in the distances between colors.</p>
+<p>The <code>cont</code> style creates a smooth, linear gradient.
+In other words, the change in values is directly related to the change in colors.
+<!-- continuous --></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb26-3"><a href="layers.html#cb26-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
@@ -693,17 +700,22 @@ FIGURE 5.6: Examples of four method of creating discrete maps: (1) default metho
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb28-3"><a href="layers.html#cb28-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:cont-methods"></span>
+<img src="05-layers_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method." width="672" />
+<p class="caption">
+FIGURE 5.7: Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method.
+</p>
+</div>
 <!-- "cont", "order", and "log10" -->
 <p>The <code>tm_polygons()</code> also offer a third way of specifying the fill color.
-When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.7</a>).</p>
+When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.8</a>).</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>In this case, it is also possible to change the default colors with the <code>palette</code> argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting <code>minimize = TRUE</code>.</p>
 <div class="figure" style="text-align: center"><span id="fig:colorscalesmc"></span>
 <img src="05-layers_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
 <p class="caption">
-FIGURE 5.7: Example of a map with adjacent polygons having different colors.
+FIGURE 5.8: Example of a map with adjacent polygons having different colors.
 </p>
 </div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>

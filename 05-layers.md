@@ -452,7 +452,7 @@ The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@r
 In this style, each class starts with a value ten times larger than the start of the previous class.
 In other words, each class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
-However, maps using a logarithmic transformation are usually less intuitive for the readers and requires more attention from them.
+However, maps with logarithmically transformed variables are usually less intuitive for the readers and requires more attention from them.
 
 
 ```r
@@ -461,15 +461,18 @@ tm_shape(x) +
               style = "log10_pretty")
 ```
 
-
 <!-- discrete -->
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
-<p class="caption">(\#fig:discrete-methods)Examples of four method of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
+<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
+<p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
 </div>
 
+Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
+Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
+Values change increasingly in all of them, but they differ in the distances between colors.
 
-
+The `cont` style creates a smooth, linear gradient.
+In other words, the change in values is directly related to the change in colors.
 <!-- continuous -->
 
 ```r
@@ -492,7 +495,10 @@ tm_shape(x) +
               style = "log10")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method." width="672" />
+<p class="caption">(\#fig:cont-methods)Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method.</p>
+</div>
 
 <!-- "cont", "order", and "log10" -->
 

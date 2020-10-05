@@ -21,6 +21,7 @@ fig:tmcatpals
 fig:colorscales1
 fig:colorscales2
 fig:discrete-methods
+fig:cont-methods
 fig:colorscalesmc
 intro
 what-is-tmap
