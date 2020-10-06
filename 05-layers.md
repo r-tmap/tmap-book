@@ -467,13 +467,19 @@ tm_shape(x) +
 <p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
 </div>
 
+<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. -->
+
 Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
 Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
 Values change increasingly in all of them, but they differ in the distances between colors.
 
 The `cont` style creates a smooth, linear gradient.
-In other words, the change in values is directly related to the change in colors.
-<!-- continuous -->
+In other words, the change in values is proportionally related to the change in colors.
+We can see that in Figure \@ref(fig:cont-methods), where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
+The `cont` style is similar to the `pretty` one, where the values also change linearly.
+The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
+The `cont` style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
+
 
 ```r
 tm_shape(x) +
@@ -481,12 +487,19 @@ tm_shape(x) +
               style = "cont")
 ```
 
+However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
+The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure \@ref(fig:cont-methods)).
+<!--JN: Martijn please check the next sentence -->
+It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
+
 
 ```r
 tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "order")
 ```
+
+Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style.
 
 
 ```r

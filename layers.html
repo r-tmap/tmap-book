@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-05" />
+<meta name="date" content="2020-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -685,18 +685,27 @@ However, maps with logarithmically transformed variables are usually less intuit
 FIGURE 5.6: Examples of four methods of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
 </p>
 </div>
+<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. -->
 <p>Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
 Three continuous methods exist in <strong>tmap</strong>: <code>cont</code>, <code>order</code>, and <code>log10</code>.
 Values change increasingly in all of them, but they differ in the distances between colors.</p>
 <p>The <code>cont</code> style creates a smooth, linear gradient.
-In other words, the change in values is directly related to the change in colors.
-<!-- continuous --></p>
+In other words, the change in values is proportionally related to the change in colors.
+We can see that in Figure <a href="layers.html#fig:cont-methods">5.7</a>, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
+The <code>cont</code> style is similar to the <code>pretty</code> one, where the values also change linearly.
+The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
+The <code>cont</code> style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers).</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb26-3"><a href="layers.html#cb26-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
+<p>However, when the presented variable is skewed or have some outliers, we can use either <code>order</code> or <code>log10</code> style.
+The <code>order</code> style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
+<!--JN: Martijn please check the next sentence -->
+It is fairly analogous to the <code>quantile</code> style, with the values on a color scale that divides a dataset into several equal-sized groups.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb27-3"><a href="layers.html#cb27-3"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span></code></pre></div>
+<p>Finally, the <code>log10</code> style is the continuous equivalent of the <code>log10_pretty</code> style.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
 <span id="cb28-3"><a href="layers.html#cb28-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
