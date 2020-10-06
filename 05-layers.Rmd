@@ -465,13 +465,18 @@ tm_shape(x) +
               style = "cont")
 ```
 
-
+However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
+The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure \@ref(fig:cont-methods)).
+<!--JN: Martijn please check the next sentence -->
+It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
 
 ```{r, eval=FALSE}
 tm_shape(x) +
   tm_polygons(col = "gdpPercap",
               style = "order")
 ```
+
+Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style.
 
 ```{r, eval=FALSE}
 tm_shape(x) +
