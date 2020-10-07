@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-06" />
+<meta name="date" content="2020-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -476,8 +476,8 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 Examples of diverging palettes include maps where a certain temperature or median value of household income is use as the midpoint.
 It can also be used on maps to represent difference or change as well.</li>
 </ul>
-<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
-<!-- idea: add spectral schemes -->
+<!-- idea: replace one diverging palette with the dark in the middle -->
+<!-- do it, if (when) tmap has hcl.colors build-in -->
 <div class="figure" style="text-align: center"><span id="fig:palette-types"></span>
 <img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
 <p class="caption">
@@ -522,29 +522,28 @@ Depending on a given situation, there are many palettes better suited for visual
 All of them can be created with the <code>grDevices::hcl.colors()</code> function.
 More examples showing alternatives to the “rainbow” palette are in the documentation of the <strong>colorspace</strong> package at
 <a href="https://colorspace.r-forge.r-project.org/articles/endrainbow.html" class="uri">https://colorspace.r-forge.r-project.org/articles/endrainbow.html</a> <span class="citation">(Zeileis et al. <a href="#ref-R-colorspace" role="doc-biblioref">2019</a>)</span>.</p>
-<pre><code>#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</code></pre>
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
 <p>By default, the <strong>tmap</strong> package attempts to identify the type of the used variable.
 Based on the result, it selects one of the build-in palettes: categorical <code>"Set3"</code>, sequential <code>"YlOrBr"</code>, or diverging <code>"RdYlGn"</code> (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 <!-- info about tm_layout or reference to a section about it --></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb15-2"><a href="layers.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
 <p>It also offers three main ways to specify color palettes using the <code>palette</code> argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure <a href="layers.html#fig:tmpals">5.2</a>).
-A vector of colors can be specified using color names or hexadecimal representations.
+A vector of colors can be specified using color names or hexadecimal representations (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend.
 <strong>tmap</strong> automatically interpolates new colors in the case when a smaller number of colors is provided.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>))</span></code></pre></div>
-<p>Another approach is to provide the output of a palette function.
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb15-2"><a href="layers.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>))</span></code></pre></div>
+<p>Another approach is to provide the output of a palette function (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 In the example below, we derived seven colors from <code>"ag_GrnYl"</code> palette.
 This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
 Thus, we also used the <code>rev()</code> function here.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">rev</span>(<span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;ag_GrnYl&quot;</span>)))</span></code></pre></div>
-<p>The last approach is to use one of the names of color palettes build-in in <strong>tmap</strong>.
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">rev</span>(<span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;ag_GrnYl&quot;</span>)))</span></code></pre></div>
+<p>The last approach is to use one of the names of color palettes build-in in <strong>tmap</strong> (Figure <a href="layers.html#fig:tmpals">5.2</a>).
 In this example, we used the <code>"YlGn"</code> palette that goes from yellow to green.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlGn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlGn&quot;</span>)</span></code></pre></div>
 <p>You can find all of the named color palettes using an interactive app with <code>tmaptools::palette_explorer()</code>.
 It is also possible to reverse the order of any named color palette by using the <code>-</code> prefix.
 Therefore, <code>"-YlGn"</code> will return a palette going from green to yellow.</p>
@@ -555,32 +554,34 @@ FIGURE 5.2: Examples of four ways of specifying color palettes: (1) default sequ
 </p>
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
-<!-- midpoint argument -->
-<!-- alpha? -->
-<p>Additionally, <strong>tmap</strong> has a special way to set colors for categorical maps manually.
+<p><strong>tmap</strong> has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the <code>palette</code> argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
 You can see it in the example below, where we plot the <code>"region_un"</code> categorical variable (Figure <a href="layers.html#fig:tmcatpals">5.3</a>).
 Each category in this variable (e.g., <code>"Africa"</code>) has a new, connected to it color (e.g., <code>"#11467b"</code>).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories --></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;region_un&quot;</span>, </span>
-<span id="cb19-3"><a href="layers.html#cb19-3"></a>    <span class="dt">palette =</span> <span class="kw">c</span>(</span>
-<span id="cb19-4"><a href="layers.html#cb19-4"></a>      <span class="st">&quot;Africa&quot;</span> =<span class="st"> &quot;#11467b&quot;</span>,</span>
-<span id="cb19-5"><a href="layers.html#cb19-5"></a>      <span class="st">&quot;Americas&quot;</span> =<span class="st"> &quot;#ffd14d&quot;</span>, </span>
-<span id="cb19-6"><a href="layers.html#cb19-6"></a>      <span class="st">&quot;Antarctica&quot;</span> =<span class="st"> &quot;#86909a&quot;</span>, </span>
-<span id="cb19-7"><a href="layers.html#cb19-7"></a>      <span class="st">&quot;Asia&quot;</span> =<span class="st"> &quot;#14909a&quot;</span>,</span>
-<span id="cb19-8"><a href="layers.html#cb19-8"></a>      <span class="st">&quot;Europe&quot;</span> =<span class="st"> &quot;#7fbee9&quot;</span>,</span>
-<span id="cb19-9"><a href="layers.html#cb19-9"></a>      <span class="st">&quot;Oceania&quot;</span> =<span class="st"> &quot;#df5454&quot;</span>,</span>
-<span id="cb19-10"><a href="layers.html#cb19-10"></a>      <span class="st">&quot;Seven seas (open ocean)&quot;</span> =<span class="st"> &quot;#7b1072&quot;</span>)</span>
-<span id="cb19-11"><a href="layers.html#cb19-11"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;region_un&quot;</span>, </span>
+<span id="cb18-3"><a href="layers.html#cb18-3"></a>    <span class="dt">palette =</span> <span class="kw">c</span>(</span>
+<span id="cb18-4"><a href="layers.html#cb18-4"></a>      <span class="st">&quot;Africa&quot;</span> =<span class="st"> &quot;#11467b&quot;</span>,</span>
+<span id="cb18-5"><a href="layers.html#cb18-5"></a>      <span class="st">&quot;Americas&quot;</span> =<span class="st"> &quot;#ffd14d&quot;</span>, </span>
+<span id="cb18-6"><a href="layers.html#cb18-6"></a>      <span class="st">&quot;Antarctica&quot;</span> =<span class="st"> &quot;#86909a&quot;</span>, </span>
+<span id="cb18-7"><a href="layers.html#cb18-7"></a>      <span class="st">&quot;Asia&quot;</span> =<span class="st"> &quot;#14909a&quot;</span>,</span>
+<span id="cb18-8"><a href="layers.html#cb18-8"></a>      <span class="st">&quot;Europe&quot;</span> =<span class="st"> &quot;#7fbee9&quot;</span>,</span>
+<span id="cb18-9"><a href="layers.html#cb18-9"></a>      <span class="st">&quot;Oceania&quot;</span> =<span class="st"> &quot;#df5454&quot;</span>,</span>
+<span id="cb18-10"><a href="layers.html#cb18-10"></a>      <span class="st">&quot;Seven seas (open ocean)&quot;</span> =<span class="st"> &quot;#7b1072&quot;</span>)</span>
+<span id="cb18-11"><a href="layers.html#cb18-11"></a>    )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmcatpals"></span>
 <img src="05-layers_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
 <p class="caption">
 FIGURE 5.3: An example of a categorical map with manually selected colors
 </p>
 </div>
+<!-- midpoint argument -->
+<!-- alpha? -->
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="co"># tm_shape(x) +</span></span>
+<span id="cb19-2"><a href="layers.html#cb19-2"></a>  <span class="co"># tm_polygons(col = &quot;lifeExp&quot;, midpoint = 70.85)</span></span></code></pre></div>
 <!-- resources: -->
 <!-- colorspace -->
 <!-- Polychrome -->
@@ -685,7 +686,7 @@ However, maps with logarithmically transformed variables are usually less intuit
 FIGURE 5.6: Examples of four methods of creating discrete maps: (1) default method (‘pretty’), (2) the ‘fixed’ method with manually set breaks, (3) the ‘jenks’ method, and (4) the ‘log10_pretty’ method.
 </p>
 </div>
-<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. -->
+<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
 <p>Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
 Three continuous methods exist in <strong>tmap</strong>: <code>cont</code>, <code>order</code>, and <code>log10</code>.
 Values change increasingly in all of them, but they differ in the distances between colors.</p>
@@ -715,7 +716,6 @@ It is fairly analogous to the <code>quantile</code> style, with the values on a 
 FIGURE 5.7: Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method.
 </p>
 </div>
-<!-- "cont", "order", and "log10" -->
 <p>The <code>tm_polygons()</code> also offer a third way of specifying the fill color.
 When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="layers.html#fig:colorscalesmc">5.8</a>).</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>

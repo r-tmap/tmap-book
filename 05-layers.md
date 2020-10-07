@@ -181,8 +181,8 @@ Therefore, in sense, they consist of two sequential palettes that meet in the mi
 Examples of diverging palettes include maps where a certain temperature or median value of household income is use as the midpoint.
 It can also be used on maps to represent difference or change as well. 
 
-<!-- idea: add two examples to each (e.g., monochrome and part-spectral to sequential) -->
-<!-- idea: add spectral schemes -->
+<!-- idea: replace one diverging palette with the dark in the middle -->
+<!-- do it, if (when) tmap has hcl.colors build-in -->
 <div class="figure" style="text-align: center">
 <img src="05-layers_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
 <p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
@@ -239,13 +239,10 @@ More examples showing alternatives to the "rainbow" palette are in the documenta
 https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
 
 
-```
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
-```
 
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
 By default, the **tmap** package attempts to identify the type of the used variable.
-Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"`  (Figure \@ref(fig:tmpals)).
+Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"` (Figure \@ref(fig:tmpals)).
 <!-- info about tm_layout or reference to a section about it -->
 
 
@@ -255,7 +252,7 @@ tm_shape(x) +
 ```
 
 It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
-A vector of colors can be specified using color names or hexadecimal representations.
+A vector of colors can be specified using color names or hexadecimal representations (Figure \@ref(fig:tmpals)).
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
 **tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
 
@@ -265,7 +262,7 @@ tm_shape(x) +
   tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
 ```
 
-Another approach is to provide the output of a palette function. 
+Another approach is to provide the output of a palette function (Figure \@ref(fig:tmpals)).
 In the example below, we derived seven colors from `"ag_GrnYl"` palette.
 This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
 Thus, we also used the `rev()` function here. 
@@ -276,7 +273,7 @@ tm_shape(x) +
   tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
 ```
 
-The last approach is to use one of the names of color palettes build-in in **tmap**.
+The last approach is to use one of the names of color palettes build-in in **tmap** (Figure \@ref(fig:tmpals)).
 In this example, we used the `"YlGn"` palette that goes from yellow to green.
 
 
@@ -293,12 +290,9 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 <img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes." width="672" />
 <p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.</p>
 </div>
-
 <!-- state that the above example of setting colors works for most of palettes -->
-<!-- midpoint argument -->
-<!-- alpha? -->
 
-Additionally, **tmap** has a special way to set colors for categorical maps manually.
+**tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
 You can see it in the example below, where we plot the `"region_un"` categorical variable (Figure \@ref(fig:tmcatpals)).
@@ -324,6 +318,15 @@ tm_shape(x) +
 <img src="05-layers_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
 <p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors</p>
 </div>
+
+<!-- midpoint argument -->
+<!-- alpha? -->
+
+
+```r
+# tm_shape(x) +
+  # tm_polygons(col = "lifeExp", midpoint = 70.85)
+```
 
 <!-- resources: -->
 <!-- colorspace -->
@@ -467,7 +470,7 @@ tm_shape(x) +
 <p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
 </div>
 
-<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. -->
+<!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
 
 Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
 Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
@@ -512,8 +515,6 @@ tm_shape(x) +
 <img src="05-layers_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method." width="672" />
 <p class="caption">(\#fig:cont-methods)Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method.</p>
 </div>
-
-<!-- "cont", "order", and "log10" -->
 
 The `tm_polygons()` also offer a third way of specifying the fill color.
 When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure \@ref(fig:colorscalesmc)).
