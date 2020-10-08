@@ -175,6 +175,7 @@ RColorBrewer::brewer.pal(7, "RdBu")
 viridis::viridis(7)
 ```
 
+\index{color palettes}
 In the last few years, the **grDevices** package that is an internal part of R, have received several improvements over color palette handling.^[Learn more about them at https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/ and https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html.]
 It includes creation of `hcl.colors()` and `palette.colors()`.
 The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@carto_cartocolors_2019;@R-rcartocolor], and **scico** [@crameri_geodynamic_2018;@R-scico].
@@ -188,6 +189,7 @@ grDevices::hcl.colors(7, "Oslo")
 grDevices::palette.colors(7, "Okabe-Ito")
 ```
 
+\index{color palettes!rainbow}
 One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
 It was inspired by colors of rainbows - a set of seven colors going from red to violet.
 However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies [@borland_rainbow_2007;@stauffer_somewhere_2015;@quinan_examining_2019]. 
