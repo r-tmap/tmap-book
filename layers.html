@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2020-10-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -500,7 +500,8 @@ The last one, “cividis”, is based on the work of <span class="citation">Nuñ
 <span id="cb12-4"><a href="layers.html#cb12-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
 <span id="cb12-5"><a href="layers.html#cb12-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
 <span id="cb12-6"><a href="layers.html#cb12-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
-<p>In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+<p>
+In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
 It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
 The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(CARTO <a href="#ref-carto_cartocolors_2019" role="doc-biblioref">2019</a>; Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Crameri <a href="#ref-crameri_geodynamic_2018" role="doc-biblioref">2018</a>; Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
 You can get the list of available palette names for <code>hcl.colors()</code> using the <code>hcl.pals()</code> function and visualize all of the palettes with <code>colorspace::hcl_palettes(plot = TRUE)</code>.
@@ -515,7 +516,8 @@ You can find the available names of the palettes for this function using <code>p
 <span id="cb13-6"><a href="layers.html#cb13-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
 <span id="cb13-7"><a href="layers.html#cb13-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
 <span id="cb13-8"><a href="layers.html#cb13-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
-<p>One of the most widely used color palettes is “rainbow” (the <code>rainbow()</code> function in R).
+<p>
+One of the most widely used color palettes is “rainbow” (the <code>rainbow()</code> function in R).
 It was inspired by colors of rainbows - a set of seven colors going from red to violet.
 However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies <span class="citation">(Borland and Taylor Ii <a href="#ref-borland_rainbow_2007" role="doc-biblioref">2007</a>; Stauffer et al. <a href="#ref-stauffer_somewhere_2015" role="doc-biblioref">2015</a>; Quinan et al. <a href="#ref-quinan_examining_2019" role="doc-biblioref">2019</a>)</span>.
 Depending on a given situation, there are many palettes better suited for visualization than “rainbow”, including sequential “viridis” and “ag_Sunset” or diverging “Purple-Green” and “Fall”.
