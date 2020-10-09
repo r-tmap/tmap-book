@@ -192,7 +192,7 @@ It can also be used on maps to represent difference or change as well.
 \index{color palettes}
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
 Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
-) contains hundreds of color palettes. 
+) contain hundreds of color palettes. 
 The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
 **RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at https://colorbrewer2.org.
 The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
@@ -235,7 +235,7 @@ grDevices::palette.colors(7, "Okabe-Ito")
 One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
 It was inspired by colors of rainbows - a set of seven colors going from red to violet.
 However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies [@borland_rainbow_2007;@stauffer_somewhere_2015;@quinan_examining_2019]. 
-Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential "viridis" and "ag_Sunset" or diverging "Purple-Green" and "Fall".
+Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential `"viridis"` and `"ag_Sunset"` or diverging `"Purple-Green"` and `"Fall"`.
 All of them can be created with the `grDevices::hcl.colors()` function.
 More examples showing alternatives to the "rainbow" palette are in the documentation of the **colorspace** package at 
 https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
@@ -331,8 +331,6 @@ tm_shape(x) +
 ```
 
 <!-- resources: -->
-<!-- colorspace -->
-<!-- Polychrome -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
@@ -342,8 +340,11 @@ tm_shape(x) +
 
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
+
+\index{Color scale styles}
 `tm_polygons()` accepts three ways of specifying the fill color with the `col` argument.
-The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section \@ref(color-palettes)), is provided (Figure  \@ref(fig:colorscales1)).
+The first one is to fill all polygons with the same color.
+This happens when we provide a single color value, either as a color name or its hexadecimal form (section \@ref(color-palettes)) (Figure \@ref(fig:colorscales1)).
 
 
 ```r
@@ -356,13 +357,18 @@ tm_shape(x) +
 <p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color.</p>
 </div>
 
+\index{Color scale styles}
+\index{Categorical maps}
+\index{Discrete maps}
+\index{Continuous maps}
 The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
 **tmap** behaves differently depending on the input variable type, but always automatically adds a map legend.
 In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
-However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.
+However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.
 
+\index{Categorical maps}
 An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
-We created it by providing a character variable's name, `"region_un"`, as the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
+We created it by providing a character variable's name, `"region_un"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 
 ```r
@@ -371,23 +377,23 @@ tm_shape(x) +
 ```
 <!-- categorical -->
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on a categorical variable." width="672" />
-<p class="caption">(\#fig:colorscales2)Example of a map in which polygons are colored based on a categorical variable.</p>
+<img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on the values of a categorical variable." width="672" />
+<p class="caption">(\#fig:colorscales2)Example of a map in which polygons are colored based on the values of a categorical variable.</p>
 </div>
 
 It is possible to change the names of legend labels with the `labels` argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the section \@ref(color-palettes), we can also change the color palette with the `palette` argument.
+As mentioned in the section \@ref(color-palettes), we can also change the used color palette with the `palette` argument.
 
 
 
 <!-- optimal number of classes? 3-7 -->
-
+\index{Discrete maps}
 Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
 In other words, values are divided into several groups based on their properties.
 Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
 **tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
-All of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
+Most of them (except `"log10_pretty"`) use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
 By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
 This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
@@ -399,9 +405,10 @@ tm_shape(x) +
 ```
 
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
-Not every `n` is possible depending on the input values, but **tmap** will try to create a number of classes as close to possible to the preferred one.
+While not every `n` is possible depending on the input values, **tmap** will try to create a number of classes as close to possible to the preferred one.
 
 The next approach is to manually select the limits of each break with the `breaks` function (Figure \@ref(fig:discrete-methods)).
+This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the `labels` argument.
 
@@ -421,14 +428,14 @@ Let's consider a variable with 100 observations ranging from 0 to 10.
 The `"equal"` style divides the range of values into *n* equal-sized intervals.
 This style works well when the values change fairly continuously and do not contain any outliers.
 In **tmap**, we can specify the number of classes with the `n` argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
-For example, when we set `n` to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
-The `"sd"` style represents how much values of a given variable varies from its mean.
-In this style, each interval, which has a constant width of the standard deviation. 
-The `"quantile"` style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
+For example, when we set `n` to 4, then our breaks will represent four classes ranging from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
+The `"sd"` style represents how much values of a given variable varies from its mean, with each interval having a constant width of the standard deviation.
+This style is used when it is vital to show how values relate to the mean.
+The `"quantile"` style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various lengths.
 This method has an advantage or not having any empty classes or classes with too few or too many values.
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
 
-To create classes that, on the one hand, contains similar values, and on the other hand, are different from the other classes, we can use some optimization method.
+To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
 The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods)).
 
 <!-- how about adding ggplot2 histograms?? -->
@@ -441,23 +448,22 @@ tm_shape(x) +
               style = "jenks")
 ```
 
-A similar role has the Fisher method (`style = "fisher"`), which creates groups with maximized homogeneity [@fisher_grouping_1958].
+The Fisher method (`style = "fisher"`) has a similar role, which creates groups with maximized homogeneity [@fisher_grouping_1958].
 A different approach is used by the `dpih` style, which uses kernel density estimations to select the width of the intervals [@wand_databased_1997].
 You can visit `?KernSmooth::dpih` for more details.
 
-Another group of classification methods uses existing methods.
+Another group of classification methods uses existing clustering methods.
 It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and hierarchical clustering (`"hclust"`). 
 <!-- ... -->
 
-Finally, there are some methods created to work well for a variable with a heavy-tailed distribution.
-It includes `"headtails"` and `"log10_pretty"`.
+Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including `"headtails"` and `"log10_pretty"`.
 The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
 The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@ref(fig:discrete-methods)).
-In this style, each class starts with a value ten times larger than the start of the previous class.
-In other words, each class shows us the next order of magnitude.
+In this style, each class starts with a value ten times larger than the beginning of the previous class.
+In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
-However, maps with logarithmically transformed variables are usually less intuitive for the readers and requires more attention from them.
+However, maps with logarithmically transformed variables are usually less intuitive for the readers and require more attention from them.
 
 
 ```r
@@ -474,9 +480,10 @@ tm_shape(x) +
 
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
 
+\index{Continuous maps}
 Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
 Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
-Values change increasingly in all of them, but they differ in the distances between colors.
+Values change increasingly in all of them, but they differ in the relations between values and colors.
 
 The `cont` style creates a smooth, linear gradient.
 In other words, the change in values is proportionally related to the change in colors.

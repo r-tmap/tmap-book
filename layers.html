@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-08" />
+<meta name="date" content="2020-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -487,7 +487,7 @@ FIGURE 5.1: Examples of three main types of color palettes: categorical, sequent
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 <p>
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
-Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contains hundreds of color palettes.
+Currently, <a href="https://github.com/EmilHvitfeldt/r-color-palettes">several dozens of R packages</a> contain hundreds of color palettes.
 The most popular among them are <strong>RColorBrewer</strong> <span class="citation">(Neuwirth <a href="#ref-R-RColorBrewer" role="doc-biblioref">2014</a>)</span> and <strong>viridis</strong> <span class="citation">(Garnier <a href="#ref-R-viridis" role="doc-biblioref">2018</a>)</span>.
 <strong>RColorBrewer</strong> builds upon a set of perceptually ordered color palettes <span class="citation">(Harrower and Brewer <a href="#ref-harrower_colorbrewer_2003" role="doc-biblioref">2003</a>)</span> and the associated website at <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a>.
 The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
@@ -520,7 +520,7 @@ You can find the available names of the palettes for this function using <code>p
 One of the most widely used color palettes is “rainbow” (the <code>rainbow()</code> function in R).
 It was inspired by colors of rainbows - a set of seven colors going from red to violet.
 However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies <span class="citation">(Borland and Taylor Ii <a href="#ref-borland_rainbow_2007" role="doc-biblioref">2007</a>; Stauffer et al. <a href="#ref-stauffer_somewhere_2015" role="doc-biblioref">2015</a>; Quinan et al. <a href="#ref-quinan_examining_2019" role="doc-biblioref">2019</a>)</span>.
-Depending on a given situation, there are many palettes better suited for visualization than “rainbow”, including sequential “viridis” and “ag_Sunset” or diverging “Purple-Green” and “Fall”.
+Depending on a given situation, there are many palettes better suited for visualization than “rainbow”, including sequential <code>"viridis"</code> and <code>"ag_Sunset"</code> or diverging <code>"Purple-Green"</code> and <code>"Fall"</code>.
 All of them can be created with the <code>grDevices::hcl.colors()</code> function.
 More examples showing alternatives to the “rainbow” palette are in the documentation of the <strong>colorspace</strong> package at
 <a href="https://colorspace.r-forge.r-project.org/articles/endrainbow.html" class="uri">https://colorspace.r-forge.r-project.org/articles/endrainbow.html</a> <span class="citation">(Zeileis et al. <a href="#ref-R-colorspace" role="doc-biblioref">2019</a>)</span>.</p>
@@ -585,8 +585,6 @@ FIGURE 5.3: An example of a categorical map with manually selected colors
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="co"># tm_shape(x) +</span></span>
 <span id="cb19-2"><a href="layers.html#cb19-2"></a>  <span class="co"># tm_polygons(col = &quot;lifeExp&quot;, midpoint = 70.85)</span></span></code></pre></div>
 <!-- resources: -->
-<!-- colorspace -->
-<!-- Polychrome -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
@@ -596,8 +594,10 @@ FIGURE 5.3: An example of a categorical map with manually selected colors
 <h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
-<p><code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
-The first one is to fill all of the polygons to the same color - this happens when a single color value, as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>), is provided (Figure <a href="layers.html#fig:colorscales1">5.4</a>).</p>
+<p>
+<code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
+The first one is to fill all polygons with the same color.
+This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>) (Figure <a href="layers.html#fig:colorscales1">5.4</a>).</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
@@ -606,37 +606,44 @@ The first one is to fill all of the polygons to the same color - this happens wh
 FIGURE 5.4: Example of a map with all polygons filled with the same color.
 </p>
 </div>
-<p>The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
+<p>
+
+
+
+The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
 <strong>tmap</strong> behaves differently depending on the input variable type, but always automatically adds a map legend.
 In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
-However, when the provided variable is numerical, then it is possible to create either discrete or continuous maps.</p>
-<p>An example of a categorical map can be seen in Figure <a href="layers.html#fig:colorscales2">5.5</a>.
-We created it by providing a character variable’s name, <code>"region_un"</code>, as the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.</p>
+<p>
+An example of a categorical map can be seen in Figure <a href="layers.html#fig:colorscales2">5.5</a>.
+We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <!-- categorical -->
 <div class="figure" style="text-align: center"><span id="fig:colorscales2"></span>
-<img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on a categorical variable." width="672" />
+<img src="05-layers_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on the values of a categorical variable." width="672" />
 <p class="caption">
-FIGURE 5.5: Example of a map in which polygons are colored based on a categorical variable.
+FIGURE 5.5: Example of a map in which polygons are colored based on the values of a categorical variable.
 </p>
 </div>
 <p>It is possible to change the names of legend labels with the <code>labels</code> argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the color palette with the <code>palette</code> argument.</p>
+As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the used color palette with the <code>palette</code> argument.</p>
 <!-- optimal number of classes? 3-7 -->
-<p>Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
+<p>
+Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
 In other words, values are divided into several groups based on their properties.
 Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values.
 <strong>tmap</strong> has 14 different methods to create discrete maps<!--list??--> that can be specified with the <code>style</code> argument.
-All of them use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
+Most of them (except <code>"log10_pretty"</code>) use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
 <p>By default, the <code>"pretty"</code> style is used (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
 This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
-Not every <code>n</code> is possible depending on the input values, but <strong>tmap</strong> will try to create a number of classes as close to possible to the preferred one.</p>
+While not every <code>n</code> is possible depending on the input values, <strong>tmap</strong> will try to create a number of classes as close to possible to the preferred one.</p>
 <p>The next approach is to manually select the limits of each break with the <code>breaks</code> function (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
+This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the <code>labels</code> argument.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
@@ -650,34 +657,33 @@ Let’s consider a variable with 100 observations ranging from 0 to 10.
 The <code>"equal"</code> style divides the range of values into <em>n</em> equal-sized intervals.
 This style works well when the values change fairly continuously and do not contain any outliers.
 In <strong>tmap</strong>, we can specify the number of classes with the <code>n</code> argument or the number of classes will be computed automatically <!--?nclass.Sturges-->.
-For example, when we set <code>n</code> to 4, then our breaks will represent four classes with ranges from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
-The <code>"sd"</code> style represents how much values of a given variable varies from its mean.
-In this style, each interval, which has a constant width of the standard deviation.
-The <code>"quantile"</code> style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various sizes.
+For example, when we set <code>n</code> to 4, then our breaks will represent four classes ranging from 0 to 2.5, 2.5 to 5, 5 to 7.5, and 7.5 to 10.
+The <code>"sd"</code> style represents how much values of a given variable varies from its mean, with each interval having a constant width of the standard deviation.
+This style is used when it is vital to show how values relate to the mean.
+The <code>"quantile"</code> style creates several classes with exactly the same number of objects (e.g., spatial features), but having intervals of various lengths.
 This method has an advantage or not having any empty classes or classes with too few or too many values.
 However, the resulting intervals from the <code>"quantile"</code> style can often be misleading, with very different values located in the same class.</p>
-<p>To create classes that, on the one hand, contains similar values, and on the other hand, are different from the other classes, we can use some optimization method.
+<p>To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
 The most common optimization method used in cartography is the Jenks optimization method implemented at the <code>"jenks"</code> style (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).</p>
 <!-- how about adding ggplot2 histograms?? -->
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb24-3"><a href="layers.html#cb24-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
-<p>A similar role has the Fisher method (<code>style = "fisher"</code>), which creates groups with maximized homogeneity <span class="citation">(Fisher <a href="#ref-fisher_grouping_1958" role="doc-biblioref">1958</a>)</span>.
+<p>The Fisher method (<code>style = "fisher"</code>) has a similar role, which creates groups with maximized homogeneity <span class="citation">(Fisher <a href="#ref-fisher_grouping_1958" role="doc-biblioref">1958</a>)</span>.
 A different approach is used by the <code>dpih</code> style, which uses kernel density estimations to select the width of the intervals <span class="citation">(Wand <a href="#ref-wand_databased_1997" role="doc-biblioref">1997</a>)</span>.
 You can visit <code>?KernSmooth::dpih</code> for more details.</p>
-<p>Another group of classification methods uses existing methods.
+<p>Another group of classification methods uses existing clustering methods.
 It includes k-means clustering (<code>"kmeans"</code>), bagged clustering (<code>"bclust"</code>), and hierarchical clustering (<code>"hclust"</code>).
 <!-- ... --></p>
-<p>Finally, there are some methods created to work well for a variable with a heavy-tailed distribution.
-It includes <code>"headtails"</code> and <code>"log10_pretty"</code>.
+<p>Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including <code>"headtails"</code> and <code>"log10_pretty"</code>.
 The <code>"headtails"</code> style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed <span class="citation">(Jiang <a href="#ref-jiang_head_2013" role="doc-biblioref">2013</a>)</span>.
 The <code>"log10_pretty"</code> style uses a logarithmic base-10 transformation (Figure <a href="layers.html#fig:discrete-methods">5.6</a>).
-In this style, each class starts with a value ten times larger than the start of the previous class.
-In other words, each class shows us the next order of magnitude.
+In this style, each class starts with a value ten times larger than the beginning of the previous class.
+In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
-However, maps with logarithmically transformed variables are usually less intuitive for the readers and requires more attention from them.</p>
+However, maps with logarithmically transformed variables are usually less intuitive for the readers and require more attention from them.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
 <span id="cb25-3"><a href="layers.html#cb25-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
@@ -689,9 +695,10 @@ FIGURE 5.6: Examples of four methods of creating discrete maps: (1) default meth
 </p>
 </div>
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
-<p>Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
+<p>
+Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure <a href="layers.html#fig:cont-methods">5.7</a>).
 Three continuous methods exist in <strong>tmap</strong>: <code>cont</code>, <code>order</code>, and <code>log10</code>.
-Values change increasingly in all of them, but they differ in the distances between colors.</p>
+Values change increasingly in all of them, but they differ in the relations between values and colors.</p>
 <p>The <code>cont</code> style creates a smooth, linear gradient.
 In other words, the change in values is proportionally related to the change in colors.
 We can see that in Figure <a href="layers.html#fig:cont-methods">5.7</a>, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
