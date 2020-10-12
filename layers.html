@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.7 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-09" />
+<meta name="date" content="2020-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,8 +51,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -177,9 +175,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="tmshape.html"><a href="tmshape.html#simplification"><i class="fa fa-check"></i><b>4.3</b> Simplification</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
-<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#shapes-and-markers"><i class="fa fa-check"></i><b>5.1</b> Shapes and markers <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.2</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.3</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.2</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#sizes-shapes-and-markers"><i class="fa fa-check"></i><b>5.3</b> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -388,11 +386,8 @@ raster
 </tr>
 </tbody>
 </table>
-<div id="shapes-and-markers" class="section level2">
-<h2><span class="header-section-number">5.1</span> Shapes and markers <!--JN: I am not sure where this section should go--></h2>
-</div>
 <div id="color-palettes" class="section level2">
-<h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.1</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
 <p>
 <!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ --></p>
 <!-- color as VISUAL VARIABLE! -->
@@ -591,13 +586,13 @@ FIGURE 5.3: An example of a categorical map with manually selected colors
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 </div>
 <div id="the-color-scale-styles" class="section level2">
-<h2><span class="header-section-number">5.3</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.2</span> The color scale styles <!--JN: I am not sure where this section should go--></h2>
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 <p>
 <code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
 The first one is to fill all polygons with the same color.
-This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>) (Figure <a href="layers.html#fig:colorscales1">5.4</a>).</p>
+This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.1</a>) (Figure <a href="layers.html#fig:colorscales1">5.4</a>).</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
@@ -628,7 +623,7 @@ FIGURE 5.5: Example of a map in which polygons are colored based on the values o
 </div>
 <p>It is possible to change the names of legend labels with the <code>labels</code> argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the used color palette with the <code>palette</code> argument.</p>
+As mentioned in the section <a href="layers.html#color-palettes">5.1</a>, we can also change the used color palette with the <code>palette</code> argument.</p>
 <!-- optimal number of classes? 3-7 -->
 <p>
 Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
@@ -737,6 +732,18 @@ FIGURE 5.8: Example of a map with adjacent polygons having different colors.
 </p>
 </div>
 <p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
+<!-- colorNA and textNA -->
+<!-- similar to tm_polygons: -->
+<!-- - tm_symbols (tm_dots, tm_bubbles, tm_squares) -->
+<!-- - tm_lines -->
+<!-- - tm_fill -->
+<!-- - tm_raster -->
+<!-- -  -->
+<!-- one color only: -->
+<!-- - tm_borders  -->
+</div>
+<div id="sizes-shapes-and-markers" class="section level2">
+<h2><span class="header-section-number">5.3</span> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></h2>
 
 </div>
 </div>

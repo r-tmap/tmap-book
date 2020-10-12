@@ -48,9 +48,9 @@ shapes-and-layers
 shape-projection-bounding-box
 simplification
 layers
-shapes-and-markers
 color-palettes
 the-color-scale-styles
+sizes-shapes-and-markers
 othertypes
 layout
 interactive
