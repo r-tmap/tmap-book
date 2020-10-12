@@ -42,8 +42,6 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
 
-## Shapes and markers <!--JN: I am not sure where this section should go-->
-
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
 \index{color palettes}
@@ -529,3 +527,19 @@ tm_uni
 ```
 
 To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
+
+<!-- colorNA and textNA -->
+
+<!-- similar to tm_polygons: -->
+
+<!-- - tm_symbols (tm_dots, tm_bubbles, tm_squares) -->
+<!-- - tm_lines -->
+<!-- - tm_fill -->
+<!-- - tm_raster -->
+<!-- -  -->
+
+<!-- one color only: -->
+<!-- - tm_borders  -->
+
+## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
+
