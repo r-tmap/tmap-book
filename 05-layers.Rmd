@@ -543,3 +543,73 @@ To see and compare examples of every color scale style from **tmap** visit https
 
 ## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
 
+```{r}
+# replace dataset later
+library(tmap)
+data("metro", package = "tmap")
+tm_shape(metro) +
+ tm_symbols() 
+```
+
+```{r}
+tm_shape(metro) +
+ tm_symbols(size = "pop2020") 
+```
+
+<!-- numeric only -->
+<!-- size.max	 -->
+<!-- size.lim	 -->
+<!-- sizes.legend	 -->
+<!-- sizes.legend.labels	 -->
+
+<!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
+
+```{r}
+tm_shape(metro) +
+ tm_symbols(size = "pop2020",
+            title.size = "Population (2020)",
+            sizes.legend = c(1000000, 10000000),
+            sizes.legend.labels	= c("small", "large")) 
+```
+
+<!-- potential tmap improvement: do not allow to use shape for numerical vars -->
+
+```{r}
+metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
+```
+
+```{r}
+tm_shape(metro) +
+ tm_symbols(shape = "group") 
+```
+
+<!-- shapes -->
+<!-- shapes.legend	 -->
+<!-- shapes.legend.fill	 -->
+<!-- shapes.labels	 -->
+<!-- shapes.drop.levels	 -->
+<!-- shapeNA	 -->
+<!-- shape.textNA	 -->
+<!-- shape.showNA	 -->
+<!-- shapes.n	 -->
+<!-- shapes.style	 -->
+<!-- shapes.style.args	 -->
+<!-- shapes.as.count	 -->
+<!-- shapes.breaks	 -->
+<!-- shapes.interval.closure	 -->
+
+
+```{r}
+tm_shape(metro) +
+ tm_symbols(shape = "group",
+            title.shape	= "Group:") 
+```
+
+<!-- A shape specification is one of the following three options. -->
+
+<!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
+
+<!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
+
+<!-- An icon specification, which can be created with tmap_icons. -->
+
