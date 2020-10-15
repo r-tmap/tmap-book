@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.20.7 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-12" />
+<meta name="date" content="2020-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -744,6 +744,54 @@ FIGURE 5.8: Example of a map with adjacent polygons having different colors.
 </div>
 <div id="sizes-shapes-and-markers" class="section level2">
 <h2><span class="header-section-number">5.3</span> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb30-2"><a href="layers.html#cb30-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb30-3"><a href="layers.html#cb30-3"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb30-4"><a href="layers.html#cb30-4"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb30-5"><a href="layers.html#cb30-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>() </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- numeric only -->
+<!-- size.max    -->
+<!-- size.lim    -->
+<!-- sizes.legend    -->
+<!-- sizes.legend.labels     -->
+<!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
+<span id="cb32-3"><a href="layers.html#cb32-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
+<span id="cb32-4"><a href="layers.html#cb32-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
+<span id="cb32-5"><a href="layers.html#cb32-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- potential tmap improvement: do not allow to use shape for numerical vars -->
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a>metro<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>) </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- shapes -->
+<!-- shapes.legend   -->
+<!-- shapes.legend.fill  -->
+<!-- shapes.labels   -->
+<!-- shapes.drop.levels  -->
+<!-- shapeNA     -->
+<!-- shape.textNA    -->
+<!-- shape.showNA    -->
+<!-- shapes.n    -->
+<!-- shapes.style    -->
+<!-- shapes.style.args   -->
+<!-- shapes.as.count     -->
+<!-- shapes.breaks   -->
+<!-- shapes.interval.closure     -->
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb35-3"><a href="layers.html#cb35-3"></a>            <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>) </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- A shape specification is one of the following three options. -->
+<!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
+<!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
+<!-- An icon specification, which can be created with tmap_icons. -->
 
 </div>
 </div>
