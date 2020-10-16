@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-15" />
+<meta name="date" content="2020-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -792,6 +792,19 @@ FIGURE 5.8: Example of a map with adjacent polygons having different colors.
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
 <!-- An icon specification, which can be created with tmap_icons. -->
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb36-3"><a href="layers.html#cb36-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb36-4"><a href="layers.html#cb36-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb36-5"><a href="layers.html#cb36-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- lwd.legend -->
+<!-- lwd.legend.labels -->
+<!-- lwd.legeld.col -->
+<!-- title.lwd = NA -->
+<!-- legend.lwd.show = TRUE -->
+<!-- legend.lwd.is.portrait -->
+<!-- legend.lwd.reverse -->
 
 </div>
 </div>

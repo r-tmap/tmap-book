@@ -642,3 +642,22 @@ tm_shape(metro) +
 
 <!-- An icon specification, which can be created with tmap_icons. -->
 
+
+```r
+# replace dataset later
+library(tmap)
+data("rivers", package = "tmap")
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- lwd.legend -->
+<!-- lwd.legend.labels -->
+<!-- lwd.legeld.col -->
+<!-- title.lwd = NA -->
+<!-- legend.lwd.show = TRUE -->
+<!-- legend.lwd.is.portrait -->
+<!-- legend.lwd.reverse -->
+
