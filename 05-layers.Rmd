@@ -569,7 +569,7 @@ tm_shape(metro) +
  tm_symbols(size = "pop2020",
             title.size = "Population (2020)",
             sizes.legend = c(1000000, 10000000),
-            sizes.legend.labels	= c("small", "large")) 
+            sizes.legend.labels = c("small", "large")) 
 ```
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
@@ -602,7 +602,7 @@ tm_shape(metro) +
 ```{r}
 tm_shape(metro) +
  tm_symbols(shape = "group",
-            title.shape	= "Group:") 
+            title.shape = "Group:") 
 ```
 
 <!-- A shape specification is one of the following three options. -->
@@ -617,6 +617,11 @@ tm_shape(metro) +
 # replace dataset later
 library(tmap)
 data("rivers", package = "tmap")
+tm_shape(rivers) + 
+  tm_lines(lty = 2)
+```
+
+```{r}
 tm_shape(rivers) + 
   tm_lines(lwd = "strokelwd")
 ```
