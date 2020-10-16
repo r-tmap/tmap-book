@@ -589,7 +589,7 @@ tm_shape(metro) +
  tm_symbols(size = "pop2020",
             title.size = "Population (2020)",
             sizes.legend = c(1000000, 10000000),
-            sizes.legend.labels	= c("small", "large")) 
+            sizes.legend.labels = c("small", "large")) 
 ```
 
 <img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
@@ -629,7 +629,7 @@ tm_shape(metro) +
 ```r
 tm_shape(metro) +
  tm_symbols(shape = "group",
-            title.shape	= "Group:") 
+            title.shape = "Group:") 
 ```
 
 <img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
@@ -648,10 +648,18 @@ tm_shape(metro) +
 library(tmap)
 data("rivers", package = "tmap")
 tm_shape(rivers) + 
-  tm_lines(lwd = "strokelwd")
+  tm_lines(lty = 2)
 ```
 
 <img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
