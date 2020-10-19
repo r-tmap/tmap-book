@@ -265,6 +265,35 @@ tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
 ```
 <!-- state that the above example of setting colors works for most of palettes -->
 
+<!-- midpoint argument -->
+The default color palette for positive numerical variables is `"YlOrBr"` as seen in Figure \@ref(fig:tmpals):1.
+On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"RdYlGn"` color palette, with red colors below the midpoint value, yellow color around the midpoint value, and green colors above the midpoint value.
+The use of diverging color palettes can be adjusted using the `midpoint` argument. 
+It has a value of 0 as the default, however, it is possible to change it to any other value.
+For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
+To do that, we just need to set the `midpoint` argument to this value (Figure \@ref(fig:tmmidpoint):2).
+<!-- , style = "cont" -->
+
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "lifeExp", midpoint = 73)
+```
+
+```{r tmmidpoint, warning=FALSE, fig.cap="Examples of (1) a map with the default sequential color palette and (2) a map with the diverging color palette around the midpoint value of 73.", fig.asp=NA, fig.height=2, echo=FALSE}
+# mean(x$lifeExp, na.rm = TRUE)
+tm_mp1 = tm_shape(x) +
+  tm_polygons(col = "lifeExp") +
+  tm_layout(title = "1")
+tm_mp2 = tm_shape(x) +
+  tm_polygons(col = "lifeExp", midpoint = 71) +
+  tm_layout(title = "2")
+tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
+```
+
+Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
+
+<!-- alpha? -->
+
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -272,7 +301,7 @@ You can see it in the example below, where we plot the `"region_un"` categorical
 Each category in this variable (e.g., `"Africa"`) has a new, connected to it color (e.g., `"#11467b"`).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories -->
-```{r tmcatpals, warning=FALSE, fig.cap="An example of a categorical map with manually selected colors"}
+```{r tmcatpals, warning=FALSE, fig.cap="An example of a categorical map with manually selected colors", fig.asp=NA, fig.height=2}
 tm_shape(x) + 
   tm_polygons("region_un", 
     palette = c(
@@ -286,13 +315,8 @@ tm_shape(x) +
     )
 ```
 
-<!-- midpoint argument -->
-<!-- alpha? -->
 
-```{r}
-# tm_shape(x) +
-  # tm_polygons(col = "lifeExp", midpoint = 70.85)
-```
+
 
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
