@@ -292,6 +292,30 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
 
+<!-- midpoint argument -->
+The default color palette for positive numerical variables is `"YlOrBr"` as seen in Figure \@ref(fig:tmpals):1.
+On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"RdYlGn"` color palette, with red colors below the midpoint value, yellow color around the midpoint value, and green colors above the midpoint value.
+The use of diverging color palettes can be adjusted using the `midpoint` argument. 
+It has a value of 0 as the default, however, it is possible to change it to any other value.
+For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
+To do that, we just need to set the `midpoint` argument to this value (Figure \@ref(fig:tmmidpoint):2).
+<!-- , style = "cont" -->
+
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "lifeExp", midpoint = 73)
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmmidpoint-1.png" alt="Examples of (1) a map with the default sequential color palette and (2) a map with the diverging color palette around the midpoint value of 73." width="672" />
+<p class="caption">(\#fig:tmmidpoint)Examples of (1) a map with the default sequential color palette and (2) a map with the diverging color palette around the midpoint value of 73.</p>
+</div>
+
+Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
+
+<!-- alpha? -->
+
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -312,6 +336,7 @@ tm_shape(x) +
       "Oceania" = "#df5454",
       "Seven seas (open ocean)" = "#7b1072")
     )
+#> Some legend labels were too wide. These labels have been resized to 0.64. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
 <div class="figure" style="text-align: center">
@@ -319,14 +344,8 @@ tm_shape(x) +
 <p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors</p>
 </div>
 
-<!-- midpoint argument -->
-<!-- alpha? -->
 
 
-```r
-# tm_shape(x) +
-  # tm_polygons(col = "lifeExp", midpoint = 70.85)
-```
 
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
