@@ -292,8 +292,6 @@ tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
 
 Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
 
-<!-- alpha? -->
-
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -315,8 +313,20 @@ tm_shape(x) +
     )
 ```
 
+```{r, echo=FALSE, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "lifeExp")
+tm_shape(x) +
+  tm_polygons(col = "lifeExp", alpha = 0.5) 
+tm_shape(x) +
+  tm_polygons(col = "lifeExp", colorNA = "red") 
+tm_shape(x) +
+  tm_polygons(col = "lifeExp", contrast = c(0.4, 1)) 
+```
 
-
+<!-- alpha -->
+<!-- colorNA -->
+<!-- contrast -->
 
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
