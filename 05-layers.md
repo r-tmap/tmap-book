@@ -314,8 +314,6 @@ tm_shape(x) +
 
 Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
 
-<!-- alpha? -->
-
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -346,6 +344,9 @@ tm_shape(x) +
 
 
 
+<!-- alpha -->
+<!-- colorNA -->
+<!-- contrast -->
 
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
@@ -584,7 +585,7 @@ tm_shape(metro) +
  tm_symbols() 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -592,7 +593,7 @@ tm_shape(metro) +
  tm_symbols(size = "pop2020") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- numeric only -->
 <!-- size.max	 -->
@@ -611,7 +612,7 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 
@@ -626,7 +627,7 @@ tm_shape(metro) +
  tm_symbols(shape = "group") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -651,7 +652,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -670,7 +671,7 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -678,7 +679,7 @@ tm_shape(rivers) +
   tm_lines(lwd = "strokelwd")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
