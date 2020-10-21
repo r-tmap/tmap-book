@@ -292,6 +292,10 @@ tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
 
 Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
 
+The above examples all contain several polygons with missing values of a given variable.
+Objects with missing values are, by default, represented by gray color and a related legend label *Missing*.
+However, it is possible to change this color with the `colorNA` argument and its label with `textNA`.
+
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -324,6 +328,7 @@ tm_shape(x) +
   tm_polygons(col = "lifeExp", contrast = c(0.4, 1)) 
 ```
 
+\index{color palettes!transparency}
 Finally, visualized colors can be additionally modified.
 It includes setting the `alpha` argument that represents the transparency of the used colors.
 By default, the colors are not transparent at all as the value of `alpha` is 1.
