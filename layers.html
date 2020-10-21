@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-20" />
+<meta name="date" content="2020-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -568,6 +570,9 @@ FIGURE 5.3: Examples of (1) a map with the default sequential color palette and 
 </p>
 </div>
 <p>Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the <code>midpoint</code> in our case), and the countries with high life expectancy are represented by green colors.</p>
+<p>The above examples all contain several polygons with missing values of a given variable.
+Objects with missing values are, by default, represented by gray color and a related legend label <em>Missing</em>.
+However, it is possible to change this color with the <code>colorNA</code> argument and its label with <code>textNA</code>.</p>
 <p><strong>tmap</strong> has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the <code>palette</code> argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
@@ -593,9 +598,12 @@ Each category in this variable (e.g., <code>"Africa"</code>) has a new, connecte
 FIGURE 5.4: An example of a categorical map with manually selected colors
 </p>
 </div>
-<!-- alpha -->
-<!-- colorNA -->
-<!-- contrast -->
+<p>
+Finally, visualized colors can be additionally modified.
+It includes setting the <code>alpha</code> argument that represents the transparency of the used colors.
+By default, the colors are not transparent at all as the value of <code>alpha</code> is 1.
+However, we can decrease this value to 0 - total transparency.
+The <code>alpha</code> argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.</p>
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
