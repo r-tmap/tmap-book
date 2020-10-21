@@ -319,14 +319,16 @@ tm_shape(x) +
 tm_shape(x) +
   tm_polygons(col = "lifeExp", alpha = 0.5) 
 tm_shape(x) +
-  tm_polygons(col = "lifeExp", colorNA = "red") 
+  tm_polygons(col = "lifeExp", colorNA = "purple", textNA = "I do not know!") 
 tm_shape(x) +
   tm_polygons(col = "lifeExp", contrast = c(0.4, 1)) 
 ```
 
-<!-- alpha -->
-<!-- colorNA -->
-<!-- contrast -->
+Finally, visualized colors can be additionally modified.
+It includes setting the `alpha` argument that represents the transparency of the used colors.
+By default, the colors are not transparent at all as the value of `alpha` is 1.
+However, we can decrease this value to 0 - total transparency.
+The `alpha` argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.
 
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
