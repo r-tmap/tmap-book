@@ -347,7 +347,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 
 \index{Color scale styles}
-`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument.
+`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument^[To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.].
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section \@ref(color-palettes)) (Figure \@ref(fig:colorscales1)).
 
@@ -567,20 +567,26 @@ tm_uni = tm_shape(x) +
 tm_uni
 ```
 
-To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
-
-<!-- colorNA and textNA -->
-
-<!-- similar to tm_polygons: -->
-
-<!-- - tm_symbols (tm_dots, tm_bubbles, tm_squares) -->
-<!-- - tm_lines -->
-<!-- - tm_fill -->
-<!-- - tm_raster -->
-<!-- -  -->
+All of the color scale styles mentioned above work not only for `tm_polygons()` - they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
+The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_lines()`, and cells in `tm_rasters()`.
 
 <!-- one color only: -->
 <!-- - tm_borders  -->
+
+```{r, echo=FALSE, eval=FALSE}
+data("metro", package = "tmap")
+data("rivers", package = "tmap")
+data("land", package = "tmap")
+tm_shape(metro) +
+ tm_symbols(col = "pop2030", style = "cont") 
+tm_shape(rivers) +
+ tm_lines(col = "strokelwd", style = "cont") 
+tm_shape(land) +
+ tm_raster(col = "elevation", style = "cont") 
+```
+
+
+<!-- title?? -->
 
 ## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
 
