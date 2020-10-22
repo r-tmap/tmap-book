@@ -367,7 +367,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 
 \index{Color scale styles}
-`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument.
+`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument^[To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.].
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section \@ref(color-palettes)) (Figure \@ref(fig:colorscales1)).
 
@@ -566,20 +566,16 @@ In this case, it is also possible to change the default colors with the `palette
 <p class="caption">(\#fig:colorscalesmc)Example of a map with adjacent polygons having different colors.</p>
 </div>
 
-To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.
-
-<!-- colorNA and textNA -->
-
-<!-- similar to tm_polygons: -->
-
-<!-- - tm_symbols (tm_dots, tm_bubbles, tm_squares) -->
-<!-- - tm_lines -->
-<!-- - tm_fill -->
-<!-- - tm_raster -->
-<!-- -  -->
+All of the color scale styles mentioned above work not only for `tm_polygons()` - they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
+The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_lines()`, and cells in `tm_rasters()`.
 
 <!-- one color only: -->
 <!-- - tm_borders  -->
+
+
+
+
+<!-- title?? -->
 
 ## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
 
@@ -592,7 +588,7 @@ tm_shape(metro) +
  tm_symbols() 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -600,7 +596,7 @@ tm_shape(metro) +
  tm_symbols(size = "pop2020") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- numeric only -->
 <!-- size.max	 -->
@@ -619,7 +615,7 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 
@@ -634,7 +630,7 @@ tm_shape(metro) +
  tm_symbols(shape = "group") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -659,7 +655,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -678,7 +674,7 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -686,7 +682,7 @@ tm_shape(rivers) +
   tm_lines(lwd = "strokelwd")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->

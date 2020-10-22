@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-21" />
+<meta name="date" content="2020-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -615,7 +615,7 @@ The <code>alpha</code> argument is useful in two ways: one - it allows us to see
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 <p>
-<code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument.
+<code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.1</a>) (Figure <a href="layers.html#fig:colorscales1">5.5</a>).</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
@@ -636,7 +636,7 @@ In general, a categorical map is created when the provided variable contains cha
 However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.</p>
 <p>
 An example of a categorical map can be seen in Figure <a href="layers.html#fig:colorscales2">5.6</a>.
-We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
+We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <!-- categorical -->
@@ -657,7 +657,7 @@ Several approaches can be used to convert continuous variables to discrete ones,
 <strong>tmap</strong> has 14 different methods to create discrete maps<!--list??--> that can be specified with the <code>style</code> argument.
 Most of them (except <code>"log10_pretty"</code>) use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
 <p>By default, the <code>"pretty"</code> style is used (Figure <a href="layers.html#fig:discrete-methods">5.7</a>).
-This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
@@ -756,16 +756,11 @@ When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then poly
 FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 </p>
 </div>
-<p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.</p>
-<!-- colorNA and textNA -->
-<!-- similar to tm_polygons: -->
-<!-- - tm_symbols (tm_dots, tm_bubbles, tm_squares) -->
-<!-- - tm_lines -->
-<!-- - tm_fill -->
-<!-- - tm_raster -->
-<!-- -  -->
+<p>All of the color scale styles mentioned above work not only for <code>tm_polygons()</code> - they can be also applied for <code>tm_symbols()</code> (and its derivatives - <code>tm_dots()</code>, <code>tm_bubbles()</code>, <code>tm_squares()</code>), <code>tm_lines()</code>, <code>tm_fill()</code>, and <code>tm_raster()</code>.
+The <code>col</code> argument colors symbols’ fillings in <code>tm_symbols()</code>, lines in <code>tm_lines()</code>, and cells in <code>tm_rasters()</code>.</p>
 <!-- one color only: -->
 <!-- - tm_borders  -->
+<!-- title?? -->
 </div>
 <div id="sizes-shapes-and-markers" class="section level2">
 <h2><span class="header-section-number">5.3</span> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></h2>
@@ -774,10 +769,10 @@ FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 <span id="cb30-3"><a href="layers.html#cb30-3"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
 <span id="cb30-4"><a href="layers.html#cb30-4"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb30-5"><a href="layers.html#cb30-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>() </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- numeric only -->
 <!-- size.max    -->
 <!-- size.lim    -->
@@ -789,12 +784,12 @@ FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 <span id="cb32-3"><a href="layers.html#cb32-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
 <span id="cb32-4"><a href="layers.html#cb32-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
 <span id="cb32-5"><a href="layers.html#cb32-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a>metro<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- shapes -->
 <!-- shapes.legend   -->
 <!-- shapes.legend.fill  -->
@@ -812,7 +807,7 @@ FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb35-3"><a href="layers.html#cb35-3"></a>            <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- A shape specification is one of the following three options. -->
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
@@ -822,10 +817,10 @@ FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 <span id="cb36-3"><a href="layers.html#cb36-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
 <span id="cb36-4"><a href="layers.html#cb36-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb36-5"><a href="layers.html#cb36-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
 <!-- lwd.legeld.col -->
@@ -900,8 +895,9 @@ FIGURE 5.9: Example of a map with adjacent polygons having different colors.
 <hr />
 <ol start="5">
 <li id="fn5"><p>Learn more about them at <a href="https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/" class="uri">https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/</a> and <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html" class="uri">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a>.<a href="layers.html#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.<a href="layers.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
