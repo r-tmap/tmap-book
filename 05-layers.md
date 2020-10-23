@@ -84,14 +84,17 @@
 </tbody>
 </table>
 
+## Visual variables 
+
+<!-- color as VISUAL VARIABLE! -->
+<!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
+<!-- IDEA: one or more section per each visual variable (color/size/shape) -->
+
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
 \index{color palettes}
 <!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
 
-<!-- color as VISUAL VARIABLE! -->
-<!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
-<!-- IDEA: one or more section per each visual variable (color/size/shape) -->
 \index{colors}
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
@@ -578,6 +581,8 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 <!-- title?? -->
 
 ## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
+
+
 
 
 ```r

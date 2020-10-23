@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,9 +177,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="tmshape.html"><a href="tmshape.html#simplification"><i class="fa fa-check"></i><b>4.3</b> Simplification</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
-<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.2</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#sizes-shapes-and-markers"><i class="fa fa-check"></i><b>5.3</b> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#visual-variables"><i class="fa fa-check"></i><b>5.1</b> Visual variables</a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.2</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#the-color-scale-styles"><i class="fa fa-check"></i><b>5.3</b> The color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#sizes-shapes-and-markers"><i class="fa fa-check"></i><b>5.4</b> Sizes, shapes and markers <!--JN: I am not sure where this section should go--></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -233,13 +234,13 @@ This is illustrated in the following example.</p>
 #&gt; 
 #&gt;     intersect, setdiff, setequal, union
 #&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tmshape.html#cb11-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb11-2"><a href="tmshape.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>)) <span class="op">+</span></span>
-<span id="cb11-3"><a href="tmshape.html#cb11-3"></a><span class="kw">tm_shape</span>(World) <span class="op">+</span></span>
-<span id="cb11-4"><a href="tmshape.html#cb11-4"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
-<span id="cb11-5"><a href="tmshape.html#cb11-5"></a><span class="kw">tm_shape</span>(metro_large) <span class="op">+</span></span>
-<span id="cb11-6"><a href="tmshape.html#cb11-6"></a><span class="st">  </span><span class="kw">tm_dots</span>() <span class="op">+</span></span>
-<span id="cb11-7"><a href="tmshape.html#cb11-7"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;name&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="tmshape.html#cb10-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb10-2"><a href="tmshape.html#cb10-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>)) <span class="op">+</span></span>
+<span id="cb10-3"><a href="tmshape.html#cb10-3"></a><span class="kw">tm_shape</span>(World) <span class="op">+</span></span>
+<span id="cb10-4"><a href="tmshape.html#cb10-4"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb10-5"><a href="tmshape.html#cb10-5"></a><span class="kw">tm_shape</span>(metro_large) <span class="op">+</span></span>
+<span id="cb10-6"><a href="tmshape.html#cb10-6"></a><span class="st">  </span><span class="kw">tm_dots</span>() <span class="op">+</span></span>
+<span id="cb10-7"><a href="tmshape.html#cb10-7"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;name&quot;</span>)</span></code></pre></div>
 <p><img src="04-tm-shape_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In this example, we use three shapes: <code>land</code> which is a stars object that contains an attribute called <code>"elevation"</code>, <code>World</code> which is an <code>sf</code> object with country borders, and <code>metro_large</code>, which is an <code>sf</code> object that contains metropolitan area of at least 20 million inhabitants.</p>
 <p>Each <code>tm_shape</code> function call is succeeded by one or more layer functions.

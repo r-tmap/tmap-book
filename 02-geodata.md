@@ -75,18 +75,6 @@ Each row, on the other hand, relates to a single spatial geometry.
 
 
 
-
-```
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-```
-
 <div class="figure" style="text-align: center">
 <img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="480" />
 <p class="caption">(\#fig:vector-data-model)Instances of spatial vector data model: POINTS, LINES, and POLYGONS.</p>

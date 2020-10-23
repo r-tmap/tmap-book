@@ -49,6 +49,7 @@ shapes-and-layers
 shape-projection-bounding-box
 simplification
 layers
+visual-variables
 color-palettes
 the-color-scale-styles
 sizes-shapes-and-markers
