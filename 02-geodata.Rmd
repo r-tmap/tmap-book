@@ -127,7 +127,7 @@ polygon_data = st_sf(
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 ```
 
-```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS."}
+```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS.", message=FALSE}
 source("code/data_model_figures.R")
 draw_vector_data(scale = .75)
 ```
