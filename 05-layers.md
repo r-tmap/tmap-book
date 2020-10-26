@@ -86,9 +86,21 @@
 
 ## Visual variables 
 
-<!-- color as VISUAL VARIABLE! -->
-<!-- "Color, along with position, size, shape, value, orientation, and texture is what Jacques Bertin calls a visual variable:" -->
-<!-- IDEA: one or more section per each visual variable (color/size/shape) -->
+Visual variables are methods to translate information given in variables into maps.
+Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
+All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
+<!-- explain (briefly) how they relate to (a) different types of variables, and (b) different type of spatial data -->
+
+<!-- plot?? -->
+
+```r
+# plot idea:
+# color
+# shape
+# size
+```
+
+The use of color in **tmap** is described in sections \@ref(color-palettes) and \@ref(color-scale-styles), sizes in section \@ref(sizes), and shapes in section \@ref(shapes). 
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
@@ -364,7 +376,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
-## The color scale styles <!--JN: I am not sure where this section should go-->
+## Color scale styles <!--JN: I am not sure where this section should go-->
 
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
@@ -577,12 +589,9 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 
 
 
-
 <!-- title?? -->
 
-## Sizes, shapes and markers <!--JN: I am not sure where this section should go-->
-
-
+## Sizes  <!--JN: I am not sure where this section should go-->
 
 
 ```r
@@ -593,7 +602,7 @@ tm_shape(metro) +
  tm_symbols() 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -601,7 +610,7 @@ tm_shape(metro) +
  tm_symbols(size = "pop2020") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- numeric only -->
 <!-- size.max	 -->
@@ -620,7 +629,31 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+
+
+
+```r
+# replace dataset later
+library(tmap)
+data("rivers", package = "tmap")
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- lwd.legend -->
+<!-- lwd.legend.labels -->
+<!-- lwd.legeld.col -->
+<!-- title.lwd = NA -->
+<!-- legend.lwd.show = TRUE -->
+<!-- legend.lwd.is.portrait -->
+<!-- legend.lwd.reverse -->
+
+
+## Shapes  <!--JN: I am not sure where this section should go-->
+<!-- ??and markers -->
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 
@@ -635,7 +668,7 @@ tm_shape(metro) +
  tm_symbols(shape = "group") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -660,7 +693,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -672,28 +705,9 @@ tm_shape(metro) +
 
 
 ```r
-# replace dataset later
-library(tmap)
-data("rivers", package = "tmap")
 tm_shape(rivers) + 
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
-
-
-```r
-tm_shape(rivers) + 
-  tm_lines(lwd = "strokelwd")
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
-
-<!-- lwd.legend -->
-<!-- lwd.legend.labels -->
-<!-- lwd.legeld.col -->
-<!-- title.lwd = NA -->
-<!-- legend.lwd.show = TRUE -->
-<!-- legend.lwd.is.portrait -->
-<!-- legend.lwd.reverse -->
+<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
 

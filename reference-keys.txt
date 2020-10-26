@@ -51,8 +51,9 @@ simplification
 layers
 visual-variables
 color-palettes
-the-color-scale-styles
-sizes-shapes-and-markers
+color-scale-styles
+sizes
+shapes
 othertypes
 layout
 interactive
