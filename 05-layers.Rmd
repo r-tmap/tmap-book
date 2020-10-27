@@ -44,10 +44,9 @@ knitr::kable(layers_df,
 
 ## Visual variables 
 
-Visual variables are methods to translate information given in variables into maps.
+Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
-<!-- explain (briefly) how they relate to (a) different types of variables, and (b) different type of spatial data -->
 
 <!-- plot?? -->
 ```{r}
@@ -57,7 +56,18 @@ All of them can influence our perception and understanding of the presented info
 # size
 ```
 
-The use of color in **tmap** is described in sections \@ref(color-palettes) and \@ref(color-scale-styles), sizes in section \@ref(sizes), and shapes in section \@ref(shapes). 
+The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
+Color is the most universal visual variable.
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections \@ref(color-palettes) and \@ref(color-scale-styles)).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section \@ref(sizes)).
+<!--JN: line type is it a shape or should we make a new group-->
+Similarly, qualitative variables in lines can be presented by different line types.
+Sizes, on the other hand, should focus on quantitative variables.
+Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
+Quantitative values of line data can be shown with the widths of the lines.
+(section \@ref(shapes)).
+Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
+<!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
 
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
