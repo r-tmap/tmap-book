@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-26" />
+<meta name="date" content="2020-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -392,16 +392,30 @@ raster
 </table>
 <div id="visual-variables" class="section level2">
 <h2><span class="header-section-number">5.1</span> Visual variables</h2>
-<p>Visual variables are methods to translate information given in variables into maps.
+<p>Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
 Basic visual variables are color, size, and shape<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.
-All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
-<!-- explain (briefly) how they relate to (a) different types of variables, and (b) different type of spatial data --></p>
+All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.</p>
 <!-- plot?? -->
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a><span class="co"># plot idea:</span></span>
 <span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="co"># color</span></span>
 <span id="cb11-3"><a href="layers.html#cb11-3"></a><span class="co"># shape</span></span>
-<span id="cb11-4"><a href="layers.html#cb11-4"></a><span class="co"># size</span></span></code></pre></div>
-<p>The use of color in <strong>tmap</strong> is described in sections <a href="layers.html#color-palettes">5.2</a> and <a href="layers.html#color-scale-styles">5.3</a>, sizes in section <a href="layers.html#sizes">5.4</a>, and shapes in section <a href="layers.html#shapes">5.5</a>.</p>
+<span id="cb11-4"><a href="layers.html#cb11-4"></a><span class="co"># size</span></span>
+<span id="cb11-5"><a href="layers.html#cb11-5"></a></span>
+<span id="cb11-6"><a href="layers.html#cb11-6"></a><span class="co"># 4x3 grid (3x3??)</span></span>
+<span id="cb11-7"><a href="layers.html#cb11-7"></a><span class="co"># columns - data types (1. symbols, 2. lines, 3. polygons)</span></span>
+<span id="cb11-8"><a href="layers.html#cb11-8"></a><span class="co"># rows - visual variables (1. categorical colors, 2. sequential colors, 3. shapes, 4. sizes)</span></span></code></pre></div>
+<p>The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
+Color is the most universal visual variable.
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections <a href="layers.html#color-palettes">5.2</a> and <a href="layers.html#color-scale-styles">5.3</a>).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section <a href="layers.html#sizes">5.4</a>).
+<!--JN: line type is it a shape or should we make a new group-->
+Similarly, qualitative variables in lines can be presented by different line types.
+Sizes, on the other hand, should focus on quantitative variables.
+Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
+Quantitative values of line data can be shown with the widths of the lines.
+(section <a href="layers.html#shapes">5.5</a>).
+Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
+<!-- exception - cartograms - ref to other chapter \@ref(other-types) --></p>
 </div>
 <div id="color-palettes" class="section level2">
 <h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
