@@ -54,6 +54,10 @@ All of them can influence our perception and understanding of the presented info
 # color
 # shape
 # size
+
+# 4x3 grid (3x3??)
+# columns - data types (1. symbols, 2. lines, 3. polygons)
+# rows - visual variables (1. categorical colors, 2. sequential colors, 3. shapes, 4. sizes)
 ```
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
