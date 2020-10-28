@@ -617,6 +617,12 @@ tm_shape(land) +
 
 ## Sizes  <!--JN: I am not sure where this section should go-->
 
+Differences in sizes between objects are relatively easy to recognize on maps. 
+Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
+Large sizes can be also used to attract viewers' attention.
+
+
+
 ```{r}
 # replace dataset later
 library(tmap)
@@ -635,6 +641,12 @@ tm_shape(metro) +
 <!-- size.lim	 -->
 <!-- sizes.legend	 -->
 <!-- sizes.legend.labels	 -->
+
+```{r}
+tm_shape(metro) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
 
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
 
@@ -664,6 +676,8 @@ tm_shape(rivers) +
 <!-- legend.lwd.reverse -->
 
 
+<!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
+
 ## Shapes  <!--JN: I am not sure where this section should go-->
 <!-- ??and markers -->
 
@@ -675,7 +689,7 @@ metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
 
 ```{r}
 tm_shape(metro) +
- tm_symbols(shape = "group") 
+  tm_symbols(shape = "group")
 ```
 
 <!-- shapes -->
