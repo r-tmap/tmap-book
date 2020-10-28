@@ -97,6 +97,10 @@ All of them can influence our perception and understanding of the presented info
 # color
 # shape
 # size
+
+# 4x3 grid (3x3??)
+# columns - data types (1. symbols, 2. lines, 3. polygons)
+# rows - visual variables (1. categorical colors, 2. sequential colors, 3. shapes, 4. sizes)
 ```
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
@@ -603,6 +607,12 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 
 ## Sizes  <!--JN: I am not sure where this section should go-->
 
+Differences in sizes between objects are relatively easy to recognize on maps. 
+Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
+Large sizes can be also used to attract viewers' attention.
+
+
+
 
 ```r
 # replace dataset later
@@ -628,6 +638,15 @@ tm_shape(metro) +
 <!-- sizes.legend	 -->
 <!-- sizes.legend.labels	 -->
 
+
+```r
+tm_shape(metro) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
 
 
@@ -639,7 +658,7 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
 
 
 
@@ -651,7 +670,7 @@ tm_shape(rivers) +
   tm_lines(lwd = "strokelwd")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
@@ -661,6 +680,8 @@ tm_shape(rivers) +
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
 
+
+<!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
 ## Shapes  <!--JN: I am not sure where this section should go-->
 <!-- ??and markers -->
@@ -675,10 +696,10 @@ metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
 
 ```r
 tm_shape(metro) +
- tm_symbols(shape = "group") 
+  tm_symbols(shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -703,7 +724,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -719,5 +740,5 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
 
