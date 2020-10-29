@@ -68,8 +68,7 @@ The use of shapes usually should be limited to qualitative variables, and differ
 Similarly, qualitative variables in lines can be presented by different line types.
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
-Quantitative values of line data can be shown with the widths of the lines.
-(section \@ref(shapes)).
+Quantitative values of line data can be shown with the widths of the lines (section \@ref(shapes)).
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
 
@@ -621,15 +620,20 @@ Differences in sizes between objects are relatively easy to recognize on maps.
 Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
 Large sizes can be also used to attract viewers' attention.
 
-
+By default, **t**maps present points, lines, or text objects of the same size. 
+For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
+We can change the sizes of all objects using the `size` argument.
 
 ```{r}
 # replace dataset later
 library(tmap)
 data("metro", package = "tmap")
 tm_shape(metro) +
- tm_symbols() 
+ tm_symbols(size = 0.5) 
 ```
+
+On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"pop2020"`), then symbol sizes are scaled proportionally to the provided values.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles.
 
 ```{r}
 tm_shape(metro) +
@@ -642,13 +646,9 @@ tm_shape(metro) +
 <!-- sizes.legend	 -->
 <!-- sizes.legend.labels	 -->
 
-```{r}
-tm_shape(metro) +
-  tm_text(text = "name", size = "pop2020") +
-  tm_layout(legend.outside = TRUE)
-```
-
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
+In section \@ref(color-scale-styles), we were able to manually define color legend breaks.
+Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels`.
 
 ```{r}
 tm_shape(metro) +
@@ -675,6 +675,11 @@ tm_shape(rivers) +
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
 
+```{r}
+tm_shape(metro) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
 
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
