@@ -24,6 +24,7 @@ fig:colorscales2
 fig:discrete-methods
 fig:cont-methods
 fig:colorscalesmc
+fig:tmsizes
 intro
 what-is-tmap
 thematic-maps

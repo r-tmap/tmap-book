@@ -315,18 +315,18 @@ It is also possible to reverse the order of any named color palette by using the
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes." width="672" />
-<p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (1) default sequential color palette, (2) palette created based on provided vector of colors, (3) palette created using the hcl.colors function, and (4) one of the build-in palettes.</p>
+<img src="05-layers_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes." width="672" />
+<p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes.</p>
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
 
 <!-- midpoint argument -->
-The default color palette for positive numerical variables is `"YlOrBr"` as seen in Figure \@ref(fig:tmpals):1.
+The default color palette for positive numerical variables is `"YlOrBr"` as seen in Figure \@ref(fig:tmmidpoint):A.
 On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"RdYlGn"` color palette, with red colors below the midpoint value, yellow color around the midpoint value, and green colors above the midpoint value.
 The use of diverging color palettes can be adjusted using the `midpoint` argument. 
 It has a value of 0 as the default, however, it is possible to change it to any other value.
 For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
-To do that, we just need to set the `midpoint` argument to this value (Figure \@ref(fig:tmmidpoint):2).
+To do that, we just need to set the `midpoint` argument to this value (Figure \@ref(fig:tmmidpoint):B).
 <!-- , style = "cont" -->
 
 
@@ -336,8 +336,8 @@ tm_shape(x) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmmidpoint-1.png" alt="Examples of (1) a map with the default sequential color palette and (2) a map with the diverging color palette around the midpoint value of 73." width="672" />
-<p class="caption">(\#fig:tmmidpoint)Examples of (1) a map with the default sequential color palette and (2) a map with the diverging color palette around the midpoint value of 73.</p>
+<img src="05-layers_files/figure-html/tmmidpoint-1.png" alt="Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73." width="672" />
+<p class="caption">(\#fig:tmmidpoint)Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73.</p>
 </div>
 
 Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
@@ -448,7 +448,7 @@ Several approaches can be used to convert continuous variables to discrete ones,
 **tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
 Most of them (except `"log10_pretty"`) use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
-By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods)).
+By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods):A).
 This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
 
 
@@ -460,7 +460,7 @@ tm_shape(x) +
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
 While not every `n` is possible depending on the input values, **tmap** will try to create a number of classes as close to possible to the preferred one.
 
-The next approach is to manually select the limits of each break with the `breaks` function (Figure \@ref(fig:discrete-methods)).
+The next approach is to manually select the limits of each break with the `breaks` function (Figure \@ref(fig:discrete-methods):B).
 This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the `labels` argument.
@@ -489,7 +489,7 @@ This method has an advantage or not having any empty classes or classes with too
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
 
 To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
-The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods)).
+The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods):C).
 
 <!-- how about adding ggplot2 histograms?? -->
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
@@ -512,7 +512,7 @@ It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and
 Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including `"headtails"` and `"log10_pretty"`.
 The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
-The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@ref(fig:discrete-methods)).
+The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@ref(fig:discrete-methods):D).
 In this style, each class starts with a value ten times larger than the beginning of the previous class.
 In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
@@ -527,8 +527,8 @@ tm_shape(x) +
 
 <!-- discrete -->
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method." width="672" />
-<p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (1) default method ('pretty'), (2) the 'fixed' method with manually set breaks, (3) the 'jenks' method, and (4) the 'log10_pretty' method.</p>
+<img src="05-layers_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method." width="672" />
+<p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.</p>
 </div>
 
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
@@ -540,7 +540,7 @@ Values change increasingly in all of them, but they differ in the relations betw
 
 The `cont` style creates a smooth, linear gradient.
 In other words, the change in values is proportionally related to the change in colors.
-We can see that in Figure \@ref(fig:cont-methods), where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
+We can see that in Figure \@ref(fig:cont-methods):A, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
 The `cont` style is similar to the `pretty` one, where the values also change linearly.
 The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
 The `cont` style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
@@ -553,7 +553,7 @@ tm_shape(x) +
 ```
 
 However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
-The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure \@ref(fig:cont-methods)).
+The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure \@ref(fig:cont-methods):B).
 <!--JN: Martijn please check the next sentence -->
 It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
 
@@ -564,7 +564,7 @@ tm_shape(x) +
               style = "order")
 ```
 
-Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style.
+Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (Figure \@ref(fig:cont-methods):C).
 
 
 ```r
@@ -574,8 +574,8 @@ tm_shape(x) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method." width="672" />
-<p class="caption">(\#fig:cont-methods)Examples of three methods of creating continuous maps: (1) the ‘cont’ method, (2) the ‘order’ method, and (3) the ‘log10’ method.</p>
+<img src="05-layers_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method." width="672" />
+<p class="caption">(\#fig:cont-methods)Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method.</p>
 </div>
 
 The `tm_polygons()` also offer a third way of specifying the fill color.
@@ -612,7 +612,7 @@ Large sizes can be also used to attract viewers' attention.
 
 By default, **t**maps present points, lines, or text objects of the same size. 
 For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
-We can change the sizes of all objects using the `size` argument.
+We can change the sizes of all objects using the `size` argument (Figure \@ref(fig:tmsizes):A).
 
 
 ```r
@@ -623,18 +623,14 @@ tm_shape(metro) +
  tm_symbols(size = 0.5) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
-
 On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"pop2020"`), then symbol sizes are scaled proportionally to the provided values.
-Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure \@ref(fig:tmsizes):B).
 
 
 ```r
 tm_shape(metro) +
  tm_symbols(size = "pop2020") 
 ```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- numeric only -->
 <!-- size.max	 -->
@@ -644,7 +640,7 @@ tm_shape(metro) +
 
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
 In section \@ref(color-scale-styles), we were able to manually define color legend breaks.
-Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels`.
+Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (Figure \@ref(fig:tmsizes):C).
 
 
 ```r
@@ -655,7 +651,11 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend." width="672" />
+<p class="caption">(\#fig:tmsizes)Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.</p>
+</div>
 
 
 
