@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-28" />
+<meta name="date" content="2020-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -412,8 +412,7 @@ The use of shapes usually should be limited to qualitative variables, and differ
 Similarly, qualitative variables in lines can be presented by different line types.
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
-Quantitative values of line data can be shown with the widths of the lines.
-(section <a href="layers.html#shapes">5.5</a>).
+Quantitative values of line data can be shown with the widths of the lines (section <a href="layers.html#shapes">5.5</a>).
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) --></p>
 </div>
@@ -793,12 +792,17 @@ The <code>col</code> argument colors symbols’ fillings in <code>tm_symbols()</
 <p>Differences in sizes between objects are relatively easy to recognize on maps.
 Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
 Large sizes can be also used to attract viewers’ attention.</p>
+<p>By default, <strong>t</strong>maps present points, lines, or text objects of the same size.
+For example, <code>tm_symbols()</code> returns a map where each object is a circle with a consistent size<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.
+We can change the sizes of all objects using the <code>size</code> argument.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="co"># replace dataset later</span></span>
 <span id="cb30-2"><a href="layers.html#cb30-2"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb30-3"><a href="layers.html#cb30-3"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
 <span id="cb30-4"><a href="layers.html#cb30-4"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb30-5"><a href="layers.html#cb30-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>() </span></code></pre></div>
+<span id="cb30-5"><a href="layers.html#cb30-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.5</span>) </span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>On the other hand, if we provide the name of the numerical variable in the <code>size</code> argument (e.g., <code>"pop2020"</code>), then symbol sizes are scaled proportionally to the provided values.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) </span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -807,23 +811,21 @@ Large sizes can be also used to attract viewers’ attention.</p>
 <!-- size.lim    -->
 <!-- sizes.legend    -->
 <!-- sizes.legend.labels     -->
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
-<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
-<span id="cb33-3"><a href="layers.html#cb33-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
-<span id="cb33-4"><a href="layers.html#cb33-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
-<span id="cb33-5"><a href="layers.html#cb33-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
+<p>In section <a href="layers.html#color-scale-styles">5.3</a>, we were able to manually define color legend breaks.
+Similarly, we can adjust size legend breaks with <code>sizes.legend</code> and the corresponding labels with <code>sizes.legend.labels</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
+<span id="cb32-3"><a href="layers.html#cb32-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
+<span id="cb32-4"><a href="layers.html#cb32-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
+<span id="cb32-5"><a href="layers.html#cb32-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb33-3"><a href="layers.html#cb33-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb33-4"><a href="layers.html#cb33-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-5"><a href="layers.html#cb33-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="co"># replace dataset later</span></span>
-<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
-<span id="cb34-4"><a href="layers.html#cb34-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-5"><a href="layers.html#cb34-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
 <!-- lwd.legeld.col -->
@@ -831,6 +833,10 @@ Large sizes can be also used to attract viewers’ attention.</p>
 <!-- legend.lwd.show = TRUE -->
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
+<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 </div>
 <div id="shapes" class="section level2">
@@ -937,6 +943,7 @@ Large sizes can be also used to attract viewers’ attention.</p>
 <li id="fn7"><p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.<a href="layers.html#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.<a href="layers.html#fnref10" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
