@@ -622,9 +622,9 @@ Large sizes can be also used to attract viewers' attention.
 
 By default, **t**maps present points, lines, or text objects of the same size. 
 For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
-We can change the sizes of all objects using the `size` argument.
+We can change the sizes of all objects using the `size` argument (Figure \@ref(fig:tmsizes):A).
 
-```{r}
+```{r, eval=FALSE}
 # replace dataset later
 library(tmap)
 data("metro", package = "tmap")
@@ -633,9 +633,9 @@ tm_shape(metro) +
 ```
 
 On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"pop2020"`), then symbol sizes are scaled proportionally to the provided values.
-Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure \@ref(fig:tmsizes):B).
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro) +
  tm_symbols(size = "pop2020") 
 ```
@@ -648,14 +648,33 @@ tm_shape(metro) +
 
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
 In section \@ref(color-scale-styles), we were able to manually define color legend breaks.
-Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels`.
+Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (Figure \@ref(fig:tmsizes):C).
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro) +
  tm_symbols(size = "pop2020",
             title.size = "Population (2020)",
             sizes.legend = c(1000000, 10000000),
             sizes.legend.labels = c("small", "large")) 
+```
+
+
+```{r tmsizes, echo=FALSE, fig.cap="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.", fig.asp=1}
+library(tmap)
+data("metro", package = "tmap")
+tmsize1 = tm_shape(metro) +
+ tm_symbols(size = 0.5)  +
+  tm_layout(title = "A")
+tmsize2 = tm_shape(metro) +
+ tm_symbols(size = "pop2020")  +
+  tm_layout(title = "B")
+tmsize3 = tm_shape(metro) +
+ tm_symbols(size = "pop2020",
+            title.size = "Population (2020)",
+            sizes.legend = c(1000000, 10000000),
+            sizes.legend.labels = c("small", "large"))  +
+  tm_layout(title = "C")
+tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 1)
 ```
 
 
