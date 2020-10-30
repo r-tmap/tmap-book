@@ -681,8 +681,9 @@ tmsize3 = tm_shape(metro) +
 tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 1)
 ```
 
+\@ref(fig:tmlwd)
 
-```{r}
+```{r tmlwd, fig.asp=0.33, fig.cap="Example of a map where lines' widths represent values of the corresponding lines."}
 # replace dataset later
 library(tmap)
 data("rivers", package = "tmap")
@@ -698,7 +699,9 @@ tm_shape(rivers) +
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
 
-```{r}
+\@ref(fig:tmtextsize)
+
+```{r tmtextsize, fig.asp=0.25, fig.cap="Example of a map where text sizes represent populations of the given metropolitan areas."}
 tm_shape(metro) +
   tm_text(text = "name", size = "pop2020") +
   tm_layout(legend.outside = TRUE)
