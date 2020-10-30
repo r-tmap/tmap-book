@@ -639,8 +639,8 @@ tm_shape(metro) +
 <!-- sizes.legend.labels	 -->
 
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
-In section \@ref(color-scale-styles), we were able to manually define color legend breaks.
-Similarly, we can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (Figure \@ref(fig:tmsizes):C).
+We can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (Figure \@ref(fig:tmsizes):C).
+However, this only modifies the legend, not the related objects.
 
 
 ```r
@@ -651,12 +651,15 @@ tm_shape(metro) +
             sizes.legend.labels = c("small", "large")) 
 ```
 
+For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
 
 <div class="figure" style="text-align: center">
 <img src="05-layers_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend." width="672" />
 <p class="caption">(\#fig:tmsizes)Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.</p>
 </div>
 
+Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
+The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (Figure \@ref(fig:tmlwd)).
 
 
 ```r
@@ -667,8 +670,13 @@ tm_shape(rivers) +
   tm_lines(lwd = "strokelwd")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmlwd-1.png" alt="Example of a map where lines' widths represent values of the corresponding lines." width="672" />
+<p class="caption">(\#fig:tmlwd)Example of a map where lines' widths represent values of the corresponding lines.</p>
+</div>
 
+<!-- explain the above example -->
+<!-- scale -->
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
 <!-- lwd.legeld.col -->
@@ -677,6 +685,8 @@ tm_shape(rivers) +
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
 
+(Figure \@ref(fig:tmtextsize))
+
 
 ```r
 tm_shape(metro) +
@@ -684,7 +694,10 @@ tm_shape(metro) +
   tm_layout(legend.outside = TRUE)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent populations of the given metropolitan areas." width="672" />
+<p class="caption">(\#fig:tmtextsize)Example of a map where text sizes represent populations of the given metropolitan areas.</p>
+</div>
 
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
@@ -704,7 +717,7 @@ tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -729,7 +742,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -745,5 +758,5 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 

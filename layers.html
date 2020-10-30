@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -810,25 +810,35 @@ Objects with small values will be represented by smaller circles, while larger v
 <!-- sizes.legend    -->
 <!-- sizes.legend.labels     -->
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
-<p>In section <a href="layers.html#color-scale-styles">5.3</a>, we were able to manually define color legend breaks.
-Similarly, we can adjust size legend breaks with <code>sizes.legend</code> and the corresponding labels with <code>sizes.legend.labels</code> (Figure <a href="layers.html#fig:tmsizes">5.10</a>:C).</p>
+<p>We can adjust size legend breaks with <code>sizes.legend</code> and the corresponding labels with <code>sizes.legend.labels</code> (Figure <a href="layers.html#fig:tmsizes">5.10</a>:C).
+However, this only modifies the legend, not the related objects.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
 <span id="cb32-3"><a href="layers.html#cb32-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
 <span id="cb32-4"><a href="layers.html#cb32-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
 <span id="cb32-5"><a href="layers.html#cb32-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
+<p>For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmsizes"></span>
 <img src="05-layers_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend." width="672" />
 <p class="caption">
 FIGURE 5.10: Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.
 </p>
 </div>
+<p>Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
+The <code>lwd</code> argument in <code>tm_lines()</code> creates thin lines for small values and thick lines for large values of the given variable (Figure <a href="layers.html#fig:tmlwd">5.11</a>).</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="co"># replace dataset later</span></span>
 <span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb33-3"><a href="layers.html#cb33-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
 <span id="cb33-4"><a href="layers.html#cb33-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb33-5"><a href="layers.html#cb33-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:tmlwd"></span>
+<img src="05-layers_files/figure-html/tmlwd-1.png" alt="Example of a map where lines' widths represent values of the corresponding lines." width="672" />
+<p class="caption">
+FIGURE 5.11: Example of a map where lines’ widths represent values of the corresponding lines.
+</p>
+</div>
+<!-- explain the above example -->
+<!-- scale -->
 <!-- lwd.legend -->
 <!-- lwd.legend.labels -->
 <!-- lwd.legeld.col -->
@@ -836,10 +846,16 @@ FIGURE 5.10: Examples of three approaches for changing sizes of symbols: (A) all
 <!-- legend.lwd.show = TRUE -->
 <!-- legend.lwd.is.portrait -->
 <!-- legend.lwd.reverse -->
+<p>(Figure <a href="layers.html#fig:tmtextsize">5.12</a>)</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
 <span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:tmtextsize"></span>
+<img src="05-layers_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent populations of the given metropolitan areas." width="672" />
+<p class="caption">
+FIGURE 5.12: Example of a map where text sizes represent populations of the given metropolitan areas.
+</p>
+</div>
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 </div>
 <div id="shapes" class="section level2">
@@ -849,7 +865,7 @@ FIGURE 5.10: Examples of three approaches for changing sizes of symbols: (A) all
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a>metro<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- shapes -->
 <!-- shapes.legend   -->
 <!-- shapes.legend.fill  -->
@@ -867,14 +883,14 @@ FIGURE 5.10: Examples of three approaches for changing sizes of symbols: (A) all
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb37-3"><a href="layers.html#cb37-3"></a>            <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- A shape specification is one of the following three options. -->
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
 <!-- An icon specification, which can be created with tmap_icons. -->
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb38-2"><a href="layers.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
