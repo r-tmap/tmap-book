@@ -415,6 +415,7 @@ Small symbols could represent low values of a given variable, and the higher the
 Quantitative values of line data can be shown with the widths of the lines (section <a href="layers.html#shapes">5.5</a>).
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) --></p>
+<!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 </div>
 <div id="color-palettes" class="section level2">
 <h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
@@ -837,15 +838,12 @@ The <code>lwd</code> argument in <code>tm_lines()</code> creates thin lines for 
 FIGURE 5.11: Example of a map where lines’ widths represent values of the corresponding lines.
 </p>
 </div>
-<!-- explain the above example -->
-<!-- scale -->
+<p>In the above example, values of the <code>"strokelwd"</code> are divided into four groups and represented by four line widths.
+<!-- scale --></p>
+<!-- title.lwd -->
 <!-- lwd.legend -->
-<!-- lwd.legend.labels -->
-<!-- lwd.legeld.col -->
-<!-- title.lwd = NA -->
-<!-- legend.lwd.show = TRUE -->
-<!-- legend.lwd.is.portrait -->
-<!-- legend.lwd.reverse -->
+<!-- lwd.legend.labels  -->
+<!-- how about trying some transportation examples here (and expanding them)? -->
 <p>(Figure <a href="layers.html#fig:tmtextsize">5.12</a>)</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
@@ -865,7 +863,7 @@ FIGURE 5.12: Example of a map where text sizes represent populations of the give
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a>metro<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- shapes -->
 <!-- shapes.legend   -->
 <!-- shapes.legend.fill  -->
@@ -883,14 +881,14 @@ FIGURE 5.12: Example of a map where text sizes represent populations of the give
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb37-3"><a href="layers.html#cb37-3"></a>            <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>) </span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- A shape specification is one of the following three options. -->
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
 <!-- An icon specification, which can be created with tmap_icons. -->
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb38-2"><a href="layers.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

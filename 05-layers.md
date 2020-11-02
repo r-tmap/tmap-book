@@ -115,6 +115,8 @@ Quantitative values of line data can be shown with the widths of the lines (sect
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
 
+<!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
+
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
 \index{color palettes}
@@ -675,15 +677,16 @@ tm_shape(rivers) +
 <p class="caption">(\#fig:tmlwd)Example of a map where lines' widths represent values of the corresponding lines.</p>
 </div>
 
-<!-- explain the above example -->
+In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
 <!-- scale -->
+
+<!-- title.lwd -->
 <!-- lwd.legend -->
-<!-- lwd.legend.labels -->
-<!-- lwd.legeld.col -->
-<!-- title.lwd = NA -->
-<!-- legend.lwd.show = TRUE -->
-<!-- legend.lwd.is.portrait -->
-<!-- legend.lwd.reverse -->
+<!-- lwd.legend.labels  -->
+
+<!-- how about trying some transportation examples here (and expanding them)? -->
+
+
 
 (Figure \@ref(fig:tmtextsize))
 
@@ -717,7 +720,7 @@ tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -742,7 +745,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -758,5 +761,5 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
 
