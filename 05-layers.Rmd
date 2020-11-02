@@ -72,6 +72,8 @@ Quantitative values of line data can be shown with the widths of the lines (sect
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
 
+<!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
+
 ## Color palettes <!--JN: I am not sure where this section should go-->
 
 \index{color palettes}
@@ -692,15 +694,31 @@ tm_shape(rivers) +
   tm_lines(lwd = "strokelwd")
 ```
 
-<!-- explain the above example -->
+In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
 <!-- scale -->
+
+<!-- title.lwd -->
 <!-- lwd.legend -->
-<!-- lwd.legend.labels -->
-<!-- lwd.legeld.col -->
-<!-- title.lwd = NA -->
-<!-- legend.lwd.show = TRUE -->
-<!-- legend.lwd.is.portrait -->
-<!-- legend.lwd.reverse -->
+<!-- lwd.legend.labels  -->
+
+<!-- how about trying some transportation examples here (and expanding them)? -->
+
+```{r, echo=FALSE, eval=FALSE}
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd")
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd", 
+           scale = 2)
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd", 
+           scale = 2, n = 6)
+tm_shape(rivers) + 
+  tm_lines(lwd = "strokelwd",
+           scale = 2,
+           title.lwd = "Line legend",
+           lwd.legend = c(1, 2, 3, 5, 10, 15),
+           lwd.legend.labels = LETTERS[1:6])
+```
 
 (Figure \@ref(fig:tmtextsize))
 
