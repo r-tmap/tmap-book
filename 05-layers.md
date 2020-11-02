@@ -678,11 +678,8 @@ tm_shape(rivers) +
 </div>
 
 In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
-<!-- scale -->
-
-<!-- title.lwd -->
-<!-- lwd.legend -->
-<!-- lwd.legend.labels  -->
+Lines' thickness can be change using the `scale` argument, where the value of 1 is the default, and increasing this values increases lines' thickness.
+Also, similarly to the last example of the `tm_symbols` above, it is possible to modify the lines width legend, by changing its title (`title.lwd`), categories (`lwd.legend`), and their names (`lwd.legend.labels`).
 
 <!-- how about trying some transportation examples here (and expanding them)? -->
 

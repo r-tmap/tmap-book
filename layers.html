@@ -839,10 +839,8 @@ FIGURE 5.11: Example of a map where lines’ widths represent values of the corr
 </p>
 </div>
 <p>In the above example, values of the <code>"strokelwd"</code> are divided into four groups and represented by four line widths.
-<!-- scale --></p>
-<!-- title.lwd -->
-<!-- lwd.legend -->
-<!-- lwd.legend.labels  -->
+Lines’ thickness can be change using the <code>scale</code> argument, where the value of 1 is the default, and increasing this values increases lines’ thickness.
+Also, similarly to the last example of the <code>tm_symbols</code> above, it is possible to modify the lines width legend, by changing its title (<code>title.lwd</code>), categories (<code>lwd.legend</code>), and their names (<code>lwd.legend.labels</code>).</p>
 <!-- how about trying some transportation examples here (and expanding them)? -->
 <p>(Figure <a href="layers.html#fig:tmtextsize">5.12</a>)</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
