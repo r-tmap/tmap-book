@@ -706,6 +706,10 @@ tm_shape(metro2) +
 <p class="caption">(\#fig:tmtextsize)Example of a map where text sizes represent populations of the given metropolitan areas.</p>
 </div>
 
+<!-- sizes.legend -->
+<!-- sizes.legend.labels -->
+<!-- sizes.legend.text -->
+
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
 ## Shapes  <!--JN: I am not sure where this section should go-->
