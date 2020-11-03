@@ -90,18 +90,10 @@ Visual variables are methods to translate information given in variables into ma
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
 
-<!-- plot?? -->
-
-```r
-# plot idea:
-# color
-# shape
-# size
-
-# 4x3 grid (3x3??)
-# columns - data types (1. symbols, 2. lines, 3. polygons)
-# rows - visual variables (1. categorical colors, 2. sequential colors, 3. shapes, 4. sizes)
-```
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/visual-variables-1.png" alt="Visual variables" width="672" />
+<p class="caption">(\#fig:visual-variables)Visual variables</p>
+</div>
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
 Color is the most universal visual variable.
@@ -728,7 +720,7 @@ tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -753,7 +745,7 @@ tm_shape(metro) +
             title.shape = "Group:") 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- A shape specification is one of the following three options. -->
 
@@ -769,5 +761,5 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 

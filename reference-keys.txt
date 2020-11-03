@@ -15,6 +15,7 @@ tab:crs-properties
 fig:crs-bias
 tab:crs-recommendations
 tab:layers-table
+fig:visual-variables
 fig:palette-types
 fig:tmpals
 fig:tmmidpoint
