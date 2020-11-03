@@ -732,6 +732,10 @@ tm_shape(metro2) +
   tm_layout(legend.outside = TRUE)
 ```
 
+<!-- sizes.legend -->
+<!-- sizes.legend.labels -->
+<!-- sizes.legend.text -->
+
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
 ## Shapes  <!--JN: I am not sure where this section should go-->
