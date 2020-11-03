@@ -54,6 +54,7 @@ visual_variables()
 ```
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
+Figure \@ref(fig:visual-variables) shows examples of different visual variables.
 Color is the most universal visual variable.
 It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections \@ref(color-palettes) and \@ref(color-scale-styles)).
 The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section \@ref(sizes)).
