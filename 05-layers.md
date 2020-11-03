@@ -685,11 +685,18 @@ Also, similarly to the last example of the `tm_symbols` above, it is possible to
 
 
 
-(Figure \@ref(fig:tmtextsize))
+Text labels have a role to name features on a map or just to highlight some of them.
+Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
+However, text labels can be also used to represent the values of some numerical variables.
+Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
+This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).
 
 
 ```r
-tm_shape(metro) +
+# to update later
+set.seed(222)
+metro2 = metro[sample(1:nrow(metro), 30), ]
+tm_shape(metro2) +
   tm_text(text = "name", size = "pop2020") +
   tm_layout(legend.outside = TRUE)
 ```

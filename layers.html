@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-02" />
+<meta name="date" content="2020-11-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -842,10 +842,17 @@ FIGURE 5.11: Example of a map where lines’ widths represent values of the corr
 Lines’ thickness can be change using the <code>scale</code> argument, where the value of 1 is the default, and increasing this values increases lines’ thickness.
 Also, similarly to the last example of the <code>tm_symbols</code> above, it is possible to modify the lines width legend, by changing its title (<code>title.lwd</code>), categories (<code>lwd.legend</code>), and their names (<code>lwd.legend.labels</code>).</p>
 <!-- how about trying some transportation examples here (and expanding them)? -->
-<p>(Figure <a href="layers.html#fig:tmtextsize">5.12</a>)</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
-<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Text labels have a role to name features on a map or just to highlight some of them.
+Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
+However, text labels can be also used to represent the values of some numerical variables.
+Figure <a href="layers.html#fig:tmtextsize">5.12</a> shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
+This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="co"># to update later</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
+<span id="cb34-3"><a href="layers.html#cb34-3"></a>metro2 =<span class="st"> </span>metro[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(metro), <span class="dv">30</span>), ]</span>
+<span id="cb34-4"><a href="layers.html#cb34-4"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb34-5"><a href="layers.html#cb34-5"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
+<span id="cb34-6"><a href="layers.html#cb34-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtextsize"></span>
 <img src="05-layers_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent populations of the given metropolitan areas." width="672" />
 <p class="caption">
