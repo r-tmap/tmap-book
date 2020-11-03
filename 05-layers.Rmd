@@ -48,16 +48,9 @@ Visual variables are methods to translate information given in variables into ma
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
 
-<!-- plot?? -->
-```{r}
-# plot idea:
-# color
-# shape
-# size
-
-# 4x3 grid (3x3??)
-# columns - data types (1. symbols, 2. lines, 3. polygons)
-# rows - visual variables (1. categorical colors, 2. sequential colors, 3. shapes, 4. sizes)
+```{r visual-variables, echo=FALSE, warning=FALSE, fig.asp = .5, fig.cap="Visual variables", message=FALSE}
+source("code/visual_variables.R")
+visual_variables()
 ```
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
