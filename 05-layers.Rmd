@@ -48,7 +48,7 @@ Visual variables are methods to translate information given in variables into ma
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
 
-```{r visual-variables, echo=FALSE, warning=FALSE, fig.asp = .5, fig.cap="Visual variables", message=FALSE}
+```{r visual-variables, echo=FALSE, warning=FALSE, fig.asp = .5, fig.cap="Basic visual variables and their representations in maps", message=FALSE}
 source("code/visual_variables.R")
 visual_variables()
 ```
