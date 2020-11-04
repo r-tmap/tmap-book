@@ -741,10 +741,19 @@ tm_shape(metro2) +
 metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
 ```
 
-```{r}
+Shapes allow representing different categories of point data.
+They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
+For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
+
+To use different shapes, we should use the `shape` argument in the `tm_symbols()` function.
+It expects the name of the categorical variable.
+
+```{r, eval=FALSE}
 tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
+
+<!-- by default... -->
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -762,13 +771,17 @@ tm_shape(metro) +
 <!-- shapes.interval.closure	 -->
 
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro) +
- tm_symbols(shape = "group",
-            title.shape = "Group:") 
+  tm_symbols(shape = "group",
+             shapes = c(0, 2, 5),
+             title.shape = "Group:",
+             shapes.labels = c("First", "Second", "Third")) 
 ```
 
 <!-- A shape specification is one of the following three options. -->
+
+<!-- ?pch -->
 
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 
@@ -776,7 +789,18 @@ tm_shape(metro) +
 
 <!-- An icon specification, which can be created with tmap_icons. -->
 
-```{r}
+```{r tmsymshape, fig.asp=0.66, echo=FALSE, fig.cap="Examples of two maps with different symbols: (a) and (B)."}
+tmsymshape1 = tm_shape(metro) +
+  tm_symbols(shape = "group") +
+  tm_layout(title = "A")
+tmsymshape2 = tm_shape(metro) +
+ tm_symbols(shape = "group",
+            title.shape = "Group:") +
+  tm_layout(title = "B")
+tmap_arrange(tmsymshape1, tmsymshape2, ncol = 1)
+```
+
+```{r tmlinlty, fig.asp=0.33, fig.cap=""}
 tm_shape(rivers) + 
   tm_lines(lty = 2)
 ```
