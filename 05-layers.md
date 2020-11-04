@@ -91,20 +91,20 @@ Basic visual variables are color, size, and shape^[Other visual variables includ
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/visual-variables-1.png" alt="Visual variables" width="672" />
-<p class="caption">(\#fig:visual-variables)Visual variables</p>
+<img src="05-layers_files/figure-html/visual-variables-1.png" alt="Basic visual variables and their representations on maps" width="672" />
+<p class="caption">(\#fig:visual-variables)Basic visual variables and their representations on maps</p>
 </div>
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
 Figure \@ref(fig:visual-variables) shows examples of different visual variables.
 Color is the most universal visual variable.
 It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections \@ref(color-palettes) and \@ref(color-scale-styles)).
-The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section \@ref(sizes)).
-<!--JN: line type is it a shape or should we make a new group-->
-Similarly, qualitative variables in lines can be presented by different line types.
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
 Quantitative values of line data can be shown with the widths of the lines (section \@ref(shapes)).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section \@ref(sizes)).
+<!--JN: line type is it a shape or should we make a new group-->
+Similarly, qualitative variables in lines can be presented by different line types.
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
 
@@ -715,13 +715,20 @@ tm_shape(metro2) +
 metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
 ```
 
+Shapes allow representing different categories of point data.
+They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
+For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
+
+To use different shapes, we should use the `shape` argument in the `tm_symbols()` function.
+It expects the name of the categorical variable.
+
 
 ```r
 tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+<!-- by default... -->
 
 <!-- shapes -->
 <!-- shapes.legend	 -->
@@ -742,13 +749,15 @@ tm_shape(metro) +
 
 ```r
 tm_shape(metro) +
- tm_symbols(shape = "group",
-            title.shape = "Group:") 
+  tm_symbols(shape = "group",
+             shapes = c(0, 2, 5),
+             title.shape = "Group:",
+             shapes.labels = c("First", "Second", "Third")) 
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
-
 <!-- A shape specification is one of the following three options. -->
+
+<!-- ?pch -->
 
 <!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
 
@@ -756,11 +765,16 @@ tm_shape(metro) +
 
 <!-- An icon specification, which can be created with tmap_icons. -->
 
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (a) and (B)." width="672" />
+<p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (a) and (B).</p>
+</div>
+
 
 ```r
 tm_shape(rivers) + 
   tm_lines(lty = 2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" />
 

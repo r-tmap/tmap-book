@@ -28,6 +28,7 @@ fig:colorscalesmc
 fig:tmsizes
 fig:tmlwd
 fig:tmtextsize
+fig:tmsymshape
 intro
 what-is-tmap
 thematic-maps
