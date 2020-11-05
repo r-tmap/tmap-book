@@ -59,6 +59,7 @@ color-palettes
 color-scale-styles
 sizes
 shapes
+mixing-visual-variables
 othertypes
 layout
 interactive

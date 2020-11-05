@@ -778,3 +778,15 @@ tm_shape(rivers) +
 
 <img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" />
 
+## Mixing visual variables
+
+<!--create all of the below examples, but maybe just show a few-->
+
+<!-- 1. sequential symbols + size -->
+<!-- 2. categorical symbols + size -->
+<!-- 3. sequential symbols + shape -->
+<!-- 4. categorical symbols + shape -->
+<!-- 5. shape + size -->
+
+<!-- 1. sequential lines + size -->
+<!-- 2. categorical lines + size -->
