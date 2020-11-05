@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-04" />
+<meta name="date" content="2020-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -874,30 +874,26 @@ For example, we use the letter <em>P</em> for parking lots, <em>I</em> for infor
 It expects the name of the categorical variable.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<!-- by default... -->
-<!-- shapes -->
-<!-- shapes.legend   -->
-<!-- shapes.legend.fill  -->
-<!-- shapes.labels   -->
-<!-- shapes.drop.levels  -->
-<!-- shapeNA     -->
-<!-- shape.textNA    -->
-<!-- shape.showNA    -->
-<!-- shapes.n    -->
-<!-- shapes.style    -->
-<!-- shapes.style.args   -->
-<!-- shapes.as.count     -->
-<!-- shapes.breaks   -->
-<!-- shapes.interval.closure     -->
+<p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle.
+However, it is also possible to customize used symbols, their title, and labels.
+Legend title related to shapes is modified with the <code>title.shape</code> argument, while their labels use the <code>shapes.lables</code> argument.</p>
+<p>Shapes can be specified with the <code>shapes</code> argument, that allows using one of three options.
+The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
+A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb36-3"><a href="layers.html#cb36-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
 <span id="cb36-4"><a href="layers.html#cb36-4"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
 <span id="cb36-5"><a href="layers.html#cb36-5"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>)) </span></code></pre></div>
-<!-- A shape specification is one of the following three options. -->
-<!-- ?pch -->
-<!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
+<p>Second option is to use a grob object.</p>
+<!-- explain what's a grob -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
+<p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function.</p>
+<!-- explain more -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
 <!-- An icon specification, which can be created with tmap_icons. -->
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
 <img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (a) and (B)." width="672" />
@@ -980,6 +976,7 @@ FIGURE 5.14: Examples of two maps with different symbols: (a) and (B).
 <li id="fn8"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.<a href="layers.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>However, this is not supported for the “view” mode.<a href="layers.html#fnref11" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
