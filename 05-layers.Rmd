@@ -753,23 +753,13 @@ tm_shape(metro) +
   tm_symbols(shape = "group")
 ```
 
-<!-- by default... -->
+By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle. 
+However, it is also possible to customize used symbols, their title, and labels.
+Legend title related to shapes is modified with the `title.shape` argument, while their labels use the `shapes.lables` argument.
 
-<!-- shapes -->
-<!-- shapes.legend	 -->
-<!-- shapes.legend.fill	 -->
-<!-- shapes.labels	 -->
-<!-- shapes.drop.levels	 -->
-<!-- shapeNA	 -->
-<!-- shape.textNA	 -->
-<!-- shape.showNA	 -->
-<!-- shapes.n	 -->
-<!-- shapes.style	 -->
-<!-- shapes.style.args	 -->
-<!-- shapes.as.count	 -->
-<!-- shapes.breaks	 -->
-<!-- shapes.interval.closure	 -->
-
+Shapes can be specified with the `shapes` argument, that allows using one of three options.
+The first one is a numeric value that specifies the plotting character of the symbol^[However, this is not supported for the "view" mode.].
+A complete list of available symbols and their corresponding numbers is in the `?pch` function's documentation.
 
 ```{r, eval=FALSE}
 tm_shape(metro) +
@@ -779,15 +769,29 @@ tm_shape(metro) +
              shapes.labels = c("First", "Second", "Third")) 
 ```
 
-<!-- A shape specification is one of the following three options. -->
+Second option is to use a grob object.
 
-<!-- ?pch -->
-
-<!-- A numeric value that specifies the plotting character of the symbol. See parameter pch of points and the last example to create a plot with all options. Note that this is not supported for the "view" mode. -->
+<!-- explain what's a grob -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
 
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
 
+```{r, eval=FALSE}
+
+```
+
+The last possibility is to use an icon specification created with the `tmap_icons()` function.
+
+<!-- explain more -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
+
 <!-- An icon specification, which can be created with tmap_icons. -->
+
+```{r, eval=FALSE}
+
+```
 
 ```{r tmsymshape, fig.asp=0.66, echo=FALSE, fig.cap="Examples of two maps with different symbols: (a) and (B)."}
 tmsymshape1 = tm_shape(metro) +
