@@ -745,7 +745,7 @@ tm_shape(metro) +
              shapes.labels = c("First", "Second", "Third")) 
 ```
 
-Second option is to use a grob object.
+Second option is to use a *grob* object.
 
 <!-- explain what's a grob -->
 <!-- try different codes (including the view mode) -->
