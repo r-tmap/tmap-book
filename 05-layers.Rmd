@@ -809,3 +809,15 @@ tm_shape(rivers) +
   tm_lines(lty = 2)
 ```
 
+## Mixing visual variables
+
+<!--create all of the below examples, but maybe just show a few-->
+
+<!-- 1. sequential symbols + size -->
+<!-- 2. categorical symbols + size -->
+<!-- 3. sequential symbols + shape -->
+<!-- 4. categorical symbols + shape -->
+<!-- 5. shape + size -->
+
+<!-- 1. sequential lines + size -->
+<!-- 2. categorical lines + size -->
