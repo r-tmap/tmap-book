@@ -798,8 +798,10 @@ tmsymshape1 = tm_shape(metro) +
   tm_symbols(shape = "group") +
   tm_layout(title = "A")
 tmsymshape2 = tm_shape(metro) +
- tm_symbols(shape = "group",
-            title.shape = "Group:") +
+  tm_symbols(shape = "group",
+             shapes = c(0, 2, 5),
+             title.shape = "Group:",
+             shapes.labels = c("First", "Second", "Third"))  +
   tm_layout(title = "B")
 tmap_arrange(tmsymshape1, tmsymshape2, ncol = 1)
 ```
