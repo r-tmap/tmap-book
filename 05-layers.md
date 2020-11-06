@@ -712,7 +712,8 @@ tm_shape(metro2) +
 
 
 ```r
-metro$group = as.character(sample(1:3, size = nrow(metro), replace = TRUE))
+set.seed(231)
+metro2$group = as.character(sample(1:3, size = nrow(metro2), replace = TRUE))
 ```
 
 Shapes allow representing different categories of point data.
@@ -724,7 +725,7 @@ It expects the name of the categorical variable.
 
 
 ```r
-tm_shape(metro) +
+tm_shape(metro2) +
   tm_symbols(shape = "group")
 ```
 
@@ -738,7 +739,7 @@ A complete list of available symbols and their corresponding numbers is in the `
 
 
 ```r
-tm_shape(metro) +
+tm_shape(metro2) +
   tm_symbols(shape = "group",
              shapes = c(0, 2, 5),
              title.shape = "Group:",
@@ -755,19 +756,29 @@ Second option is to use a *grob* object.
 
 
 
-The last possibility is to use an icon specification created with the `tmap_icons()` function.
-
-<!-- explain more -->
-<!-- try different codes (including the view mode) -->
-<!-- add new example -->
-
-<!-- An icon specification, which can be created with tmap_icons. -->
+The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
+The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
+In our example, we have three distinct groups, therefore we need to create new icons based on three images - `icon1.png`, `icon2.png`, and `icon3.png` in this case.
 
 
+```r
+my_icons = tmap_icons(c("images/icon1.png", 
+                        "images/icon2.png", 
+                        "images/icon3.png"))
+```
+
+Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tmsymshape):D).
+
+
+```r
+tm_shape(metro2) +
+  tm_symbols(shape = "group",
+             shapes = my_icons)
+```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (a) and (B)." width="672" />
-<p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (a) and (B).</p>
+<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A), (B), (C), and (D)." width="672" />
+<p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (A), (B), (C), and (D).</p>
 </div>
 
 

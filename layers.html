@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.21.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.4 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -867,13 +867,14 @@ FIGURE 5.13: Example of a map where text sizes represent populations of the give
 <h2><span class="header-section-number">5.5</span> Shapes <!--JN: I am not sure where this section should go--></h2>
 <!-- ??and markers -->
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a>metro<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">set.seed</span>(<span class="dv">231</span>)</span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a>metro2<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro2), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <p>Shapes allow representing different categories of point data.
 They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features.
 For example, we use the letter <em>P</em> for parking lots, <em>I</em> for information centers, an airplane symbol for airports, or a bus symbol for bus stops.</p>
 <p>To use different shapes, we should use the <code>shape</code> argument in the <code>tm_symbols()</code> function.
 It expects the name of the categorical variable.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
 <p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle.
 However, it is also possible to customize used symbols, their title, and labels.
@@ -881,7 +882,7 @@ Legend title related to shapes is modified with the <code>title.shape</code> arg
 <p>Shapes can be specified with the <code>shapes</code> argument, that allows using one of three options.
 The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
 A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb36-3"><a href="layers.html#cb36-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
 <span id="cb36-4"><a href="layers.html#cb36-4"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
@@ -891,19 +892,24 @@ A complete list of available symbols and their corresponding numbers is in the <
 <!-- try different codes (including the view mode) -->
 <!-- add new example -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-<p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function.</p>
-<!-- explain more -->
-<!-- try different codes (including the view mode) -->
-<!-- add new example -->
-<!-- An icon specification, which can be created with tmap_icons. -->
+<p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function, that uses any png images.
+The <code>tmap_icons()</code> function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
+In our example, we have three distinct groups, therefore we need to create new icons based on three images - <code>icon1.png</code>, <code>icon2.png</code>, and <code>icon3.png</code> in this case.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
+<span id="cb37-2"><a href="layers.html#cb37-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
+<span id="cb37-3"><a href="layers.html#cb37-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
+<p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="layers.html#fig:tmsymshape">5.14</a>:D).</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb38-2"><a href="layers.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb38-3"><a href="layers.html#cb38-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
-<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (a) and (B)." width="672" />
+<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A), (B), (C), and (D)." width="672" />
 <p class="caption">
-FIGURE 5.14: Examples of two maps with different symbols: (a) and (B).
+FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D).
 </p>
 </div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb39-2"><a href="layers.html#cb39-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mixing-visual-variables" class="section level2">
