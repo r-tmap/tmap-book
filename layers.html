@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-06" />
+<meta name="date" content="2020-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -875,41 +875,53 @@ For example, we use the letter <em>P</em> for parking lots, <em>I</em> for infor
 <p>To use different shapes, we should use the <code>shape</code> argument in the <code>tm_symbols()</code> function.
 It expects the name of the categorical variable.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle.
+<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb35-3"><a href="layers.html#cb35-3"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
+<span id="cb35-4"><a href="layers.html#cb35-4"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>))</span></code></pre></div>
+<p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
 However, it is also possible to customize used symbols, their title, and labels.
 Legend title related to shapes is modified with the <code>title.shape</code> argument, while their labels use the <code>shapes.lables</code> argument.</p>
 <p>Shapes can be specified with the <code>shapes</code> argument, that allows using one of three options.
-The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
-A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.</p>
+The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.
+A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.
+<!--JN: or should we add a figure with them here??--></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb36-3"><a href="layers.html#cb36-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>),</span>
-<span id="cb36-4"><a href="layers.html#cb36-4"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
-<span id="cb36-5"><a href="layers.html#cb36-5"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>)) </span></code></pre></div>
+<span id="cb36-3"><a href="layers.html#cb36-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div>
 <p>Second option is to use a <em>grob</em> object.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="co"># library(grid)</span></span>
+<span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="co"># library(ggplotify)</span></span>
+<span id="cb37-3"><a href="layers.html#cb37-3"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb37-4"><a href="layers.html#cb37-4"></a><span class="co"># </span></span>
+<span id="cb37-5"><a href="layers.html#cb37-5"></a><span class="co"># p1 = as.grob(~barplot(1:10))</span></span>
+<span id="cb37-6"><a href="layers.html#cb37-6"></a><span class="co"># p2 = as.grob(expression(plot(rnorm(10))))</span></span>
+<span id="cb37-7"><a href="layers.html#cb37-7"></a><span class="co"># p3 = as.grob(function() plot(sin))</span></span>
+<span id="cb37-8"><a href="layers.html#cb37-8"></a><span class="co"># p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point())</span></span></code></pre></div>
 <!-- explain what's a grob -->
 <!-- try different codes (including the view mode) -->
 <!-- add new example -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-<p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function, that uses any png images.
-The <code>tmap_icons()</code> function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
-In our example, we have three distinct groups, therefore we need to create new icons based on three images - <code>icon1.png</code>, <code>icon2.png</code>, and <code>icon3.png</code> in this case.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
-<span id="cb37-2"><a href="layers.html#cb37-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
-<span id="cb37-3"><a href="layers.html#cb37-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
-<p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="layers.html#fig:tmsymshape">5.14</a>:D).</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb38-2"><a href="layers.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb38-3"><a href="layers.html#cb38-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
+<p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function, that uses any png images.
+The <code>tmap_icons()</code> function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
+In our example, we have three distinct groups, therefore we need to create new icons based on three images - <code>icon1.png</code>, <code>icon2.png</code>, and <code>icon3.png</code> in this case.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
+<span id="cb39-2"><a href="layers.html#cb39-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
+<span id="cb39-3"><a href="layers.html#cb39-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
+<p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="layers.html#fig:tmsymshape">5.14</a>:D).</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb40-2"><a href="layers.html#cb40-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb40-3"><a href="layers.html#cb40-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
 <img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A), (B), (C), and (D)." width="672" />
 <p class="caption">
 FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D).
 </p>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb39-2"><a href="layers.html#cb39-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mixing-visual-variables" class="section level2">
@@ -994,7 +1006,8 @@ FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D)
 <li id="fn8"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="layers.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>For more information visit the <code>?pretty()</code> function documentation<a href="layers.html#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.<a href="layers.html#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>However, this is not supported for the “view” mode.<a href="layers.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>They are represented in R by numbers from 21 to 25.<a href="layers.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>However, this is not supported for the “view” mode.<a href="layers.html#fnref12" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>

@@ -726,27 +726,41 @@ It expects the name of the categorical variable.
 
 ```r
 tm_shape(metro2) +
-  tm_symbols(shape = "group")
+  tm_symbols(shape = "group",
+             title.shape = "Group:",
+             shapes.labels = c("First", "Second", "Third"))
 ```
 
-By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle. 
+By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
 However, it is also possible to customize used symbols, their title, and labels.
 Legend title related to shapes is modified with the `title.shape` argument, while their labels use the `shapes.lables` argument.
 
 Shapes can be specified with the `shapes` argument, that allows using one of three options.
 The first one is a numeric value that specifies the plotting character of the symbol^[However, this is not supported for the "view" mode.].
 A complete list of available symbols and their corresponding numbers is in the `?pch` function's documentation.
+<!--JN: or should we add a figure with them here??-->
 
 
 ```r
 tm_shape(metro2) +
   tm_symbols(shape = "group",
-             shapes = c(0, 2, 5),
-             title.shape = "Group:",
-             shapes.labels = c("First", "Second", "Third")) 
+             shapes = c(0, 2, 5))
 ```
 
 Second option is to use a *grob* object.
+
+
+```r
+# library(grid)
+# library(ggplotify)
+# library(ggplot2)
+# 
+# p1 = as.grob(~barplot(1:10))
+# p2 = as.grob(expression(plot(rnorm(10))))
+# p3 = as.grob(function() plot(sin))
+# p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point())
+```
+
 
 <!-- explain what's a grob -->
 <!-- try different codes (including the view mode) -->
@@ -755,6 +769,11 @@ Second option is to use a *grob* object.
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
 
 
+```r
+tm_shape(metro2) +
+  tm_symbols(shape = "group",
+             shapes = my_icons)
+```
 
 The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
 The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
