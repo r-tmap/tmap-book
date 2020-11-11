@@ -68,15 +68,19 @@ Values of polygons usually cannot be represented by either shapes or sizes, as t
 
 <!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 
-## Color palettes <!--JN: I am not sure where this section should go-->
-
-\index{color palettes}
-<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
+## Colors
 
 \index{colors}
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
 On the other hand, poor decisions about colors can lead to misinterpretation of the map.
+Section \@ref(color-palettes) explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
+Section \@ref(color-scale-styles) focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
+
+### Color palettes <!--JN: I am not sure where this section should go-->
+
+\index{color palettes}
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
 
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
@@ -358,13 +362,15 @@ By default, the colors are not transparent at all as the value of `alpha` is 1.
 However, we can decrease this value to 0 - total transparency.
 The `alpha` argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.
 
+<!-- color to highlight?? -->
+
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
-## Color scale styles <!--JN: I am not sure where this section should go-->
+### Color scale styles <!--JN: I am not sure where this section should go-->
 
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
