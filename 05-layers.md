@@ -816,13 +816,52 @@ tm_shape(rivers) +
 
 ## Mixing visual variables
 
+<!-- polygons - only one variable -->
+
+
+
+```r
+# not the best example - to fix
+tm_shape(metro2) +
+ tm_symbols(col = "pop1950", size = "pop2020")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+# not the best example - to fix
+tm_shape(metro2) +
+ tm_symbols(col = "pop1950", shape = "group")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+# not the best example - to fix
+tm_shape(metro2) +
+ tm_symbols(size = "pop1950", shape = "group")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" />
+
 <!--create all of the below examples, but maybe just show a few-->
 
-<!-- 1. sequential symbols + size -->
-<!-- 2. categorical symbols + size -->
-<!-- 3. sequential symbols + shape -->
-<!-- 4. categorical symbols + shape -->
+<!-- 1. sequential colors + size -->
+<!-- 2. categorical colors + size -->
+<!-- 3. sequential colors + shape -->
+<!-- 4. categorical colors + shape -->
 <!-- 5. shape + size -->
+
+
+```r
+# not the best example - to fix
+tm_shape(rivers) +
+ tm_lines(col = "type", lwd = "strokelwd")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- 1. sequential lines + size -->
 <!-- 2. categorical lines + size -->

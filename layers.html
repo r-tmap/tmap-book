@@ -934,12 +934,29 @@ FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D)
 </div>
 <div id="mixing-visual-variables" class="section level2">
 <h2><span class="header-section-number">5.5</span> Mixing visual variables</h2>
+<!-- polygons - only one variable -->
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!--create all of the below examples, but maybe just show a few-->
-<!-- 1. sequential symbols + size -->
-<!-- 2. categorical symbols + size -->
-<!-- 3. sequential symbols + shape -->
-<!-- 4. categorical symbols + shape -->
+<!-- 1. sequential colors + size -->
+<!-- 2. categorical colors + size -->
+<!-- 3. sequential colors + shape -->
+<!-- 4. categorical colors + shape -->
 <!-- 5. shape + size -->
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb45-2"><a href="layers.html#cb45-2"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span></span>
+<span id="cb45-3"><a href="layers.html#cb45-3"></a><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;type&quot;</span>, <span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- 1. sequential lines + size -->
 <!-- 2. categorical lines + size -->
 
