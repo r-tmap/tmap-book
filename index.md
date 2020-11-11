@@ -1,7 +1,7 @@
 --- 
 title: "Elegant and informative maps with **tmap**"
 author: "Martijn Tennekes, Jakub Nowosad"
-date: "2020-11-09"
+date: "2020-11-11"
 description: "This is a book in progress about the tmap package."
 knit: bookdown::render_book
 site: bookdown::bookdown_site
@@ -25,6 +25,6 @@ links-as-notes: true
 # Welcome {-}
 This is the online home of *Elegant and informative maps with **tmap***, a book on geospatial data visualization with the R-package tmap.
 
-This version of the book was built on GH Actions on 2020-11-09.
+This version of the book was built on GH Actions on 2020-11-11.
 
 ## How to contribute? {-}

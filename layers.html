@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-09" />
+<meta name="date" content="2020-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,11 +178,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
 <li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#visual-variables"><i class="fa fa-check"></i><b>5.1</b> Visual variables</a></li>
-<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.2</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#color-scale-styles"><i class="fa fa-check"></i><b>5.3</b> Color scale styles <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#sizes"><i class="fa fa-check"></i><b>5.4</b> Sizes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#shapes"><i class="fa fa-check"></i><b>5.5</b> Shapes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="5.6" data-path="layers.html"><a href="layers.html#mixing-visual-variables"><i class="fa fa-check"></i><b>5.6</b> Mixing visual variables</a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#colors"><i class="fa fa-check"></i><b>5.2</b> Colors</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="layers.html"><a href="layers.html#color-palettes"><i class="fa fa-check"></i><b>5.2.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.2.2" data-path="layers.html"><a href="layers.html#color-scale-styles"><i class="fa fa-check"></i><b>5.2.2</b> Color scale styles <!--JN: I am not sure where this section should go--></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#sizes"><i class="fa fa-check"></i><b>5.3</b> Sizes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#shapes"><i class="fa fa-check"></i><b>5.4</b> Shapes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#mixing-visual-variables"><i class="fa fa-check"></i><b>5.5</b> Mixing visual variables</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>6</b> Other types</a></li>
 <li class="chapter" data-level="7" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>7</b> Layout</a></li>
@@ -405,25 +407,29 @@ FIGURE 5.1: Basic visual variables and their representations on maps
 <p>The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
 Figure <a href="layers.html#fig:visual-variables">5.1</a> shows examples of different visual variables.
 Color is the most universal visual variable.
-It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections <a href="layers.html#color-palettes">5.2</a> and <a href="layers.html#color-scale-styles">5.3</a>).
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections <a href="layers.html#color-palettes">5.2.1</a> and <a href="layers.html#color-scale-styles">5.2.2</a>).
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
-Quantitative values of line data can be shown with the widths of the lines (section <a href="layers.html#sizes">5.4</a>).
-The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section <a href="layers.html#shapes">5.5</a>).
+Quantitative values of line data can be shown with the widths of the lines (section <a href="layers.html#sizes">5.3</a>).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section <a href="layers.html#shapes">5.4</a>).
 <!--JN: line type is it a shape or should we make a new group-->
 Similarly, qualitative variables in lines can be presented by different line types.
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
 <!-- exception - cartograms - ref to other chapter \@ref(other-types) --></p>
 <!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 </div>
-<div id="color-palettes" class="section level2">
-<h2><span class="header-section-number">5.2</span> Color palettes <!--JN: I am not sure where this section should go--></h2>
-<p>
-<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ --></p>
+<div id="colors" class="section level2">
+<h2><span class="header-section-number">5.2</span> Colors</h2>
 <p>
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information.
-On the other hand, poor decisions about colors can lead to misinterpretation of the map.</p>
+On the other hand, poor decisions about colors can lead to misinterpretation of the map.
+Section <a href="layers.html#color-palettes">5.2.1</a> explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
+Section <a href="layers.html#color-scale-styles">5.2.2</a> focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.</p>
+<div id="color-palettes" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Color palettes <!--JN: I am not sure where this section should go--></h3>
+<p>
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ --></p>
 <!-- As we discussed in ..., -->
 <!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
 <!-- https://en.wikipedia.org/wiki/Color_scheme -->
@@ -629,20 +635,21 @@ It includes setting the <code>alpha</code> argument that represents the transpar
 By default, the colors are not transparent at all as the value of <code>alpha</code> is 1.
 However, we can decrease this value to 0 - total transparency.
 The <code>alpha</code> argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.</p>
+<!-- color to highlight?? -->
 <!-- resources: -->
 <!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 </div>
-<div id="color-scale-styles" class="section level2">
-<h2><span class="header-section-number">5.3</span> Color scale styles <!--JN: I am not sure where this section should go--></h2>
+<div id="color-scale-styles" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Color scale styles <!--JN: I am not sure where this section should go--></h3>
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 <p>
 <code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.
 The first one is to fill all polygons with the same color.
-This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2</a>) (Figure <a href="layers.html#fig:colorscales1">5.6</a>).</p>
+This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="layers.html#color-palettes">5.2.1</a>) (Figure <a href="layers.html#fig:colorscales1">5.6</a>).</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
@@ -673,7 +680,7 @@ FIGURE 5.7: Example of a map in which polygons are colored based on the values o
 </div>
 <p>It is possible to change the names of legend labels with the <code>labels</code> argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable’s name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the section <a href="layers.html#color-palettes">5.2</a>, we can also change the used color palette with the <code>palette</code> argument.</p>
+As mentioned in the section <a href="layers.html#color-palettes">5.2.1</a>, we can also change the used color palette with the <code>palette</code> argument.</p>
 <!-- optimal number of classes? 3-7 -->
 <p>
 Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals.
@@ -787,8 +794,9 @@ The <code>col</code> argument colors symbols’ fillings in <code>tm_symbols()</
 <!-- - tm_borders  -->
 <!-- title?? -->
 </div>
+</div>
 <div id="sizes" class="section level2">
-<h2><span class="header-section-number">5.4</span> Sizes <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.3</span> Sizes <!--JN: I am not sure where this section should go--></h2>
 <p>Differences in sizes between objects are relatively easy to recognize on maps.
 Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
 Large sizes can be also used to attract viewers’ attention.</p>
@@ -864,7 +872,7 @@ FIGURE 5.13: Example of a map where text sizes represent populations of the give
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 </div>
 <div id="shapes" class="section level2">
-<h2><span class="header-section-number">5.5</span> Shapes <!--JN: I am not sure where this section should go--></h2>
+<h2><span class="header-section-number">5.4</span> Shapes <!--JN: I am not sure where this section should go--></h2>
 <!-- ??and markers -->
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">set.seed</span>(<span class="dv">231</span>)</span>
@@ -925,7 +933,7 @@ FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D)
 <p><img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mixing-visual-variables" class="section level2">
-<h2><span class="header-section-number">5.6</span> Mixing visual variables</h2>
+<h2><span class="header-section-number">5.5</span> Mixing visual variables</h2>
 <!--create all of the below examples, but maybe just show a few-->
 <!-- 1. sequential symbols + size -->
 <!-- 2. categorical symbols + size -->

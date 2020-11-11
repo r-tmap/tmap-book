@@ -55,6 +55,7 @@ shape-projection-bounding-box
 simplification
 layers
 visual-variables
+colors
 color-palettes
 color-scale-styles
 sizes
