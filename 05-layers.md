@@ -822,7 +822,7 @@ When we use symbols, then we are able to use colors for one qualitative or quant
 Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.
 
-Figure \@ref(fig:mixsymb):A) shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
+Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
 This can be set with the `size` and `col` arguments.
 
 
