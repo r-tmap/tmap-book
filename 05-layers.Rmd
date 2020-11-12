@@ -850,26 +850,52 @@ tm_shape(rivers) +
 
 ## Mixing visual variables
 
-<!-- polygons - only one variable -->
+The values of a given variable can be expressed by different categorical or sequential colors in polygons.
+Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
+When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
+Therefore, it is possible to mix some visual variables for symbols and lines.
+This section shows only some possible examples of mixing visual variables.
 
+Figure \@ref(fig:mixsymb):A) shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
+This can be set with the `size` and `col` arguments.
 
-```{r}
+```{r, eval=FALSE}
 # not the best example - to fix
 tm_shape(metro2) +
- tm_symbols(col = "pop1950", size = "pop2020")
+  tm_symbols(size = "pop2020", col = "pop1950")
 ```
 
-```{r}
+We can also modify all of the visual variables using the additional arguments explained in the previous sections.
+For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (Figure \@ref(fig:mixsymb):B).
+
+```{r, eval=FALSE}
 # not the best example - to fix
 tm_shape(metro2) +
- tm_symbols(col = "pop1950", shape = "group")
+  tm_symbols(col = "pop1950", style = "cont", palette = "Greens",
+             shape = "group", shapes = c(23, 24, 25))
 ```
 
-```{r}
+(Figure \@ref(fig:mixsymb):C).
+
+```{r, eval=FALSE}
 # not the best example - to fix
 tm_shape(metro2) +
  tm_symbols(size = "pop1950", shape = "group")
 ```
+
+```{r mixsymb, echo = FALSE, fig.asp=1, fig.cap="(A), (B), (C)"}
+tm_mvv1 = tm_shape(metro2) +
+ tm_symbols(size = "pop2020", col = "pop1950") +
+  tm_layout(title = "A")
+tm_mvv2 = tm_shape(metro2) +
+ tm_symbols(col = "pop1950", shape = "group") +
+  tm_layout(title = "B")
+tm_mvv3 = tm_shape(metro2) +
+ tm_symbols(size = "pop1950", shape = "group") +
+  tm_layout(title = "C")
+tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
+```
+
 
 <!--create all of the below examples, but maybe just show a few-->
 
@@ -879,10 +905,12 @@ tm_shape(metro2) +
 <!-- 4. categorical colors + shape -->
 <!-- 5. shape + size -->
 
-```{r}
+(Figure \@ref(fig:mixline)).
+
+```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="..."}
 # not the best example - to fix
 tm_shape(rivers) +
- tm_lines(col = "type", lwd = "strokelwd")
+  tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
 ```
 
 <!-- 1. sequential lines + size -->
