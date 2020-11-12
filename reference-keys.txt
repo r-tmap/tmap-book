@@ -29,6 +29,8 @@ fig:tmsizes
 fig:tmlwd
 fig:tmtextsize
 fig:tmsymshape
+fig:mixsymb
+fig:mixline
 intro
 what-is-tmap
 thematic-maps

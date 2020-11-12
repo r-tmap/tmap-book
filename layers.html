@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-11" />
+<meta name="date" content="2020-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -934,29 +934,45 @@ FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D)
 </div>
 <div id="mixing-visual-variables" class="section level2">
 <h2><span class="header-section-number">5.5</span> Mixing visual variables</h2>
-<!-- polygons - only one variable -->
+<p>The values of a given variable can be expressed by different categorical or sequential colors in polygons.
+Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
+When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
+Therefore, it is possible to mix some visual variables for symbols and lines.
+This section shows only some possible examples of mixing visual variables.</p>
+<p>Figure <a href="layers.html#fig:mixsymb">5.15</a>:A) shows symbols, which sizes are scales based on the <code>pop2020</code> variable and they are colored using the values from <code>pop1950</code>.
+This can be set with the <code>size</code> and <code>col</code> arguments.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="co"># not the best example - to fix</span></span>
 <span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>)</span></code></pre></div>
+<p>We can also modify all of the visual variables using the additional arguments explained in the previous sections.
+For example, we can set the color style (<code>style</code>), color palette (<code>palette</code>), or specify shapes (<code>shapes</code>) (Figure <a href="layers.html#fig:mixsymb">5.15</a>:B).</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="co"># not the best example - to fix</span></span>
 <span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
+<span id="cb43-4"><a href="layers.html#cb43-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
+<p>(Figure <a href="layers.html#fig:mixsymb">5.15</a>:C).</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="co"># not the best example - to fix</span></span>
 <span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:mixsymb"></span>
+<img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
+<p class="caption">
+FIGURE 5.15: (A), (B), (C)
+</p>
+</div>
 <!--create all of the below examples, but maybe just show a few-->
 <!-- 1. sequential colors + size -->
 <!-- 2. categorical colors + size -->
 <!-- 3. sequential colors + shape -->
 <!-- 4. categorical colors + shape -->
 <!-- 5. shape + size -->
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb45-2"><a href="layers.html#cb45-2"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span></span>
-<span id="cb45-3"><a href="layers.html#cb45-3"></a><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;type&quot;</span>, <span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>(Figure <a href="layers.html#fig:mixline">5.16</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:mixline"></span>
+<img src="05-layers_files/figure-html/mixline-1.png" alt="..." width="672" />
+<p class="caption">
+FIGURE 5.16: …
+</p>
+</div>
 <!-- 1. sequential lines + size -->
 <!-- 2. categorical lines + size -->
 

@@ -816,26 +816,34 @@ tm_shape(rivers) +
 
 ## Mixing visual variables
 
-<!-- polygons - only one variable -->
+The values of a given variable can be expressed by different categorical or sequential colors in polygons.
+Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
+When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
+Therefore, it is possible to mix some visual variables for symbols and lines.
+This section shows only some possible examples of mixing visual variables.
 
-
-
-```r
-# not the best example - to fix
-tm_shape(metro2) +
- tm_symbols(col = "pop1950", size = "pop2020")
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" />
+Figure \@ref(fig:mixsymb):A) shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
+This can be set with the `size` and `col` arguments.
 
 
 ```r
 # not the best example - to fix
 tm_shape(metro2) +
- tm_symbols(col = "pop1950", shape = "group")
+  tm_symbols(size = "pop2020", col = "pop1950")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" />
+We can also modify all of the visual variables using the additional arguments explained in the previous sections.
+For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (Figure \@ref(fig:mixsymb):B).
+
+
+```r
+# not the best example - to fix
+tm_shape(metro2) +
+  tm_symbols(col = "pop1950", style = "cont", palette = "Greens",
+             shape = "group", shapes = c(23, 24, 25))
+```
+
+(Figure \@ref(fig:mixsymb):C).
 
 
 ```r
@@ -844,7 +852,11 @@ tm_shape(metro2) +
  tm_symbols(size = "pop1950", shape = "group")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
+<p class="caption">(\#fig:mixsymb)(A), (B), (C)</p>
+</div>
+
 
 <!--create all of the below examples, but maybe just show a few-->
 
@@ -854,14 +866,12 @@ tm_shape(metro2) +
 <!-- 4. categorical colors + shape -->
 <!-- 5. shape + size -->
 
+(Figure \@ref(fig:mixline)).
 
-```r
-# not the best example - to fix
-tm_shape(rivers) +
- tm_lines(col = "type", lwd = "strokelwd")
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/mixline-1.png" alt="..." width="672" />
+<p class="caption">(\#fig:mixline)...</p>
+</div>
 
 <!-- 1. sequential lines + size -->
 <!-- 2. categorical lines + size -->
