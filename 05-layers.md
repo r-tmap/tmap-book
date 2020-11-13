@@ -843,28 +843,24 @@ tm_shape(metro2) +
              shape = "group", shapes = c(23, 24, 25))
 ```
 
-(Figure \@ref(fig:mixsymb):C).
+When we use plot polygons, there is only one visual variable we can use - color. 
+Therefore, changing of map legend's title in functions like `tm_polygons()` or `tm_fill()` is done with the `title` argument.
+However, what to do when we have two or more visual variables in, for example, `tm_symbols()`?
+In these cases, we need to specify a corresponding suffix for each `title` argument. 
+The color title is set with `title.col`, size title with `title.size`, and shape title with `title.size` (Figure \@ref(fig:mixsymb):C).
 
 
 ```r
 # not the best example - to fix
 tm_shape(metro2) +
- tm_symbols(size = "pop1950", shape = "group")
+ tm_symbols(size = "pop1950", title.size = "Population (1950):",
+            shape = "group", title.shape = "Group name:")
 ```
 
 <div class="figure" style="text-align: center">
 <img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
 <p class="caption">(\#fig:mixsymb)(A), (B), (C)</p>
 </div>
-
-
-<!--create all of the below examples, but maybe just show a few-->
-
-<!-- 1. sequential colors + size -->
-<!-- 2. categorical colors + size -->
-<!-- 3. sequential colors + shape -->
-<!-- 4. categorical colors + shape -->
-<!-- 5. shape + size -->
 
 (Figure \@ref(fig:mixline)).
 
@@ -873,5 +869,3 @@ tm_shape(metro2) +
 <p class="caption">(\#fig:mixline)...</p>
 </div>
 
-<!-- 1. sequential lines + size -->
-<!-- 2. categorical lines + size -->

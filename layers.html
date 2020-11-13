@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-12" />
+<meta name="date" content="2020-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -950,22 +950,21 @@ For example, we can set the color style (<code>style</code>), color palette (<co
 <span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
 <span id="cb43-4"><a href="layers.html#cb43-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
-<p>(Figure <a href="layers.html#fig:mixsymb">5.15</a>:C).</p>
+<p>When we use plot polygons, there is only one visual variable we can use - color.
+Therefore, changing of map legend’s title in functions like <code>tm_polygons()</code> or <code>tm_fill()</code> is done with the <code>title</code> argument.
+However, what to do when we have two or more visual variables in, for example, <code>tm_symbols()</code>?
+In these cases, we need to specify a corresponding suffix for each <code>title</code> argument.
+The color title is set with <code>title.col</code>, size title with <code>title.size</code>, and shape title with <code>title.size</code> (Figure <a href="layers.html#fig:mixsymb">5.15</a>:C).</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="co"># not the best example - to fix</span></span>
 <span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
+<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">title.size =</span> <span class="st">&quot;Population (1950):&quot;</span>,</span>
+<span id="cb44-4"><a href="layers.html#cb44-4"></a>            <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">title.shape =</span> <span class="st">&quot;Group name:&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:mixsymb"></span>
 <img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
 <p class="caption">
 FIGURE 5.15: (A), (B), (C)
 </p>
 </div>
-<!--create all of the below examples, but maybe just show a few-->
-<!-- 1. sequential colors + size -->
-<!-- 2. categorical colors + size -->
-<!-- 3. sequential colors + shape -->
-<!-- 4. categorical colors + shape -->
-<!-- 5. shape + size -->
 <p>(Figure <a href="layers.html#fig:mixline">5.16</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:mixline"></span>
 <img src="05-layers_files/figure-html/mixline-1.png" alt="..." width="672" />
@@ -973,8 +972,6 @@ FIGURE 5.15: (A), (B), (C)
 FIGURE 5.16: …
 </p>
 </div>
-<!-- 1. sequential lines + size -->
-<!-- 2. categorical lines + size -->
 
 </div>
 </div>
