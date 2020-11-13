@@ -903,15 +903,6 @@ tm_mvv3 = tm_shape(metro2) +
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
 
-
-<!--create all of the below examples, but maybe just show a few-->
-
-<!-- 1. sequential colors + size -->
-<!-- 2. categorical colors + size -->
-<!-- 3. sequential colors + shape -->
-<!-- 4. categorical colors + shape -->
-<!-- 5. shape + size -->
-
 (Figure \@ref(fig:mixline)).
 
 ```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="..."}
@@ -920,5 +911,3 @@ tm_shape(rivers) +
   tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
 ```
 
-<!-- 1. sequential lines + size -->
-<!-- 2. categorical lines + size -->
