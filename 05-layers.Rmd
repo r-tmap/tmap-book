@@ -821,7 +821,7 @@ tm_shape(metro2) +
              shapes = my_icons)
 ```
 
-```{r tmsymshape, fig.asp=1.32, echo=FALSE, fig.cap="Examples of two maps with different symbols: (A), (B), (C), and (D)."}
+```{r tmsymshape, fig.asp=1.32, echo=FALSE, fig.cap="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons."}
 tmsymshape1 = tm_shape(metro2) +
   tm_symbols(shape = "group",
              title.shape = "Group:",
@@ -843,7 +843,7 @@ tmap_arrange(tmsymshape1, tmsymshape2,
              ncol = 1)
 ```
 
-```{r tmlinlty, fig.asp=0.33, fig.cap=""}
+```{r tmlinlty, fig.asp=0.33, fig.cap="", echo=FALSE, eval=FALSE}
 tm_shape(rivers) + 
   tm_lines(lty = 2)
 ```
@@ -888,7 +888,7 @@ tm_shape(metro2) +
             shape = "group", title.shape = "Group name:")
 ```
 
-```{r mixsymb, echo = FALSE, fig.asp=1, fig.cap="(A), (B), (C)"}
+```{r mixsymb, echo = FALSE, fig.asp=1, fig.cap="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape."}
 tm_mvv1 = tm_shape(metro2) +
  tm_symbols(size = "pop2020", col = "pop1950") +
   tm_layout(title = "A")
@@ -903,9 +903,9 @@ tm_mvv3 = tm_shape(metro2) +
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
 
-(Figure \@ref(fig:mixline)).
+For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
 
-```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="..."}
+```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="A map using two visual variables, color and size (line width), at the same time."}
 # not the best example - to fix
 tm_shape(rivers) +
   tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
