@@ -802,17 +802,11 @@ tm_shape(metro2) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A), (B), (C), and (D)." width="672" />
-<p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (A), (B), (C), and (D).</p>
+<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="672" />
+<p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons.</p>
 </div>
 
 
-```r
-tm_shape(rivers) + 
-  tm_lines(lty = 2)
-```
-
-<img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Mixing visual variables
 
@@ -858,14 +852,14 @@ tm_shape(metro2) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
-<p class="caption">(\#fig:mixsymb)(A), (B), (C)</p>
+<img src="05-layers_files/figure-html/mixsymb-1.png" alt="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape." width="672" />
+<p class="caption">(\#fig:mixsymb)Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape.</p>
 </div>
 
-(Figure \@ref(fig:mixline)).
+For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/mixline-1.png" alt="..." width="672" />
-<p class="caption">(\#fig:mixline)...</p>
+<img src="05-layers_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="672" />
+<p class="caption">(\#fig:mixline)A map using two visual variables, color and size (line width), at the same time.</p>
 </div>
 

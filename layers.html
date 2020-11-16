@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-13" />
+<meta name="date" content="2020-11-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -923,14 +923,11 @@ In our example, we have three distinct groups, therefore we need to create new i
 <span id="cb40-2"><a href="layers.html#cb40-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb40-3"><a href="layers.html#cb40-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
-<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A), (B), (C), and (D)." width="672" />
+<img src="05-layers_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="672" />
 <p class="caption">
-FIGURE 5.14: Examples of two maps with different symbols: (A), (B), (C), and (D).
+FIGURE 5.14: Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons.
 </p>
 </div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/tmlinlty-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mixing-visual-variables" class="section level2">
 <h2><span class="header-section-number">5.5</span> Mixing visual variables</h2>
@@ -941,35 +938,35 @@ Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.</p>
 <p>Figure <a href="layers.html#fig:mixsymb">5.15</a>:A shows symbols, which sizes are scales based on the <code>pop2020</code> variable and they are colored using the values from <code>pop1950</code>.
 This can be set with the <code>size</code> and <code>col</code> arguments.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb41-3"><a href="layers.html#cb41-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>)</span></code></pre></div>
 <p>We can also modify all of the visual variables using the additional arguments explained in the previous sections.
 For example, we can set the color style (<code>style</code>), color palette (<code>palette</code>), or specify shapes (<code>shapes</code>) (Figure <a href="layers.html#fig:mixsymb">5.15</a>:B).</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
-<span id="cb43-4"><a href="layers.html#cb43-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
+<span id="cb42-4"><a href="layers.html#cb42-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
 <p>When we use plot polygons, there is only one visual variable we can use - color.
 Therefore, changing of map legend’s title in functions like <code>tm_polygons()</code> or <code>tm_fill()</code> is done with the <code>title</code> argument.
 However, what to do when we have two or more visual variables in, for example, <code>tm_symbols()</code>?
 In these cases, we need to specify a corresponding suffix for each <code>title</code> argument.
 The color title is set with <code>title.col</code>, size title with <code>title.size</code>, and shape title with <code>title.size</code> (Figure <a href="layers.html#fig:mixsymb">5.15</a>:C).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">title.size =</span> <span class="st">&quot;Population (1950):&quot;</span>,</span>
-<span id="cb44-4"><a href="layers.html#cb44-4"></a>            <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">title.shape =</span> <span class="st">&quot;Group name:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">title.size =</span> <span class="st">&quot;Population (1950):&quot;</span>,</span>
+<span id="cb43-4"><a href="layers.html#cb43-4"></a>            <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">title.shape =</span> <span class="st">&quot;Group name:&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:mixsymb"></span>
-<img src="05-layers_files/figure-html/mixsymb-1.png" alt="(A), (B), (C)" width="672" />
+<img src="05-layers_files/figure-html/mixsymb-1.png" alt="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape." width="672" />
 <p class="caption">
-FIGURE 5.15: (A), (B), (C)
+FIGURE 5.15: Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape.
 </p>
 </div>
-<p>(Figure <a href="layers.html#fig:mixline">5.16</a>).</p>
+<p>For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure <a href="layers.html#fig:mixline">5.16</a>).</p>
 <div class="figure" style="text-align: center"><span id="fig:mixline"></span>
-<img src="05-layers_files/figure-html/mixline-1.png" alt="..." width="672" />
+<img src="05-layers_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="672" />
 <p class="caption">
-FIGURE 5.16: …
+FIGURE 5.16: A map using two visual variables, color and size (line width), at the same time.
 </p>
 </div>
 
