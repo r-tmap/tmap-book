@@ -41,3 +41,15 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Basic functions", 1, 5) %>%
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
+
+## Polygons
+
+## Symbols
+
+## Lines
+
+## Raster
+
+## Text
+
+## Combining layers
