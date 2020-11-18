@@ -56,6 +56,12 @@ shapes-and-layers
 shape-projection-bounding-box
 simplification
 layers
+polygons
+symbols
+lines
+raster
+text
+combining-layers
 visual-variables
 colors
 color-palettes
