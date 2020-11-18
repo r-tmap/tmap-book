@@ -16,6 +16,7 @@ rmd_files:
     - "03-nutshell.Rmd" 
     - "04-tm-shape.Rmd" 
     - "05-layers.Rmd" 
+    - "05b-visual-variables.Rmd" 
     - "06-other-types.Rmd"
     - "07-layout.Rmd" 
     - "08-interactive.Rmd" 
