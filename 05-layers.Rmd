@@ -1,5 +1,7 @@
 # Layers {#layers}
 
+<!-- make the order of the table to be consistent with the rest of the chapter! -->
+
 ```{r, echo=FALSE}
 layers_basic_df = tibble::tribble(
   ~Function, ~Element, ~Geometry,
@@ -55,7 +57,7 @@ x = read_sf(file_path)
 x = st_transform(x, 8857)
 ```
 
-```{r}
+```{r, warning=FALSE}
 tm_shape(x) +
   tm_polygons()
 ```
@@ -63,15 +65,94 @@ tm_shape(x) +
 <!--one example of col + ref to the color section in the next chapter-->
 
 <!--one example of fill-->
+```{r, warning=FALSE}
+tm_shape(x) +
+  tm_fill()
+```
 
 <!--one example of border-->
-
+```{r, warning=FALSE}
+tm_shape(x) +
+  tm_borders()
+```
 ## Symbols
+
+```{r}
+data("metro", package = "tmap")
+# to update later
+set.seed(222)
+metro2 = metro[sample(1:nrow(metro), 30), ]
+```
+
+```{r}
+tm_shape(metro2) +
+  tm_symbols()
+```
+
+<!--explain size, col, shape + ref to a section in the next chapter-->
+
+<!--add info that there are four additional (shortcut) layers-->
+<!--explain each additional layer underlining the differences between tm_symbols() and the rest--> 
+
+```{r}
+tm_shape(metro2) +
+  tm_squares()
+```
+
+```{r}
+tm_shape(metro2) +
+  tm_bubbles()
+```
+
+```{r}
+tm_shape(metro2) +
+  tm_dots()
+```
+
+```{r}
+tm_shape(metro2) +
+  tm_markers()
+```
 
 ## Lines
 
-## Raster
+```{r}
+# replace dataset later
+library(tmap)
+data("rivers", package = "tmap")
+```
+
+```{r}
+tm_shape(rivers) + 
+  tm_lines()
+```
+
+<!-- think about tm_iso example -->
 
 ## Text
 
+```{r}
+tm_shape(metro2) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
+
+## Raster
+
+```{r}
+data(land, package = "tmap")
+```
+
+```{r}
+tm_shape(land[3]) +
+  tm_raster()
+```
+
+```{r}
+tm_shape(land) +
+  tm_raster()
+```
+
 ## Combining layers
+
+<!-- or maybe start with it and explain the details later? -->
