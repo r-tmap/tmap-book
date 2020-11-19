@@ -42,7 +42,29 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 6, 13)
 ```
 
+<!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
+
 ## Polygons
+
+```{r, warning=FALSE, message=FALSE}
+# replace this data with some new tmap dataset
+library(tmap)
+library(sf)
+file_path = system.file("shapes/world.gpkg", package = "spData")
+x = read_sf(file_path)
+x = st_transform(x, 8857)
+```
+
+```{r}
+tm_shape(x) +
+  tm_polygons()
+```
+
+<!--one example of col + ref to the color section in the next chapter-->
+
+<!--one example of fill-->
+
+<!--one example of border-->
 
 ## Symbols
 
