@@ -57,10 +57,9 @@ shape-projection-bounding-box
 simplification
 layers
 polygons
-symbols
 lines
-raster
 text
+raster
 combining-layers
 visual-variables
 colors
