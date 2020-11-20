@@ -13,7 +13,7 @@ In **tmap**, a shape object need to be defined with the function `tm_shape`.
 When multiple shape objects are used, each has to be defined in a seperate `tm_shape` call.
 This is illustrated in the following example.
 
-```{r, echo=FALSE, warning=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # replace this data with some new tmap dataset
 library(tmap)
 library(dplyr)
