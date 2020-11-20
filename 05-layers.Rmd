@@ -9,7 +9,9 @@ layers_basic_df = tibble::tribble(
   "tm_symbols()", "symbols", "points, polygons, and lines", 
   "tm_lines()", "lines", "lines", 
   "tm_raster()", "raster", "raster",
-  "tm_text()", "text", "points, polygons, and lines"
+  "tm_text()", "text", "points, polygons, and lines",
+  "tm_basemap()", "tile" , "",
+  "tm_tiles()", "tile", ""
 )
 layers_extended_df = tibble::tribble(
   ~Function, ~Element, ~Geometry,
@@ -40,8 +42,8 @@ knitr::kable(layers_df,
                             latex_options = "striped", 
                             full_width = FALSE) %>% 
   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) %>% 
-  kableExtra::pack_rows("Basic functions", 1, 5) %>%
-  kableExtra::pack_rows("Derived functions", 6, 13)
+  kableExtra::pack_rows("Basic functions", 1, 7) %>%
+  kableExtra::pack_rows("Derived functions", 8, 15)
 ```
 
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
@@ -75,6 +77,7 @@ tm_shape(x) +
 tm_shape(x) +
   tm_borders()
 ```
+
 ## Symbols
 
 ```{r}
