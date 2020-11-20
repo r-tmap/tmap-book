@@ -1,1 +1,36 @@
 # Layout {#layout}
+
+## Attributes layers
+
+```{r, echo=FALSE}
+attr_layers_df = tibble::tribble(
+  ~Function, ~Description,
+  "tm_grid()", "draws coordinate grid lines of the coordinate system of the main shape object",
+  "tm_graticules()", "draws latitude and longitude graticules", 
+  "tm_scale_bar()", "adds a scale bar", 
+  "tm_compass()", "adds a compass rose", 
+  "tm_credits()", "adds a text annotation", 
+  "tm_logo()", "adds a logo",
+  "tm_xlab()", "adds an x axis labels", 
+  "tm_ylab()", "adds an y axis labels",
+  "tm_minimap()", "adds minimap in the view mode only"
+)
+```
+
+\@ref(tab:attr-layers-table)
+
+```{r attr-layers-table, echo=FALSE, warning=FALSE}
+library(magrittr)
+library(kableExtra)
+options(kableExtra.html.bsTable = TRUE)
+knitr::kable(attr_layers_df, 
+             caption = "Attribute layers.",
+             caption.short = "Attribute layers.",
+             booktabs = TRUE) %>%
+  kableExtra::kable_styling("striped",
+                            latex_options = "striped", 
+                            full_width = FALSE) %>% 
+  kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
+```
+
+## Layout element
