@@ -16,7 +16,7 @@
   </tr>
  </thead>
 <tbody>
-  <tr grouplength="5"><td colspan="3" style="border-bottom: 1px solid;"><strong>Basic functions</strong></td></tr>
+  <tr grouplength="7"><td colspan="3" style="border-bottom: 1px solid;"><strong>Basic functions</strong></td></tr>
 <tr>
    <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_polygons() </td>
    <td style="text-align:left;"> polygons (borders and fill) </td>
@@ -41,6 +41,16 @@
    <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_text() </td>
    <td style="text-align:left;"> text </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_basemap() </td>
+   <td style="text-align:left;"> tile </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_tiles() </td>
+   <td style="text-align:left;"> tile </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr grouplength="8"><td colspan="3" style="border-bottom: 1px solid;"><strong>Derived functions</strong></td></tr>
 <tr>
@@ -127,6 +137,7 @@ tm_shape(x) +
 ```
 
 <img src="05-layers_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
+
 ## Symbols
 
 

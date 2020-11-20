@@ -178,10 +178,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
 <li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#polygons"><i class="fa fa-check"></i><b>5.1</b> Polygons</a></li>
-<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#lines"><i class="fa fa-check"></i><b>5.2</b> Lines</a></li>
-<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#text"><i class="fa fa-check"></i><b>5.3</b> Text</a></li>
-<li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#raster"><i class="fa fa-check"></i><b>5.4</b> Raster</a></li>
-<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#combining-layers"><i class="fa fa-check"></i><b>5.5</b> Combining layers</a></li>
+<li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#symbols"><i class="fa fa-check"></i><b>5.2</b> Symbols</a></li>
+<li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#lines"><i class="fa fa-check"></i><b>5.3</b> Lines</a></li>
+<li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#text"><i class="fa fa-check"></i><b>5.4</b> Text</a></li>
+<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#raster"><i class="fa fa-check"></i><b>5.5</b> Raster</a></li>
+<li class="chapter" data-level="5.6" data-path="layers.html"><a href="layers.html#combining-layers"><i class="fa fa-check"></i><b>5.6</b> Combining layers</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="visual-variables.html"><a href="visual-variables.html"><i class="fa fa-check"></i><b>6</b> Visual variables</a><ul>
 <li class="chapter" data-level="6.1" data-path="visual-variables.html"><a href="visual-variables.html#colors"><i class="fa fa-check"></i><b>6.1</b> Colors</a><ul>
@@ -193,7 +194,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="visual-variables.html"><a href="visual-variables.html#mixing-visual-variables"><i class="fa fa-check"></i><b>6.4</b> Mixing visual variables</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>7</b> Other types</a></li>
-<li class="chapter" data-level="8" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>8</b> Layout</a></li>
+<li class="chapter" data-level="8" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>8</b> Layout</a><ul>
+<li class="chapter" data-level="8.1" data-path="layout.html"><a href="layout.html#attributes-layers"><i class="fa fa-check"></i><b>8.1</b> Attributes layers</a></li>
+<li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#layout-element"><i class="fa fa-check"></i><b>8.2</b> Layout element</a></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>9</b> Interactive settings</a></li>
 <li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a></li>
 <li class="chapter" data-level="11" data-path="options.html"><a href="options.html"><i class="fa fa-check"></i><b>11</b> tmap options</a></li>
@@ -245,7 +249,7 @@ Geometry
 </tr>
 </thead>
 <tbody>
-<tr grouplength="5">
+<tr grouplength="7">
 <td colspan="3" style="border-bottom: 1px solid;">
 <strong>Basic functions</strong>
 </td>
@@ -303,6 +307,26 @@ text
 </td>
 <td style="text-align:left;">
 points, polygons, and lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
+tm_basemap()
+</td>
+<td style="text-align:left;">
+tile
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1">
+tm_tiles()
+</td>
+<td style="text-align:left;">
+tile
+</td>
+<td style="text-align:left;">
 </td>
 </tr>
 <tr grouplength="8">
@@ -420,8 +444,10 @@ raster
 <!--one example of border-->
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="layers.html#cb13-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb13-2"><a href="layers.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_borders</span>()</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
-## Symbols</p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="symbols" class="section level2">
+<h2><span class="header-section-number">5.2</span> Symbols</h2>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
 <span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="co"># to update later</span></span>
 <span id="cb14-3"><a href="layers.html#cb14-3"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
@@ -446,7 +472,7 @@ raster
 <p><img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="lines" class="section level2">
-<h2><span class="header-section-number">5.2</span> Lines</h2>
+<h2><span class="header-section-number">5.3</span> Lines</h2>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="co"># replace dataset later</span></span>
 <span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb20-3"><a href="layers.html#cb20-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
@@ -456,14 +482,14 @@ raster
 <!-- think about tm_iso example -->
 </div>
 <div id="text" class="section level2">
-<h2><span class="header-section-number">5.3</span> Text</h2>
+<h2><span class="header-section-number">5.4</span> Text</h2>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
 <span id="cb22-3"><a href="layers.html#cb22-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="raster" class="section level2">
-<h2><span class="header-section-number">5.4</span> Raster</h2>
+<h2><span class="header-section-number">5.5</span> Raster</h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
 <span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
@@ -474,7 +500,7 @@ raster
 <p><img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="combining-layers" class="section level2">
-<h2><span class="header-section-number">5.5</span> Combining layers</h2>
+<h2><span class="header-section-number">5.6</span> Combining layers</h2>
 <!-- or maybe start with it and explain the details later? -->
 
 </div>
