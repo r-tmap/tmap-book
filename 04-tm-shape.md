@@ -14,17 +14,6 @@ When multiple shape objects are used, each has to be defined in a seperate `tm_s
 This is illustrated in the following example.
 
 
-```
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
-```
 
 
 
