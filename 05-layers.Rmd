@@ -48,7 +48,13 @@ knitr::kable(layers_df,
 
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
 
+In this chapter, we focus on what map layers are available in **tmap** and how they differ.
+Chapter \@ref(visual-variables), on the other hand, is all about how to present information given in variables using colors, sizes, and shapes.
+<!-- ... -->
+
 ## Polygons
+
+<!-- intro -->
 
 ```{r, warning=FALSE, message=FALSE}
 # replace this data with some new tmap dataset
@@ -59,24 +65,58 @@ x = read_sf(file_path)
 x = st_transform(x, 8857)
 ```
 
-```{r, warning=FALSE}
+The main function to visualize polygons is `tm_polygons()`.
+By default, as seen in Figure \@ref(fig:tmpolygons):A, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
+<!--JN: where can I find the actual default color values in the code?-->
+
+```{r, eval=FALSE}
 tm_shape(x) +
   tm_polygons()
 ```
 
-<!--one example of col + ref to the color section in the next chapter-->
+Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (Figure \@ref(fig:tmpolygons):B).
 
+```{r, eval=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "lightblue", border.col = "black")
+```
+
+More information on colors, and how they can be applied and modified is in Chapter \@ref(colors).
+
+```{r tmpolygons, warning=FALSE, fig.cap="Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors.", echo=FALSE}
+tmp1 = tm_shape(x) +
+  tm_polygons() +
+  tm_layout(title = "A")
+tmp2 = tm_shape(x) +
+  tm_polygons(col = "lightblue", border.col = "black") +
+  tm_layout(title = "B")
+tmap_arrange(tmp1, tmp2, ncol = 1)
+```
+
+Figure \@ref(fig:tmpolygonsder):A
 <!--one example of fill-->
-```{r, warning=FALSE}
+```{r, eval=FALSE}
 tm_shape(x) +
   tm_fill()
 ```
 
+Figure \@ref(fig:tmpolygonsder):B
 <!--one example of border-->
-```{r, warning=FALSE}
+```{r, eval=FALSE}
 tm_shape(x) +
   tm_borders()
 ```
+
+```{r tmpolygonsder, warning=FALSE, fig.cap="Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'.", echo=FALSE}
+tmpa1 = tm_shape(x) +
+  tm_fill() +
+  tm_layout(title = "A")
+tmpa2 = tm_shape(x) +
+  tm_borders() +
+  tm_layout(title = "B")
+tmap_arrange(tmpa1, tmpa2, ncol = 1)
+```
+
 
 ## Symbols
 
@@ -155,6 +195,8 @@ tm_shape(land[3]) +
 tm_shape(land) +
   tm_raster()
 ```
+
+## Tile
 
 ## Combining layers
 
