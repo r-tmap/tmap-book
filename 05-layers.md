@@ -98,7 +98,13 @@
 
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
 
+In this chapter, we focus on what map layers are available in **tmap** and how they differ.
+Chapter \@ref(visual-variables), on the other hand, is all about how to present information given in variables using colors, sizes, and shapes.
+<!-- ... -->
+
 ## Polygons
+
+<!-- intro -->
 
 
 ```r
@@ -110,16 +116,32 @@ x = read_sf(file_path)
 x = st_transform(x, 8857)
 ```
 
+The main function to visualize polygons is `tm_polygons()`.
+By default, as seen in Figure \@ref(fig:tmpolygons):A, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
+<!--JN: where can I find the actual default color values in the code?-->
+
 
 ```r
 tm_shape(x) +
   tm_polygons()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (Figure \@ref(fig:tmpolygons):B).
 
-<!--one example of col + ref to the color section in the next chapter-->
 
+```r
+tm_shape(x) +
+  tm_polygons(col = "lightblue", border.col = "black")
+```
+
+More information on colors, and how they can be applied and modified is in Chapter \@ref(colors).
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmpolygons-1.png" alt="Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors." width="672" />
+<p class="caption">(\#fig:tmpolygons)Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors.</p>
+</div>
+
+Figure \@ref(fig:tmpolygonsder):A
 <!--one example of fill-->
 
 ```r
@@ -127,8 +149,7 @@ tm_shape(x) +
   tm_fill()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
-
+Figure \@ref(fig:tmpolygonsder):B
 <!--one example of border-->
 
 ```r
@@ -136,7 +157,11 @@ tm_shape(x) +
   tm_borders()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'." width="672" />
+<p class="caption">(\#fig:tmpolygonsder)Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'.</p>
+</div>
+
 
 ## Symbols
 
@@ -154,7 +179,7 @@ tm_shape(metro2) +
   tm_symbols()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
 
 <!--explain size, col, shape + ref to a section in the next chapter-->
 
@@ -167,7 +192,7 @@ tm_shape(metro2) +
   tm_squares()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -175,7 +200,7 @@ tm_shape(metro2) +
   tm_bubbles()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -183,7 +208,7 @@ tm_shape(metro2) +
   tm_dots()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -191,7 +216,7 @@ tm_shape(metro2) +
   tm_markers()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Lines
 
@@ -208,7 +233,7 @@ tm_shape(rivers) +
   tm_lines()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- think about tm_iso example -->
 
@@ -221,7 +246,7 @@ tm_shape(metro2) +
   tm_layout(legend.outside = TRUE)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Raster
 
@@ -236,7 +261,7 @@ tm_shape(land[3]) +
   tm_raster()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -245,7 +270,9 @@ tm_shape(land) +
 #> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+
+## Tile
 
 ## Combining layers
 
