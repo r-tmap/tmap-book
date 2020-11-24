@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-23" />
+<meta name="date" content="2020-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -439,34 +439,31 @@ Chapter <a href="visual-variables.html#visual-variables">6</a>, on the other han
 <span id="cb10-5"><a href="layers.html#cb10-5"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
 <span id="cb10-6"><a href="layers.html#cb10-6"></a>x =<span class="st"> </span><span class="kw">st_transform</span>(x, <span class="dv">8857</span>)</span></code></pre></div>
 <p>The main function to visualize polygons is <code>tm_polygons()</code>.
-By default, as seen in Figure <a href="layers.html#fig:tmpolygons">5.1</a>:A, it plots areas of polygons in light gray (<code>gray85</code>) and polygons borders in slightly dark gray (<code>gray40</code>).
+By default, it plots areas of polygons in light gray (<code>gray85</code>) and polygons borders in slightly dark gray (<code>gray40</code>).
 <!--JN: where can I find the actual default color values in the code?--></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
-<p>Both, colors of areas (polygons’ fillings) and colors of borders can be modified using the <code>col</code> and <code>border.col</code> arguments (Figure <a href="layers.html#fig:tmpolygons">5.1</a>:B).</p>
+<p>Both, colors of areas (polygons’ fillings) and colors of borders can be modified using the <code>col</code> and <code>border.col</code> arguments (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:A).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="layers.html#cb12-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb12-2"><a href="layers.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">border.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p>More information on colors, and how they can be applied and modified is in Chapter <a href="visual-variables.html#colors">6.1</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:tmpolygons"></span>
-<img src="05-layers_files/figure-html/tmpolygons-1.png" alt="Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors." width="672" />
-<p class="caption">
-FIGURE 5.1: Example of: (A) a default map created with ‘tm_polygons()’, (B) a map created with user-provided colors.
-</p>
-</div>
-<p>Figure <a href="layers.html#fig:tmpolygonsder">5.2</a>:A
-<!--one example of fill--></p>
+<span id="cb12-2"><a href="layers.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb12-3"><a href="layers.html#cb12-3"></a>              <span class="dt">border.col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p>In fact, <code>tm_polygons()</code> is a combination of two separate functions - <code>tm_fill()</code> and <code>tm_borders()</code>.
+The <code>tm_fill()</code> function fills polygons with a fixed color or a color palette representing a selected variable (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:B).</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="layers.html#cb13-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb13-2"><a href="layers.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_fill</span>()</span></code></pre></div>
-<p>Figure <a href="layers.html#fig:tmpolygonsder">5.2</a>:B
-<!--one example of border--></p>
+<span id="cb13-2"><a href="layers.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<p>The <code>tm_borders()</code> function draws the borders of the polygons only (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:C).
+It allows to change the colors of borders, their widths, or the lines type.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_borders</span>()</span></code></pre></div>
+<span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p>Notice that we have used the <code>col</code> argument in <code>tm_borders()</code>, but <code>border.col</code> in <code>tm_polygons()</code>.
+This is necessary to distinguish between the setting of the fillings color and the borders’ color.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmpolygonsder"></span>
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'." width="672" />
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()',  (B) 'tm_fill()', (C) 'tm_borders()'." width="672" />
 <p class="caption">
-FIGURE 5.2: Example of: (A) a map created with ‘tm_fill()’, (B) a map created with ‘tm_borders()’.
+FIGURE 5.1: Example of a map created with: (A) ‘tm_polygons()’, (B) ‘tm_fill()’, (C) ‘tm_borders()’.
 </p>
 </div>
+<p>More information on colors, and how they can be applied and modified is explained in detail in Chapter <a href="visual-variables.html#colors">6.1</a>.</p>
 </div>
 <div id="symbols" class="section level2">
 <h2><span class="header-section-number">5.2</span> Symbols</h2>

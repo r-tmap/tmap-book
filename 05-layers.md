@@ -117,7 +117,7 @@ x = st_transform(x, 8857)
 ```
 
 The main function to visualize polygons is `tm_polygons()`.
-By default, as seen in Figure \@ref(fig:tmpolygons):A, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
+By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
 <!--JN: where can I find the actual default color values in the code?-->
 
 
@@ -126,42 +126,42 @@ tm_shape(x) +
   tm_polygons()
 ```
 
-Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (Figure \@ref(fig:tmpolygons):B).
+Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (Figure \@ref(fig:tmpolygonsder):A).
 
 
 ```r
 tm_shape(x) +
-  tm_polygons(col = "lightblue", border.col = "black")
+  tm_polygons(col = "lightblue", 
+              border.col = "black", lwd = 0.5, lty = "dashed")
 ```
 
-More information on colors, and how they can be applied and modified is in Chapter \@ref(colors).
+In fact, `tm_polygons()` is a combination of two separate functions - `tm_fill()` and `tm_borders()`.
+The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (Figure \@ref(fig:tmpolygonsder):B).
+
+
+```r
+tm_shape(x) +
+  tm_fill(col = "lightblue")
+```
+
+The `tm_borders()` function draws the borders of the polygons only (Figure \@ref(fig:tmpolygonsder):C).
+It allows to change the colors of borders, their widths, or the lines type.
+
+
+```r
+tm_shape(x) +
+  tm_borders(col = "black", lwd = 0.5, lty = "dashed")
+```
+
+Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
+This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpolygons-1.png" alt="Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors." width="672" />
-<p class="caption">(\#fig:tmpolygons)Example of: (A) a default map created with 'tm_polygons()', (B) a map created with user-provided colors.</p>
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()',  (B) 'tm_fill()', (C) 'tm_borders()'." width="672" />
+<p class="caption">(\#fig:tmpolygonsder)Example of a map created with: (A) 'tm_polygons()',  (B) 'tm_fill()', (C) 'tm_borders()'.</p>
 </div>
 
-Figure \@ref(fig:tmpolygonsder):A
-<!--one example of fill-->
-
-```r
-tm_shape(x) +
-  tm_fill()
-```
-
-Figure \@ref(fig:tmpolygonsder):B
-<!--one example of border-->
-
-```r
-tm_shape(x) +
-  tm_borders()
-```
-
-<div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'." width="672" />
-<p class="caption">(\#fig:tmpolygonsder)Example of: (A) a map created with 'tm_fill()', (B) a map created with 'tm_borders()'.</p>
-</div>
-
+More information on colors, and how they can be applied and modified is explained in detail in Chapter \@ref(colors).
 
 ## Symbols
 

@@ -15,7 +15,6 @@ tab:crs-properties
 fig:crs-bias
 tab:crs-recommendations
 tab:layers-table
-fig:tmpolygons
 fig:tmpolygonsder
 fig:visual-variables
 fig:palette-types
