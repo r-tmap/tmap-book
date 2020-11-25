@@ -126,35 +126,61 @@ set.seed(222)
 metro2 = metro[sample(1:nrow(metro), 30), ]
 ```
 
-```{r}
+Symbols are a very flexible layer type. 
+They are usually used to represent point data, but can be also used for lines and polygons.
+In the latter cases, they are located in centroid coordinates of each feature.
+Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables).
+
+The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(tmsymbols1)).
+By default, this function draws a gray circle symbol with a black border for each element of an input feature.
+
+```{r tmsymbols1, warning=FALSE, fig.cap=" ", echo=FALSE, asp=0.33}
 tm_shape(metro2) +
   tm_symbols()
 ```
 
-<!--explain size, col, shape + ref to a section in the next chapter-->
+In the above example, each symbol is related to one feature (row) in the `metro2` object.
+However, in a case when we provide multi-element features (section \@ref(vector-data-model)), such as MULTIPOINT, each multi-element object is first split into a number of single-element features and then plotted.
 
 <!--add info that there are four additional (shortcut) layers-->
 <!--explain each additional layer underlining the differences between tm_symbols() and the rest--> 
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro2) +
   tm_squares()
 ```
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro2) +
   tm_bubbles()
 ```
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro2) +
   tm_dots()
 ```
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(metro2) +
   tm_markers()
 ```
+
+```{r tmsymbols2, warning=FALSE, fig.cap=" ", echo=FALSE}
+tm_ma1 = tm_shape(metro2) +
+  tm_squares() +
+  tm_layout(title = "A")
+tm_ma2 = tm_shape(metro2) +
+  tm_bubbles() +
+  tm_layout(title = "B")
+tm_ma3 = tm_shape(metro2) +
+  tm_dots() +
+  tm_layout(title = "C")
+tm_ma4 = tm_shape(metro2) +
+  tm_markers() +
+  tm_layout(title = "D")
+tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
+```
+
 
 ## Lines
 
@@ -200,3 +226,12 @@ tm_shape(land) +
 ## Combining layers
 
 <!-- or maybe start with it and explain the details later? -->
+
+<!-- show symbols on top of polygons-->
+<!-- think of a better example -->
+```{r}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap") +
+  tm_symbols(col = "lifeExp")
+```
+
