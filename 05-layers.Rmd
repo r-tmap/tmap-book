@@ -131,16 +131,16 @@ They are usually used to represent point data, but can be also used for lines an
 In the latter cases, they are located in centroid coordinates of each feature.
 Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables).
 
-The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(tmsymbols1)).
+The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(fig:tmsymbols1)).
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
 
-```{r tmsymbols1, warning=FALSE, fig.cap=" ", echo=FALSE, asp=0.33}
+```{r tmsymbols1, warning=FALSE, fig.cap="A map showing the default tmap symbols.", echo=FALSE, asp=0.25}
 tm_shape(metro2) +
   tm_symbols()
 ```
 
 In the above example, each symbol is related to one feature (row) in the `metro2` object.
-However, in a case when we provide multi-element features (section \@ref(vector-data-model)), such as MULTIPOINT, each multi-element object is first split into a number of single-element features and then plotted.
+However, in a case when we provide multi-element features (such as MULTIPOINT; section \@ref(vector-data-model)), each multi-element object is first split into a number of single-element features and then plotted.
 
 <!--add info that there are four additional (shortcut) layers-->
 <!--explain each additional layer underlining the differences between tm_symbols() and the rest--> 
