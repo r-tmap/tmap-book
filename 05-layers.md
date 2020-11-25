@@ -157,8 +157,8 @@ Notice that we have used the `col` argument in `tm_borders()`, but `border.col` 
 This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()',  (B) 'tm_fill()', (C) 'tm_borders()'." width="672" />
-<p class="caption">(\#fig:tmpolygonsder)Example of a map created with: (A) 'tm_polygons()',  (B) 'tm_fill()', (C) 'tm_borders()'.</p>
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' ." width="672" />
+<p class="caption">(\#fig:tmpolygonsder)Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' .</p>
 </div>
 
 More information on colors, and how they can be applied and modified is explained in detail in Chapter \@ref(colors).
@@ -173,15 +173,21 @@ set.seed(222)
 metro2 = metro[sample(1:nrow(metro), 30), ]
 ```
 
+Symbols are a very flexible layer type. 
+They are usually used to represent point data, but can be also used for lines and polygons.
+In the latter cases, they are located in centroid coordinates of each feature.
+Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables).
 
-```r
-tm_shape(metro2) +
-  tm_symbols()
-```
+The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(fig:tmsymbols1)).
+By default, this function draws a gray circle symbol with a black border for each element of an input feature.
 
-<img src="05-layers_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmsymbols1-1.png" alt="A map showing the default tmap symbols." width="672" />
+<p class="caption">(\#fig:tmsymbols1)A map showing the default tmap symbols.</p>
+</div>
 
-<!--explain size, col, shape + ref to a section in the next chapter-->
+In the above example, each symbol is related to one feature (row) in the `metro2` object.
+However, in a case when we provide multi-element features (such as MULTIPOINT; section \@ref(vector-data-model)), each multi-element object is first split into a number of single-element features and then plotted.
 
 <!--add info that there are four additional (shortcut) layers-->
 <!--explain each additional layer underlining the differences between tm_symbols() and the rest--> 
@@ -192,15 +198,11 @@ tm_shape(metro2) +
   tm_squares()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
-
 
 ```r
 tm_shape(metro2) +
   tm_bubbles()
 ```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -208,15 +210,17 @@ tm_shape(metro2) +
   tm_dots()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
-
 
 ```r
 tm_shape(metro2) +
   tm_markers()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt=" " width="672" />
+<p class="caption"> </p>
+</div>
+
 
 ## Lines
 
@@ -233,7 +237,7 @@ tm_shape(rivers) +
   tm_lines()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- think about tm_iso example -->
 
@@ -246,7 +250,7 @@ tm_shape(metro2) +
   tm_layout(legend.outside = TRUE)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Raster
 
@@ -261,7 +265,7 @@ tm_shape(land[3]) +
   tm_raster()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -270,10 +274,282 @@ tm_shape(land) +
 #> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Tile
 
 ## Combining layers
 
 <!-- or maybe start with it and explain the details later? -->
+
+<!-- show symbols on top of polygons-->
+<!-- think of a better example -->
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap") +
+  tm_symbols(col = "lifeExp")
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+

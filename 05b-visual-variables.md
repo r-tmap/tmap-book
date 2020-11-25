@@ -5,6 +5,9 @@ Visual variables are methods to translate information given in variables into ma
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
 
+<!-- raster data in the plot? -->
+<!-- size symbol only has four symbols (the rest have five) -->
+
 <div class="figure" style="text-align: center">
 <img src="05b-visual-variables_files/figure-html/visual-variables-1.png" alt="Basic visual variables and their representations on maps" width="672" />
 <p class="caption">(\#fig:visual-variables)Basic visual variables and their representations on maps</p>
