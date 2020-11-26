@@ -48,3 +48,4 @@ More info at https://github.com/mtennekes/tmap/issues/338.
 1. Bivariate/multivariate color palettes (https://github.com/mtennekes/tmap/issues/183)
 1. Add possibility to fill polygons with pattern (https://github.com/mtennekes/tmap/issues/49)
 1. Close GitHub issues that are not going to be fix/implemented in the foreseeable future (declutter issue tracker)
+1. Delete old git branches
