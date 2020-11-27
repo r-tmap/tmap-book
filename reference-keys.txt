@@ -17,6 +17,7 @@ tab:crs-recommendations
 tab:layers-table
 fig:tmpolygonsder
 fig:tmsymbols1
+fig:tmsymbols2
 fig:visual-variables
 fig:palette-types
 fig:tmpals

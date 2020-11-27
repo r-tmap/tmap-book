@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-26" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -485,19 +485,29 @@ FIGURE 5.2: A map showing the default tmap symbols.
 </div>
 <p>In the above example, each symbol is related to one feature (row) in the <code>metro2</code> object.
 However, in a case when we provide multi-element features (such as MULTIPOINT; section <a href="geodata.html#vector-data-model">2.2.1</a>), each multi-element object is first split into a number of single-element features and then plotted.</p>
-<!--add info that there are four additional (shortcut) layers-->
-<!--explain each additional layer underlining the differences between tm_symbols() and the rest-->
+<p>The <code>tm_symbols()</code> is a very flexible function with a large number of arguments.
+While this allows adjusting its results to almost any need, it also makes this function complicated.
+Therefore, four additional layers are implemented in <strong>tmap</strong>: <code>tm_squares()</code>, <code>tm_bubbles()</code>, <code>tm_dots()</code>, <code>tm_markers()</code>.
+All of them use <code>tm_symbols()</code>, but with different default values.</p>
+<p><code>tm_squares()</code> uses square symbols (<code>shape = 22</code>) instead of circles (<code>shapes = 21</code>) (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:A).
+<!--scale is 4/3 instead of 1--></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_squares</span>()</span></code></pre></div>
+<!-- JN: what is the main difference between symbols and bubbles?? -->
+<p>(Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:B)</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_bubbles</span>()</span></code></pre></div>
+<p>The main role of <code>tm_dots()</code> is to present many locations at the same time.
+To do this, this layer has a small size value (<code>0.02</code>) at the default (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:C).</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_dots</span>()</span></code></pre></div>
+<p>The last additional layer is <code>tm_markers()</code>, which uses a marker icon by default (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:D).</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_markers</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt=" " width="672" />
+<div class="figure" style="text-align: center"><span id="fig:tmsymbols2"></span>
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers()." width="672" />
 <p class="caption">
+FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers().
 </p>
 </div>
 </div>

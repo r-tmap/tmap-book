@@ -300,6 +300,7 @@ By default, the colors are not transparent at all as the value of `alpha` is 1.
 However, we can decrease this value to 0 - total transparency.
 The `alpha` argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.
 
+<!-- alpha figure? -->
 <!-- color to highlight?? -->
 
 <!-- resources: -->

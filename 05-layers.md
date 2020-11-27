@@ -189,8 +189,13 @@ By default, this function draws a gray circle symbol with a black border for eac
 In the above example, each symbol is related to one feature (row) in the `metro2` object.
 However, in a case when we provide multi-element features (such as MULTIPOINT; section \@ref(vector-data-model)), each multi-element object is first split into a number of single-element features and then plotted.
 
-<!--add info that there are four additional (shortcut) layers-->
-<!--explain each additional layer underlining the differences between tm_symbols() and the rest--> 
+The `tm_symbols()` is a very flexible function with a large number of arguments.
+While this allows adjusting its results to almost any need, it also makes this function complicated.
+Therefore, four additional layers are implemented in **tmap**: `tm_squares()`, `tm_bubbles()`, `tm_dots()`, `tm_markers()`.
+All of them use `tm_symbols()`, but with different default values.
+
+`tm_squares()` uses square symbols (`shape = 22`) instead of circles (`shapes = 21`) (Figure \@ref(fig:tmsymbols2):A).
+<!--scale is 4/3 instead of 1-->
 
 
 ```r
@@ -198,17 +203,25 @@ tm_shape(metro2) +
   tm_squares()
 ```
 
+<!-- JN: what is the main difference between symbols and bubbles?? -->
+(Figure \@ref(fig:tmsymbols2):B)
+
 
 ```r
 tm_shape(metro2) +
   tm_bubbles()
 ```
 
+The main role of `tm_dots()` is to present many locations at the same time.
+To do this, this layer has a small size value (`0.02`) at the default (Figure \@ref(fig:tmsymbols2):C).
+
 
 ```r
 tm_shape(metro2) +
   tm_dots()
 ```
+
+The last additional layer is `tm_markers()`, which uses a marker icon by default (Figure \@ref(fig:tmsymbols2):D).
 
 
 ```r
@@ -217,8 +230,8 @@ tm_shape(metro2) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt=" " width="672" />
-<p class="caption"> </p>
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers()." width="672" />
+<p class="caption">(\#fig:tmsymbols2)Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers().</p>
 </div>
 
 
