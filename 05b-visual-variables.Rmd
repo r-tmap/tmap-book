@@ -775,11 +775,13 @@ my_icons = tmap_icons(c("images/icon1.png",
 ```
 
 Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tmsymshape):D).
+<!-- border.col = NULL -->
 
 ```{r, eval=FALSE}
 tm_shape(metro2) +
   tm_symbols(shape = "group",
-             shapes = my_icons)
+             shapes = my_icons,
+             border.col = NULL)
 ```
 
 ```{r tmsymshape, fig.asp=1.32, echo=FALSE, fig.cap="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons."}
