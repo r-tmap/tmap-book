@@ -755,10 +755,12 @@ In our example, we have three distinct groups, therefore we need to create new i
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="visual-variables.html#cb55-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
 <span id="cb55-2"><a href="visual-variables.html#cb55-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
 <span id="cb55-3"><a href="visual-variables.html#cb55-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
-<p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="visual-variables.html#fig:tmsymshape">6.14</a>:D).</p>
+<p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="visual-variables.html#fig:tmsymshape">6.14</a>:D).
+<!-- border.col = NULL --></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="visual-variables.html#cb56-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb56-2"><a href="visual-variables.html#cb56-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb56-3"><a href="visual-variables.html#cb56-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
+<span id="cb56-3"><a href="visual-variables.html#cb56-3"></a>             <span class="dt">shapes =</span> my_icons,</span>
+<span id="cb56-4"><a href="visual-variables.html#cb56-4"></a>             <span class="dt">border.col =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
 <img src="05b-visual-variables_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="672" />
 <p class="caption">

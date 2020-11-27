@@ -712,12 +712,14 @@ my_icons = tmap_icons(c("images/icon1.png",
 ```
 
 Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tmsymshape):D).
+<!-- border.col = NULL -->
 
 
 ```r
 tm_shape(metro2) +
   tm_symbols(shape = "group",
-             shapes = my_icons)
+             shapes = my_icons,
+             border.col = NULL)
 ```
 
 <div class="figure" style="text-align: center">
