@@ -244,6 +244,8 @@ library(tmap)
 data("rivers", package = "tmap")
 ```
 
+The `tm_lines()` function allows to visualize different types of line data.
+
 
 ```r
 tm_shape(rivers) + 
@@ -252,7 +254,42 @@ tm_shape(rivers) +
 
 <img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
 
-<!-- think about tm_iso example -->
+Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
+This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
+
+Lines are also often presented together with text labels (Section \@ref(text)).
+One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
+Isopleths can be created with the `tm_iso()` function.
+
+
+```r
+# data(land, package = "tmap")
+# library(raster)
+# elev = land["elevation"]
+# elev_isopleths = rasterToContour(as(elev, "Raster"))
+
+# think about tm_iso example
+# improve example
+# tm_shape(elev_isopleths) +
+#   tm_iso()
+# 
+# library(tmap)
+# data("dem", package = "spDataLarge")
+# # create hillshade
+# hs = hillShade(slope = terrain(dem, "slope"), aspect = terrain(dem, "aspect"))
+# # create contour
+# cn = rasterToContour(dem)
+# 
+# tm_shape(hs) +
+# 	tm_grid() +
+# 	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
+# 	tm_shape(dem) +
+# 	tm_raster(alpha = 0.5, palette = terrain.colors(25),
+# 	          legend.show = FALSE) +
+# 	tm_shape(cn) +
+# 	tm_lines(col = "white") +
+# 	tm_text("level", col = "white")
+```
 
 ## Text
 
@@ -263,7 +300,7 @@ tm_shape(metro2) +
   tm_layout(legend.outside = TRUE)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Raster
 
@@ -278,7 +315,7 @@ tm_shape(land[3]) +
   tm_raster()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -287,7 +324,7 @@ tm_shape(land) +
 #> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Tile
 
@@ -564,5 +601,5 @@ tm_shape(x) +
 #> proj_as_wkt: Unsupported conversion method: Equal Earth
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
 

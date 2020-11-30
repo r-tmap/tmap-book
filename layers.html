@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-11-27" />
+<meta name="date" content="2020-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -516,28 +516,59 @@ FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B), tm
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="co"># replace dataset later</span></span>
 <span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb20-3"><a href="layers.html#cb20-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
+<p>The <code>tm_lines()</code> function allows to visualize different types of line data.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_lines</span>()</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<!-- think about tm_iso example -->
+<p>Lines can be presented using different colors, widths, or types (Chapter <a href="visual-variables.html#visual-variables">6</a>).
+This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).</p>
+<p>Lines are also often presented together with text labels (Section <a href="layers.html#text">5.4</a>).
+One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
+Isopleths can be created with the <code>tm_iso()</code> function.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="co"># data(land, package = &quot;tmap&quot;)</span></span>
+<span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="co"># library(raster)</span></span>
+<span id="cb22-3"><a href="layers.html#cb22-3"></a><span class="co"># elev = land[&quot;elevation&quot;]</span></span>
+<span id="cb22-4"><a href="layers.html#cb22-4"></a><span class="co"># elev_isopleths = rasterToContour(as(elev, &quot;Raster&quot;))</span></span>
+<span id="cb22-5"><a href="layers.html#cb22-5"></a></span>
+<span id="cb22-6"><a href="layers.html#cb22-6"></a><span class="co"># think about tm_iso example</span></span>
+<span id="cb22-7"><a href="layers.html#cb22-7"></a><span class="co"># improve example</span></span>
+<span id="cb22-8"><a href="layers.html#cb22-8"></a><span class="co"># tm_shape(elev_isopleths) +</span></span>
+<span id="cb22-9"><a href="layers.html#cb22-9"></a><span class="co">#   tm_iso()</span></span>
+<span id="cb22-10"><a href="layers.html#cb22-10"></a><span class="co"># </span></span>
+<span id="cb22-11"><a href="layers.html#cb22-11"></a><span class="co"># library(tmap)</span></span>
+<span id="cb22-12"><a href="layers.html#cb22-12"></a><span class="co"># data(&quot;dem&quot;, package = &quot;spDataLarge&quot;)</span></span>
+<span id="cb22-13"><a href="layers.html#cb22-13"></a><span class="co"># # create hillshade</span></span>
+<span id="cb22-14"><a href="layers.html#cb22-14"></a><span class="co"># hs = hillShade(slope = terrain(dem, &quot;slope&quot;), aspect = terrain(dem, &quot;aspect&quot;))</span></span>
+<span id="cb22-15"><a href="layers.html#cb22-15"></a><span class="co"># # create contour</span></span>
+<span id="cb22-16"><a href="layers.html#cb22-16"></a><span class="co"># cn = rasterToContour(dem)</span></span>
+<span id="cb22-17"><a href="layers.html#cb22-17"></a><span class="co"># </span></span>
+<span id="cb22-18"><a href="layers.html#cb22-18"></a><span class="co"># tm_shape(hs) +</span></span>
+<span id="cb22-19"><a href="layers.html#cb22-19"></a><span class="co">#   tm_grid() +</span></span>
+<span id="cb22-20"><a href="layers.html#cb22-20"></a><span class="co">#   tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +</span></span>
+<span id="cb22-21"><a href="layers.html#cb22-21"></a><span class="co">#   tm_shape(dem) +</span></span>
+<span id="cb22-22"><a href="layers.html#cb22-22"></a><span class="co">#   tm_raster(alpha = 0.5, palette = terrain.colors(25),</span></span>
+<span id="cb22-23"><a href="layers.html#cb22-23"></a><span class="co">#             legend.show = FALSE) +</span></span>
+<span id="cb22-24"><a href="layers.html#cb22-24"></a><span class="co">#   tm_shape(cn) +</span></span>
+<span id="cb22-25"><a href="layers.html#cb22-25"></a><span class="co">#   tm_lines(col = &quot;white&quot;) +</span></span>
+<span id="cb22-26"><a href="layers.html#cb22-26"></a><span class="co">#   tm_text(&quot;level&quot;, col = &quot;white&quot;)</span></span></code></pre></div>
 </div>
 <div id="text" class="section level2">
 <h2><span class="header-section-number">5.4</span> Text</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
-<span id="cb22-3"><a href="layers.html#cb22-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb23-2"><a href="layers.html#cb23-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
+<span id="cb23-3"><a href="layers.html#cb23-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="raster" class="section level2">
 <h2><span class="header-section-number">5.5</span> Raster</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
-<span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
-<span id="cb25-3"><a href="layers.html#cb25-3"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
+<span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
+<span id="cb26-3"><a href="layers.html#cb26-3"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tile" class="section level2">
 <h2><span class="header-section-number">5.6</span> Tile</h2>
@@ -547,270 +578,270 @@ FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B), tm
 <!-- or maybe start with it and explain the details later? -->
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
-<span id="cb26-3"><a href="layers.html#cb26-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span>
-<span id="cb26-4"><a href="layers.html#cb26-4"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-5"><a href="layers.html#cb26-5"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-6"><a href="layers.html#cb26-6"></a></span>
-<span id="cb26-7"><a href="layers.html#cb26-7"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-8"><a href="layers.html#cb26-8"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-9"><a href="layers.html#cb26-9"></a></span>
-<span id="cb26-10"><a href="layers.html#cb26-10"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-11"><a href="layers.html#cb26-11"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-12"><a href="layers.html#cb26-12"></a></span>
-<span id="cb26-13"><a href="layers.html#cb26-13"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-14"><a href="layers.html#cb26-14"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-15"><a href="layers.html#cb26-15"></a></span>
-<span id="cb26-16"><a href="layers.html#cb26-16"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-17"><a href="layers.html#cb26-17"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-18"><a href="layers.html#cb26-18"></a></span>
-<span id="cb26-19"><a href="layers.html#cb26-19"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-20"><a href="layers.html#cb26-20"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-21"><a href="layers.html#cb26-21"></a></span>
-<span id="cb26-22"><a href="layers.html#cb26-22"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-23"><a href="layers.html#cb26-23"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-24"><a href="layers.html#cb26-24"></a></span>
-<span id="cb26-25"><a href="layers.html#cb26-25"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-26"><a href="layers.html#cb26-26"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-27"><a href="layers.html#cb26-27"></a></span>
-<span id="cb26-28"><a href="layers.html#cb26-28"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-29"><a href="layers.html#cb26-29"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-30"><a href="layers.html#cb26-30"></a></span>
-<span id="cb26-31"><a href="layers.html#cb26-31"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-32"><a href="layers.html#cb26-32"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-33"><a href="layers.html#cb26-33"></a></span>
-<span id="cb26-34"><a href="layers.html#cb26-34"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-35"><a href="layers.html#cb26-35"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-36"><a href="layers.html#cb26-36"></a></span>
-<span id="cb26-37"><a href="layers.html#cb26-37"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-38"><a href="layers.html#cb26-38"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-39"><a href="layers.html#cb26-39"></a></span>
-<span id="cb26-40"><a href="layers.html#cb26-40"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-41"><a href="layers.html#cb26-41"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-42"><a href="layers.html#cb26-42"></a></span>
-<span id="cb26-43"><a href="layers.html#cb26-43"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-44"><a href="layers.html#cb26-44"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-45"><a href="layers.html#cb26-45"></a></span>
-<span id="cb26-46"><a href="layers.html#cb26-46"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-47"><a href="layers.html#cb26-47"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-48"><a href="layers.html#cb26-48"></a></span>
-<span id="cb26-49"><a href="layers.html#cb26-49"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-50"><a href="layers.html#cb26-50"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-51"><a href="layers.html#cb26-51"></a></span>
-<span id="cb26-52"><a href="layers.html#cb26-52"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-53"><a href="layers.html#cb26-53"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-54"><a href="layers.html#cb26-54"></a></span>
-<span id="cb26-55"><a href="layers.html#cb26-55"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-56"><a href="layers.html#cb26-56"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-57"><a href="layers.html#cb26-57"></a></span>
-<span id="cb26-58"><a href="layers.html#cb26-58"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-59"><a href="layers.html#cb26-59"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-60"><a href="layers.html#cb26-60"></a></span>
-<span id="cb26-61"><a href="layers.html#cb26-61"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-62"><a href="layers.html#cb26-62"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-63"><a href="layers.html#cb26-63"></a></span>
-<span id="cb26-64"><a href="layers.html#cb26-64"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-65"><a href="layers.html#cb26-65"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-66"><a href="layers.html#cb26-66"></a></span>
-<span id="cb26-67"><a href="layers.html#cb26-67"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-68"><a href="layers.html#cb26-68"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-69"><a href="layers.html#cb26-69"></a></span>
-<span id="cb26-70"><a href="layers.html#cb26-70"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-71"><a href="layers.html#cb26-71"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-72"><a href="layers.html#cb26-72"></a></span>
-<span id="cb26-73"><a href="layers.html#cb26-73"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-74"><a href="layers.html#cb26-74"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-75"><a href="layers.html#cb26-75"></a></span>
-<span id="cb26-76"><a href="layers.html#cb26-76"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-77"><a href="layers.html#cb26-77"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-78"><a href="layers.html#cb26-78"></a></span>
-<span id="cb26-79"><a href="layers.html#cb26-79"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-80"><a href="layers.html#cb26-80"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-81"><a href="layers.html#cb26-81"></a></span>
-<span id="cb26-82"><a href="layers.html#cb26-82"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-83"><a href="layers.html#cb26-83"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-84"><a href="layers.html#cb26-84"></a></span>
-<span id="cb26-85"><a href="layers.html#cb26-85"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-86"><a href="layers.html#cb26-86"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-87"><a href="layers.html#cb26-87"></a></span>
-<span id="cb26-88"><a href="layers.html#cb26-88"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-89"><a href="layers.html#cb26-89"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-90"><a href="layers.html#cb26-90"></a></span>
-<span id="cb26-91"><a href="layers.html#cb26-91"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-92"><a href="layers.html#cb26-92"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-93"><a href="layers.html#cb26-93"></a></span>
-<span id="cb26-94"><a href="layers.html#cb26-94"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-95"><a href="layers.html#cb26-95"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-96"><a href="layers.html#cb26-96"></a></span>
-<span id="cb26-97"><a href="layers.html#cb26-97"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-98"><a href="layers.html#cb26-98"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-99"><a href="layers.html#cb26-99"></a></span>
-<span id="cb26-100"><a href="layers.html#cb26-100"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-101"><a href="layers.html#cb26-101"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-102"><a href="layers.html#cb26-102"></a></span>
-<span id="cb26-103"><a href="layers.html#cb26-103"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-104"><a href="layers.html#cb26-104"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-105"><a href="layers.html#cb26-105"></a></span>
-<span id="cb26-106"><a href="layers.html#cb26-106"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-107"><a href="layers.html#cb26-107"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-108"><a href="layers.html#cb26-108"></a></span>
-<span id="cb26-109"><a href="layers.html#cb26-109"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-110"><a href="layers.html#cb26-110"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-111"><a href="layers.html#cb26-111"></a></span>
-<span id="cb26-112"><a href="layers.html#cb26-112"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-113"><a href="layers.html#cb26-113"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-114"><a href="layers.html#cb26-114"></a></span>
-<span id="cb26-115"><a href="layers.html#cb26-115"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-116"><a href="layers.html#cb26-116"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-117"><a href="layers.html#cb26-117"></a></span>
-<span id="cb26-118"><a href="layers.html#cb26-118"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-119"><a href="layers.html#cb26-119"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-120"><a href="layers.html#cb26-120"></a></span>
-<span id="cb26-121"><a href="layers.html#cb26-121"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-122"><a href="layers.html#cb26-122"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-123"><a href="layers.html#cb26-123"></a></span>
-<span id="cb26-124"><a href="layers.html#cb26-124"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-125"><a href="layers.html#cb26-125"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-126"><a href="layers.html#cb26-126"></a></span>
-<span id="cb26-127"><a href="layers.html#cb26-127"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-128"><a href="layers.html#cb26-128"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-129"><a href="layers.html#cb26-129"></a></span>
-<span id="cb26-130"><a href="layers.html#cb26-130"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-131"><a href="layers.html#cb26-131"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-132"><a href="layers.html#cb26-132"></a></span>
-<span id="cb26-133"><a href="layers.html#cb26-133"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-134"><a href="layers.html#cb26-134"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-135"><a href="layers.html#cb26-135"></a></span>
-<span id="cb26-136"><a href="layers.html#cb26-136"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-137"><a href="layers.html#cb26-137"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-138"><a href="layers.html#cb26-138"></a></span>
-<span id="cb26-139"><a href="layers.html#cb26-139"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-140"><a href="layers.html#cb26-140"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-141"><a href="layers.html#cb26-141"></a></span>
-<span id="cb26-142"><a href="layers.html#cb26-142"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-143"><a href="layers.html#cb26-143"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-144"><a href="layers.html#cb26-144"></a></span>
-<span id="cb26-145"><a href="layers.html#cb26-145"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-146"><a href="layers.html#cb26-146"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-147"><a href="layers.html#cb26-147"></a></span>
-<span id="cb26-148"><a href="layers.html#cb26-148"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-149"><a href="layers.html#cb26-149"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-150"><a href="layers.html#cb26-150"></a></span>
-<span id="cb26-151"><a href="layers.html#cb26-151"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-152"><a href="layers.html#cb26-152"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-153"><a href="layers.html#cb26-153"></a></span>
-<span id="cb26-154"><a href="layers.html#cb26-154"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-155"><a href="layers.html#cb26-155"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-156"><a href="layers.html#cb26-156"></a></span>
-<span id="cb26-157"><a href="layers.html#cb26-157"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-158"><a href="layers.html#cb26-158"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-159"><a href="layers.html#cb26-159"></a></span>
-<span id="cb26-160"><a href="layers.html#cb26-160"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-161"><a href="layers.html#cb26-161"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-162"><a href="layers.html#cb26-162"></a></span>
-<span id="cb26-163"><a href="layers.html#cb26-163"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-164"><a href="layers.html#cb26-164"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-165"><a href="layers.html#cb26-165"></a></span>
-<span id="cb26-166"><a href="layers.html#cb26-166"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-167"><a href="layers.html#cb26-167"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-168"><a href="layers.html#cb26-168"></a></span>
-<span id="cb26-169"><a href="layers.html#cb26-169"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-170"><a href="layers.html#cb26-170"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-171"><a href="layers.html#cb26-171"></a></span>
-<span id="cb26-172"><a href="layers.html#cb26-172"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-173"><a href="layers.html#cb26-173"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-174"><a href="layers.html#cb26-174"></a></span>
-<span id="cb26-175"><a href="layers.html#cb26-175"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-176"><a href="layers.html#cb26-176"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-177"><a href="layers.html#cb26-177"></a></span>
-<span id="cb26-178"><a href="layers.html#cb26-178"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-179"><a href="layers.html#cb26-179"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-180"><a href="layers.html#cb26-180"></a></span>
-<span id="cb26-181"><a href="layers.html#cb26-181"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-182"><a href="layers.html#cb26-182"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-183"><a href="layers.html#cb26-183"></a></span>
-<span id="cb26-184"><a href="layers.html#cb26-184"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-185"><a href="layers.html#cb26-185"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-186"><a href="layers.html#cb26-186"></a></span>
-<span id="cb26-187"><a href="layers.html#cb26-187"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-188"><a href="layers.html#cb26-188"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-189"><a href="layers.html#cb26-189"></a></span>
-<span id="cb26-190"><a href="layers.html#cb26-190"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-191"><a href="layers.html#cb26-191"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-192"><a href="layers.html#cb26-192"></a></span>
-<span id="cb26-193"><a href="layers.html#cb26-193"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-194"><a href="layers.html#cb26-194"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-195"><a href="layers.html#cb26-195"></a></span>
-<span id="cb26-196"><a href="layers.html#cb26-196"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-197"><a href="layers.html#cb26-197"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-198"><a href="layers.html#cb26-198"></a></span>
-<span id="cb26-199"><a href="layers.html#cb26-199"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-200"><a href="layers.html#cb26-200"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-201"><a href="layers.html#cb26-201"></a></span>
-<span id="cb26-202"><a href="layers.html#cb26-202"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-203"><a href="layers.html#cb26-203"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-204"><a href="layers.html#cb26-204"></a></span>
-<span id="cb26-205"><a href="layers.html#cb26-205"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-206"><a href="layers.html#cb26-206"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-207"><a href="layers.html#cb26-207"></a></span>
-<span id="cb26-208"><a href="layers.html#cb26-208"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-209"><a href="layers.html#cb26-209"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-210"><a href="layers.html#cb26-210"></a></span>
-<span id="cb26-211"><a href="layers.html#cb26-211"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-212"><a href="layers.html#cb26-212"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-213"><a href="layers.html#cb26-213"></a></span>
-<span id="cb26-214"><a href="layers.html#cb26-214"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-215"><a href="layers.html#cb26-215"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-216"><a href="layers.html#cb26-216"></a></span>
-<span id="cb26-217"><a href="layers.html#cb26-217"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-218"><a href="layers.html#cb26-218"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-219"><a href="layers.html#cb26-219"></a></span>
-<span id="cb26-220"><a href="layers.html#cb26-220"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-221"><a href="layers.html#cb26-221"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-222"><a href="layers.html#cb26-222"></a></span>
-<span id="cb26-223"><a href="layers.html#cb26-223"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-224"><a href="layers.html#cb26-224"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-225"><a href="layers.html#cb26-225"></a></span>
-<span id="cb26-226"><a href="layers.html#cb26-226"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-227"><a href="layers.html#cb26-227"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-228"><a href="layers.html#cb26-228"></a></span>
-<span id="cb26-229"><a href="layers.html#cb26-229"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-230"><a href="layers.html#cb26-230"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-231"><a href="layers.html#cb26-231"></a></span>
-<span id="cb26-232"><a href="layers.html#cb26-232"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-233"><a href="layers.html#cb26-233"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-234"><a href="layers.html#cb26-234"></a></span>
-<span id="cb26-235"><a href="layers.html#cb26-235"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-236"><a href="layers.html#cb26-236"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-237"><a href="layers.html#cb26-237"></a></span>
-<span id="cb26-238"><a href="layers.html#cb26-238"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-239"><a href="layers.html#cb26-239"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-240"><a href="layers.html#cb26-240"></a></span>
-<span id="cb26-241"><a href="layers.html#cb26-241"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-242"><a href="layers.html#cb26-242"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-243"><a href="layers.html#cb26-243"></a></span>
-<span id="cb26-244"><a href="layers.html#cb26-244"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-245"><a href="layers.html#cb26-245"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-246"><a href="layers.html#cb26-246"></a></span>
-<span id="cb26-247"><a href="layers.html#cb26-247"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-248"><a href="layers.html#cb26-248"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-249"><a href="layers.html#cb26-249"></a></span>
-<span id="cb26-250"><a href="layers.html#cb26-250"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-251"><a href="layers.html#cb26-251"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-252"><a href="layers.html#cb26-252"></a></span>
-<span id="cb26-253"><a href="layers.html#cb26-253"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-254"><a href="layers.html#cb26-254"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-255"><a href="layers.html#cb26-255"></a></span>
-<span id="cb26-256"><a href="layers.html#cb26-256"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-257"><a href="layers.html#cb26-257"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-258"><a href="layers.html#cb26-258"></a></span>
-<span id="cb26-259"><a href="layers.html#cb26-259"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-260"><a href="layers.html#cb26-260"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
-<span id="cb26-261"><a href="layers.html#cb26-261"></a></span>
-<span id="cb26-262"><a href="layers.html#cb26-262"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
-<span id="cb26-263"><a href="layers.html#cb26-263"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
+<span id="cb27-3"><a href="layers.html#cb27-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span>
+<span id="cb27-4"><a href="layers.html#cb27-4"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-5"><a href="layers.html#cb27-5"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-6"><a href="layers.html#cb27-6"></a></span>
+<span id="cb27-7"><a href="layers.html#cb27-7"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-8"><a href="layers.html#cb27-8"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-9"><a href="layers.html#cb27-9"></a></span>
+<span id="cb27-10"><a href="layers.html#cb27-10"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-11"><a href="layers.html#cb27-11"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-12"><a href="layers.html#cb27-12"></a></span>
+<span id="cb27-13"><a href="layers.html#cb27-13"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-14"><a href="layers.html#cb27-14"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-15"><a href="layers.html#cb27-15"></a></span>
+<span id="cb27-16"><a href="layers.html#cb27-16"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-17"><a href="layers.html#cb27-17"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-18"><a href="layers.html#cb27-18"></a></span>
+<span id="cb27-19"><a href="layers.html#cb27-19"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-20"><a href="layers.html#cb27-20"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-21"><a href="layers.html#cb27-21"></a></span>
+<span id="cb27-22"><a href="layers.html#cb27-22"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-23"><a href="layers.html#cb27-23"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-24"><a href="layers.html#cb27-24"></a></span>
+<span id="cb27-25"><a href="layers.html#cb27-25"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-26"><a href="layers.html#cb27-26"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-27"><a href="layers.html#cb27-27"></a></span>
+<span id="cb27-28"><a href="layers.html#cb27-28"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-29"><a href="layers.html#cb27-29"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-30"><a href="layers.html#cb27-30"></a></span>
+<span id="cb27-31"><a href="layers.html#cb27-31"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-32"><a href="layers.html#cb27-32"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-33"><a href="layers.html#cb27-33"></a></span>
+<span id="cb27-34"><a href="layers.html#cb27-34"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-35"><a href="layers.html#cb27-35"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-36"><a href="layers.html#cb27-36"></a></span>
+<span id="cb27-37"><a href="layers.html#cb27-37"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-38"><a href="layers.html#cb27-38"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-39"><a href="layers.html#cb27-39"></a></span>
+<span id="cb27-40"><a href="layers.html#cb27-40"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-41"><a href="layers.html#cb27-41"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-42"><a href="layers.html#cb27-42"></a></span>
+<span id="cb27-43"><a href="layers.html#cb27-43"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-44"><a href="layers.html#cb27-44"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-45"><a href="layers.html#cb27-45"></a></span>
+<span id="cb27-46"><a href="layers.html#cb27-46"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-47"><a href="layers.html#cb27-47"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-48"><a href="layers.html#cb27-48"></a></span>
+<span id="cb27-49"><a href="layers.html#cb27-49"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-50"><a href="layers.html#cb27-50"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-51"><a href="layers.html#cb27-51"></a></span>
+<span id="cb27-52"><a href="layers.html#cb27-52"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-53"><a href="layers.html#cb27-53"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-54"><a href="layers.html#cb27-54"></a></span>
+<span id="cb27-55"><a href="layers.html#cb27-55"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-56"><a href="layers.html#cb27-56"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-57"><a href="layers.html#cb27-57"></a></span>
+<span id="cb27-58"><a href="layers.html#cb27-58"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-59"><a href="layers.html#cb27-59"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-60"><a href="layers.html#cb27-60"></a></span>
+<span id="cb27-61"><a href="layers.html#cb27-61"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-62"><a href="layers.html#cb27-62"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-63"><a href="layers.html#cb27-63"></a></span>
+<span id="cb27-64"><a href="layers.html#cb27-64"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-65"><a href="layers.html#cb27-65"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-66"><a href="layers.html#cb27-66"></a></span>
+<span id="cb27-67"><a href="layers.html#cb27-67"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-68"><a href="layers.html#cb27-68"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-69"><a href="layers.html#cb27-69"></a></span>
+<span id="cb27-70"><a href="layers.html#cb27-70"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-71"><a href="layers.html#cb27-71"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-72"><a href="layers.html#cb27-72"></a></span>
+<span id="cb27-73"><a href="layers.html#cb27-73"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-74"><a href="layers.html#cb27-74"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-75"><a href="layers.html#cb27-75"></a></span>
+<span id="cb27-76"><a href="layers.html#cb27-76"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-77"><a href="layers.html#cb27-77"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-78"><a href="layers.html#cb27-78"></a></span>
+<span id="cb27-79"><a href="layers.html#cb27-79"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-80"><a href="layers.html#cb27-80"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-81"><a href="layers.html#cb27-81"></a></span>
+<span id="cb27-82"><a href="layers.html#cb27-82"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-83"><a href="layers.html#cb27-83"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-84"><a href="layers.html#cb27-84"></a></span>
+<span id="cb27-85"><a href="layers.html#cb27-85"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-86"><a href="layers.html#cb27-86"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-87"><a href="layers.html#cb27-87"></a></span>
+<span id="cb27-88"><a href="layers.html#cb27-88"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-89"><a href="layers.html#cb27-89"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-90"><a href="layers.html#cb27-90"></a></span>
+<span id="cb27-91"><a href="layers.html#cb27-91"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-92"><a href="layers.html#cb27-92"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-93"><a href="layers.html#cb27-93"></a></span>
+<span id="cb27-94"><a href="layers.html#cb27-94"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-95"><a href="layers.html#cb27-95"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-96"><a href="layers.html#cb27-96"></a></span>
+<span id="cb27-97"><a href="layers.html#cb27-97"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-98"><a href="layers.html#cb27-98"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-99"><a href="layers.html#cb27-99"></a></span>
+<span id="cb27-100"><a href="layers.html#cb27-100"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-101"><a href="layers.html#cb27-101"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-102"><a href="layers.html#cb27-102"></a></span>
+<span id="cb27-103"><a href="layers.html#cb27-103"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-104"><a href="layers.html#cb27-104"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-105"><a href="layers.html#cb27-105"></a></span>
+<span id="cb27-106"><a href="layers.html#cb27-106"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-107"><a href="layers.html#cb27-107"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-108"><a href="layers.html#cb27-108"></a></span>
+<span id="cb27-109"><a href="layers.html#cb27-109"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-110"><a href="layers.html#cb27-110"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-111"><a href="layers.html#cb27-111"></a></span>
+<span id="cb27-112"><a href="layers.html#cb27-112"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-113"><a href="layers.html#cb27-113"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-114"><a href="layers.html#cb27-114"></a></span>
+<span id="cb27-115"><a href="layers.html#cb27-115"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-116"><a href="layers.html#cb27-116"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-117"><a href="layers.html#cb27-117"></a></span>
+<span id="cb27-118"><a href="layers.html#cb27-118"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-119"><a href="layers.html#cb27-119"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-120"><a href="layers.html#cb27-120"></a></span>
+<span id="cb27-121"><a href="layers.html#cb27-121"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-122"><a href="layers.html#cb27-122"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-123"><a href="layers.html#cb27-123"></a></span>
+<span id="cb27-124"><a href="layers.html#cb27-124"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-125"><a href="layers.html#cb27-125"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-126"><a href="layers.html#cb27-126"></a></span>
+<span id="cb27-127"><a href="layers.html#cb27-127"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-128"><a href="layers.html#cb27-128"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-129"><a href="layers.html#cb27-129"></a></span>
+<span id="cb27-130"><a href="layers.html#cb27-130"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-131"><a href="layers.html#cb27-131"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-132"><a href="layers.html#cb27-132"></a></span>
+<span id="cb27-133"><a href="layers.html#cb27-133"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-134"><a href="layers.html#cb27-134"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-135"><a href="layers.html#cb27-135"></a></span>
+<span id="cb27-136"><a href="layers.html#cb27-136"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-137"><a href="layers.html#cb27-137"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-138"><a href="layers.html#cb27-138"></a></span>
+<span id="cb27-139"><a href="layers.html#cb27-139"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-140"><a href="layers.html#cb27-140"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-141"><a href="layers.html#cb27-141"></a></span>
+<span id="cb27-142"><a href="layers.html#cb27-142"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-143"><a href="layers.html#cb27-143"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-144"><a href="layers.html#cb27-144"></a></span>
+<span id="cb27-145"><a href="layers.html#cb27-145"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-146"><a href="layers.html#cb27-146"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-147"><a href="layers.html#cb27-147"></a></span>
+<span id="cb27-148"><a href="layers.html#cb27-148"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-149"><a href="layers.html#cb27-149"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-150"><a href="layers.html#cb27-150"></a></span>
+<span id="cb27-151"><a href="layers.html#cb27-151"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-152"><a href="layers.html#cb27-152"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-153"><a href="layers.html#cb27-153"></a></span>
+<span id="cb27-154"><a href="layers.html#cb27-154"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-155"><a href="layers.html#cb27-155"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-156"><a href="layers.html#cb27-156"></a></span>
+<span id="cb27-157"><a href="layers.html#cb27-157"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-158"><a href="layers.html#cb27-158"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-159"><a href="layers.html#cb27-159"></a></span>
+<span id="cb27-160"><a href="layers.html#cb27-160"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-161"><a href="layers.html#cb27-161"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-162"><a href="layers.html#cb27-162"></a></span>
+<span id="cb27-163"><a href="layers.html#cb27-163"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-164"><a href="layers.html#cb27-164"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-165"><a href="layers.html#cb27-165"></a></span>
+<span id="cb27-166"><a href="layers.html#cb27-166"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-167"><a href="layers.html#cb27-167"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-168"><a href="layers.html#cb27-168"></a></span>
+<span id="cb27-169"><a href="layers.html#cb27-169"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-170"><a href="layers.html#cb27-170"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-171"><a href="layers.html#cb27-171"></a></span>
+<span id="cb27-172"><a href="layers.html#cb27-172"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-173"><a href="layers.html#cb27-173"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-174"><a href="layers.html#cb27-174"></a></span>
+<span id="cb27-175"><a href="layers.html#cb27-175"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-176"><a href="layers.html#cb27-176"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-177"><a href="layers.html#cb27-177"></a></span>
+<span id="cb27-178"><a href="layers.html#cb27-178"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-179"><a href="layers.html#cb27-179"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-180"><a href="layers.html#cb27-180"></a></span>
+<span id="cb27-181"><a href="layers.html#cb27-181"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-182"><a href="layers.html#cb27-182"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-183"><a href="layers.html#cb27-183"></a></span>
+<span id="cb27-184"><a href="layers.html#cb27-184"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-185"><a href="layers.html#cb27-185"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-186"><a href="layers.html#cb27-186"></a></span>
+<span id="cb27-187"><a href="layers.html#cb27-187"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-188"><a href="layers.html#cb27-188"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-189"><a href="layers.html#cb27-189"></a></span>
+<span id="cb27-190"><a href="layers.html#cb27-190"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-191"><a href="layers.html#cb27-191"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-192"><a href="layers.html#cb27-192"></a></span>
+<span id="cb27-193"><a href="layers.html#cb27-193"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-194"><a href="layers.html#cb27-194"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-195"><a href="layers.html#cb27-195"></a></span>
+<span id="cb27-196"><a href="layers.html#cb27-196"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-197"><a href="layers.html#cb27-197"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-198"><a href="layers.html#cb27-198"></a></span>
+<span id="cb27-199"><a href="layers.html#cb27-199"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-200"><a href="layers.html#cb27-200"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-201"><a href="layers.html#cb27-201"></a></span>
+<span id="cb27-202"><a href="layers.html#cb27-202"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-203"><a href="layers.html#cb27-203"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-204"><a href="layers.html#cb27-204"></a></span>
+<span id="cb27-205"><a href="layers.html#cb27-205"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-206"><a href="layers.html#cb27-206"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-207"><a href="layers.html#cb27-207"></a></span>
+<span id="cb27-208"><a href="layers.html#cb27-208"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-209"><a href="layers.html#cb27-209"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-210"><a href="layers.html#cb27-210"></a></span>
+<span id="cb27-211"><a href="layers.html#cb27-211"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-212"><a href="layers.html#cb27-212"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-213"><a href="layers.html#cb27-213"></a></span>
+<span id="cb27-214"><a href="layers.html#cb27-214"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-215"><a href="layers.html#cb27-215"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-216"><a href="layers.html#cb27-216"></a></span>
+<span id="cb27-217"><a href="layers.html#cb27-217"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-218"><a href="layers.html#cb27-218"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-219"><a href="layers.html#cb27-219"></a></span>
+<span id="cb27-220"><a href="layers.html#cb27-220"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-221"><a href="layers.html#cb27-221"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-222"><a href="layers.html#cb27-222"></a></span>
+<span id="cb27-223"><a href="layers.html#cb27-223"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-224"><a href="layers.html#cb27-224"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-225"><a href="layers.html#cb27-225"></a></span>
+<span id="cb27-226"><a href="layers.html#cb27-226"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-227"><a href="layers.html#cb27-227"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-228"><a href="layers.html#cb27-228"></a></span>
+<span id="cb27-229"><a href="layers.html#cb27-229"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-230"><a href="layers.html#cb27-230"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-231"><a href="layers.html#cb27-231"></a></span>
+<span id="cb27-232"><a href="layers.html#cb27-232"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-233"><a href="layers.html#cb27-233"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-234"><a href="layers.html#cb27-234"></a></span>
+<span id="cb27-235"><a href="layers.html#cb27-235"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-236"><a href="layers.html#cb27-236"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-237"><a href="layers.html#cb27-237"></a></span>
+<span id="cb27-238"><a href="layers.html#cb27-238"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-239"><a href="layers.html#cb27-239"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-240"><a href="layers.html#cb27-240"></a></span>
+<span id="cb27-241"><a href="layers.html#cb27-241"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-242"><a href="layers.html#cb27-242"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-243"><a href="layers.html#cb27-243"></a></span>
+<span id="cb27-244"><a href="layers.html#cb27-244"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-245"><a href="layers.html#cb27-245"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-246"><a href="layers.html#cb27-246"></a></span>
+<span id="cb27-247"><a href="layers.html#cb27-247"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-248"><a href="layers.html#cb27-248"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-249"><a href="layers.html#cb27-249"></a></span>
+<span id="cb27-250"><a href="layers.html#cb27-250"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-251"><a href="layers.html#cb27-251"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-252"><a href="layers.html#cb27-252"></a></span>
+<span id="cb27-253"><a href="layers.html#cb27-253"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-254"><a href="layers.html#cb27-254"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-255"><a href="layers.html#cb27-255"></a></span>
+<span id="cb27-256"><a href="layers.html#cb27-256"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-257"><a href="layers.html#cb27-257"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-258"><a href="layers.html#cb27-258"></a></span>
+<span id="cb27-259"><a href="layers.html#cb27-259"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-260"><a href="layers.html#cb27-260"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span>
+<span id="cb27-261"><a href="layers.html#cb27-261"></a></span>
+<span id="cb27-262"><a href="layers.html#cb27-262"></a><span class="co">#&gt; Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:</span></span>
+<span id="cb27-263"><a href="layers.html#cb27-263"></a><span class="co">#&gt; proj_as_wkt: Unsupported conversion method: Equal Earth</span></span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
