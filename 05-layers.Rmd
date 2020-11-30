@@ -203,12 +203,48 @@ library(tmap)
 data("rivers", package = "tmap")
 ```
 
+The `tm_lines()` function allows to visualize different types of line data.
+
 ```{r}
 tm_shape(rivers) + 
   tm_lines()
 ```
 
-<!-- think about tm_iso example -->
+Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
+This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
+
+Lines are also often presented together with text labels (Section \@ref(text)).
+One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
+Isopleths can be created with the `tm_iso()` function.
+
+```{r}
+# data(land, package = "tmap")
+# library(raster)
+# elev = land["elevation"]
+# elev_isopleths = rasterToContour(as(elev, "Raster"))
+
+# think about tm_iso example
+# improve example
+# tm_shape(elev_isopleths) +
+#   tm_iso()
+# 
+# library(tmap)
+# data("dem", package = "spDataLarge")
+# # create hillshade
+# hs = hillShade(slope = terrain(dem, "slope"), aspect = terrain(dem, "aspect"))
+# # create contour
+# cn = rasterToContour(dem)
+# 
+# tm_shape(hs) +
+# 	tm_grid() +
+# 	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
+# 	tm_shape(dem) +
+# 	tm_raster(alpha = 0.5, palette = terrain.colors(25),
+# 	          legend.show = FALSE) +
+# 	tm_shape(cn) +
+# 	tm_lines(col = "white") +
+# 	tm_text("level", col = "white")
+```
 
 ## Text
 
