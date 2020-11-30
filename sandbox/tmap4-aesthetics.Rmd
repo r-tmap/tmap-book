@@ -1,0 +1,96 @@
+---
+title: "tmap4: aesthetics"
+author: Jakub Nowosad
+date: 2020-11-30
+output: 
+  html_document: 
+    toc: yes
+    number_sections: yes
+---
+
+```{r}
+library(tibble)
+library(glue)
+library(dplyr)
+
+aes_df = tribble(
+  ~aes_name, ~layer,
+  "fill", "tm_polygons()",
+  "fill", "tm_symbols()",
+  #"fill", "tm_raster()",
+  #"fill", "tm_text()",
+  "fill", "tm_fill()",
+  "fill", "tm_bubbles()",
+  #"fill", "tm_dots()",
+  #?"fill", "tm_markers()",
+  "fill", "tm_square()",
+  #"fill", "tm_iso()",
+  #"fill", "tm_rgb()/tm_rgba()",
+  "color", "tm_polygons()",
+  "color", "tm_symbols()",
+  "color", "tm_lines()",
+  "color", "tm_raster()",
+  "color", "tm_text()",
+  "color", "tm_borders()",
+  "color", "tm_bubbles()",
+  "color", "tm_dots()",
+  "color", "tm_markers()",
+  "color", "tm_square()",
+  "color", "tm_iso()",
+  "color", "tm_rgb()/tm_rgba()",
+  "stroke", "tm_polygons()",
+  "size", "tm_symbols()",
+  "stroke", "tm_lines()",
+  # "size", "tm_raster()",
+  "size", "tm_text()",
+  "stroke", "tm_borders()",
+  "size", "tm_bubbles()",
+  "size", "tm_dots()",
+  "size", "tm_markers()",
+  "size", "tm_square()",
+  "size", "tm_iso()",
+  "linetype", "tm_polygons()",
+  "shape", "tm_symbols()",
+  "linetype", "tm_lines()",
+  # "shape", "tm_raster()",
+  "shape", "tm_text()",
+  "linetype", "tm_borders()",
+  "shape", "tm_bubbles()",
+  "shape", "tm_dots()",
+  "shape", "tm_markers()",
+  "shape", "tm_square()",
+  "linetype", "tm_iso()",
+  "stroke", "tm_symbols()",
+  "stroke", "tm_bubbles()",
+  "stroke", "tm_markers()",
+  "stroke", "tm_square()",
+  "text", "tm_text()",
+  "text", "tm_iso()"
+)
+
+what_aes = function(layer_name){
+  aes = filter(aes_df, layer == layer_name)
+  aes_txt = glue_collapse(aes$aes_name, sep = ", ")
+  glue("{layer_name}: {aes_txt}")
+}
+```
+
+```{r}
+vapply(unique(aes_df$layer), what_aes, FUN.VALUE = character(1))
+```
+
+<!-- also aes (?): -->
+<!-- alpha? -->
+<!-- colorNA? -->
+
+<!-- raster color vs fill -->
+
+<!-- tm_dots -->
+<!-- shape? (if so - fill?) -->
+
+<!-- text: -->
+<!-- family -->
+<!-- fontface -->
+<!-- angle -->
+
+<!-- tm_iso vs tm_text + tm_lines? -->
