@@ -6,9 +6,10 @@ output:
   html_document: 
     toc: yes
     number_sections: yes
+    keep_md: yes
 ---
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tibble)
 library(glue)
 library(dplyr)
@@ -65,32 +66,36 @@ aes_df = tribble(
   "stroke", "tm_markers()",
   "stroke", "tm_square()",
   "text", "tm_text()",
-  "text", "tm_iso()"
+  "text", "tm_iso()",
+  "stroke", "tm_iso()"
 )
 
 what_aes = function(layer_name){
   aes = filter(aes_df, layer == layer_name)
   aes_txt = glue_collapse(aes$aes_name, sep = ", ")
-  glue("{layer_name}: {aes_txt}")
+  glue("{aes_txt}")
 }
+aes_df2 = tibble(layer = unique(aes_df$layer))
+aes_df2$aes = purrr::map_chr(aes_df2$layer, what_aes)
 ```
 
-```{r}
-vapply(unique(aes_df$layer), what_aes, FUN.VALUE = character(1))
+# Layers and aesthetics list
+
+```{r, echo=FALSE}
+knitr::kable(aes_df2, caption = "Map layers and their aesthetics that use data variables")
 ```
 
-<!-- also aes (?): -->
-<!-- alpha? -->
-<!-- colorNA? -->
+# Questions/comments
 
-<!-- raster color vs fill -->
-
-<!-- tm_dots -->
-<!-- shape? (if so - fill?) -->
-
-<!-- text: -->
-<!-- family -->
-<!-- fontface -->
-<!-- angle -->
-
-<!-- tm_iso vs tm_text + tm_lines? -->
+1. Should I also list other aesthetics (e.g. alpha, colorNA, text family, text fontface, text angle)
+2. Should we distinguish between data-based aesthetics (e.g., color or size) and single value aesthetics (e.g., colorNA, text family)?
+3. What to do with alpha? 
+Is it in the first or the second group?
+4. `tm_raster()`/`tm_rgb()`/`tm_rgba()` - should it use `"color"` or `"fill"`?
+5. `tm_dots()` - should it have aesthetics like `shape` and `color`?
+6. I have tried to separate some meanings. 
+For example, `tm_symbols()` - `"size"` relates to the symbol size, and `"stroke"` relates to the border/line width.
+What do you think about it?
+7. What to do with `tm_iso()`? `"color"` there could relate to the text color or line color... 
+(It is the only corner case, I was able to find).
+8. Also, maybe we can learn something useful from https://ggplot2-book.org/internals.html.
