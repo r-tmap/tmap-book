@@ -46,6 +46,8 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 8, 15)
 ```
 
+<!--JN: Idea - add possible aesthetics to the above table-->
+
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
 
 In this chapter, we focus on what map layers are available in **tmap** and how they differ.
@@ -203,9 +205,9 @@ library(tmap)
 data("rivers", package = "tmap")
 ```
 
-The `tm_lines()` function allows to visualize different types of line data.
+The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
-```{r}
+```{r tmlines, fig.cap="Example of a map created with tm_lines."}
 tm_shape(rivers) + 
   tm_lines()
 ```
@@ -213,7 +215,25 @@ tm_shape(rivers) +
 Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
 This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
 
-Lines are also often presented together with text labels (Section \@ref(text)).
+## Text
+
+Text labels are often an integral part of many maps.
+They can serve several functions, from naming features, indicating relations between them, or representing values of a given variable.
+The main function to create text labels is `tm_text()`, 
+
+```{r}
+tm_shape(metro2) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
+
+<!-- add info about text location, e.g. -->
+<!-- add relation between text and other layers -->
+<!-- point + text -->
+<!-- lines + text -->
+<!-- polys + text -->
+
+Text labels are also often presented together with lines (Section \@ref(lines)).
 One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
 Isopleths can be created with the `tm_iso()` function.
 
@@ -246,13 +266,6 @@ Isopleths can be created with the `tm_iso()` function.
 # 	tm_text("level", col = "white")
 ```
 
-## Text
-
-```{r}
-tm_shape(metro2) +
-  tm_text(text = "name", size = "pop2020") +
-  tm_layout(legend.outside = TRUE)
-```
 
 ## Raster
 
