@@ -227,6 +227,28 @@ tm_shape(metro2) +
   tm_layout(legend.outside = TRUE)
 ```
 
+<!-- Text labels  -->
+
+<!-- size -->
+<!-- col -->
+
+<!-- case -->
+<!-- shadow -->
+
+<!-- auto.placement  -->
+<!-- remove.overlap -->
+<!-- xmod -->
+<!-- ymod -->
+<!-- just -->
+
+<!-- fontface -->
+<!-- fontfamily -->
+
+<!-- clustering -->
+
+
+<!-- root -->
+
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
 <!-- point + text -->
