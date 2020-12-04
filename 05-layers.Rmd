@@ -218,36 +218,29 @@ This allows to show a hierarchy (for example, increased line widths for higher c
 ## Text
 
 Text labels are often an integral part of many maps.
-They can serve several functions, from naming features, indicating relations between them, or representing values of a given variable.
-The main function to create text labels is `tm_text()`, 
+They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
+The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
 
-```{r}
+```{r tmtext, fig.cap="Example of a map created with tm_text."}
 tm_shape(metro2) +
   tm_text(text = "name", size = "pop2020") +
   tm_layout(legend.outside = TRUE)
 ```
+```{r, echo=FALSE, eval=FALSE}
+tm_shape(rivers[6:10, ]) + 
+  tm_lines(lwd = "strokelwd") +
+  tm_text("name")
+```
 
-<!-- Text labels  -->
+We can adjust colors (`col`) and sizes (`size`; Section \@ref(sizes)) of labels either by providing a single value or a name of a data variable.
+Text labels can also be modified with a set of unique arguments.
+It includes `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
+<!-- ref to the text section?? -->
 
-<!-- size -->
-<!-- col -->
+Text labels can be added to spatial points, lines, and polygons.
 
-<!-- case -->
-<!-- shadow -->
+<!-- tm_text + raster? -->
 
-<!-- auto.placement  -->
-<!-- remove.overlap -->
-<!-- xmod -->
-<!-- ymod -->
-<!-- just -->
-
-<!-- fontface -->
-<!-- fontfamily -->
-
-<!-- clustering -->
-
-
-<!-- root -->
 
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
@@ -288,6 +281,15 @@ Isopleths can be created with the `tm_iso()` function.
 # 	tm_text("level", col = "white")
 ```
 
+
+
+<!-- auto.placement  -->
+<!-- remove.overlap -->
+<!-- xmod -->
+<!-- ymod -->
+<!-- just -->
+
+<!-- clustering -->
 
 ## Raster
 
