@@ -1,5 +1,5 @@
 library(methods)
-
+# knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 knitr::opts_chunk$set(
   background = "#FCFCFC", # code chunk color in latex
   comment = "#>",
