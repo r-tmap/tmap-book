@@ -46,7 +46,7 @@ knitr::kable(layers_df,
   kableExtra::pack_rows("Derived functions", 8, 15)
 ```
 
-<!--JN: Idea - add possible aesthetics to the above table-->
+<!--JN: Idea - add available aesthetics to the above table-->
 
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
 
@@ -237,16 +237,13 @@ Text labels can also be modified with a set of unique arguments.
 It includes `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
 <!-- ref to the text section?? -->
 
-Text labels can be added to spatial points, lines, and polygons.
-
-<!-- tm_text + raster? -->
-
-
+Text labels can be also added to spatial points, lines, and polygons.
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
 <!-- point + text -->
 <!-- lines + text -->
 <!-- polys + text -->
+<!-- ask MT -->
 
 Text labels are also often presented together with lines (Section \@ref(lines)).
 One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
