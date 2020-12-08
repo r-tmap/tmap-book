@@ -37,7 +37,7 @@ aes_df = tribble(
   "color", "tm_dots()",
   "color", "tm_markers()",
   "color", "tm_square()",
-  "color", "tm_iso()",
+  "color?", "tm_iso()",
   "color", "tm_rgb()/tm_rgba()",
   "stroke", "tm_polygons()",
   "size", "tm_symbols()",
@@ -49,7 +49,7 @@ aes_df = tribble(
   "size", "tm_dots()",
   "size", "tm_markers()",
   "size", "tm_square()",
-  "size", "tm_iso()",
+  "size?", "tm_iso()",
   "linetype", "tm_polygons()",
   "shape", "tm_symbols()",
   "linetype", "tm_lines()",
@@ -60,42 +60,89 @@ aes_df = tribble(
   "shape", "tm_dots()",
   "shape", "tm_markers()",
   "shape", "tm_square()",
-  "linetype", "tm_iso()",
+  "linetype?", "tm_iso()",
   "stroke", "tm_symbols()",
   "stroke", "tm_bubbles()",
   "stroke", "tm_markers()",
   "stroke", "tm_square()",
   "text", "tm_text()",
-  "text", "tm_iso()",
-  "stroke", "tm_iso()"
+  "text?", "tm_iso()",
+  "stroke?", "tm_iso()"
 )
+```
 
+```{r, echo=FALSE}
+other_data_aes_df = tribble(
+  ~other_data_aes_name, ~layer,
+  "alpha", "tm_polygons()",
+  "alpha", "tm_symbols()",
+  "alpha", "tm_raster()",
+  "alpha", "tm_text()",
+  "alpha", "tm_fill()",
+  "alpha", "tm_bubbles()",
+  "alpha", "tm_dots()",
+  "alpha", "tm_markers()",
+  "alpha", "tm_square()",
+  "alpha", "tm_iso()",
+  "alpha", "tm_rgb()/tm_rgba()",
+  "alpha", "tm_lines()",
+  "alpha", "tm_borders()"
+  )
+```
+
+```{r, echo=FALSE}
+# other_aes_df = tribble(
+#   ~other_aes_name, ~layer,
+#   "colorNA", "tm_polygons()",
+#   "colorNULL", "tm_polygons()",
+#   "scale", "tm_symbols()",
+#   "perceptual", "tm_symbols()",
+#   "size.max", "tm_symbols()",
+#   "size.lim", "tm_symbols()",
+#   "colorNA", "tm_symbols()",
+#   "colorNULL", "tm_symbols()",  
+#   "shapeNA", "tm_symbols()",
+#   "jitter", "tm_symbols()",
+#   "xmod", "tm_symbols()",
+#   "ymod", "tm_symbols()",
+#   "icon.scale", "tm_symbols()",
+#   "alpha", "tm_raster()",
+#   "alpha", "tm_text()",
+#   "alpha", "tm_fill()",
+#   "alpha", "tm_bubbles()",
+#   "alpha", "tm_dots()",
+#   "alpha", "tm_square()",
+#   "alpha", "tm_iso()",
+#   "alpha", "tm_rgb()/tm_rgba()"
+#   )
+```
+
+```{r}
 what_aes = function(layer_name){
   aes = filter(aes_df, layer == layer_name)
   aes_txt = glue_collapse(aes$aes_name, sep = ", ")
   glue("{aes_txt}")
 }
+what_other_aes = function(layer_name){
+  aes = filter(other_data_aes_df, layer == layer_name)
+  aes_txt = glue_collapse(aes$other_data_aes_name, sep = ", ")
+  glue("{aes_txt}")
+}
 aes_df2 = tibble(layer = unique(aes_df$layer))
 aes_df2$aes = purrr::map_chr(aes_df2$layer, what_aes)
+aes_data_df2 = tibble(layer = unique(other_data_aes_df$layer))
+aes_data_df2$other_aes = purrr::map_chr(aes_data_df2$layer, what_other_aes)
+
+all_df = left_join(aes_df2, aes_data_df2)
 ```
+
 
 # Layers and aesthetics list
 
 ```{r, echo=FALSE}
-knitr::kable(aes_df2, caption = "Map layers and their aesthetics that use data variables")
+knitr::kable(all_df, caption = "Map layers and their aesthetics that use data variables")
 ```
 
 # Questions/comments
 
-1. Should I also list other aesthetics (e.g. alpha, colorNA, text family, text fontface, text angle)
-2. Should we distinguish between data-based aesthetics (e.g., color or size) and single value aesthetics (e.g., colorNA, text family)?
-3. What to do with alpha? 
-Is it in the first or the second group?
-4. `tm_raster()`/`tm_rgb()`/`tm_rgba()` - should it use `"color"` or `"fill"`?
-5. `tm_dots()` - should it have aesthetics like `shape` and `color`?
-6. I have tried to separate some meanings. 
-For example, `tm_symbols()` - `"size"` relates to the symbol size, and `"stroke"` relates to the border/line width.
-What do you think about it?
-7. What to do with `tm_iso()`? `"color"` there could relate to the text color or line color... 
-(It is the only corner case, I was able to find).
-8. Also, maybe we can learn something useful from https://ggplot2-book.org/internals.html.
+1. Do we assume (similarly to ggplot2) that `alpha` relates to all aspects of visualization (e.g., fill and borders in `tm_polygons()`)?

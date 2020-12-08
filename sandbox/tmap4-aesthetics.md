@@ -11,38 +11,56 @@ output:
 
 
 
+
+
+
+
+
+```r
+what_aes = function(layer_name){
+  aes = filter(aes_df, layer == layer_name)
+  aes_txt = glue_collapse(aes$aes_name, sep = ", ")
+  glue("{aes_txt}")
+}
+what_other_aes = function(layer_name){
+  aes = filter(other_data_aes_df, layer == layer_name)
+  aes_txt = glue_collapse(aes$other_data_aes_name, sep = ", ")
+  glue("{aes_txt}")
+}
+aes_df2 = tibble(layer = unique(aes_df$layer))
+aes_df2$aes = purrr::map_chr(aes_df2$layer, what_aes)
+aes_data_df2 = tibble(layer = unique(other_data_aes_df$layer))
+aes_data_df2$other_aes = purrr::map_chr(aes_data_df2$layer, what_other_aes)
+
+all_df = left_join(aes_df2, aes_data_df2)
+```
+
+```
+## Joining, by = "layer"
+```
+
+
 # Layers and aesthetics list
 
 
 Table: Map layers and their aesthetics that use data variables
 
-|layer              |aes                                 |
-|:------------------|:-----------------------------------|
-|tm_polygons()      |fill, color, stroke, linetype       |
-|tm_symbols()       |fill, color, size, shape, stroke    |
-|tm_fill()          |fill                                |
-|tm_bubbles()       |fill, color, size, shape, stroke    |
-|tm_square()        |fill, color, size, shape, stroke    |
-|tm_lines()         |color, stroke, linetype             |
-|tm_raster()        |color                               |
-|tm_text()          |color, size, shape, text            |
-|tm_borders()       |color, stroke, linetype             |
-|tm_dots()          |color, size, shape                  |
-|tm_markers()       |color, size, shape, stroke          |
-|tm_iso()           |color, size, linetype, text, stroke |
-|tm_rgb()/tm_rgba() |color                               |
+|layer              |aes                                      |other_aes |
+|:------------------|:----------------------------------------|:---------|
+|tm_polygons()      |fill, color, stroke, linetype            |alpha     |
+|tm_symbols()       |fill, color, size, shape, stroke         |alpha     |
+|tm_fill()          |fill                                     |alpha     |
+|tm_bubbles()       |fill, color, size, shape, stroke         |alpha     |
+|tm_square()        |fill, color, size, shape, stroke         |alpha     |
+|tm_lines()         |color, stroke, linetype                  |alpha     |
+|tm_raster()        |color                                    |alpha     |
+|tm_text()          |color, size, shape, text                 |alpha     |
+|tm_borders()       |color, stroke, linetype                  |alpha     |
+|tm_dots()          |color, size, shape                       |alpha     |
+|tm_markers()       |color, size, shape, stroke               |alpha     |
+|tm_iso()           |color?, size?, linetype?, text?, stroke? |alpha     |
+|tm_rgb()/tm_rgba() |color                                    |alpha     |
 
 # Questions/comments
 
-1. Should I also list other aesthetics (e.g. alpha, colorNA, text family, text fontface, text angle)
-2. Should we distinguish between data-based aesthetics (e.g., color or size) and single value aesthetics (e.g., colorNA, text family)?
-3. What to do with alpha? 
-Is it in the first or the second group?
-4. `tm_raster()`/`tm_rgb()`/`tm_rgba()` - should it use `"color"` or `"fill"`?
-5. `tm_dots()` - should it have aesthetics like `shape` and `color`?
-6. I have tried to separate some meanings. 
-For example, `tm_symbols()` - `"size"` relates to the symbol size, and `"stroke"` relates to the border/line width.
-What do you think about it?
-7. What to do with `tm_iso()`? `"color"` there could relate to the text color or line color... 
-(It is the only corner case, I was able to find).
-8. Also, maybe we can learn something useful from https://ggplot2-book.org/internals.html.
+1. Do we assume (similarly to ggplot2) that `alpha` relates to all aspects of visualization (e.g., fill and borders in `tm_polygons()`)?
