@@ -96,11 +96,15 @@
 </tbody>
 </table>
 
+<!--JN: Idea - add available aesthetics to the above table-->
+
 <!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
 
 In this chapter, we focus on what map layers are available in **tmap** and how they differ.
 Chapter \@ref(visual-variables), on the other hand, is all about how to present information given in variables using colors, sizes, and shapes.
 <!-- ... -->
+
+<!-- maybe also we should add info about packages that tmap accepts (e.g., sf, sp, raster, stars, terra?) -->
 
 ## Polygons
 
@@ -244,7 +248,7 @@ library(tmap)
 data("rivers", package = "tmap")
 ```
 
-The `tm_lines()` function allows to visualize different types of line data.
+The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
 
 ```r
@@ -252,12 +256,329 @@ tm_shape(rivers) +
   tm_lines()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmlines-1.png" alt="Example of a map created with tm_lines." width="672" />
+<p class="caption">(\#fig:tmlines)Example of a map created with tm_lines.</p>
+</div>
 
 Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
 This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
 
-Lines are also often presented together with text labels (Section \@ref(text)).
+## Text
+
+Text labels are often an integral part of many maps.
+They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
+The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
+
+
+```r
+tm_shape(metro2) +
+  tm_text(text = "name", size = "pop2020") +
+  tm_layout(legend.outside = TRUE)
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmtext-1.png" alt="Example of a map created with tm_text." width="672" />
+<p class="caption">(\#fig:tmtext)Example of a map created with tm_text.</p>
+</div>
+
+
+We can adjust colors (`col`) and sizes (`size`; Section \@ref(sizes)) of labels either by providing a single value or a name of a data variable.
+Text labels can be modified with a set of unique arguments, including `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
+<!-- ref to the text section?? -->
+
+Text labels can be added to spatial (multi-)points, (multi-)lines, and (multi-)polygons, and each of the cases is quite different. 
+The simplest case is for POINT data, for which each text label will be located precisely in coordinates of the given points (Figure \@ref(fig:tmtext)).
+However, how to add text labels to multipoints, lines, multilines, polygons, or multipolygons?
+Should each label correspond to one spatial feature, or should every sub-feature have their own label? 
+Where should the labels be placed for lines or polygons - in the center of a line and centroid of a polygon or somewhat different?
+<!-- https://github.com/r-tmap/tmap-book/issues/16 -->
+<!-- wait for v4 -->
+
+
+
+
+
+```r
+x2 = x %>% 
+  dplyr::group_by(region_un) %>% 
+  dplyr::summarise()
+#> `summarise()` ungrouping output (override with `.groups` argument)
+tm_shape(x2) +
+  tm_polygons() +
+  tm_text("region_un")
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+
+#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
+#> proj_as_wkt: Unsupported conversion method: Equal Earth
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- add info about text location, e.g. -->
+<!-- add relation between text and other layers -->
+<!-- point + text -->
+<!-- lines + text -->
+<!-- polys + text -->
+<!-- ask MT -->
+
+Text labels are also often presented together with lines (Section \@ref(lines)).
 One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
 Isopleths can be created with the `tm_iso()` function.
 
@@ -291,16 +612,13 @@ Isopleths can be created with the `tm_iso()` function.
 # 	tm_text("level", col = "white")
 ```
 
-## Text
+<!-- auto.placement  -->
+<!-- remove.overlap -->
+<!-- xmod -->
+<!-- ymod -->
+<!-- just -->
 
-
-```r
-tm_shape(metro2) +
-  tm_text(text = "name", size = "pop2020") +
-  tm_layout(legend.outside = TRUE)
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+<!-- clustering -->
 
 ## Raster
 
@@ -309,13 +627,15 @@ tm_shape(metro2) +
 data(land, package = "tmap")
 ```
 
+<!-- Raster data -->
+
 
 ```r
 tm_shape(land[3]) +
   tm_raster()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -324,7 +644,14 @@ tm_shape(land) +
 #> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+tm_shape() +
+  tm_rgb()
+```
+
 
 ## Tile
 
@@ -601,5 +928,5 @@ tm_shape(x) +
 #> proj_as_wkt: Unsupported conversion method: Equal Earth
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" />
 

@@ -18,6 +18,8 @@ tab:layers-table
 fig:tmpolygonsder
 fig:tmsymbols1
 fig:tmsymbols2
+fig:tmlines
+fig:tmtext
 fig:visual-variables
 fig:palette-types
 fig:tmpals

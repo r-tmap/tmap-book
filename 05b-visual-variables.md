@@ -1,5 +1,7 @@
 
-# Visual variables 
+# Visual variables
+
+<!-- JN: idea - add text section -->
 
 Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
@@ -681,11 +683,17 @@ Second option is to use a *grob* object.
 # library(ggplot2)
 # 
 # p1 = as.grob(~barplot(1:10))
-# p2 = as.grob(expression(plot(rnorm(10))))
-# p3 = as.grob(function() plot(sin))
-# p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point())
+# p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
+# p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
+# p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point() + theme_void())
 ```
 
+
+```r
+# tm_shape(metro2) +
+#   tm_symbols(shape = "group",
+#              shapes = list(p3, p3, p3)) 
+```
 
 <!-- explain what's a grob -->
 <!-- try different codes (including the view mode) -->
