@@ -54,6 +54,8 @@ In this chapter, we focus on what map layers are available in **tmap** and how t
 Chapter \@ref(visual-variables), on the other hand, is all about how to present information given in variables using colors, sizes, and shapes.
 <!-- ... -->
 
+<!-- maybe also we should add info about packages that tmap accepts (e.g., sf, sp, raster, stars, terra?) -->
+
 ## Polygons
 
 <!-- intro -->
@@ -233,11 +235,37 @@ tm_shape(rivers[6:10, ]) +
 ```
 
 We can adjust colors (`col`) and sizes (`size`; Section \@ref(sizes)) of labels either by providing a single value or a name of a data variable.
-Text labels can also be modified with a set of unique arguments.
-It includes `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
+Text labels can be modified with a set of unique arguments, including `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
 <!-- ref to the text section?? -->
 
-Text labels can be also added to spatial points, lines, and polygons.
+Text labels can be added to spatial (multi-)points, (multi-)lines, and (multi-)polygons, and each of the cases is quite different. 
+The simplest case is for POINT data, for which each text label will be located precisely in coordinates of the given points (Figure \@ref(fig:tmtext)).
+However, how to add text labels to multipoints, lines, multilines, polygons, or multipolygons?
+Should each label correspond to one spatial feature, or should every sub-feature have their own label? 
+Where should the labels be placed for lines or polygons - in the center of a line and centroid of a polygon or somewhat different?
+<!-- https://github.com/r-tmap/tmap-book/issues/16 -->
+<!-- wait for v4 -->
+
+```{r, echo=FALSE, eval=FALSE}
+metro3 = metro2 %>% 
+  dplyr::mutate(g = rep(1:5, 6)) %>% 
+  dplyr::group_by(g) %>% 
+  dplyr::summarize()
+tm_shape(metro3) +
+  tm_text(text = "g", size = "g") +
+  tm_layout(legend.outside = TRUE)
+```
+
+
+```{r}
+x2 = x %>% 
+  dplyr::group_by(region_un) %>% 
+  dplyr::summarise()
+tm_shape(x2) +
+  tm_polygons() +
+  tm_text("region_un")
+```
+
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
 <!-- point + text -->
@@ -278,8 +306,6 @@ Isopleths can be created with the `tm_iso()` function.
 # 	tm_text("level", col = "white")
 ```
 
-
-
 <!-- auto.placement  -->
 <!-- remove.overlap -->
 <!-- xmod -->
@@ -294,6 +320,8 @@ Isopleths can be created with the `tm_iso()` function.
 data(land, package = "tmap")
 ```
 
+<!-- Raster data -->
+
 ```{r}
 tm_shape(land[3]) +
   tm_raster()
@@ -303,6 +331,12 @@ tm_shape(land[3]) +
 tm_shape(land) +
   tm_raster()
 ```
+
+```{r, eval=FALSE}
+tm_shape() +
+  tm_rgb()
+```
+
 
 ## Tile
 
