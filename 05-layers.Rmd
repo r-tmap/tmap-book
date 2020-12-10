@@ -320,16 +320,86 @@ Isopleths can be created with the `tm_iso()` function.
 data(land, package = "tmap")
 ```
 
-<!-- Raster data -->
+<!-- Raster data intro -->
+Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
+<!-- continuous or categorical -->
+Figure \@ref(fig:rasterdown) shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
+This function attempts to recognize the type of a given raster.
+<!-- When the input raster is continuous then .. -->
+
+```{r, eval=FALSE}
+tm_shape(land[3]) +
+  tm_raster(palette = "viridis", style = "cont")
+```
+
+On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"`.
+We still can adjust the legend title, used colors, and many more.
+
+```{r, eval=FALSE}
+tm_shape(land[2]) +
+  tm_raster(title = "Land cover:")
+```
+
+```{r rastertype, echo=FALSE, fig.cap="AA"}
+tmrt1 = tm_shape(land[3]) +
+  tm_raster(palette = "viridis", style = "cont") +
+  tm_layout(title = "A")
+tmrt2 = tm_shape(land[2]) +
+  tm_raster(title = "Land cover:") +
+  tm_layout(title = "B")
+tmap_arrange(tmrt1, tmrt2)
+```
+
+<!-- 2/resolution -->
+Raster data is represented by a grid of cells (Section \@ref(raster-data-model)), and the number of cells impacts the time to render a map.
+Rasters with hundreds of cells will be plotted quickly, while rasters with millions or billions of cells will take a lot of time (and RAM) to be shown.
+<!-- ... some info about screen resolution -->
+Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
+<!-- c(plot = 1e7, view = 1e6) -->
+This values can be adjusted with the `max.raster` argument of `tmap_options()`, which expects a named vector with two elements - `plot` and `view`.
+<!-- btw - downsampling cont vs cat -->
+<!-- when and why -->
+ (Figure \@ref(fig:rasterdown):A).
+
+```{r, eval=FALSE}
+tmap_options(max.raster = c(plot = 5000, view = 2000))
+tm_shape(land[3]) +
+  tm_raster()
+```
+
+Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
+
+```{r, eval=FALSE}
+tm_shape(land[3], raster.downsample = FALSE) +
+  tm_raster()
+```
+
+```{r rasterdown, echo=FALSE, fig.cap="AA"}
+tmap_options(max.raster = c(plot = 5000, view = 2000))
+tmr1 = tm_shape(land[3]) +
+  tm_raster() +
+  tm_layout(title = "A")
+tmr2 = tm_shape(land[3], raster.downsample = FALSE) +
+  tm_raster() +
+  tm_layout(title = "B")
+tmap_arrange(tmr1, tmr2)
+```
 
 ```{r}
-tm_shape(land[3]) +
+tmap_options_reset()
+```
+
+<!-- 3/the number of layers. -->
+
+```{r}
+tm_shape(land) +
   tm_raster()
 ```
 
 ```{r}
 tm_shape(land) +
-  tm_raster()
+  tm_raster() +
+  tm_facets(nrow = 4)
 ```
 
 ```{r, eval=FALSE}
@@ -337,16 +407,21 @@ tm_shape() +
   tm_rgb()
 ```
 
+<!-- raster.warp -->
+<!-- raster margins -->
 
 ## Tile
 
 ## Combining layers
 
+<!-- projection -->
+<!-- is.master -->
+
 <!-- or maybe start with it and explain the details later? -->
 
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-```{r}
+```{r, warning=FALSE}
 tm_shape(x) +
   tm_polygons(col = "gdpPercap") +
   tm_symbols(col = "lifeExp")
