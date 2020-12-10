@@ -627,15 +627,77 @@ Isopleths can be created with the `tm_iso()` function.
 data(land, package = "tmap")
 ```
 
-<!-- Raster data -->
+<!-- Raster data intro -->
+Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
+<!-- continuous or categorical -->
+Figure \@ref(fig:rasterdown) shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
+This function attempts to recognize the type of a given raster.
+<!-- When the input raster is continuous then .. -->
 
 
 ```r
 tm_shape(land[3]) +
+  tm_raster(palette = "viridis", style = "cont")
+```
+
+On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"`.
+We still can adjust the legend title, used colors, and many more.
+
+
+```r
+tm_shape(land[2]) +
+  tm_raster(title = "Land cover:")
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/rastertype-1.png" alt="AA" width="672" />
+<p class="caption">(\#fig:rastertype)AA</p>
+</div>
+
+<!-- 2/resolution -->
+Raster data is represented by a grid of cells (Section \@ref(raster-data-model)), and the number of cells impacts the time to render a map.
+Rasters with hundreds of cells will be plotted quickly, while rasters with millions or billions of cells will take a lot of time (and RAM) to be shown.
+<!-- ... some info about screen resolution -->
+Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
+<!-- c(plot = 1e7, view = 1e6) -->
+This values can be adjusted with the `max.raster` argument of `tmap_options()`, which expects a named vector with two elements - `plot` and `view`.
+<!-- btw - downsampling cont vs cat -->
+<!-- when and why -->
+ (Figure \@ref(fig:rasterdown):A).
+
+
+```r
+tmap_options(max.raster = c(plot = 5000, view = 2000))
+tm_shape(land[3]) +
   tm_raster()
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
+Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
+
+
+```r
+tm_shape(land[3], raster.downsample = FALSE) +
+  tm_raster()
+```
+
+
+```
+#> stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)
+#> stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/rasterdown-1.png" alt="AA" width="672" />
+<p class="caption">(\#fig:rasterdown)AA</p>
+</div>
+
+
+```r
+tmap_options_reset()
+#> tmap options successfully reset
+```
+
+<!-- 3/the number of layers. -->
 
 
 ```r
@@ -644,7 +706,18 @@ tm_shape(land) +
 #> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+tm_shape(land) +
+  tm_raster() +
+  tm_facets(nrow = 4)
+#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
+#> Some legend labels were too wide. These labels have been resized to 0.34, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -652,10 +725,15 @@ tm_shape() +
   tm_rgb()
 ```
 
+<!-- raster.warp -->
+<!-- raster margins -->
 
 ## Tile
 
 ## Combining layers
+
+<!-- projection -->
+<!-- is.master -->
 
 <!-- or maybe start with it and explain the details later? -->
 
@@ -666,267 +744,7 @@ tm_shape() +
 tm_shape(x) +
   tm_polygons(col = "gdpPercap") +
   tm_symbols(col = "lifeExp")
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
-
-#> Warning in CPL_crs_parameters(x): GDAL Error 1: PROJ:
-#> proj_as_wkt: Unsupported conversion method: Equal Earth
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
 
