@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-10" />
+<meta name="date" content="2020-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -126,6 +126,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -878,7 +879,9 @@ This function attempts to recognize the type of a given raster.
 <p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code>.
 We still can adjust the legend title, used colors, and many more.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">2</span>]) <span class="op">+</span></span>
-<span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Land cover:&quot;</span>)</span></code></pre></div>
+<span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Land cover:&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;#006400&quot;</span>, <span class="st">&quot;#BE9600&quot;</span>, <span class="st">&quot;#FFFF64&quot;</span>,</span>
+<span id="cb27-3"><a href="layers.html#cb27-3"></a>                                               <span class="st">&quot;#00DC82&quot;</span>, <span class="st">&quot;#FFDCD2&quot;</span>, <span class="st">&quot;#C31400&quot;</span>,</span>
+<span id="cb27-4"><a href="layers.html#cb27-4"></a>                                               <span class="st">&quot;#FFF5D7&quot;</span>, <span class="st">&quot;#0046C8&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rastertype"></span>
 <img src="05-layers_files/figure-html/rastertype-1.png" alt="AA" width="672" />
 <p class="caption">
@@ -901,29 +904,27 @@ This values can be adjusted with the <code>max.raster</code> argument of <code>t
 <p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="layers.html#fig:rasterdown">5.7</a>:B).</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>], <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<pre><code>#&gt; stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)
-#&gt; stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:rasterdown"></span>
 <img src="05-layers_files/figure-html/rasterdown-1.png" alt="AA" width="672" />
 <p class="caption">
 FIGURE 5.7: AA
 </p>
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tmap_options_reset</span>()</span>
-<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="co">#&gt; tmap options successfully reset</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tmap_options_reset</span>()</span>
+<span id="cb30-2"><a href="layers.html#cb30-2"></a><span class="co">#&gt; tmap options successfully reset</span></span></code></pre></div>
 <!-- 3/the number of layers. -->
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
-<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
+<span id="cb31-3"><a href="layers.html#cb31-3"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
-<span id="cb33-3"><a href="layers.html#cb33-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">4</span>)</span>
-<span id="cb33-4"><a href="layers.html#cb33-4"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span>
-<span id="cb33-5"><a href="layers.html#cb33-5"></a><span class="co">#&gt; Some legend labels were too wide. These labels have been resized to 0.34, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
+<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">4</span>)</span>
+<span id="cb32-4"><a href="layers.html#cb32-4"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span>
+<span id="cb32-5"><a href="layers.html#cb32-5"></a><span class="co">#&gt; Some legend labels were too wide. These labels have been resized to 0.34, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</span></span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>() <span class="op">+</span></span>
-<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>() <span class="op">+</span></span>
+<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>()</span></code></pre></div>
 <!-- raster.warp -->
 <!-- raster margins -->
 </div>
@@ -937,9 +938,9 @@ FIGURE 5.7: AA
 <!-- or maybe start with it and explain the details later? -->
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
-<span id="cb35-3"><a href="layers.html#cb35-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
+<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>

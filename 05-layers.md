@@ -646,7 +646,9 @@ We still can adjust the legend title, used colors, and many more.
 
 ```r
 tm_shape(land[2]) +
-  tm_raster(title = "Land cover:")
+  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
+                                               "#00DC82", "#FFDCD2", "#C31400",
+                                               "#FFF5D7", "#0046C8"))
 ```
 
 <div class="figure" style="text-align: center">
@@ -678,12 +680,6 @@ Raster downsampling can be also disabled with the `raster.downsample` argument o
 ```r
 tm_shape(land[3], raster.downsample = FALSE) +
   tm_raster()
-```
-
-
-```
-#> stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)
-#> stars object downsampled to 100 by 50 cells. See tm_shape manual (argument raster.downsample)
 ```
 
 <div class="figure" style="text-align: center">

@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-10" />
+<meta name="date" content="2020-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -126,6 +126,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -359,12 +360,12 @@ The website not only presents all of the available color palettes, but also allo
 The <strong>viridis</strong> package has five color palettes are perceptually-uniform and suitable for people with color blindness.
 Four palettes is this package (“viridis”, “magma”, “plasma”, and “inferno”) are derived from the work on the color palettes for <a href="http://bids.github.io/colormap/">the matplotlib Python library</a>.
 The last one, “cividis”, is based on the work of <span class="citation">Nuñez, Anderton, and Renslow (<a href="#ref-nunez_optimizing_2018" role="doc-biblioref">2018</a>)</span>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="visual-variables.html#cb36-1"></a>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>, <span class="st">&quot;RdBu&quot;</span>)</span>
-<span id="cb36-2"><a href="visual-variables.html#cb36-2"></a><span class="co">#&gt; [1] &quot;#B2182B&quot; &quot;#EF8A62&quot; &quot;#FDDBC7&quot; &quot;#F7F7F7&quot; &quot;#D1E5F0&quot;</span></span>
-<span id="cb36-3"><a href="visual-variables.html#cb36-3"></a><span class="co">#&gt; [6] &quot;#67A9CF&quot; &quot;#2166AC&quot;</span></span>
-<span id="cb36-4"><a href="visual-variables.html#cb36-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
-<span id="cb36-5"><a href="visual-variables.html#cb36-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
-<span id="cb36-6"><a href="visual-variables.html#cb36-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="visual-variables.html#cb35-1"></a>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>, <span class="st">&quot;RdBu&quot;</span>)</span>
+<span id="cb35-2"><a href="visual-variables.html#cb35-2"></a><span class="co">#&gt; [1] &quot;#B2182B&quot; &quot;#EF8A62&quot; &quot;#FDDBC7&quot; &quot;#F7F7F7&quot; &quot;#D1E5F0&quot;</span></span>
+<span id="cb35-3"><a href="visual-variables.html#cb35-3"></a><span class="co">#&gt; [6] &quot;#67A9CF&quot; &quot;#2166AC&quot;</span></span>
+<span id="cb35-4"><a href="visual-variables.html#cb35-4"></a>viridis<span class="op">::</span><span class="kw">viridis</span>(<span class="dv">7</span>)</span>
+<span id="cb35-5"><a href="visual-variables.html#cb35-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
+<span id="cb35-6"><a href="visual-variables.html#cb35-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
 <p>
 In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
 It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
@@ -373,14 +374,14 @@ You can get the list of available palette names for <code>hcl.colors()</code> us
 The <code>palette.colors()</code> function adds <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html">several palettes for categorical data</a>.
 It includes <code>"Okabe-Ito"</code> <a href="https://jfly.uni-koeln.de/color/">suited for color vision deficiencies</a> or <code>"Polychrome 36"</code> that has 36 unique colors <span class="citation">(Coombes et al. <a href="#ref-coombes_polychrome_2019" role="doc-biblioref">2019</a>)</span>.
 You can find the available names of the palettes for this function using <code>palette.pals()</code></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="visual-variables.html#cb37-1"></a>grDevices<span class="op">::</span><span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Oslo&quot;</span>)</span>
-<span id="cb37-2"><a href="visual-variables.html#cb37-2"></a><span class="co">#&gt; [1] &quot;#FCFCFC&quot; &quot;#C2CEE8&quot; &quot;#86A2D3&quot; &quot;#3C79C0&quot; &quot;#275182&quot;</span></span>
-<span id="cb37-3"><a href="visual-variables.html#cb37-3"></a><span class="co">#&gt; [6] &quot;#132B48&quot; &quot;#040404&quot;</span></span>
-<span id="cb37-4"><a href="visual-variables.html#cb37-4"></a>grDevices<span class="op">::</span><span class="kw">palette.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Okabe-Ito&quot;</span>)</span>
-<span id="cb37-5"><a href="visual-variables.html#cb37-5"></a><span class="co">#&gt;       black      orange     skyblue bluishgreen </span></span>
-<span id="cb37-6"><a href="visual-variables.html#cb37-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
-<span id="cb37-7"><a href="visual-variables.html#cb37-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
-<span id="cb37-8"><a href="visual-variables.html#cb37-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="visual-variables.html#cb36-1"></a>grDevices<span class="op">::</span><span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Oslo&quot;</span>)</span>
+<span id="cb36-2"><a href="visual-variables.html#cb36-2"></a><span class="co">#&gt; [1] &quot;#FCFCFC&quot; &quot;#C2CEE8&quot; &quot;#86A2D3&quot; &quot;#3C79C0&quot; &quot;#275182&quot;</span></span>
+<span id="cb36-3"><a href="visual-variables.html#cb36-3"></a><span class="co">#&gt; [6] &quot;#132B48&quot; &quot;#040404&quot;</span></span>
+<span id="cb36-4"><a href="visual-variables.html#cb36-4"></a>grDevices<span class="op">::</span><span class="kw">palette.colors</span>(<span class="dv">7</span>, <span class="st">&quot;Okabe-Ito&quot;</span>)</span>
+<span id="cb36-5"><a href="visual-variables.html#cb36-5"></a><span class="co">#&gt;       black      orange     skyblue bluishgreen </span></span>
+<span id="cb36-6"><a href="visual-variables.html#cb36-6"></a><span class="co">#&gt;   &quot;#000000&quot;   &quot;#E69F00&quot;   &quot;#56B4E9&quot;   &quot;#009E73&quot; </span></span>
+<span id="cb36-7"><a href="visual-variables.html#cb36-7"></a><span class="co">#&gt;      yellow        blue  vermillion </span></span>
+<span id="cb36-8"><a href="visual-variables.html#cb36-8"></a><span class="co">#&gt;   &quot;#F0E442&quot;   &quot;#0072B2&quot;   &quot;#D55E00&quot;</span></span></code></pre></div>
 <p>
 One of the most widely used color palettes is “rainbow” (the <code>rainbow()</code> function in R).
 It was inspired by colors of rainbows - a set of seven colors going from red to violet.
@@ -393,24 +394,24 @@ More examples showing alternatives to the “rainbow” palette are in the docum
 <p>By default, the <strong>tmap</strong> package attempts to identify the type of the used variable.
 Based on the result, it selects one of the build-in palettes: categorical <code>"Set3"</code>, sequential <code>"YlOrBr"</code>, or diverging <code>"RdYlGn"</code> (Figure <a href="visual-variables.html#fig:tmpals">6.3</a>).
 <!-- info about tm_layout or reference to a section about it --></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="visual-variables.html#cb38-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb38-2"><a href="visual-variables.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="visual-variables.html#cb37-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb37-2"><a href="visual-variables.html#cb37-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
 <p>It also offers three main ways to specify color palettes using the <code>palette</code> argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure <a href="visual-variables.html#fig:tmpals">6.3</a>).
 A vector of colors can be specified using color names or hexadecimal representations (Figure <a href="visual-variables.html#fig:tmpals">6.3</a>).
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend.
 <strong>tmap</strong> automatically interpolates new colors in the case when a smaller number of colors is provided.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="visual-variables.html#cb39-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb39-2"><a href="visual-variables.html#cb39-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="visual-variables.html#cb38-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb38-2"><a href="visual-variables.html#cb38-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>))</span></code></pre></div>
 <p>Another approach is to provide the output of a palette function (Figure <a href="visual-variables.html#fig:tmpals">6.3</a>).
 In the example below, we derived seven colors from <code>"ag_GrnYl"</code> palette.
 This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
 Thus, we also used the <code>rev()</code> function here.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="visual-variables.html#cb40-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb40-2"><a href="visual-variables.html#cb40-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">rev</span>(<span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;ag_GrnYl&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="visual-variables.html#cb39-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb39-2"><a href="visual-variables.html#cb39-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="kw">rev</span>(<span class="kw">hcl.colors</span>(<span class="dv">7</span>, <span class="st">&quot;ag_GrnYl&quot;</span>)))</span></code></pre></div>
 <p>The last approach is to use one of the names of color palettes build-in in <strong>tmap</strong> (Figure <a href="visual-variables.html#fig:tmpals">6.3</a>).
 In this example, we used the <code>"YlGn"</code> palette that goes from yellow to green.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="visual-variables.html#cb41-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb41-2"><a href="visual-variables.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlGn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="visual-variables.html#cb40-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb40-2"><a href="visual-variables.html#cb40-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlGn&quot;</span>)</span></code></pre></div>
 <p>You can find all of the named color palettes using an interactive app with <code>tmaptools::palette_explorer()</code>.
 It is also possible to reverse the order of any named color palette by using the <code>-</code> prefix.
 Therefore, <code>"-YlGn"</code> will return a palette going from green to yellow.</p>
@@ -429,8 +430,8 @@ It has a value of 0 as the default, however, it is possible to change it to any 
 For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
 To do that, we just need to set the <code>midpoint</code> argument to this value (Figure <a href="visual-variables.html#fig:tmmidpoint">6.4</a>:B).
 <!-- , style = "cont" --></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="visual-variables.html#cb42-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb42-2"><a href="visual-variables.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">midpoint =</span> <span class="dv">73</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="visual-variables.html#cb41-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb41-2"><a href="visual-variables.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">midpoint =</span> <span class="dv">73</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmmidpoint"></span>
 <img src="05b-visual-variables_files/figure-html/tmmidpoint-1.png" alt="Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73." width="672" />
 <p class="caption">
@@ -448,18 +449,18 @@ You can see it in the example below, where we plot the <code>"region_un"</code> 
 Each category in this variable (e.g., <code>"Africa"</code>) has a new, connected to it color (e.g., <code>"#11467b"</code>).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories --></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="visual-variables.html#cb43-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb43-2"><a href="visual-variables.html#cb43-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;region_un&quot;</span>, </span>
-<span id="cb43-3"><a href="visual-variables.html#cb43-3"></a>    <span class="dt">palette =</span> <span class="kw">c</span>(</span>
-<span id="cb43-4"><a href="visual-variables.html#cb43-4"></a>      <span class="st">&quot;Africa&quot;</span> =<span class="st"> &quot;#11467b&quot;</span>,</span>
-<span id="cb43-5"><a href="visual-variables.html#cb43-5"></a>      <span class="st">&quot;Americas&quot;</span> =<span class="st"> &quot;#ffd14d&quot;</span>, </span>
-<span id="cb43-6"><a href="visual-variables.html#cb43-6"></a>      <span class="st">&quot;Antarctica&quot;</span> =<span class="st"> &quot;#86909a&quot;</span>, </span>
-<span id="cb43-7"><a href="visual-variables.html#cb43-7"></a>      <span class="st">&quot;Asia&quot;</span> =<span class="st"> &quot;#14909a&quot;</span>,</span>
-<span id="cb43-8"><a href="visual-variables.html#cb43-8"></a>      <span class="st">&quot;Europe&quot;</span> =<span class="st"> &quot;#7fbee9&quot;</span>,</span>
-<span id="cb43-9"><a href="visual-variables.html#cb43-9"></a>      <span class="st">&quot;Oceania&quot;</span> =<span class="st"> &quot;#df5454&quot;</span>,</span>
-<span id="cb43-10"><a href="visual-variables.html#cb43-10"></a>      <span class="st">&quot;Seven seas (open ocean)&quot;</span> =<span class="st"> &quot;#7b1072&quot;</span>)</span>
-<span id="cb43-11"><a href="visual-variables.html#cb43-11"></a>    )</span>
-<span id="cb43-12"><a href="visual-variables.html#cb43-12"></a><span class="co">#&gt; Some legend labels were too wide. These labels have been resized to 0.64. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="visual-variables.html#cb42-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb42-2"><a href="visual-variables.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;region_un&quot;</span>, </span>
+<span id="cb42-3"><a href="visual-variables.html#cb42-3"></a>    <span class="dt">palette =</span> <span class="kw">c</span>(</span>
+<span id="cb42-4"><a href="visual-variables.html#cb42-4"></a>      <span class="st">&quot;Africa&quot;</span> =<span class="st"> &quot;#11467b&quot;</span>,</span>
+<span id="cb42-5"><a href="visual-variables.html#cb42-5"></a>      <span class="st">&quot;Americas&quot;</span> =<span class="st"> &quot;#ffd14d&quot;</span>, </span>
+<span id="cb42-6"><a href="visual-variables.html#cb42-6"></a>      <span class="st">&quot;Antarctica&quot;</span> =<span class="st"> &quot;#86909a&quot;</span>, </span>
+<span id="cb42-7"><a href="visual-variables.html#cb42-7"></a>      <span class="st">&quot;Asia&quot;</span> =<span class="st"> &quot;#14909a&quot;</span>,</span>
+<span id="cb42-8"><a href="visual-variables.html#cb42-8"></a>      <span class="st">&quot;Europe&quot;</span> =<span class="st"> &quot;#7fbee9&quot;</span>,</span>
+<span id="cb42-9"><a href="visual-variables.html#cb42-9"></a>      <span class="st">&quot;Oceania&quot;</span> =<span class="st"> &quot;#df5454&quot;</span>,</span>
+<span id="cb42-10"><a href="visual-variables.html#cb42-10"></a>      <span class="st">&quot;Seven seas (open ocean)&quot;</span> =<span class="st"> &quot;#7b1072&quot;</span>)</span>
+<span id="cb42-11"><a href="visual-variables.html#cb42-11"></a>    )</span>
+<span id="cb42-12"><a href="visual-variables.html#cb42-12"></a><span class="co">#&gt; Some legend labels were too wide. These labels have been resized to 0.64. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</span></span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmcatpals"></span>
 <img src="05b-visual-variables_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
 <p class="caption">
@@ -488,8 +489,8 @@ The <code>alpha</code> argument is useful in two ways: one - it allows us to see
 <code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="visual-variables.html#color-palettes">6.1.1</a>) (Figure <a href="visual-variables.html#fig:colorscales1">6.6</a>).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="visual-variables.html#cb44-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb44-2"><a href="visual-variables.html#cb44-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="visual-variables.html#cb43-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb43-2"><a href="visual-variables.html#cb43-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:colorscales1"></span>
 <img src="05b-visual-variables_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="672" />
 <p class="caption">
@@ -507,8 +508,8 @@ However, when the provided variable is numerical, then it is possible to create 
 <p>
 An example of a categorical map can be seen in Figure <a href="visual-variables.html#fig:colorscales2">6.7</a>.
 We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="visual-variables.html#cb45-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb45-2"><a href="visual-variables.html#cb45-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="visual-variables.html#cb44-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb44-2"><a href="visual-variables.html#cb44-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <!-- categorical -->
 <div class="figure" style="text-align: center"><span id="fig:colorscales2"></span>
 <img src="05b-visual-variables_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on the values of a categorical variable." width="672" />
@@ -528,18 +529,18 @@ Several approaches can be used to convert continuous variables to discrete ones,
 Most of them (except <code>"log10_pretty"</code>) use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
 <p>By default, the <code>"pretty"</code> style is used (Figure <a href="visual-variables.html#fig:discrete-methods">6.8</a>:A).
 This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="visual-variables.html#cb46-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb46-2"><a href="visual-variables.html#cb46-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="visual-variables.html#cb45-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb45-2"><a href="visual-variables.html#cb45-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
 While not every <code>n</code> is possible depending on the input values, <strong>tmap</strong> will try to create a number of classes as close to possible to the preferred one.</p>
 <p>The next approach is to manually select the limits of each break with the <code>breaks</code> function (Figure <a href="visual-variables.html#fig:discrete-methods">6.8</a>:B).
 This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the <code>labels</code> argument.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="visual-variables.html#cb47-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb47-2"><a href="visual-variables.html#cb47-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb47-3"><a href="visual-variables.html#cb47-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
-<span id="cb47-4"><a href="visual-variables.html#cb47-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="visual-variables.html#cb46-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb46-2"><a href="visual-variables.html#cb46-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
+<span id="cb46-3"><a href="visual-variables.html#cb46-3"></a>              <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>, <span class="dv">30000</span>, <span class="dv">121000</span>),</span>
+<span id="cb46-4"><a href="visual-variables.html#cb46-4"></a>              <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;low&quot;</span>, <span class="st">&quot;medium&quot;</span>, <span class="st">&quot;high&quot;</span>))</span></code></pre></div>
 <!-- interval.closure    -->
 <p>Another approach is to create breaks automatically using one of many existing classification methods.
 Three basic methods are <code>"equal"</code>, <code>"sd"</code>, and <code>"quantile"</code> styles.
@@ -557,9 +558,9 @@ However, the resulting intervals from the <code>"quantile"</code> style can ofte
 The most common optimization method used in cartography is the Jenks optimization method implemented at the <code>"jenks"</code> style (Figure <a href="visual-variables.html#fig:discrete-methods">6.8</a>:C).</p>
 <!-- how about adding ggplot2 histograms?? -->
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="visual-variables.html#cb48-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb48-2"><a href="visual-variables.html#cb48-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb48-3"><a href="visual-variables.html#cb48-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="visual-variables.html#cb47-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb47-2"><a href="visual-variables.html#cb47-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
+<span id="cb47-3"><a href="visual-variables.html#cb47-3"></a>              <span class="dt">style =</span> <span class="st">&quot;jenks&quot;</span>)</span></code></pre></div>
 <p>The Fisher method (<code>style = "fisher"</code>) has a similar role, which creates groups with maximized homogeneity <span class="citation">(Fisher <a href="#ref-fisher_grouping_1958" role="doc-biblioref">1958</a>)</span>.
 A different approach is used by the <code>dpih</code> style, which uses kernel density estimations to select the width of the intervals <span class="citation">(Wand <a href="#ref-wand_databased_1997" role="doc-biblioref">1997</a>)</span>.
 You can visit <code>?KernSmooth::dpih</code> for more details.</p>
@@ -574,9 +575,9 @@ In this style, each class starts with a value ten times larger than the beginnin
 In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
 However, maps with logarithmically transformed variables are usually less intuitive for the readers and require more attention from them.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="visual-variables.html#cb49-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb49-2"><a href="visual-variables.html#cb49-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
-<span id="cb49-3"><a href="visual-variables.html#cb49-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="visual-variables.html#cb48-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb48-2"><a href="visual-variables.html#cb48-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>, </span>
+<span id="cb48-3"><a href="visual-variables.html#cb48-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10_pretty&quot;</span>)</span></code></pre></div>
 <!-- discrete -->
 <div class="figure" style="text-align: center"><span id="fig:discrete-methods"></span>
 <img src="05b-visual-variables_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method." width="672" />
@@ -595,20 +596,20 @@ We can see that in Figure <a href="visual-variables.html#fig:cont-methods">6.9</
 The <code>cont</code> style is similar to the <code>pretty</code> one, where the values also change linearly.
 The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
 The <code>cont</code> style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers).</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="visual-variables.html#cb50-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb50-2"><a href="visual-variables.html#cb50-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb50-3"><a href="visual-variables.html#cb50-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="visual-variables.html#cb49-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb49-2"><a href="visual-variables.html#cb49-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
+<span id="cb49-3"><a href="visual-variables.html#cb49-3"></a>              <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
 <p>However, when the presented variable is skewed or have some outliers, we can use either <code>order</code> or <code>log10</code> style.
 The <code>order</code> style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure <a href="visual-variables.html#fig:cont-methods">6.9</a>:B).
 <!--JN: Martijn please check the next sentence -->
 It is fairly analogous to the <code>quantile</code> style, with the values on a color scale that divides a dataset into several equal-sized groups.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="visual-variables.html#cb50-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb50-2"><a href="visual-variables.html#cb50-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
+<span id="cb50-3"><a href="visual-variables.html#cb50-3"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span></code></pre></div>
+<p>Finally, the <code>log10</code> style is the continuous equivalent of the <code>log10_pretty</code> style (Figure <a href="visual-variables.html#fig:cont-methods">6.9</a>:C).</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="visual-variables.html#cb51-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb51-2"><a href="visual-variables.html#cb51-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb51-3"><a href="visual-variables.html#cb51-3"></a>              <span class="dt">style =</span> <span class="st">&quot;order&quot;</span>)</span></code></pre></div>
-<p>Finally, the <code>log10</code> style is the continuous equivalent of the <code>log10_pretty</code> style (Figure <a href="visual-variables.html#fig:cont-methods">6.9</a>:C).</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="visual-variables.html#cb52-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb52-2"><a href="visual-variables.html#cb52-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>,</span>
-<span id="cb52-3"><a href="visual-variables.html#cb52-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
+<span id="cb51-3"><a href="visual-variables.html#cb51-3"></a>              <span class="dt">style =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:cont-methods"></span>
 <img src="05b-visual-variables_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method." width="672" />
 <p class="caption">
@@ -617,8 +618,8 @@ FIGURE 6.9: Examples of three methods of creating continuous maps: (A) the ‘co
 </div>
 <p>The <code>tm_polygons()</code> also offer a third way of specifying the fill color.
 When the <code>col</code> argument is set to <code>"MAP_COLORS"</code> then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure <a href="visual-variables.html#fig:colorscalesmc">6.10</a>).</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="visual-variables.html#cb53-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb53-2"><a href="visual-variables.html#cb53-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="visual-variables.html#cb52-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb52-2"><a href="visual-variables.html#cb52-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;MAP_COLORS&quot;</span>)</span></code></pre></div>
 <p>In this case, it is also possible to change the default colors with the <code>palette</code> argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting <code>minimize = TRUE</code>.</p>
 <div class="figure" style="text-align: center"><span id="fig:colorscalesmc"></span>
 <img src="05b-visual-variables_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
@@ -641,15 +642,15 @@ Large sizes can be also used to attract viewers’ attention.</p>
 <p>By default, <strong>t</strong>maps present points, lines, or text objects of the same size.
 For example, <code>tm_symbols()</code> returns a map where each object is a circle with a consistent size<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.
 We can change the sizes of all objects using the <code>size</code> argument (Figure <a href="visual-variables.html#fig:tmsizes">6.11</a>:A).</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="visual-variables.html#cb54-1"></a><span class="co"># replace dataset later</span></span>
-<span id="cb54-2"><a href="visual-variables.html#cb54-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb54-3"><a href="visual-variables.html#cb54-3"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
-<span id="cb54-4"><a href="visual-variables.html#cb54-4"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb54-5"><a href="visual-variables.html#cb54-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.5</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="visual-variables.html#cb53-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb53-2"><a href="visual-variables.html#cb53-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb53-3"><a href="visual-variables.html#cb53-3"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb53-4"><a href="visual-variables.html#cb53-4"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb53-5"><a href="visual-variables.html#cb53-5"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="fl">0.5</span>) </span></code></pre></div>
 <p>On the other hand, if we provide the name of the numerical variable in the <code>size</code> argument (e.g., <code>"pop2020"</code>), then symbol sizes are scaled proportionally to the provided values.
 Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure <a href="visual-variables.html#fig:tmsizes">6.11</a>:B).</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="visual-variables.html#cb55-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb55-2"><a href="visual-variables.html#cb55-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="visual-variables.html#cb54-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb54-2"><a href="visual-variables.html#cb54-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) </span></code></pre></div>
 <!-- numeric only -->
 <!-- size.max    -->
 <!-- size.lim    -->
@@ -658,11 +659,11 @@ Objects with small values will be represented by smaller circles, while larger v
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
 <p>We can adjust size legend breaks with <code>sizes.legend</code> and the corresponding labels with <code>sizes.legend.labels</code> (Figure <a href="visual-variables.html#fig:tmsizes">6.11</a>:C).
 However, this only modifies the legend, not the related objects.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="visual-variables.html#cb56-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
-<span id="cb56-2"><a href="visual-variables.html#cb56-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
-<span id="cb56-3"><a href="visual-variables.html#cb56-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
-<span id="cb56-4"><a href="visual-variables.html#cb56-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
-<span id="cb56-5"><a href="visual-variables.html#cb56-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="visual-variables.html#cb55-1"></a><span class="kw">tm_shape</span>(metro) <span class="op">+</span></span>
+<span id="cb55-2"><a href="visual-variables.html#cb55-2"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>,</span>
+<span id="cb55-3"><a href="visual-variables.html#cb55-3"></a>            <span class="dt">title.size =</span> <span class="st">&quot;Population (2020)&quot;</span>,</span>
+<span id="cb55-4"><a href="visual-variables.html#cb55-4"></a>            <span class="dt">sizes.legend =</span> <span class="kw">c</span>(<span class="dv">1000000</span>, <span class="dv">10000000</span>),</span>
+<span id="cb55-5"><a href="visual-variables.html#cb55-5"></a>            <span class="dt">sizes.legend.labels =</span> <span class="kw">c</span>(<span class="st">&quot;small&quot;</span>, <span class="st">&quot;large&quot;</span>)) </span></code></pre></div>
 <p>For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmsizes"></span>
 <img src="05b-visual-variables_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend." width="672" />
@@ -672,11 +673,11 @@ FIGURE 6.11: Examples of three approaches for changing sizes of symbols: (A) all
 </div>
 <p>Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
 The <code>lwd</code> argument in <code>tm_lines()</code> creates thin lines for small values and thick lines for large values of the given variable (Figure <a href="visual-variables.html#fig:tmlwd">6.12</a>).</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="visual-variables.html#cb57-1"></a><span class="co"># replace dataset later</span></span>
-<span id="cb57-2"><a href="visual-variables.html#cb57-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb57-3"><a href="visual-variables.html#cb57-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
-<span id="cb57-4"><a href="visual-variables.html#cb57-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb57-5"><a href="visual-variables.html#cb57-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="visual-variables.html#cb56-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb56-2"><a href="visual-variables.html#cb56-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb56-3"><a href="visual-variables.html#cb56-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb56-4"><a href="visual-variables.html#cb56-4"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb56-5"><a href="visual-variables.html#cb56-5"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmlwd"></span>
 <img src="05b-visual-variables_files/figure-html/tmlwd-1.png" alt="Example of a map where lines' widths represent values of the corresponding lines." width="672" />
 <p class="caption">
@@ -692,12 +693,12 @@ Usually, the size of text labels is consistent for the same spatial objects. <!-
 However, text labels can be also used to represent the values of some numerical variables.
 Figure <a href="visual-variables.html#fig:tmtextsize">6.13</a> shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
 This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="visual-variables.html#cb58-1"></a><span class="co"># to update later</span></span>
-<span id="cb58-2"><a href="visual-variables.html#cb58-2"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
-<span id="cb58-3"><a href="visual-variables.html#cb58-3"></a>metro2 =<span class="st"> </span>metro[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(metro), <span class="dv">30</span>), ]</span>
-<span id="cb58-4"><a href="visual-variables.html#cb58-4"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb58-5"><a href="visual-variables.html#cb58-5"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
-<span id="cb58-6"><a href="visual-variables.html#cb58-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="visual-variables.html#cb57-1"></a><span class="co"># to update later</span></span>
+<span id="cb57-2"><a href="visual-variables.html#cb57-2"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
+<span id="cb57-3"><a href="visual-variables.html#cb57-3"></a>metro2 =<span class="st"> </span>metro[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(metro), <span class="dv">30</span>), ]</span>
+<span id="cb57-4"><a href="visual-variables.html#cb57-4"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb57-5"><a href="visual-variables.html#cb57-5"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
+<span id="cb57-6"><a href="visual-variables.html#cb57-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtextsize"></span>
 <img src="05b-visual-variables_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent populations of the given metropolitan areas." width="672" />
 <p class="caption">
@@ -713,17 +714,17 @@ FIGURE 6.13: Example of a map where text sizes represent populations of the give
 <h2><span class="header-section-number">6.3</span> Shapes <!--JN: I am not sure where this section should go--></h2>
 <!-- ??and markers -->
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="visual-variables.html#cb59-1"></a><span class="kw">set.seed</span>(<span class="dv">231</span>)</span>
-<span id="cb59-2"><a href="visual-variables.html#cb59-2"></a>metro2<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro2), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="visual-variables.html#cb58-1"></a><span class="kw">set.seed</span>(<span class="dv">231</span>)</span>
+<span id="cb58-2"><a href="visual-variables.html#cb58-2"></a>metro2<span class="op">$</span>group =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(metro2), <span class="dt">replace =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <p>Shapes allow representing different categories of point data.
 They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features.
 For example, we use the letter <em>P</em> for parking lots, <em>I</em> for information centers, an airplane symbol for airports, or a bus symbol for bus stops.</p>
 <p>To use different shapes, we should use the <code>shape</code> argument in the <code>tm_symbols()</code> function.
 It expects the name of the categorical variable.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="visual-variables.html#cb60-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb60-2"><a href="visual-variables.html#cb60-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb60-3"><a href="visual-variables.html#cb60-3"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
-<span id="cb60-4"><a href="visual-variables.html#cb60-4"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="visual-variables.html#cb59-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb59-2"><a href="visual-variables.html#cb59-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb59-3"><a href="visual-variables.html#cb59-3"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
+<span id="cb59-4"><a href="visual-variables.html#cb59-4"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>))</span></code></pre></div>
 <p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
 However, it is also possible to customize used symbols, their title, and labels.
 Legend title related to shapes is modified with the <code>title.shape</code> argument, while their labels use the <code>shapes.lables</code> argument.</p>
@@ -731,40 +732,40 @@ Legend title related to shapes is modified with the <code>title.shape</code> arg
 The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.
 A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.
 <!--JN: or should we add a figure with them here??--></p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="visual-variables.html#cb61-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb61-2"><a href="visual-variables.html#cb61-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb61-3"><a href="visual-variables.html#cb61-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="visual-variables.html#cb60-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb60-2"><a href="visual-variables.html#cb60-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb60-3"><a href="visual-variables.html#cb60-3"></a>             <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span></code></pre></div>
 <p>Second option is to use a <em>grob</em> object.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="visual-variables.html#cb62-1"></a><span class="co"># library(grid)</span></span>
-<span id="cb62-2"><a href="visual-variables.html#cb62-2"></a><span class="co"># library(ggplotify)</span></span>
-<span id="cb62-3"><a href="visual-variables.html#cb62-3"></a><span class="co"># library(ggplot2)</span></span>
-<span id="cb62-4"><a href="visual-variables.html#cb62-4"></a><span class="co"># </span></span>
-<span id="cb62-5"><a href="visual-variables.html#cb62-5"></a><span class="co"># p1 = as.grob(~barplot(1:10))</span></span>
-<span id="cb62-6"><a href="visual-variables.html#cb62-6"></a><span class="co"># p2 = as.grob(expression(plot(rnorm(10), yaxt = &quot;n&quot;, xaxt = &quot;n&quot;, ann = FALSE, bty = &quot;n&quot;)))</span></span>
-<span id="cb62-7"><a href="visual-variables.html#cb62-7"></a><span class="co"># p3 = as.grob(function() plot(sin, yaxt = &quot;n&quot;, xaxt = &quot;n&quot;, ann = FALSE, bty = &quot;n&quot;))</span></span>
-<span id="cb62-8"><a href="visual-variables.html#cb62-8"></a><span class="co"># p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point() + theme_void())</span></span></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="visual-variables.html#cb63-1"></a><span class="co"># tm_shape(metro2) +</span></span>
-<span id="cb63-2"><a href="visual-variables.html#cb63-2"></a><span class="co">#   tm_symbols(shape = &quot;group&quot;,</span></span>
-<span id="cb63-3"><a href="visual-variables.html#cb63-3"></a><span class="co">#              shapes = list(p3, p3, p3)) </span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="visual-variables.html#cb61-1"></a><span class="co"># library(grid)</span></span>
+<span id="cb61-2"><a href="visual-variables.html#cb61-2"></a><span class="co"># library(ggplotify)</span></span>
+<span id="cb61-3"><a href="visual-variables.html#cb61-3"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb61-4"><a href="visual-variables.html#cb61-4"></a><span class="co"># </span></span>
+<span id="cb61-5"><a href="visual-variables.html#cb61-5"></a><span class="co"># p1 = as.grob(~barplot(1:10))</span></span>
+<span id="cb61-6"><a href="visual-variables.html#cb61-6"></a><span class="co"># p2 = as.grob(expression(plot(rnorm(10), yaxt = &quot;n&quot;, xaxt = &quot;n&quot;, ann = FALSE, bty = &quot;n&quot;)))</span></span>
+<span id="cb61-7"><a href="visual-variables.html#cb61-7"></a><span class="co"># p3 = as.grob(function() plot(sin, yaxt = &quot;n&quot;, xaxt = &quot;n&quot;, ann = FALSE, bty = &quot;n&quot;))</span></span>
+<span id="cb61-8"><a href="visual-variables.html#cb61-8"></a><span class="co"># p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point() + theme_void())</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="visual-variables.html#cb62-1"></a><span class="co"># tm_shape(metro2) +</span></span>
+<span id="cb62-2"><a href="visual-variables.html#cb62-2"></a><span class="co">#   tm_symbols(shape = &quot;group&quot;,</span></span>
+<span id="cb62-3"><a href="visual-variables.html#cb62-3"></a><span class="co">#              shapes = list(p3, p3, p3)) </span></span></code></pre></div>
 <!-- explain what's a grob -->
 <!-- try different codes (including the view mode) -->
 <!-- add new example -->
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="visual-variables.html#cb64-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb64-2"><a href="visual-variables.html#cb64-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb64-3"><a href="visual-variables.html#cb64-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="visual-variables.html#cb63-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb63-2"><a href="visual-variables.html#cb63-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb63-3"><a href="visual-variables.html#cb63-3"></a>             <span class="dt">shapes =</span> my_icons)</span></code></pre></div>
 <p>The last possibility is to use an icon specification created with the <code>tmap_icons()</code> function, that uses any png images.
 The <code>tmap_icons()</code> function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
 In our example, we have three distinct groups, therefore we need to create new icons based on three images - <code>icon1.png</code>, <code>icon2.png</code>, and <code>icon3.png</code> in this case.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="visual-variables.html#cb65-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
-<span id="cb65-2"><a href="visual-variables.html#cb65-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
-<span id="cb65-3"><a href="visual-variables.html#cb65-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="visual-variables.html#cb64-1"></a>my_icons =<span class="st"> </span><span class="kw">tmap_icons</span>(<span class="kw">c</span>(<span class="st">&quot;images/icon1.png&quot;</span>, </span>
+<span id="cb64-2"><a href="visual-variables.html#cb64-2"></a>                        <span class="st">&quot;images/icon2.png&quot;</span>, </span>
+<span id="cb64-3"><a href="visual-variables.html#cb64-3"></a>                        <span class="st">&quot;images/icon3.png&quot;</span>))</span></code></pre></div>
 <p>Now, we can use the prepared icons in the <code>shapes</code> argument (Figure <a href="visual-variables.html#fig:tmsymshape">6.14</a>:D).
 <!-- border.col = NULL --></p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="visual-variables.html#cb66-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb66-2"><a href="visual-variables.html#cb66-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
-<span id="cb66-3"><a href="visual-variables.html#cb66-3"></a>             <span class="dt">shapes =</span> my_icons,</span>
-<span id="cb66-4"><a href="visual-variables.html#cb66-4"></a>             <span class="dt">border.col =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="visual-variables.html#cb65-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb65-2"><a href="visual-variables.html#cb65-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb65-3"><a href="visual-variables.html#cb65-3"></a>             <span class="dt">shapes =</span> my_icons,</span>
+<span id="cb65-4"><a href="visual-variables.html#cb65-4"></a>             <span class="dt">border.col =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymshape"></span>
 <img src="05b-visual-variables_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="672" />
 <p class="caption">
@@ -781,24 +782,24 @@ Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.</p>
 <p>Figure <a href="visual-variables.html#fig:mixsymb">6.15</a>:A shows symbols, which sizes are scales based on the <code>pop2020</code> variable and they are colored using the values from <code>pop1950</code>.
 This can be set with the <code>size</code> and <code>col</code> arguments.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="visual-variables.html#cb67-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb67-2"><a href="visual-variables.html#cb67-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb67-3"><a href="visual-variables.html#cb67-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="visual-variables.html#cb66-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb66-2"><a href="visual-variables.html#cb66-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb66-3"><a href="visual-variables.html#cb66-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>)</span></code></pre></div>
 <p>We can also modify all of the visual variables using the additional arguments explained in the previous sections.
 For example, we can set the color style (<code>style</code>), color palette (<code>palette</code>), or specify shapes (<code>shapes</code>) (Figure <a href="visual-variables.html#fig:mixsymb">6.15</a>:B).</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="visual-variables.html#cb68-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb68-2"><a href="visual-variables.html#cb68-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb68-3"><a href="visual-variables.html#cb68-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
-<span id="cb68-4"><a href="visual-variables.html#cb68-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="visual-variables.html#cb67-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb67-2"><a href="visual-variables.html#cb67-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb67-3"><a href="visual-variables.html#cb67-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</span>
+<span id="cb67-4"><a href="visual-variables.html#cb67-4"></a>             <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">shapes =</span> <span class="kw">c</span>(<span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">25</span>))</span></code></pre></div>
 <p>When we use plot polygons, there is only one visual variable we can use - color.
 Therefore, changing of map legend’s title in functions like <code>tm_polygons()</code> or <code>tm_fill()</code> is done with the <code>title</code> argument.
 However, what to do when we have two or more visual variables in, for example, <code>tm_symbols()</code>?
 In these cases, we need to specify a corresponding suffix for each <code>title</code> argument.
 The color title is set with <code>title.col</code>, size title with <code>title.size</code>, and shape title with <code>title.size</code> (Figure <a href="visual-variables.html#fig:mixsymb">6.15</a>:C).</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="visual-variables.html#cb69-1"></a><span class="co"># not the best example - to fix</span></span>
-<span id="cb69-2"><a href="visual-variables.html#cb69-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb69-3"><a href="visual-variables.html#cb69-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">title.size =</span> <span class="st">&quot;Population (1950):&quot;</span>,</span>
-<span id="cb69-4"><a href="visual-variables.html#cb69-4"></a>            <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">title.shape =</span> <span class="st">&quot;Group name:&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="visual-variables.html#cb68-1"></a><span class="co"># not the best example - to fix</span></span>
+<span id="cb68-2"><a href="visual-variables.html#cb68-2"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb68-3"><a href="visual-variables.html#cb68-3"></a><span class="st"> </span><span class="kw">tm_symbols</span>(<span class="dt">size =</span> <span class="st">&quot;pop1950&quot;</span>, <span class="dt">title.size =</span> <span class="st">&quot;Population (1950):&quot;</span>,</span>
+<span id="cb68-4"><a href="visual-variables.html#cb68-4"></a>            <span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>, <span class="dt">title.shape =</span> <span class="st">&quot;Group name:&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:mixsymb"></span>
 <img src="05b-visual-variables_files/figure-html/mixsymb-1.png" alt="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape." width="672" />
 <p class="caption">
