@@ -337,7 +337,9 @@ We still can adjust the legend title, used colors, and many more.
 
 ```{r, eval=FALSE}
 tm_shape(land[2]) +
-  tm_raster(title = "Land cover:")
+  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
+                                               "#00DC82", "#FFDCD2", "#C31400",
+                                               "#FFF5D7", "#0046C8"))
 ```
 
 ```{r rastertype, echo=FALSE, fig.cap="AA"}
@@ -345,7 +347,9 @@ tmrt1 = tm_shape(land[3]) +
   tm_raster(palette = "viridis", style = "cont") +
   tm_layout(title = "A")
 tmrt2 = tm_shape(land[2]) +
-  tm_raster(title = "Land cover:") +
+  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
+                                               "#00DC82", "#FFDCD2", "#C31400",
+                                               "#FFF5D7", "#0046C8")) +
   tm_layout(title = "B")
 tmap_arrange(tmrt1, tmrt2)
 ```
@@ -374,7 +378,7 @@ tm_shape(land[3], raster.downsample = FALSE) +
   tm_raster()
 ```
 
-```{r rasterdown, echo=FALSE, fig.cap="AA"}
+```{r rasterdown, echo=FALSE, fig.cap="AA", message=FALSE}
 tmap_options(max.raster = c(plot = 5000, view = 2000))
 tmr1 = tm_shape(land[3]) +
   tm_raster() +
