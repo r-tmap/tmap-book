@@ -234,8 +234,8 @@ tm_shape(metro2) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers()." width="672" />
-<p class="caption">(\#fig:tmsymbols2)Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers().</p>
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
+<p class="caption">(\#fig:tmsymbols2)Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().</p>
 </div>
 
 
@@ -631,17 +631,16 @@ data(land, package = "tmap")
 Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure \@ref(fig:rasterdown) shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
-This function attempts to recognize the type of a given raster.
-<!-- When the input raster is continuous then .. -->
+This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used (Figure \@ref(fig:rastertype):A).
 
 
 ```r
 tm_shape(land[3]) +
-  tm_raster(palette = "viridis", style = "cont")
+  tm_raster(palette = "viridis")
 ```
 
-On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"`.
-We still can adjust the legend title, used colors, and many more.
+On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (Figure \@ref(fig:rastertype):A).
+We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 
 ```r
@@ -652,13 +651,13 @@ tm_shape(land[2]) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/rastertype-1.png" alt="AA" width="672" />
-<p class="caption">(\#fig:rastertype)AA</p>
+<img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="672" />
+<p class="caption">(\#fig:rastertype)Examples of (A) continuous raster maps, and (B) categorical raster maps.</p>
 </div>
 
 <!-- 2/resolution -->
 Raster data is represented by a grid of cells (Section \@ref(raster-data-model)), and the number of cells impacts the time to render a map.
-Rasters with hundreds of cells will be plotted quickly, while rasters with millions or billions of cells will take a lot of time (and RAM) to be shown.
+Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
 <!-- ... some info about screen resolution -->
 Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
 <!-- c(plot = 1e7, view = 1e6) -->
@@ -683,14 +682,15 @@ tm_shape(land[3], raster.downsample = FALSE) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/rasterdown-1.png" alt="AA" width="672" />
-<p class="caption">(\#fig:rasterdown)AA</p>
+<img src="05-layers_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
+<p class="caption">(\#fig:rasterdown)(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.</p>
 </div>
+
+Any **tmap** options can be reset with `tmap_options_reset()` (Chapter \@ref(options)).
 
 
 ```r
 tmap_options_reset()
-#> tmap options successfully reset
 ```
 
 <!-- 3/the number of layers. -->

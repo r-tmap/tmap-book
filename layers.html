@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -508,9 +508,9 @@ To do this, this layer has a small size value (<code>0.02</code>) at the default
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_markers</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymbols2"></span>
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers()." width="672" />
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
 <p class="caption">
-FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B), tm_bubbles() (C), tm_dots() (D) tm_markers().
+FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().
 </p>
 </div>
 </div>
@@ -872,25 +872,24 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure <a href="layers.html#fig:rasterdown">5.7</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
-This function attempts to recognize the type of a given raster.
-<!-- When the input raster is continuous then .. --></p>
+This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
-<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>)</span></code></pre></div>
-<p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code>.
-We still can adjust the legend title, used colors, and many more.</p>
+<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
+<p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code> (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).
+We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">2</span>]) <span class="op">+</span></span>
 <span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Land cover:&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;#006400&quot;</span>, <span class="st">&quot;#BE9600&quot;</span>, <span class="st">&quot;#FFFF64&quot;</span>,</span>
 <span id="cb27-3"><a href="layers.html#cb27-3"></a>                                               <span class="st">&quot;#00DC82&quot;</span>, <span class="st">&quot;#FFDCD2&quot;</span>, <span class="st">&quot;#C31400&quot;</span>,</span>
 <span id="cb27-4"><a href="layers.html#cb27-4"></a>                                               <span class="st">&quot;#FFF5D7&quot;</span>, <span class="st">&quot;#0046C8&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rastertype"></span>
-<img src="05-layers_files/figure-html/rastertype-1.png" alt="AA" width="672" />
+<img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="672" />
 <p class="caption">
-FIGURE 5.6: AA
+FIGURE 5.6: Examples of (A) continuous raster maps, and (B) categorical raster maps.
 </p>
 </div>
 <!-- 2/resolution -->
 <p>Raster data is represented by a grid of cells (Section <a href="geodata.html#raster-data-model">2.2.2</a>), and the number of cells impacts the time to render a map.
-Rasters with hundreds of cells will be plotted quickly, while rasters with millions or billions of cells will take a lot of time (and RAM) to be shown.
+Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
 <!-- ... some info about screen resolution -->
 Therefore, the <strong>tmap</strong> package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
 <!-- c(plot = 1e7, view = 1e6) -->
@@ -905,13 +904,13 @@ This values can be adjusted with the <code>max.raster</code> argument of <code>t
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>], <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rasterdown"></span>
-<img src="05-layers_files/figure-html/rasterdown-1.png" alt="AA" width="672" />
+<img src="05-layers_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
 <p class="caption">
-FIGURE 5.7: AA
+FIGURE 5.7: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
 </p>
 </div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tmap_options_reset</span>()</span>
-<span id="cb30-2"><a href="layers.html#cb30-2"></a><span class="co">#&gt; tmap options successfully reset</span></span></code></pre></div>
+<p>Any <strong>tmap</strong> options can be reset with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tmap_options_reset</span>()</span></code></pre></div>
 <!-- 3/the number of layers. -->
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
