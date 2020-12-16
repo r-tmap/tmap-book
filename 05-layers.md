@@ -704,7 +704,7 @@ tm_shape(land) +
   tm_raster()
 ```
 
-We can modify their arrangement with `tm_facets()` and (Figure \@ref(tmrasterml)).
+We can modify their arrangement with `tm_facets()` and (Figure \@ref(fig:tmrasterml)).
 
 
 ```r

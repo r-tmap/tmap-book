@@ -917,7 +917,7 @@ However, rasters can have many layers, either represented by dimensions or attri
 By default, <strong>tmap</strong> shows all of the layers, where each raster has its own legend.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="#tmrasterml"><strong>??</strong></a>).</p>
+<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="layers.html#fig:tmrasterml">5.8</a>).</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
 <span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
