@@ -631,12 +631,13 @@ data(land, package = "tmap")
 Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure \@ref(fig:rasterdown) shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
-This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used (Figure \@ref(fig:rastertype):A).
+This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
+However, the `"cont"` style often better represent phenomena that progressively vary in space (Figure \@ref(fig:rastertype):A).
 
 
 ```r
 tm_shape(land[3]) +
-  tm_raster(palette = "viridis")
+  tm_raster(style = "cont", palette = "viridis")
 ```
 
 On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (Figure \@ref(fig:rastertype):A).
@@ -686,34 +687,40 @@ tm_shape(land[3], raster.downsample = FALSE) +
 <p class="caption">(\#fig:rasterdown)(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.</p>
 </div>
 
-Any **tmap** options can be reset with `tmap_options_reset()` (Chapter \@ref(options)).
+Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (Chapter \@ref(options)).
 
 
 ```r
 tmap_options_reset()
 ```
 
-<!-- 3/the number of layers. -->
+The above examples used a raster with one layer only.
+However, rasters can have many layers, either represented by dimensions or attributes.
+By default, **tmap** shows all of the layers, where each raster has its own legend.
 
 
 ```r
 tm_shape(land) +
   tm_raster()
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+We can modify their arrangement with `tm_facets()` and (Figure \@ref(tmrasterml)).
 
 
 ```r
 tm_shape(land) +
   tm_raster() +
-  tm_facets(nrow = 4)
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
-#> Some legend labels were too wide. These labels have been resized to 0.34, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+  tm_facets(nrow = 1) +
+  tm_layout(panel.labels = c("Land cover", "Land cover (simpl.)",
+                             "Percent Tree Cover", "Elevation"))
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="672" />
+<p class="caption">(\#fig:tmrasterml)A map created from a multilayered raster.</p>
+</div>
+
+We focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
 
 
 ```r
@@ -742,5 +749,5 @@ tm_shape(x) +
   tm_symbols(col = "lifeExp")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
 

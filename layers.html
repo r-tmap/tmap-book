@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.21.5 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-15" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -872,9 +872,10 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure <a href="layers.html#fig:rasterdown">5.7</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
-This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
+This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
+However, the <code>"cont"</code> style often better represent phenomena that progressively vary in space (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
-<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
+<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
 <p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code> (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">2</span>]) <span class="op">+</span></span>
@@ -909,19 +910,26 @@ This values can be adjusted with the <code>max.raster</code> argument of <code>t
 FIGURE 5.7: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
 </p>
 </div>
-<p>Any <strong>tmap</strong> options can be reset with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>
+<p>Any <strong>tmap</strong> options can be reset (set to default) with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tmap_options_reset</span>()</span></code></pre></div>
-<!-- 3/the number of layers. -->
+<p>The above examples used a raster with one layer only.
+However, rasters can have many layers, either represented by dimensions or attributes.
+By default, <strong>tmap</strong> shows all of the layers, where each raster has its own legend.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span>
-<span id="cb31-3"><a href="layers.html#cb31-3"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
+<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="#tmrasterml"><strong>??</strong></a>).</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
-<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">4</span>)</span>
-<span id="cb32-4"><a href="layers.html#cb32-4"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span>
-<span id="cb32-5"><a href="layers.html#cb32-5"></a><span class="co">#&gt; Some legend labels were too wide. These labels have been resized to 0.34, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</span></span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb32-4"><a href="layers.html#cb32-4"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">panel.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Land cover&quot;</span>, <span class="st">&quot;Land cover (simpl.)&quot;</span>,</span>
+<span id="cb32-5"><a href="layers.html#cb32-5"></a>                             <span class="st">&quot;Percent Tree Cover&quot;</span>, <span class="st">&quot;Elevation&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:tmrasterml"></span>
+<img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="672" />
+<p class="caption">
+FIGURE 5.8: A map created from a multilayered raster.
+</p>
+</div>
+<p>We focus on how to specify and modify facets (also known as small multiples) in Chapter <a href="multiples.html#multiples">10</a> and how to modify map layout in Chapter <a href="layout.html#layout">8</a>.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>() <span class="op">+</span></span>
 <span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>()</span></code></pre></div>
 <!-- raster.warp -->
@@ -940,7 +948,7 @@ FIGURE 5.7: (A) A raster map with the decreased resolution, (B) a raster map in 
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
 <span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

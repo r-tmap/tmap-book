@@ -22,6 +22,7 @@ fig:tmlines
 fig:tmtext
 fig:rastertype
 fig:rasterdown
+fig:tmrasterml
 fig:visual-variables
 fig:palette-types
 fig:tmpals
