@@ -404,7 +404,7 @@ tm_shape(land) +
   tm_raster()
 ```
 
-We can modify their arrangement with `tm_facets()` and (Figure \@ref(tmrasterml)).
+We can modify their arrangement with `tm_facets()` and (Figure \@ref(fig:tmrasterml)).
 
 ```{r tmrasterml, fig.cap="A map created from a multilayered raster.", message=FALSE}
 tm_shape(land) +
