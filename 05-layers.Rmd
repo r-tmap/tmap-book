@@ -324,11 +324,12 @@ data(land, package = "tmap")
 Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure \@ref(fig:rasterdown) shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
-This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used (Figure \@ref(fig:rastertype):A).
+This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
+However, the `"cont"` style often better represent phenomena that progressively vary in space (Figure \@ref(fig:rastertype):A).
 
 ```{r, eval=FALSE}
 tm_shape(land[3]) +
-  tm_raster(palette = "viridis")
+  tm_raster(style = "cont", palette = "viridis")
 ```
 
 On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (Figure \@ref(fig:rastertype):A).
@@ -388,24 +389,32 @@ tmr2 = tm_shape(land[3], raster.downsample = FALSE) +
 tmap_arrange(tmr1, tmr2)
 ```
 
-Any **tmap** options can be reset with `tmap_options_reset()` (Chapter \@ref(options)).
+Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (Chapter \@ref(options)).
 
 ```{r, message=FALSE}
 tmap_options_reset()
 ```
 
-<!-- 3/the number of layers. -->
+The above examples used a raster with one layer only.
+However, rasters can have many layers, either represented by dimensions or attributes.
+By default, **tmap** shows all of the layers, where each raster has its own legend.
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(land) +
   tm_raster()
 ```
 
-```{r}
+We can modify their arrangement with `tm_facets()` and (Figure \@ref(tmrasterml)).
+
+```{r tmrasterml, fig.cap="A map created from a multilayered raster.", message=FALSE}
 tm_shape(land) +
   tm_raster() +
-  tm_facets(nrow = 4)
+  tm_facets(nrow = 1) +
+  tm_layout(panel.labels = c("Land cover", "Land cover (simpl.)",
+                             "Percent Tree Cover", "Elevation"))
 ```
+
+We focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
 
 ```{r, eval=FALSE}
 tm_shape() +
