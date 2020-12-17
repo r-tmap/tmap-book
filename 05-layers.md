@@ -724,9 +724,49 @@ We focus on how to specify and modify facets (also known as small multiples) in 
 
 
 ```r
-tm_shape() +
-  tm_rgb()
+#to replace later
+library(stars)
+#> Loading required package: abind
+landsat = read_stars(system.file("raster/landsat.tif", package = "spDataLarge"))
 ```
+
+<!-- maybe add an info on how to add static base maps?? -->
+
+The `landsat` object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
+We can plot all of the bands independently or as a combination of three bands.
+This combination is known as a color composite image, and we can create such images with the `tm_rgb()` function (Figure \@ref(fig:tmrgbs)).
+
+Standard composite image (true color composite) uses the visible red, green, and blue bands to represent the data in natural colors.
+We can specify which band in `landsat` relates to red (third band), green (second band), and blue (first band) color in `tm_rgb`.
+Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961. 
+Therefore, to create a map, we can set `max.value` to our dataset's maximum value.
+The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (Figure \@ref(fig:tmrgbs):A).
+
+
+```r
+tm_shape(landsat) +
+  tm_rgb(r = 3, g = 2, b = 1,
+         max.value = 31961)
+```
+
+True color images are straightforward to interpret and understand, but they make subtle differences in features challenging to recognize.
+However, nothing stops us from using the above tools to integrate different bands to create so called false color composites.
+Various band combinations emphasize some spatial characteristics, such as water, agriculture, etc., and allows us to visualize wavelengths that our eyes can not see.
+<!-- add some reference?? -->
+Figure \@ref(fig:tmrgbs):B shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.
+
+
+```r
+tm_shape(landsat) +
+  tm_rgb(r = 4, g = 3, b = 2,
+         max.value = 31961)
+```
+
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/tmrgbs-1.png" alt="Two color composite images: (A) true color composite, (B) false color composite." width="672" />
+<p class="caption">(\#fig:tmrgbs)Two color composite images: (A) true color composite, (B) false color composite.</p>
+</div>
+
 
 <!-- raster.warp -->
 <!-- raster margins -->
@@ -749,5 +789,5 @@ tm_shape(x) +
   tm_symbols(col = "lifeExp")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" />
 

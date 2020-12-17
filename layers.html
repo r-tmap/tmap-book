@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-16" />
+<meta name="date" content="2020-12-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -930,8 +930,36 @@ FIGURE 5.8: A map created from a multilayered raster.
 </p>
 </div>
 <p>We focus on how to specify and modify facets (also known as small multiples) in Chapter <a href="multiples.html#multiples">10</a> and how to modify map layout in Chapter <a href="layout.html#layout">8</a>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>() <span class="op">+</span></span>
-<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="co">#to replace later</span></span>
+<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="kw">library</span>(stars)</span>
+<span id="cb33-3"><a href="layers.html#cb33-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
+<span id="cb33-4"><a href="layers.html#cb33-4"></a>landsat =<span class="st"> </span><span class="kw">read_stars</span>(<span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>))</span></code></pre></div>
+<!-- maybe add an info on how to add static base maps?? -->
+<p>The <code>landsat</code> object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
+We can plot all of the bands independently or as a combination of three bands.
+This combination is known as a color composite image, and we can create such images with the <code>tm_rgb()</code> function (Figure <a href="layers.html#fig:tmrgbs">5.9</a>).</p>
+<p>Standard composite image (true color composite) uses the visible red, green, and blue bands to represent the data in natural colors.
+We can specify which band in <code>landsat</code> relates to red (third band), green (second band), and blue (first band) color in <code>tm_rgb</code>.
+Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961.
+Therefore, to create a map, we can set <code>max.value</code> to our dataset’s maximum value.
+The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (Figure <a href="layers.html#fig:tmrgbs">5.9</a>:A).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">3</span>, <span class="dt">g =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">1</span>,</span>
+<span id="cb34-3"><a href="layers.html#cb34-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
+<p>True color images are straightforward to interpret and understand, but they make subtle differences in features challenging to recognize.
+However, nothing stops us from using the above tools to integrate different bands to create so called false color composites.
+Various band combinations emphasize some spatial characteristics, such as water, agriculture, etc., and allows us to visualize wavelengths that our eyes can not see.
+<!-- add some reference?? -->
+Figure <a href="layers.html#fig:tmrgbs">5.9</a>:B shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
+<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">4</span>, <span class="dt">g =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="dv">2</span>,</span>
+<span id="cb35-3"><a href="layers.html#cb35-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:tmrgbs"></span>
+<img src="05-layers_files/figure-html/tmrgbs-1.png" alt="Two color composite images: (A) true color composite, (B) false color composite." width="672" />
+<p class="caption">
+FIGURE 5.9: Two color composite images: (A) true color composite, (B) false color composite.
+</p>
+</div>
 <!-- raster.warp -->
 <!-- raster margins -->
 </div>
@@ -945,10 +973,10 @@ FIGURE 5.8: A map created from a multilayered raster.
 <!-- or maybe start with it and explain the details later? -->
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
-<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
+<span id="cb36-3"><a href="layers.html#cb36-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
