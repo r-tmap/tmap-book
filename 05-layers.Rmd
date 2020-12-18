@@ -257,7 +257,7 @@ tm_shape(metro3) +
 ```
 
 
-```{r}
+```{r, warning=FALSE}
 x2 = x %>% 
   dplyr::group_by(region_un) %>% 
   dplyr::summarise()
@@ -469,6 +469,63 @@ tmap_arrange(tmrgb1, tmrgb2, asp = NA)
 <!-- raster margins -->
 
 ## Tile
+
+```{r}
+data(metro)
+```
+
+<!-- A tile layer is .. -->
+Tile layers (or just tines) are usually stored 
+
+```{r}
+tmap_mode("view")
+tm_basemap(leaflet::providers$Stamen.Watercolor) +
+  tm_shape(metro, bbox = "India") + 
+  tm_dots(col = "red", group = "Metropolitan areas")
+```
+
+```{r}
+tm_basemap(leaflet::providers$Stamen.Watercolor) +
+  tm_shape(metro, bbox = "India") + 
+  tm_dots(col = "red", group = "Metropolitan areas") +
+  tm_tiles(paste0("http://services.arcgisonline.com/arcgis/rest/services/Canvas/",
+                  "World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}"),
+    group = "Labels"
+  )
+```
+
+ 
+<!-- static map tiles -->
+<!-- + ref above -->
+
+```{r, message=FALSE}
+library(raster)
+library(maptiles)
+vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
+zion = read_sf(vector_filepath)
+zion_osm = get_tiles(zion, crop = TRUE, zoom = 11, provider = "Stamen.Toner")
+zion_osm2 = stack(zion_osm)
+```
+
+```{r}
+get_credit("Stamen.Toner")
+```
+
+
+```{r}
+tmap_mode("plot")
+tm_shape(zion_osm2) + 
+  tm_rgb() + 
+  tm_shape(zion) +
+  tm_borders(lwd = 5, col = "gray95") +
+  tm_scale_bar(position = c("left", "bottom"),
+               breaks = c(0, 5, 10),
+               text.size = 1) +
+  tm_credits(get_credit("Stamen.Toner"),
+             position = c("RIGHT", "BOTTOM"))
+```
+
+
 
 ## Combining layers
 
