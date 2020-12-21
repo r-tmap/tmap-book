@@ -30,7 +30,7 @@ layers_df = rbind(layers_basic_df,
 
 \@ref(tab:layers-table)
 
-```{r layers-table, echo=FALSE, warning=FALSE}
+```{r layers-table, echo=FALSE, warning=FALSE, message=FALSE}
 library(magrittr)
 library(kableExtra)
 options(kableExtra.html.bsTable = TRUE)
@@ -477,14 +477,14 @@ data(metro)
 <!-- A tile layer is .. -->
 Tile layers (or just tines) are usually stored 
 
-```{r}
+```{r, screenshot.force = TRUE}
 tmap_mode("view")
 tm_basemap(leaflet::providers$Stamen.Watercolor) +
   tm_shape(metro, bbox = "India") + 
   tm_dots(col = "red", group = "Metropolitan areas")
 ```
 
-```{r}
+```{r, screenshot.force = TRUE}
 tm_basemap(leaflet::providers$Stamen.Watercolor) +
   tm_shape(metro, bbox = "India") + 
   tm_dots(col = "red", group = "Metropolitan areas") +
