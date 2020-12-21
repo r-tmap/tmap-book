@@ -475,7 +475,14 @@ data(metro)
 ```
 
 <!-- A tile layer is .. -->
-Tile layers (or just tines) are usually stored 
+<!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
+
+
+Tile layers can be used for two purposes: either as basemaps or overlay layers.
+<!-- basemaps are shown by default -->
+
+<!-- https://leaflet-extras.github.io/leaflet-providers/preview/ -->
+<!-- https://github.com/leaflet-extras/leaflet-providers -->
 
 ```{r, screenshot.force = TRUE}
 tmap_mode("view")
@@ -485,8 +492,7 @@ tm_basemap(leaflet::providers$Stamen.Watercolor) +
 ```
 
 ```{r, screenshot.force = TRUE}
-tm_basemap(leaflet::providers$Stamen.Watercolor) +
-  tm_shape(metro, bbox = "India") + 
+tm_shape(metro, bbox = "India") + 
   tm_dots(col = "red", group = "Metropolitan areas") +
   tm_tiles(paste0("http://services.arcgisonline.com/arcgis/rest/services/Canvas/",
                   "World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}"),
@@ -494,7 +500,6 @@ tm_basemap(leaflet::providers$Stamen.Watercolor) +
   )
 ```
 
- 
 <!-- static map tiles -->
 <!-- + ref above -->
 
