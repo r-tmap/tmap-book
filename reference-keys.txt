@@ -24,6 +24,8 @@ fig:rastertype
 fig:rasterdown
 fig:tmrasterml
 fig:tmrgbs
+fig:tmbasemap1
+fig:tmtiles1
 fig:visual-variables
 fig:palette-types
 fig:tmpals
