@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-23" />
+<meta name="date" content="2020-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -443,7 +443,8 @@ Chapter <a href="visual-variables.html#visual-variables">6</a>, on the other han
 <span id="cb10-6"><a href="layers.html#cb10-6"></a>x =<span class="st"> </span><span class="kw">st_transform</span>(x, <span class="dv">8857</span>)</span></code></pre></div>
 <p>The main function to visualize polygons is <code>tm_polygons()</code>.
 By default, it plots areas of polygons in light gray (<code>gray85</code>) and polygons borders in slightly dark gray (<code>gray40</code>).
-<!--JN: where can I find the actual default color values in the code?--></p>
+<!--JN: where can I find the actual default color values in the code?-->
+<!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R --></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
 <p>Both, colors of areas (polygons’ fillings) and colors of borders can be modified using the <code>col</code> and <code>border.col</code> arguments (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:A).</p>
@@ -497,7 +498,8 @@ All of them use <code>tm_symbols()</code>, but with different default values.</p
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_squares</span>()</span></code></pre></div>
 <!-- JN: what is the main difference between symbols and bubbles?? -->
-<p>(Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:B)</p>
+<p>(Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:B)
+<!--scale is 4/3 instead of 1--></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
 <span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_bubbles</span>()</span></code></pre></div>
 <p>The main role of <code>tm_dots()</code> is to present many locations at the same time.
@@ -732,7 +734,7 @@ A complete list of available basemaps is in the <code>leaflet::providers</code> 
 <!-- how to setup your own server or some references? --></p>
 <p>The <code>tm_basemap(NULL)</code> function allows to disable basemaps entirely.</p>
 <p>The <code>tm_tiles()</code> function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous <code>tm_</code> layer.
-In the next example, we put the vector <code>"OpenRailwayMap"</code> tiles on top of the previously set basemaps, but below the next dot layer (Figure <a href="layers.html#fig:tmtiles1">5.11</a>).</p>
+In the next example, we put the vector <code>"OpenRailwayMap"</code> tiles on top of the previously set basemaps, but below the following dots layer (Figure <a href="layers.html#fig:tmtiles1">5.11</a>).</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
 <span id="cb38-2"><a href="layers.html#cb38-2"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
 <span id="cb38-3"><a href="layers.html#cb38-3"></a><span class="st">  </span><span class="kw">tm_tiles</span>(<span class="kw">c</span>(<span class="dt">Railways =</span> <span class="st">&quot;OpenRailwayMap&quot;</span>)) <span class="op">+</span></span>
@@ -766,15 +768,16 @@ FIGURE 5.11: Topographic tile layer used as a base map with orange lines represe
 </div>
 <div id="combining-layers" class="section level2">
 <h2><span class="header-section-number">5.7</span> Combining layers</h2>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
+<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- 
 <!-- projection -->
 <!-- is.master -->
 <!-- or maybe start with it and explain the details later? -->
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
-<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

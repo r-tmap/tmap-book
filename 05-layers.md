@@ -123,6 +123,7 @@ x = st_transform(x, 8857)
 The main function to visualize polygons is `tm_polygons()`.
 By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
 <!--JN: where can I find the actual default color values in the code?-->
+<!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R -->
 
 
 ```r
@@ -209,6 +210,7 @@ tm_shape(metro2) +
 
 <!-- JN: what is the main difference between symbols and bubbles?? -->
 (Figure \@ref(fig:tmsymbols2):B)
+<!--scale is 4/3 instead of 1-->
 
 
 ```r
@@ -237,7 +239,6 @@ tm_shape(metro2) +
 <img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
 <p class="caption">(\#fig:tmsymbols2)Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().</p>
 </div>
-
 
 ## Lines
 
@@ -551,7 +552,7 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
-In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the previously set basemaps, but below the next dot layer (Figure \@ref(fig:tmtiles1)).
+In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the previously set basemaps, but below the following dots layer (Figure \@ref(fig:tmtiles1)).
 
 
 ```r
@@ -601,6 +602,16 @@ tm_shape(zion_osm2) +
 
 ## Combining layers
 
+
+```r
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap") +
+  tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- 
 <!-- projection -->
 <!-- is.master -->
 
@@ -609,11 +620,4 @@ tm_shape(zion_osm2) +
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
 
-```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap") +
-  tm_symbols(col = "lifeExp")
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
 
