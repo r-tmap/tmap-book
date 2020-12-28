@@ -200,7 +200,6 @@ tm_ma4 = tm_shape(metro2) +
 tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
 ```
 
-
 ## Lines
 
 ```{r}
@@ -225,7 +224,7 @@ Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
 
-```{r tmtext, fig.cap="Example of a map created with tm_text."}
+```{r tmtext, fig.cap="Example of a map created with tm_text.", fig.asp=0.35}
 tm_shape(metro2) +
   tm_text(text = "name", size = "pop2020") +
   tm_layout(legend.outside = TRUE)
@@ -567,6 +566,13 @@ tm_shape(zion_osm2) +
 
 ## Combining layers
 
+```{r, warning=FALSE}
+tm_shape(x) +
+  tm_polygons(col = "gdpPercap") +
+  tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+```
+
+<!-- 
 <!-- projection -->
 <!-- is.master -->
 
@@ -574,9 +580,5 @@ tm_shape(zion_osm2) +
 
 <!-- show symbols on top of polygons-->
 <!-- think of a better example -->
-```{r, warning=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap") +
-  tm_symbols(col = "lifeExp")
-```
+
 
