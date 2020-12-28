@@ -65,8 +65,9 @@ crs-in-r
 nutshell
 tmshape
 shapes-and-layers
-shape-projection-bounding-box
-simplification
+data-simplification
+map-projection
+bounding-box
 layers
 polygons
 symbols
