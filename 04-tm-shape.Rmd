@@ -36,7 +36,6 @@ tm_shape(metro_large) +
   tm_text("name")
 ```
 
-
 In this example, we use three shapes: `land` which is a `stars` object that contains an attribute called `"elevation"`, `World` which is an `sf` object with country borders, and `metro_large`, which is an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
 
 Each `tm_shape()` function call is succeeded by one or more layer functions.
@@ -49,15 +48,157 @@ In the example, shape `metro_large` is used for two layers, `tm_dots()` and `tm_
 We recommend to indent the code for the layer functions, in order to see which layers use which shape objects.
 <!--to discuss-->
 
-## Data simplification
+## Shapes hierarchy
 
-<!-- About arguments `simplify` and `raster.downsample`. -->
+The order of the `tm_shape()` functions' calls is crucial.
+The first `tm_shape()`, known as the main shape, is not only shown below the following *shapes*, but also sets the projection and extent of the whole map.
+In Figure \@ref(fig:tmshape1), the `land` object was used as the first *shape*, and thus the whole map has the projection and extent of this object.
+
+However, we can quickly change the main *shape* with the `is.master` argument.
+<!--change to is.main later-->
+In the following example, we set the `metro_large` object as the main *shape*, which limits the output map to the point locations in `metro_large` (Figure \@ref(fig:tmshape2))^[We will show how to adjust margins and text locations later in the book].
+
+```{r tmshape2, fig.asp=0.35, fig.cap="A map representing three shapes (land, World, and metro_large) using four layers."}
+tm_shape(land) +
+  tm_raster("elevation", palette = terrain.colors(8)) +
+tm_shape(World) +
+  tm_borders() +
+tm_shape(metro_large, is.master = TRUE) +
+  tm_dots() +
+  tm_text("name")
+```
+
+<!-- should we mention inner.margins here or later?? -->
 
 ## Map projection
 \index{map projection}
 
-<!-- About arguments `projection`, `. And maybe `raster.warp`. -->
+<!-- ref to crs section -->
+
+```{r, warning=FALSE, eval=FALSE}
+tm_shape(land, projection = "EPSG:8857") +
+  tm_raster("elevation", palette = terrain.colors(8)) 
+```
+
+```{r, warning=FALSE, eval=FALSE}
+tm_shape(land, projection = "EPSG:8857", raster.warp = FALSE) +
+  tm_raster("elevation", palette = terrain.colors(8))
+```
+
+```{r, echo=FALSE, warning=FALSE}
+tmp1 = tm_shape(land, projection = "EPSG:8857") +
+  tm_raster("elevation", palette = terrain.colors(8)) +
+  tm_layout(title = "A")
+tmp2 = tm_shape(land, projection = "EPSG:8857", raster.warp = FALSE) +
+  tm_raster("elevation", palette = terrain.colors(8)) +
+  tm_layout(title = "B")
+tmap_arrange(tmp1, tmp2)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+bench::mark(print(tmp1), print(tmp2), check = FALSE)
+# 2.28s vs 24.52s
+```
+
 
 ## Bounding box
 
-<!-- `bbox` and `is.master` -->
+<!-- ?bb -->
+
+```{r, warning=FALSE}
+tm_shape(land, bbox = c(-15, 35, 45, 65)) +
+  tm_raster("elevation", palette = terrain.colors(8))
+```
+
+```{r, warning=FALSE}
+tm_shape(land, bbox = metro_large) +
+  tm_raster("elevation", palette = terrain.colors(8))
+```
+
+```{r, warning=FALSE}
+tm_shape(land, bbox = "Europe") +
+  tm_raster("elevation", palette = terrain.colors(8))
+```
+
+## Data simplification
+
+```{r, eval=FALSE}
+tm_shape(World) +
+  tm_polygons()
+```
+
+```{r, eval=FALSE}
+tm_shape(World, simplify = 0.05) +
+  tm_polygons()
+```
+
+```{r, eval=FALSE}
+tm_shape(World, simplify = 0.05, keep.units = TRUE) +
+  tm_polygons()
+```
+
+```{r, eval=FALSE}
+tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
+  tm_polygons()
+```
+
+```{r, echo=FALSE, message=FALSE}
+tms1 = tm_shape(World) +
+  tm_polygons() +
+  tm_layout(title = "A")
+tms2 = tm_shape(World, simplify = 0.05) +
+  tm_polygons() +
+  tm_layout(title = "B")
+tms3 = tm_shape(World, simplify = 0.05, keep.units = TRUE) +
+  tm_polygons() +
+  tm_layout(title = "C")
+tms4 = tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
+  tm_polygons() +
+  tm_layout(title = "D")
+tmap_arrange(tms1, tms2, tms3, tms4)
+```
+
+
+<!-- mention other arguments in ms_simplify -->
+
+
+<!-- 2/resolution -->
+Raster data is represented by a grid of cells (Section \@ref(raster-data-model)), and the number of cells impacts the time to render a map.
+Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
+<!-- ... some info about screen resolution -->
+Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
+<!-- c(plot = 1e7, view = 1e6) -->
+This values can be adjusted with the `max.raster` argument of `tmap_options()`, which expects a named vector with two elements - `plot` and `view`.
+<!-- btw - downsampling cont vs cat -->
+<!-- when and why -->
+ (Figure \@ref(fig:rasterdown):A).
+
+```{r, eval=FALSE}
+tmap_options(max.raster = c(plot = 5000, view = 2000))
+tm_shape(land) +
+  tm_raster("elevation")
+```
+
+Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
+
+```{r, eval=FALSE}
+tm_shape(land, raster.downsample = FALSE) +
+  tm_raster("elevation")
+```
+
+```{r rasterdown, echo=FALSE, fig.cap="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.", message=FALSE}
+tmap_options(max.raster = c(plot = 5000, view = 2000))
+tmr1 = tm_shape(land) +
+  tm_raster("elevation") +
+  tm_layout(title = "A")
+tmr2 = tm_shape(land, raster.downsample = FALSE) +
+  tm_raster("elevation") +
+  tm_layout(title = "B")
+tmap_arrange(tmr1, tmr2)
+```
+
+Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (Chapter \@ref(options)).
+
+```{r, message=FALSE}
+tmap_options_reset()
+```
