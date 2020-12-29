@@ -397,44 +397,6 @@ tm_shape(land[2]) +
 <p class="caption">(\#fig:rastertype)Examples of (A) continuous raster maps, and (B) categorical raster maps.</p>
 </div>
 
-<!-- 2/resolution -->
-Raster data is represented by a grid of cells (Section \@ref(raster-data-model)), and the number of cells impacts the time to render a map.
-Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
-<!-- ... some info about screen resolution -->
-Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
-<!-- c(plot = 1e7, view = 1e6) -->
-This values can be adjusted with the `max.raster` argument of `tmap_options()`, which expects a named vector with two elements - `plot` and `view`.
-<!-- btw - downsampling cont vs cat -->
-<!-- when and why -->
- (Figure \@ref(fig:rasterdown):A).
-
-
-```r
-tmap_options(max.raster = c(plot = 5000, view = 2000))
-tm_shape(land[3]) +
-  tm_raster()
-```
-
-Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
-
-
-```r
-tm_shape(land[3], raster.downsample = FALSE) +
-  tm_raster()
-```
-
-<div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
-<p class="caption">(\#fig:rasterdown)(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.</p>
-</div>
-
-Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (Chapter \@ref(options)).
-
-
-```r
-tmap_options_reset()
-```
-
 The above examples used a raster with one layer only.
 However, rasters can have many layers, either represented by dimensions or attributes.
 By default, **tmap** shows all of the layers, where each raster has its own legend.
@@ -609,7 +571,7 @@ tm_shape(x) +
   tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- 
 <!-- projection -->

@@ -14,6 +14,9 @@ fig:crs-conic-planar
 tab:crs-properties
 fig:crs-bias
 tab:crs-recommendations
+fig:tmshape1
+fig:tmshape2
+fig:rasterdown
 tab:layers-table
 fig:tmpolygonsder
 fig:tmsymbols1
@@ -21,7 +24,6 @@ fig:tmsymbols2
 fig:tmlines
 fig:tmtext
 fig:rastertype
-fig:rasterdown
 fig:tmrasterml
 fig:tmrgbs
 fig:tmbasemap1
@@ -65,9 +67,10 @@ crs-in-r
 nutshell
 tmshape
 shapes-and-layers
-data-simplification
+shapes-hierarchy
 map-projection
 bounding-box
+data-simplification
 layers
 polygons
 symbols

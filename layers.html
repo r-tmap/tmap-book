@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-28" />
+<meta name="date" content="2020-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,9 +174,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a></li>
 <li class="chapter" data-level="4" data-path="tmshape.html"><a href="tmshape.html"><i class="fa fa-check"></i><b>4</b> Specifying spatial data</a><ul>
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#shapes-and-layers"><i class="fa fa-check"></i><b>4.1</b> Shapes and layers</a></li>
-<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#data-simplification"><i class="fa fa-check"></i><b>4.2</b> Data simplification</a></li>
+<li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#shapes-hierarchy"><i class="fa fa-check"></i><b>4.2</b> Shapes hierarchy</a></li>
 <li class="chapter" data-level="4.3" data-path="tmshape.html"><a href="tmshape.html#map-projection"><i class="fa fa-check"></i><b>4.3</b> Map projection</a></li>
 <li class="chapter" data-level="4.4" data-path="tmshape.html"><a href="tmshape.html#bounding-box"><i class="fa fa-check"></i><b>4.4</b> Bounding box</a></li>
+<li class="chapter" data-level="4.5" data-path="tmshape.html"><a href="tmshape.html#data-simplification"><i class="fa fa-check"></i><b>4.5</b> Data simplification</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
 <li class="chapter" data-level="5.1" data-path="layers.html"><a href="layers.html#polygons"><i class="fa fa-check"></i><b>5.1</b> Polygons</a></li>
@@ -436,30 +437,30 @@ Chapter <a href="visual-variables.html#visual-variables">6</a>, on the other han
 <div id="polygons" class="section level2">
 <h2><span class="header-section-number">5.1</span> Polygons</h2>
 <!-- intro -->
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="layers.html#cb10-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb10-2"><a href="layers.html#cb10-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb10-3"><a href="layers.html#cb10-3"></a><span class="kw">library</span>(sf)</span>
-<span id="cb10-4"><a href="layers.html#cb10-4"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb10-5"><a href="layers.html#cb10-5"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
-<span id="cb10-6"><a href="layers.html#cb10-6"></a>x =<span class="st"> </span><span class="kw">st_transform</span>(x, <span class="dv">8857</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
+<span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb24-3"><a href="layers.html#cb24-3"></a><span class="kw">library</span>(sf)</span>
+<span id="cb24-4"><a href="layers.html#cb24-4"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
+<span id="cb24-5"><a href="layers.html#cb24-5"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span>
+<span id="cb24-6"><a href="layers.html#cb24-6"></a>x =<span class="st"> </span><span class="kw">st_transform</span>(x, <span class="dv">8857</span>)</span></code></pre></div>
 <p>The main function to visualize polygons is <code>tm_polygons()</code>.
 By default, it plots areas of polygons in light gray (<code>gray85</code>) and polygons borders in slightly dark gray (<code>gray40</code>).
 <!--JN: where can I find the actual default color values in the code?-->
 <!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R --></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="layers.html#cb11-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb11-2"><a href="layers.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb25-2"><a href="layers.html#cb25-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
 <p>Both, colors of areas (polygons’ fillings) and colors of borders can be modified using the <code>col</code> and <code>border.col</code> arguments (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:A).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="layers.html#cb12-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb12-2"><a href="layers.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
-<span id="cb12-3"><a href="layers.html#cb12-3"></a>              <span class="dt">border.col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb26-3"><a href="layers.html#cb26-3"></a>              <span class="dt">border.col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p>In fact, <code>tm_polygons()</code> is a combination of two separate functions - <code>tm_fill()</code> and <code>tm_borders()</code>.
 The <code>tm_fill()</code> function fills polygons with a fixed color or a color palette representing a selected variable (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:B).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="layers.html#cb13-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb13-2"><a href="layers.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <p>The <code>tm_borders()</code> function draws the borders of the polygons only (Figure <a href="layers.html#fig:tmpolygonsder">5.1</a>:C).
 It allows to change the colors of borders, their widths, or the lines type.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="layers.html#cb14-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb14-2"><a href="layers.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p>Notice that we have used the <code>col</code> argument in <code>tm_borders()</code>, but <code>border.col</code> in <code>tm_polygons()</code>.
 This is necessary to distinguish between the setting of the fillings color and the borders’ color.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmpolygonsder"></span>
@@ -472,10 +473,10 @@ FIGURE 5.1: Example of a map created with: (A) ‘tm_polygons()’ , (B) ‘tm_f
 </div>
 <div id="symbols" class="section level2">
 <h2><span class="header-section-number">5.2</span> Symbols</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="layers.html#cb15-1"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
-<span id="cb15-2"><a href="layers.html#cb15-2"></a><span class="co"># to update later</span></span>
-<span id="cb15-3"><a href="layers.html#cb15-3"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
-<span id="cb15-4"><a href="layers.html#cb15-4"></a>metro2 =<span class="st"> </span>metro[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(metro), <span class="dv">30</span>), ]</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">data</span>(<span class="st">&quot;metro&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
+<span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="co"># to update later</span></span>
+<span id="cb29-3"><a href="layers.html#cb29-3"></a><span class="kw">set.seed</span>(<span class="dv">222</span>)</span>
+<span id="cb29-4"><a href="layers.html#cb29-4"></a>metro2 =<span class="st"> </span>metro[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(metro), <span class="dv">30</span>), ]</span></code></pre></div>
 <p>Symbols are a very flexible layer type.
 They are usually used to represent point data, but can be also used for lines and polygons.
 In the latter cases, they are located in centroid coordinates of each feature.
@@ -496,20 +497,20 @@ Therefore, four additional layers are implemented in <strong>tmap</strong>: <cod
 All of them use <code>tm_symbols()</code>, but with different default values.</p>
 <p><code>tm_squares()</code> uses square symbols (<code>shape = 22</code>) instead of circles (<code>shapes = 21</code>) (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:A).
 <!--scale is 4/3 instead of 1--></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="layers.html#cb16-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb16-2"><a href="layers.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_squares</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb30-2"><a href="layers.html#cb30-2"></a><span class="st">  </span><span class="kw">tm_squares</span>()</span></code></pre></div>
 <!-- JN: what is the main difference between symbols and bubbles?? -->
 <p>(Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:B)
 <!--scale is 4/3 instead of 1--></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="layers.html#cb17-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb17-2"><a href="layers.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_bubbles</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_bubbles</span>()</span></code></pre></div>
 <p>The main role of <code>tm_dots()</code> is to present many locations at the same time.
 To do this, this layer has a small size value (<code>0.02</code>) at the default (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:C).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="layers.html#cb18-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb18-2"><a href="layers.html#cb18-2"></a><span class="st">  </span><span class="kw">tm_dots</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_dots</span>()</span></code></pre></div>
 <p>The last additional layer is <code>tm_markers()</code>, which uses a marker icon by default (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:D).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="layers.html#cb19-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb19-2"><a href="layers.html#cb19-2"></a><span class="st">  </span><span class="kw">tm_markers</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="st">  </span><span class="kw">tm_markers</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmsymbols2"></span>
 <img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
 <p class="caption">
@@ -519,12 +520,12 @@ FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B) tm_
 </div>
 <div id="lines" class="section level2">
 <h2><span class="header-section-number">5.3</span> Lines</h2>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="layers.html#cb20-1"></a><span class="co"># replace dataset later</span></span>
-<span id="cb20-2"><a href="layers.html#cb20-2"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb20-3"><a href="layers.html#cb20-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="co"># replace dataset later</span></span>
+<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb34-3"><a href="layers.html#cb34-3"></a><span class="kw">data</span>(<span class="st">&quot;rivers&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
 <p>The <code>tm_lines()</code> function allows to visualize different types of line data (Figure <a href="layers.html#fig:tmlines">5.4</a>).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="layers.html#cb21-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb21-2"><a href="layers.html#cb21-2"></a><span class="st">  </span><span class="kw">tm_lines</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(rivers) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_lines</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmlines"></span>
 <img src="05-layers_files/figure-html/tmlines-1.png" alt="Example of a map created with tm_lines." width="672" />
 <p class="caption">
@@ -539,9 +540,9 @@ This allows to show a hierarchy (for example, increased line widths for higher c
 <p>Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable’s values.
 The main function to create text labels is <code>tm_text()</code>, which adds a label to each spatial feature (Figure <a href="layers.html#fig:tmtext">5.5</a>).</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="layers.html#cb22-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
-<span id="cb22-2"><a href="layers.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
-<span id="cb22-3"><a href="layers.html#cb22-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
+<span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;pop2020&quot;</span>) <span class="op">+</span></span>
+<span id="cb36-3"><a href="layers.html#cb36-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtext"></span>
 <img src="05-layers_files/figure-html/tmtext-1.png" alt="Example of a map created with tm_text." width="672" />
 <p class="caption">
@@ -558,13 +559,13 @@ Should each label correspond to one spatial feature, or should every sub-feature
 Where should the labels be placed for lines or polygons - in the center of a line and centroid of a polygon or somewhat different?
 <!-- https://github.com/r-tmap/tmap-book/issues/16 -->
 <!-- wait for v4 --></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="layers.html#cb23-1"></a>x2 =<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-2"><a href="layers.html#cb23-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(region_un) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-3"><a href="layers.html#cb23-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarise</span>()</span>
-<span id="cb23-4"><a href="layers.html#cb23-4"></a><span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb23-5"><a href="layers.html#cb23-5"></a><span class="kw">tm_shape</span>(x2) <span class="op">+</span></span>
-<span id="cb23-6"><a href="layers.html#cb23-6"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb23-7"><a href="layers.html#cb23-7"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a>x2 =<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(region_un) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb37-3"><a href="layers.html#cb37-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarise</span>()</span>
+<span id="cb37-4"><a href="layers.html#cb37-4"></a><span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></span>
+<span id="cb37-5"><a href="layers.html#cb37-5"></a><span class="kw">tm_shape</span>(x2) <span class="op">+</span></span>
+<span id="cb37-6"><a href="layers.html#cb37-6"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb37-7"><a href="layers.html#cb37-7"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <p><img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
@@ -575,32 +576,32 @@ Where should the labels be placed for lines or polygons - in the center of a lin
 <p>Text labels are also often presented together with lines (Section <a href="layers.html#lines">5.3</a>).
 One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
 Isopleths can be created with the <code>tm_iso()</code> function.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="layers.html#cb24-1"></a><span class="co"># data(land, package = &quot;tmap&quot;)</span></span>
-<span id="cb24-2"><a href="layers.html#cb24-2"></a><span class="co"># library(raster)</span></span>
-<span id="cb24-3"><a href="layers.html#cb24-3"></a><span class="co"># elev = land[&quot;elevation&quot;]</span></span>
-<span id="cb24-4"><a href="layers.html#cb24-4"></a><span class="co"># elev_isopleths = rasterToContour(as(elev, &quot;Raster&quot;))</span></span>
-<span id="cb24-5"><a href="layers.html#cb24-5"></a></span>
-<span id="cb24-6"><a href="layers.html#cb24-6"></a><span class="co"># think about tm_iso example</span></span>
-<span id="cb24-7"><a href="layers.html#cb24-7"></a><span class="co"># improve example</span></span>
-<span id="cb24-8"><a href="layers.html#cb24-8"></a><span class="co"># tm_shape(elev_isopleths) +</span></span>
-<span id="cb24-9"><a href="layers.html#cb24-9"></a><span class="co">#   tm_iso()</span></span>
-<span id="cb24-10"><a href="layers.html#cb24-10"></a><span class="co"># </span></span>
-<span id="cb24-11"><a href="layers.html#cb24-11"></a><span class="co"># library(tmap)</span></span>
-<span id="cb24-12"><a href="layers.html#cb24-12"></a><span class="co"># data(&quot;dem&quot;, package = &quot;spDataLarge&quot;)</span></span>
-<span id="cb24-13"><a href="layers.html#cb24-13"></a><span class="co"># # create hillshade</span></span>
-<span id="cb24-14"><a href="layers.html#cb24-14"></a><span class="co"># hs = hillShade(slope = terrain(dem, &quot;slope&quot;), aspect = terrain(dem, &quot;aspect&quot;))</span></span>
-<span id="cb24-15"><a href="layers.html#cb24-15"></a><span class="co"># # create contour</span></span>
-<span id="cb24-16"><a href="layers.html#cb24-16"></a><span class="co"># cn = rasterToContour(dem)</span></span>
-<span id="cb24-17"><a href="layers.html#cb24-17"></a><span class="co"># </span></span>
-<span id="cb24-18"><a href="layers.html#cb24-18"></a><span class="co"># tm_shape(hs) +</span></span>
-<span id="cb24-19"><a href="layers.html#cb24-19"></a><span class="co">#   tm_grid() +</span></span>
-<span id="cb24-20"><a href="layers.html#cb24-20"></a><span class="co">#   tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +</span></span>
-<span id="cb24-21"><a href="layers.html#cb24-21"></a><span class="co">#   tm_shape(dem) +</span></span>
-<span id="cb24-22"><a href="layers.html#cb24-22"></a><span class="co">#   tm_raster(alpha = 0.5, palette = terrain.colors(25),</span></span>
-<span id="cb24-23"><a href="layers.html#cb24-23"></a><span class="co">#             legend.show = FALSE) +</span></span>
-<span id="cb24-24"><a href="layers.html#cb24-24"></a><span class="co">#   tm_shape(cn) +</span></span>
-<span id="cb24-25"><a href="layers.html#cb24-25"></a><span class="co">#   tm_lines(col = &quot;white&quot;) +</span></span>
-<span id="cb24-26"><a href="layers.html#cb24-26"></a><span class="co">#   tm_text(&quot;level&quot;, col = &quot;white&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="co"># data(land, package = &quot;tmap&quot;)</span></span>
+<span id="cb38-2"><a href="layers.html#cb38-2"></a><span class="co"># library(raster)</span></span>
+<span id="cb38-3"><a href="layers.html#cb38-3"></a><span class="co"># elev = land[&quot;elevation&quot;]</span></span>
+<span id="cb38-4"><a href="layers.html#cb38-4"></a><span class="co"># elev_isopleths = rasterToContour(as(elev, &quot;Raster&quot;))</span></span>
+<span id="cb38-5"><a href="layers.html#cb38-5"></a></span>
+<span id="cb38-6"><a href="layers.html#cb38-6"></a><span class="co"># think about tm_iso example</span></span>
+<span id="cb38-7"><a href="layers.html#cb38-7"></a><span class="co"># improve example</span></span>
+<span id="cb38-8"><a href="layers.html#cb38-8"></a><span class="co"># tm_shape(elev_isopleths) +</span></span>
+<span id="cb38-9"><a href="layers.html#cb38-9"></a><span class="co">#   tm_iso()</span></span>
+<span id="cb38-10"><a href="layers.html#cb38-10"></a><span class="co"># </span></span>
+<span id="cb38-11"><a href="layers.html#cb38-11"></a><span class="co"># library(tmap)</span></span>
+<span id="cb38-12"><a href="layers.html#cb38-12"></a><span class="co"># data(&quot;dem&quot;, package = &quot;spDataLarge&quot;)</span></span>
+<span id="cb38-13"><a href="layers.html#cb38-13"></a><span class="co"># # create hillshade</span></span>
+<span id="cb38-14"><a href="layers.html#cb38-14"></a><span class="co"># hs = hillShade(slope = terrain(dem, &quot;slope&quot;), aspect = terrain(dem, &quot;aspect&quot;))</span></span>
+<span id="cb38-15"><a href="layers.html#cb38-15"></a><span class="co"># # create contour</span></span>
+<span id="cb38-16"><a href="layers.html#cb38-16"></a><span class="co"># cn = rasterToContour(dem)</span></span>
+<span id="cb38-17"><a href="layers.html#cb38-17"></a><span class="co"># </span></span>
+<span id="cb38-18"><a href="layers.html#cb38-18"></a><span class="co"># tm_shape(hs) +</span></span>
+<span id="cb38-19"><a href="layers.html#cb38-19"></a><span class="co">#   tm_grid() +</span></span>
+<span id="cb38-20"><a href="layers.html#cb38-20"></a><span class="co">#   tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +</span></span>
+<span id="cb38-21"><a href="layers.html#cb38-21"></a><span class="co">#   tm_shape(dem) +</span></span>
+<span id="cb38-22"><a href="layers.html#cb38-22"></a><span class="co">#   tm_raster(alpha = 0.5, palette = terrain.colors(25),</span></span>
+<span id="cb38-23"><a href="layers.html#cb38-23"></a><span class="co">#             legend.show = FALSE) +</span></span>
+<span id="cb38-24"><a href="layers.html#cb38-24"></a><span class="co">#   tm_shape(cn) +</span></span>
+<span id="cb38-25"><a href="layers.html#cb38-25"></a><span class="co">#   tm_lines(col = &quot;white&quot;) +</span></span>
+<span id="cb38-26"><a href="layers.html#cb38-26"></a><span class="co">#   tm_text(&quot;level&quot;, col = &quot;white&quot;)</span></span></code></pre></div>
 <!-- auto.placement  -->
 <!-- remove.overlap -->
 <!-- xmod -->
@@ -610,97 +611,73 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 </div>
 <div id="raster" class="section level2">
 <h2><span class="header-section-number">5.5</span> Raster</h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="layers.html#cb25-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span></code></pre></div>
 <!-- Raster data intro -->
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
-Figure <a href="layers.html#fig:rasterdown">5.7</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
+Figure <a href="tmshape.html#fig:rasterdown">4.3</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
 This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
 However, the <code>"cont"</code> style often better represent phenomena that progressively vary in space (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="layers.html#cb26-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
-<span id="cb26-2"><a href="layers.html#cb26-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
+<span id="cb40-2"><a href="layers.html#cb40-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
 <p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code> (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="layers.html#cb27-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">2</span>]) <span class="op">+</span></span>
-<span id="cb27-2"><a href="layers.html#cb27-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Land cover:&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;#006400&quot;</span>, <span class="st">&quot;#BE9600&quot;</span>, <span class="st">&quot;#FFFF64&quot;</span>,</span>
-<span id="cb27-3"><a href="layers.html#cb27-3"></a>                                               <span class="st">&quot;#00DC82&quot;</span>, <span class="st">&quot;#FFDCD2&quot;</span>, <span class="st">&quot;#C31400&quot;</span>,</span>
-<span id="cb27-4"><a href="layers.html#cb27-4"></a>                                               <span class="st">&quot;#FFF5D7&quot;</span>, <span class="st">&quot;#0046C8&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">2</span>]) <span class="op">+</span></span>
+<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Land cover:&quot;</span>, <span class="dt">palette =</span> <span class="kw">c</span>(<span class="st">&quot;#006400&quot;</span>, <span class="st">&quot;#BE9600&quot;</span>, <span class="st">&quot;#FFFF64&quot;</span>,</span>
+<span id="cb41-3"><a href="layers.html#cb41-3"></a>                                               <span class="st">&quot;#00DC82&quot;</span>, <span class="st">&quot;#FFDCD2&quot;</span>, <span class="st">&quot;#C31400&quot;</span>,</span>
+<span id="cb41-4"><a href="layers.html#cb41-4"></a>                                               <span class="st">&quot;#FFF5D7&quot;</span>, <span class="st">&quot;#0046C8&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rastertype"></span>
 <img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="672" />
 <p class="caption">
 FIGURE 5.6: Examples of (A) continuous raster maps, and (B) categorical raster maps.
 </p>
 </div>
-<!-- 2/resolution -->
-<p>Raster data is represented by a grid of cells (Section <a href="geodata.html#raster-data-model">2.2.2</a>), and the number of cells impacts the time to render a map.
-Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
-<!-- ... some info about screen resolution -->
-Therefore, the <strong>tmap</strong> package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
-<!-- c(plot = 1e7, view = 1e6) -->
-This values can be adjusted with the <code>max.raster</code> argument of <code>tmap_options()</code>, which expects a named vector with two elements - <code>plot</code> and <code>view</code>.
-<!-- btw - downsampling cont vs cat -->
-<!-- when and why -->
-(Figure <a href="layers.html#fig:rasterdown">5.7</a>:A).</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="layers.html#cb28-1"></a><span class="kw">tmap_options</span>(<span class="dt">max.raster =</span> <span class="kw">c</span>(<span class="dt">plot =</span> <span class="dv">5000</span>, <span class="dt">view =</span> <span class="dv">2000</span>))</span>
-<span id="cb28-2"><a href="layers.html#cb28-2"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
-<span id="cb28-3"><a href="layers.html#cb28-3"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="layers.html#fig:rasterdown">5.7</a>:B).</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="layers.html#cb29-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>], <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:rasterdown"></span>
-<img src="05-layers_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
-<p class="caption">
-FIGURE 5.7: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
-</p>
-</div>
-<p>Any <strong>tmap</strong> options can be reset (set to default) with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="layers.html#cb30-1"></a><span class="kw">tmap_options_reset</span>()</span></code></pre></div>
 <p>The above examples used a raster with one layer only.
 However, rasters can have many layers, either represented by dimensions or attributes.
 By default, <strong>tmap</strong> shows all of the layers, where each raster has its own legend.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="layers.html#cb31-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb31-2"><a href="layers.html#cb31-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="layers.html#fig:tmrasterml">5.8</a>).</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="layers.html#cb32-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb32-2"><a href="layers.html#cb32-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
-<span id="cb32-3"><a href="layers.html#cb32-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb32-4"><a href="layers.html#cb32-4"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">panel.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Land cover&quot;</span>, <span class="st">&quot;Land cover (simpl.)&quot;</span>,</span>
-<span id="cb32-5"><a href="layers.html#cb32-5"></a>                             <span class="st">&quot;Percent Tree Cover&quot;</span>, <span class="st">&quot;Elevation&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
+<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="layers.html#fig:tmrasterml">5.7</a>).</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
+<span id="cb43-3"><a href="layers.html#cb43-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb43-4"><a href="layers.html#cb43-4"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">panel.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Land cover&quot;</span>, <span class="st">&quot;Land cover (simpl.)&quot;</span>,</span>
+<span id="cb43-5"><a href="layers.html#cb43-5"></a>                             <span class="st">&quot;Percent Tree Cover&quot;</span>, <span class="st">&quot;Elevation&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmrasterml"></span>
 <img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="672" />
 <p class="caption">
-FIGURE 5.8: A map created from a multilayered raster.
+FIGURE 5.7: A map created from a multilayered raster.
 </p>
 </div>
 <p>We focus on how to specify and modify facets (also known as small multiples) in Chapter <a href="multiples.html#multiples">10</a> and how to modify map layout in Chapter <a href="layout.html#layout">8</a>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="layers.html#cb33-1"></a><span class="co">#to replace later</span></span>
-<span id="cb33-2"><a href="layers.html#cb33-2"></a><span class="kw">library</span>(stars)</span>
-<span id="cb33-3"><a href="layers.html#cb33-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
-<span id="cb33-4"><a href="layers.html#cb33-4"></a>landsat =<span class="st"> </span><span class="kw">read_stars</span>(<span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="co">#to replace later</span></span>
+<span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">library</span>(stars)</span>
+<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
+<span id="cb44-4"><a href="layers.html#cb44-4"></a>landsat =<span class="st"> </span><span class="kw">read_stars</span>(<span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>))</span></code></pre></div>
 <!-- maybe add an info on how to add static base maps?? -->
 <p>The <code>landsat</code> object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
 We can plot all of the bands independently or as a combination of three bands.
-This combination is known as a color composite image, and we can create such images with the <code>tm_rgb()</code> function (Figure <a href="layers.html#fig:tmrgbs">5.9</a>).</p>
+This combination is known as a color composite image, and we can create such images with the <code>tm_rgb()</code> function (Figure <a href="layers.html#fig:tmrgbs">5.8</a>).</p>
 <p>Standard composite image (true color composite) uses the visible red, green, and blue bands to represent the data in natural colors.
 We can specify which band in <code>landsat</code> relates to red (third band), green (second band), and blue (first band) color in <code>tm_rgb</code>.
 Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961.
 Therefore, to create a map, we can set <code>max.value</code> to our dataset’s maximum value.
-The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (Figure <a href="layers.html#fig:tmrgbs">5.9</a>:A).</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
-<span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">3</span>, <span class="dt">g =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">1</span>,</span>
-<span id="cb34-3"><a href="layers.html#cb34-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
+The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (Figure <a href="layers.html#fig:tmrgbs">5.8</a>:A).</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
+<span id="cb45-2"><a href="layers.html#cb45-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">3</span>, <span class="dt">g =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">1</span>,</span>
+<span id="cb45-3"><a href="layers.html#cb45-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
 <p>True color images are straightforward to interpret and understand, but they make subtle differences in features challenging to recognize.
 However, nothing stops us from using the above tools to integrate different bands to create so called false color composites.
 Various band combinations emphasize some spatial characteristics, such as water, agriculture, etc., and allows us to visualize wavelengths that our eyes can not see.
 <!-- add some reference?? -->
-Figure <a href="layers.html#fig:tmrgbs">5.9</a>:B shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
-<span id="cb35-2"><a href="layers.html#cb35-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">4</span>, <span class="dt">g =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="dv">2</span>,</span>
-<span id="cb35-3"><a href="layers.html#cb35-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
+Figure <a href="layers.html#fig:tmrgbs">5.8</a>:B shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="layers.html#cb46-1"></a><span class="kw">tm_shape</span>(landsat) <span class="op">+</span></span>
+<span id="cb46-2"><a href="layers.html#cb46-2"></a><span class="st">  </span><span class="kw">tm_rgb</span>(<span class="dt">r =</span> <span class="dv">4</span>, <span class="dt">g =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="dv">2</span>,</span>
+<span id="cb46-3"><a href="layers.html#cb46-3"></a>         <span class="dt">max.value =</span> <span class="dv">31961</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmrgbs"></span>
 <img src="05-layers_files/figure-html/tmrgbs-1.png" alt="Two color composite images: (A) true color composite, (B) false color composite." width="672" />
 <p class="caption">
-FIGURE 5.9: Two color composite images: (A) true color composite, (B) false color composite.
+FIGURE 5.8: Two color composite images: (A) true color composite, (B) false color composite.
 </p>
 </div>
 <!-- raster.warp -->
@@ -708,26 +685,26 @@ FIGURE 5.9: Two color composite images: (A) true color composite, (B) false colo
 </div>
 <div id="tile" class="section level2">
 <h2><span class="header-section-number">5.6</span> Tile</h2>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">data</span>(metro)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="layers.html#cb47-1"></a><span class="kw">data</span>(metro)</span></code></pre></div>
 <!-- A tile layer is .. -->
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 <p>Tile layers can be used for two purposes: either as a basemap or an overlay layer.
 By default, three basemaps are available in the interactive mode (<code>tmap_mode("view")</code>):
 <code>"Esri.WorldGrayCanvas"</code>, <code>"OpenStreetMap"</code>, and <code>"Esri.WorldTopoMap"</code>.
-However, we can change the used basemaps with a vector with the names of the tile layers’ providers (Figure <a href="layers.html#fig:tmbasemap1">5.10</a>).</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
-<span id="cb37-3"><a href="layers.html#cb37-3"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
-<span id="cb37-4"><a href="layers.html#cb37-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(metro, <span class="dt">bbox =</span> <span class="st">&quot;India&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb37-5"><a href="layers.html#cb37-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Metropolitan areas&quot;</span>)</span></code></pre></div>
+However, we can change the used basemaps with a vector with the names of the tile layers’ providers (Figure <a href="layers.html#fig:tmbasemap1">5.9</a>).</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="layers.html#cb48-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb48-2"><a href="layers.html#cb48-2"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
+<span id="cb48-3"><a href="layers.html#cb48-3"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
+<span id="cb48-4"><a href="layers.html#cb48-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(metro, <span class="dt">bbox =</span> <span class="st">&quot;India&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb48-5"><a href="layers.html#cb48-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Metropolitan areas&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmbasemap1"></span>
 <img src="images/tmbasemap1.png" alt="Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India" width="400" />
 <p class="caption">
-FIGURE 5.10: Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India
+FIGURE 5.9: Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India
 </p>
 </div>
 <p>In the above code, we made two basemaps available - <code>"OpenTopoMap"</code>, and <code>"OpenStreetMap"</code>, and for the map legend purpose, we renamed them as <code>TopoMap</code> and <code>StreetMap</code>.
-A complete list of available basemaps is in the <code>leaflet::providers</code> object and on the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" class="uri">https://leaflet-extras.github.io/leaflet-providers/preview/</a> website<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.
+A complete list of available basemaps is in the <code>leaflet::providers</code> object and on the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" class="uri">https://leaflet-extras.github.io/leaflet-providers/preview/</a> website<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
 <!-- https://github.com/leaflet-extras/leaflet-providers -->
@@ -735,44 +712,44 @@ A complete list of available basemaps is in the <code>leaflet::providers</code> 
 <!-- how to setup your own server or some references? --></p>
 <p>The <code>tm_basemap(NULL)</code> function allows to disable basemaps entirely.</p>
 <p>The <code>tm_tiles()</code> function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous <code>tm_</code> layer.
-In the next example, we put the vector <code>"OpenRailwayMap"</code> tiles on top of the previously set basemaps, but below the following dots layer (Figure <a href="layers.html#fig:tmtiles1">5.11</a>).</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="layers.html#cb38-1"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
-<span id="cb38-2"><a href="layers.html#cb38-2"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
-<span id="cb38-3"><a href="layers.html#cb38-3"></a><span class="st">  </span><span class="kw">tm_tiles</span>(<span class="kw">c</span>(<span class="dt">Railways =</span> <span class="st">&quot;OpenRailwayMap&quot;</span>)) <span class="op">+</span></span>
-<span id="cb38-4"><a href="layers.html#cb38-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(metro, <span class="dt">bbox =</span> <span class="st">&quot;India&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb38-5"><a href="layers.html#cb38-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Metropolitan areas&quot;</span>)</span></code></pre></div>
+In the next example, we put the vector <code>"OpenRailwayMap"</code> tiles on top of the previously set basemaps, but below the following dots layer (Figure <a href="layers.html#fig:tmtiles1">5.10</a>).</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="layers.html#cb49-1"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
+<span id="cb49-2"><a href="layers.html#cb49-2"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
+<span id="cb49-3"><a href="layers.html#cb49-3"></a><span class="st">  </span><span class="kw">tm_tiles</span>(<span class="kw">c</span>(<span class="dt">Railways =</span> <span class="st">&quot;OpenRailwayMap&quot;</span>)) <span class="op">+</span></span>
+<span id="cb49-4"><a href="layers.html#cb49-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(metro, <span class="dt">bbox =</span> <span class="st">&quot;India&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb49-5"><a href="layers.html#cb49-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Metropolitan areas&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtiles1"></span>
 <img src="images/tmtiles1.png" alt="Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India" width="400" />
 <p class="caption">
-FIGURE 5.11: Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India
+FIGURE 5.10: Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India
 </p>
 </div>
 <!-- static map tiles -->
 <!-- + ref above -->
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb39-2"><a href="layers.html#cb39-2"></a><span class="kw">library</span>(maptiles)</span>
-<span id="cb39-3"><a href="layers.html#cb39-3"></a>vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;vector/zion.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)</span>
-<span id="cb39-4"><a href="layers.html#cb39-4"></a>zion =<span class="st"> </span><span class="kw">read_sf</span>(vector_filepath)</span>
-<span id="cb39-5"><a href="layers.html#cb39-5"></a>zion_osm =<span class="st"> </span><span class="kw">get_tiles</span>(zion, <span class="dt">crop =</span> <span class="ot">TRUE</span>, <span class="dt">zoom =</span> <span class="dv">11</span>, <span class="dt">provider =</span> <span class="st">&quot;Stamen.Toner&quot;</span>)</span>
-<span id="cb39-6"><a href="layers.html#cb39-6"></a>zion_osm2 =<span class="st"> </span><span class="kw">stack</span>(zion_osm)</span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="kw">tm_shape</span>(zion_osm2) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb41-3"><a href="layers.html#cb41-3"></a><span class="st">  </span><span class="kw">tm_rgb</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb41-4"><a href="layers.html#cb41-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(zion) <span class="op">+</span></span>
-<span id="cb41-5"><a href="layers.html#cb41-5"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;gray95&quot;</span>) <span class="op">+</span></span>
-<span id="cb41-6"><a href="layers.html#cb41-6"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb41-7"><a href="layers.html#cb41-7"></a>               <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>),</span>
-<span id="cb41-8"><a href="layers.html#cb41-8"></a>               <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb41-9"><a href="layers.html#cb41-9"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>),</span>
-<span id="cb41-10"><a href="layers.html#cb41-10"></a>             <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;RIGHT&quot;</span>, <span class="st">&quot;BOTTOM&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="layers.html#cb50-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb50-2"><a href="layers.html#cb50-2"></a><span class="kw">library</span>(maptiles)</span>
+<span id="cb50-3"><a href="layers.html#cb50-3"></a>vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;vector/zion.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)</span>
+<span id="cb50-4"><a href="layers.html#cb50-4"></a>zion =<span class="st"> </span><span class="kw">read_sf</span>(vector_filepath)</span>
+<span id="cb50-5"><a href="layers.html#cb50-5"></a>zion_osm =<span class="st"> </span><span class="kw">get_tiles</span>(zion, <span class="dt">crop =</span> <span class="ot">TRUE</span>, <span class="dt">zoom =</span> <span class="dv">11</span>, <span class="dt">provider =</span> <span class="st">&quot;Stamen.Toner&quot;</span>)</span>
+<span id="cb50-6"><a href="layers.html#cb50-6"></a>zion_osm2 =<span class="st"> </span><span class="kw">stack</span>(zion_osm)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="layers.html#cb51-1"></a><span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="layers.html#cb52-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb52-2"><a href="layers.html#cb52-2"></a><span class="kw">tm_shape</span>(zion_osm2) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb52-3"><a href="layers.html#cb52-3"></a><span class="st">  </span><span class="kw">tm_rgb</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb52-4"><a href="layers.html#cb52-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(zion) <span class="op">+</span></span>
+<span id="cb52-5"><a href="layers.html#cb52-5"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;gray95&quot;</span>) <span class="op">+</span></span>
+<span id="cb52-6"><a href="layers.html#cb52-6"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb52-7"><a href="layers.html#cb52-7"></a>               <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>),</span>
+<span id="cb52-8"><a href="layers.html#cb52-8"></a>               <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb52-9"><a href="layers.html#cb52-9"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>),</span>
+<span id="cb52-10"><a href="layers.html#cb52-10"></a>             <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;RIGHT&quot;</span>, <span class="st">&quot;BOTTOM&quot;</span>))</span></code></pre></div>
 </div>
 <div id="combining-layers" class="section level2">
 <h2><span class="header-section-number">5.7</span> Combining layers</h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
-<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
-<span id="cb42-3"><a href="layers.html#cb42-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="05-layers_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="layers.html#cb53-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
+<span id="cb53-2"><a href="layers.html#cb53-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>) <span class="op">+</span></span>
+<span id="cb53-3"><a href="layers.html#cb53-3"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- 
 <!-- projection -->
 <!-- is.master -->
@@ -784,8 +761,8 @@ FIGURE 5.11: Topographic tile layer used as a base map with orange lines represe
 </div>
 <div class="footnotes">
 <hr />
-<ol start="6">
-<li id="fn6"><p>Additional details can be found in the <code>leaflet::providers.details</code> object<a href="layers.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<ol start="7">
+<li id="fn7"><p>Additional details can be found in the <code>leaflet::providers.details</code> object<a href="layers.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
