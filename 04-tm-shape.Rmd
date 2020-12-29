@@ -10,9 +10,9 @@ The latter will be discussed in the next chapter.
 As described in Chapter \@ref(geodata), shape objects can be vector or raster data.
 We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp` or `raster`` classes.].
 
-In **tmap**, a shape object need to be defined with the function `tm_shape()`.
-When multiple shape objects are used, each has to be defined in a seperate `tm_shape()` call.
-This is illustrated in the following example.
+In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
+When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
+This is illustrated in the following example (Figure \@ref(fig:tmshape1)).
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # replace this data with some new tmap dataset
@@ -26,7 +26,7 @@ metro_large = metro %>%
 ```
 
 
-```{r, echo=TRUE, warning=FALSE}
+```{r tmshape1, echo=TRUE, warning=FALSE, fig.cap="A map representing three shapes (land, World, and metro_large) using four layers."}
 tm_shape(land) +
   tm_raster("elevation", palette = terrain.colors(8)) +
 tm_shape(World) +
@@ -37,7 +37,7 @@ tm_shape(metro_large) +
 ```
 
 
-In this example, we use three shapes: `land` which is a `stars` object that contains an attribute called `"elevation"`, `World` which is an `sf` object with country borders, and `metro_large`, which is an `sf` object that contains metropolitan area of at least 20 million inhabitants.
+In this example, we use three shapes: `land` which is a `stars` object that contains an attribute called `"elevation"`, `World` which is an `sf` object with country borders, and `metro_large`, which is an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
 
 Each `tm_shape()` function call is succeeded by one or more layer functions.
 In the example these are `tm_raster()`, `tm_borders()`, `tm_dots()` and `tm_text()`.
