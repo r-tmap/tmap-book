@@ -296,8 +296,8 @@ FIGURE 4.2: A map representing three shapes (land, World, and metro_large) using
 <p>As we mentioned in the previous section, the created map uses the projection from the main <em>shape</em>.
 However, we often want to create a map with a different projection to preserve specific property (Chapter <a href="geodata.html#crs">2.4</a>).
 We can do this in two ways.
-The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section <a href="geodata.html#crs-in-r">2.4.6</a>.</p>
-<p>The second way is to specify the map projection using the <code>projection</code> argument of <code>tm_shape()</code>.
+The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section <a href="geodata.html#crs-in-r">2.4.6</a>.
+The second way is to specify the map projection using the <code>projection</code> argument of <code>tm_shape()</code>.
 This argument expects either some <code>crs</code> object or a CRS code.
 In the next example, we set <code>projection</code> to <code>8857</code>.
 This number represents EPSG 8857 of a projection called <a href="http://equal-earth.com/index.html">Equal Earth</a> <span class="citation">(Šavrič, Patterson, and Jenny <a href="#ref-savric_equal_2019" role="doc-biblioref">2019</a>)</span>.
@@ -313,7 +313,8 @@ Another limitation of <code>raster.warp = TRUE</code> is the use of the nearest 
 <span id="cb11-2"><a href="tmshape.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>)) </span></code></pre></div>
 <p>The second approach (<code>raster.warp = FALSE</code>) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
 This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
-<p>(Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:B shows an example of the second approach, which gave a better result in this case without any spurious lands.</p>
+<p>(Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:B shows an example of the second approach, which gave a better result in this case without any spurious lands.
+However, creation of the B map took about 10 times longer than the A map.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tmshape.html#cb12-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="dv">8857</span>, <span class="dt">raster.warp =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb12-2"><a href="tmshape.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tm-map-proj"></span>

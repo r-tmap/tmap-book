@@ -80,7 +80,6 @@ As we mentioned in the previous section, the created map uses the projection fro
 However, we often want to create a map with a different projection to preserve specific property (Chapter \@ref(crs)).
 We can do this in two ways.
 The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section \@ref(crs-in-r).
-
 The second way is to specify the map projection using the `projection` argument of `tm_shape()`.
 This argument expects either some `crs` object or a CRS code.
 In the next example, we set `projection` to `8857`.
@@ -106,7 +105,7 @@ The second approach (`raster.warp = FALSE`) computes new coordinates for each ra
 This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach see `?stars::st_warp()` and of the second approach see `?stars::st_transform()`.].
 
 (Figure \@ref(fig:tm-map-proj):B shows an example of the second approach, which gave a better result in this case without any spurious lands.
-
+However, creation of the B map took about 10 times longer than the A map.
 
 
 ```r
