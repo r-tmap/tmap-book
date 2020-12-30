@@ -13,9 +13,9 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - maybe also mention some data sources -->
 This chapter stars by describing several popular spatial data models (section \@ref(data-models)).
 Each data model is introduced, explained how it is built, and how it is stored using different file formats.
-Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r).
+Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r)).
 It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
-Finally, it focuses on the map projections (\@ref(crs)).
+Finally, it focuses on the map projections (section \@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
