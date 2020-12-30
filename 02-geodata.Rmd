@@ -968,8 +968,9 @@ Understanding the exact content of the WTK is not important for most users, sinc
 \index{EPSG}
 \index{proj4}
 A `crs` object can be created in three ways:
+<!--to improve in the future-->
 
-1. The first is with an EPSG number as user input specification as shown above.
+1. The first is with an EPSG number as user input specification as shown above. <!--it can be also some other "provider", e.g. "ESRI:37001"-->
 2. The second is also with a user input specification, but with a so-called *proj4* character string. 
 The *proj4* character string for the LAEA projection is `"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`.
 However, *proj4* character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
