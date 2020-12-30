@@ -16,6 +16,7 @@ fig:crs-bias
 tab:crs-recommendations
 fig:tmshape1
 fig:tmshape2
+fig:tm-map-proj
 fig:rasterdown
 tab:layers-table
 fig:tmpolygonsder

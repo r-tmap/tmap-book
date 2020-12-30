@@ -13,9 +13,9 @@ These spatial data models are closely related to map making, with each model hav
 <!-- - maybe also mention some data sources -->
 This chapter stars by describing several popular spatial data models (section \@ref(data-models)).
 Each data model is introduced, explained how it is built, and how it is stored using different file formats.
-Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r).
+Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r)).
 It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
-Finally, it focuses on the map projections (\@ref(crs)).
+Finally, it focuses on the map projections (section \@ref(crs)).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
@@ -839,8 +839,9 @@ Understanding the exact content of the WTK is not important for most users, sinc
 \index{EPSG}
 \index{proj4}
 A `crs` object can be created in three ways:
+<!--to improve in the future-->
 
-1. The first is with an EPSG number as user input specification as shown above.
+1. The first is with an EPSG number as user input specification as shown above. <!--it can be also some other "provider", e.g. "ESRI:37001"-->
 2. The second is also with a user input specification, but with a so-called *proj4* character string. 
 The *proj4* character string for the LAEA projection is `"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`.
 However, *proj4* character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.

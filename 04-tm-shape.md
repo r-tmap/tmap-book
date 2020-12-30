@@ -76,24 +76,52 @@ tm_shape(metro_large, is.master = TRUE) +
 ## Map projection
 \index{map projection}
 
-<!-- ref to crs section -->
+As we mentioned in the previous section, the created map uses the projection from the main *shape*.
+However, we often want to create a map with a different projection to preserve specific property (Chapter \@ref(crs)).
+We can do this in two ways.
+The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section \@ref(crs-in-r).
+
+The second way is to specify the map projection using the `projection` argument of `tm_shape()`.
+This argument expects either some `crs` object or a CRS code.
+In the next example, we set `projection` to `8857`.
+This number represents EPSG 8857 of a projection called [Equal Earth](http://equal-earth.com/index.html) [@savric_equal_2019].
+The Equal Earth projection is an equal-area pseudocylindrical projection for world maps similar to the non-equal-area Robinson projection (Figure \@ref(fig:crs-robin)).
+
+Reprojections of vector data is usually straightforward because each spatial coordinate is reprojected individually. 
+However, reprojecting of raster data is more complex and requires using one of two approaches.
+The first approach (`raster.warp = TRUE`) applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 6 of @lovelace2019geocomputation).
+This is the default option in **tmap**, however, it has some limitations.
+
+Figure \@ref(fig:tm-map-proj):A shows the world elevation raster reprojected to Equal Earth.
+Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
+Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"elevation"` data).
 
 
 ```r
-tm_shape(land, projection = "EPSG:8857") +
+tm_shape(land, projection = 8857) +
   tm_raster("elevation", palette = terrain.colors(8)) 
 ```
 
+The second approach (`raster.warp = FALSE`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
+This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach see `?stars::st_warp()` and of the second approach see `?stars::st_transform()`.].
+
+(Figure \@ref(fig:tm-map-proj):B shows an example of the second approach, which gave a better result in this case without any spurious lands.
+
+
 
 ```r
-tm_shape(land, projection = "EPSG:8857", raster.warp = FALSE) +
+tm_shape(land, projection = 8857, raster.warp = FALSE) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="04-tm-shape_files/figure-html/tm-map-proj-1.png" alt="Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE." width="672" />
+<p class="caption">(\#fig:tm-map-proj)Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE.</p>
+</div>
 
 
 
+<!-- add note about reprojecting first vs later - why and how -->
 
 ## Bounding box
 
@@ -105,7 +133,7 @@ tm_shape(land, bbox = c(-15, 35, 45, 65)) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+<img src="04-tm-shape_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -113,7 +141,7 @@ tm_shape(land, bbox = metro_large) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+<img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -121,7 +149,7 @@ tm_shape(land, bbox = "Europe") +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+<img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Data simplification
 
@@ -182,7 +210,7 @@ tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
 #> tmaptools::simplify_shape for details.
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+<img src="04-tm-shape_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 
 
 <!-- mention other arguments in ms_simplify -->

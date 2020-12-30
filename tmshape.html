@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-29" />
+<meta name="date" content="2020-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -293,25 +293,49 @@ FIGURE 4.2: A map representing three shapes (land, World, and metro_large) using
 <div id="map-projection" class="section level2">
 <h2><span class="header-section-number">4.3</span> Map projection</h2>
 <p></p>
-<!-- ref to crs section -->
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tmshape.html#cb11-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="st">&quot;EPSG:8857&quot;</span>) <span class="op">+</span></span>
+<p>As we mentioned in the previous section, the created map uses the projection from the main <em>shape</em>.
+However, we often want to create a map with a different projection to preserve specific property (Chapter <a href="geodata.html#crs">2.4</a>).
+We can do this in two ways.
+The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section <a href="geodata.html#crs-in-r">2.4.6</a>.</p>
+<p>The second way is to specify the map projection using the <code>projection</code> argument of <code>tm_shape()</code>.
+This argument expects either some <code>crs</code> object or a CRS code.
+In the next example, we set <code>projection</code> to <code>8857</code>.
+This number represents EPSG 8857 of a projection called <a href="http://equal-earth.com/index.html">Equal Earth</a> <span class="citation">(Šavrič, Patterson, and Jenny <a href="#ref-savric_equal_2019" role="doc-biblioref">2019</a>)</span>.
+The Equal Earth projection is an equal-area pseudocylindrical projection for world maps similar to the non-equal-area Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.12</a>).</p>
+<p>Reprojections of vector data is usually straightforward because each spatial coordinate is reprojected individually.
+However, reprojecting of raster data is more complex and requires using one of two approaches.
+The first approach (<code>raster.warp = TRUE</code>) applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 6 of <span class="citation">Lovelace, Nowosad, and Muenchow (<a href="#ref-lovelace2019geocomputation" role="doc-biblioref">2019</a>)</span>).
+This is the default option in <strong>tmap</strong>, however, it has some limitations.</p>
+<p>Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:A shows the world elevation raster reprojected to Equal Earth.
+Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
+Another limitation of <code>raster.warp = TRUE</code> is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the <code>"elevation"</code> data).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tmshape.html#cb11-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="dv">8857</span>) <span class="op">+</span></span>
 <span id="cb11-2"><a href="tmshape.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>)) </span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tmshape.html#cb12-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="st">&quot;EPSG:8857&quot;</span>, <span class="dt">raster.warp =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<p>The second approach (<code>raster.warp = FALSE</code>) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
+This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
+<p>(Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:B shows an example of the second approach, which gave a better result in this case without any spurious lands.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tmshape.html#cb12-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="dv">8857</span>, <span class="dt">raster.warp =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb12-2"><a href="tmshape.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:tm-map-proj"></span>
+<img src="04-tm-shape_files/figure-html/tm-map-proj-1.png" alt="Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE." width="672" />
+<p class="caption">
+FIGURE 4.3: Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE.
+</p>
+</div>
+<!-- add note about reprojecting first vs later - why and how -->
 </div>
 <div id="bounding-box" class="section level2">
 <h2><span class="header-section-number">4.4</span> Bounding box</h2>
 <!-- ?bb -->
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tmshape.html#cb13-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">65</span>)) <span class="op">+</span></span>
 <span id="cb13-2"><a href="tmshape.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tmshape.html#cb14-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> metro_large) <span class="op">+</span></span>
 <span id="cb14-2"><a href="tmshape.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tmshape.html#cb15-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> <span class="st">&quot;Europe&quot;</span>) <span class="op">+</span></span>
 <span id="cb15-2"><a href="tmshape.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="data-simplification" class="section level2">
 <h2><span class="header-section-number">4.5</span> Data simplification</h2>
@@ -352,7 +376,7 @@ FIGURE 4.2: A map representing three shapes (land, World, and metro_large) using
 #&gt; the shape. Alternatively, st_simplify from the sf
 #&gt; package can be used. See the underlying function
 #&gt; tmaptools::simplify_shape for details.</code></pre>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- mention other arguments in ms_simplify -->
 <!-- 2/resolution -->
 <p>Raster data is represented by a grid of cells (Section <a href="geodata.html#raster-data-model">2.2.2</a>), and the number of cells impacts the time to render a map.
@@ -363,17 +387,17 @@ Therefore, the <strong>tmap</strong> package downsamples large rasters by defaul
 This values can be adjusted with the <code>max.raster</code> argument of <code>tmap_options()</code>, which expects a named vector with two elements - <code>plot</code> and <code>view</code>.
 <!-- btw - downsampling cont vs cat -->
 <!-- when and why -->
-(Figure <a href="tmshape.html#fig:rasterdown">4.3</a>:A).</p>
+(Figure <a href="tmshape.html#fig:rasterdown">4.4</a>:A).</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tmshape.html#cb21-1"></a><span class="kw">tmap_options</span>(<span class="dt">max.raster =</span> <span class="kw">c</span>(<span class="dt">plot =</span> <span class="dv">5000</span>, <span class="dt">view =</span> <span class="dv">2000</span>))</span>
 <span id="cb21-2"><a href="tmshape.html#cb21-2"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb21-3"><a href="tmshape.html#cb21-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>)</span></code></pre></div>
-<p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="tmshape.html#fig:rasterdown">4.3</a>:B).</p>
+<p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="tmshape.html#fig:rasterdown">4.4</a>:B).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="tmshape.html#cb22-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb22-2"><a href="tmshape.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rasterdown"></span>
 <img src="04-tm-shape_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
 <p class="caption">
-FIGURE 4.3: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
+FIGURE 4.4: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
 </p>
 </div>
 <p>Any <strong>tmap</strong> options can be reset (set to default) with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>
@@ -381,11 +405,21 @@ FIGURE 4.3: (A) A raster map with the decreased resolution, (B) a raster map in 
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-lovelace2019geocomputation">
+<p>Lovelace, R, J Nowosad, and J Muenchow. 2019. <em>Geocomputation with R</em>. Chapman and Hall/CRC Press.</p>
+</div>
+<div id="ref-savric_equal_2019">
+<p>Šavrič, Bojan, Tom Patterson, and Bernhard Jenny. 2019. “The Equal Earth Map Projection.” <em>International Journal of Geographical Information Science</em> 33 (3): 454–65. <a href="https://doi.org/10/cs8v">https://doi.org/10/cs8v</a>.</p>
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="5">
 <li id="fn5"><p>However, <strong>tmap</strong> also accepts other spatial objects, e.g., of <code>sp</code> or `raster`` classes.<a href="tmshape.html#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>We will show how to adjust margins and text locations later in the book<a href="tmshape.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>For more details of the first approach see <code>?stars::st_warp()</code> and of the second approach see <code>?stars::st_transform()</code>.<a href="tmshape.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>

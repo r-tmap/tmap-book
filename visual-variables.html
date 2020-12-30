@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-29" />
+<meta name="date" content="2020-12-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Visual variables</h1>
 <!-- JN: idea - add text section -->
 <p>Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
-Basic visual variables are color, size, and shape<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.
+Basic visual variables are color, size, and shape<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.</p>
 <!-- raster data in the plot? -->
 <!-- size symbol only has four symbols (the rest have five) -->
@@ -369,7 +369,7 @@ The last one, “cividis”, is based on the work of <span class="citation">Nuñ
 <span id="cb54-5"><a href="visual-variables.html#cb54-5"></a><span class="co">#&gt; [1] &quot;#440154FF&quot; &quot;#443A83FF&quot; &quot;#31688EFF&quot; &quot;#21908CFF&quot;</span></span>
 <span id="cb54-6"><a href="visual-variables.html#cb54-6"></a><span class="co">#&gt; [5] &quot;#35B779FF&quot; &quot;#8FD744FF&quot; &quot;#FDE725FF&quot;</span></span></code></pre></div>
 <p>
-In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>
+In the last few years, the <strong>grDevices</strong> package that is an internal part of R, have received several improvements over color palette handling.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>
 It includes creation of <code>hcl.colors()</code> and <code>palette.colors()</code>.
 The <code>hcl.colors()</code> function <a href="http://colorspace.r-forge.r-project.org/articles/approximations.html">incorporates color palettes from several R packages</a>, including <strong>RColorBrewer</strong>, <strong>viridis</strong>, <strong>rcartocolor</strong> <span class="citation">(CARTO <a href="#ref-carto_cartocolors_2019" role="doc-biblioref">2019</a>; Nowosad <a href="#ref-R-rcartocolor" role="doc-biblioref">2018</a>)</span>, and <strong>scico</strong> <span class="citation">(Crameri <a href="#ref-crameri_geodynamic_2018" role="doc-biblioref">2018</a>; Pedersen and Crameri <a href="#ref-R-scico" role="doc-biblioref">2020</a>)</span>.
 You can get the list of available palette names for <code>hcl.colors()</code> using the <code>hcl.pals()</code> function and visualize all of the palettes with <code>colorspace::hcl_palettes(plot = TRUE)</code>.
@@ -488,7 +488,7 @@ The <code>alpha</code> argument is useful in two ways: one - it allows us to see
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 <p>
-<code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.
+<code>tm_polygons()</code> accepts three ways of specifying the fill color with the <code>col</code> argument<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section <a href="visual-variables.html#color-palettes">6.1.1</a>) (Figure <a href="visual-variables.html#fig:colorscales1">6.6</a>).</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="visual-variables.html#cb62-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
@@ -509,7 +509,7 @@ In general, a categorical map is created when the provided variable contains cha
 However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.</p>
 <p>
 An example of a categorical map can be seen in Figure <a href="visual-variables.html#fig:colorscales2">6.7</a>.
-We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.</p>
+We created it by providing a character variable’s name, <code>"region_un"</code>, in the <code>col</code> argument<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="visual-variables.html#cb63-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb63-2"><a href="visual-variables.html#cb63-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;region_un&quot;</span>)</span></code></pre></div>
 <!-- categorical -->
@@ -530,7 +530,7 @@ Several approaches can be used to convert continuous variables to discrete ones,
 <strong>tmap</strong> has 14 different methods to create discrete maps<!--list??--> that can be specified with the <code>style</code> argument.
 Most of them (except <code>"log10_pretty"</code>) use the <strong>classInt</strong> package <span class="citation">(Bivand <a href="#ref-R-classInt" role="doc-biblioref">2020</a>)</span> in the background, therefore some additional information can be found in the <code>?classIntervals</code> function’s documentation.</p>
 <p>By default, the <code>"pretty"</code> style is used (Figure <a href="visual-variables.html#fig:discrete-methods">6.8</a>:A).
-This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+This style creates breaks that are whole numbers and spaces them evenly.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="visual-variables.html#cb64-1"></a><span class="kw">tm_shape</span>(x) <span class="op">+</span></span>
 <span id="cb64-2"><a href="visual-variables.html#cb64-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;gdpPercap&quot;</span>)</span></code></pre></div>
 <p>It is also possible to indicate the desired number of classes using the <code>n</code> argument, when the <code>"pretty"</code> style is used.
@@ -642,7 +642,7 @@ The <code>col</code> argument colors symbols’ fillings in <code>tm_symbols()</
 Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
 Large sizes can be also used to attract viewers’ attention.</p>
 <p>By default, <strong>t</strong>maps present points, lines, or text objects of the same size.
-For example, <code>tm_symbols()</code> returns a map where each object is a circle with a consistent size<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.
+For example, <code>tm_symbols()</code> returns a map where each object is a circle with a consistent size<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.
 We can change the sizes of all objects using the <code>size</code> argument (Figure <a href="visual-variables.html#fig:tmsizes">6.11</a>:A).</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="visual-variables.html#cb72-1"></a><span class="co"># replace dataset later</span></span>
 <span id="cb72-2"><a href="visual-variables.html#cb72-2"></a><span class="kw">library</span>(tmap)</span>
@@ -727,11 +727,11 @@ It expects the name of the categorical variable.</p>
 <span id="cb78-2"><a href="visual-variables.html#cb78-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="st">&quot;group&quot;</span>,</span>
 <span id="cb78-3"><a href="visual-variables.html#cb78-3"></a>             <span class="dt">title.shape =</span> <span class="st">&quot;Group:&quot;</span>,</span>
 <span id="cb78-4"><a href="visual-variables.html#cb78-4"></a>             <span class="dt">shapes.labels =</span> <span class="kw">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>))</span></code></pre></div>
-<p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.
+<p>By default, <strong>tmap</strong> uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>.
 However, it is also possible to customize used symbols, their title, and labels.
 Legend title related to shapes is modified with the <code>title.shape</code> argument, while their labels use the <code>shapes.lables</code> argument.</p>
 <p>Shapes can be specified with the <code>shapes</code> argument, that allows using one of three options.
-The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>.
+The first one is a numeric value that specifies the plotting character of the symbol<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>.
 A complete list of available symbols and their corresponding numbers is in the <code>?pch</code> function’s documentation.
 <!--JN: or should we add a figure with them here??--></p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="visual-variables.html#cb79-1"></a><span class="kw">tm_shape</span>(metro2) <span class="op">+</span></span>
@@ -880,15 +880,15 @@ FIGURE 6.16: A map using two visual variables, color and size (line width), at t
 </div>
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p>Other visual variables include position, orientation, and texture.<a href="visual-variables.html#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Learn more about them at <a href="https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/" class="uri">https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/</a> and <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html" class="uri">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a>.<a href="visual-variables.html#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.<a href="visual-variables.html#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="visual-variables.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>For more information visit the <code>?pretty()</code> function documentation<a href="visual-variables.html#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.<a href="visual-variables.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>They are represented in R by numbers from 21 to 25.<a href="visual-variables.html#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>However, this is not supported for the “view” mode.<a href="visual-variables.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<ol start="9">
+<li id="fn9"><p>Other visual variables include position, orientation, and texture.<a href="visual-variables.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Learn more about them at <a href="https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/" class="uri">https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/</a> and <a href="https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html" class="uri">https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html</a>.<a href="visual-variables.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>To see and compare examples of every color scale style from <strong>tmap</strong> visit <a href="https://geocompr.github.io/post/2019/tmap-color-scales/" class="uri">https://geocompr.github.io/post/2019/tmap-color-scales/</a>.<a href="visual-variables.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>The <code>tm_polygons(col = "region_un", style = "cat")</code> code is run automatically in this case.<a href="visual-variables.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>For more information visit the <code>?pretty()</code> function documentation<a href="visual-variables.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.<a href="visual-variables.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>They are represented in R by numbers from 21 to 25.<a href="visual-variables.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>However, this is not supported for the “view” mode.<a href="visual-variables.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
