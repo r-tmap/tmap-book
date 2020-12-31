@@ -161,7 +161,7 @@ tm_shape(land, bbox = "Europe") +
 In the last approach, the map extent is based on another existing spatial object.
 Figure \@ref(fig:tbbox3) shows the elevation raster data (`land`) limited to the edge coordinates from `metro_large`. 
 
-```{r tbbox3, warning=FALSE, fig.cap="Global elevation data limited to the extent of the other spatial object."}
+```{r tbbox3, fig.asp=0.35, warning=FALSE, fig.cap="Global elevation data limited to the extent of the other spatial object."}
 tm_shape(land, bbox = metro_large) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
