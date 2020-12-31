@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-30" />
+<meta name="date" content="2020-12-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#shapes-and-layers"><i class="fa fa-check"></i><b>4.1</b> Shapes and layers</a></li>
 <li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#shapes-hierarchy"><i class="fa fa-check"></i><b>4.2</b> Shapes hierarchy</a></li>
 <li class="chapter" data-level="4.3" data-path="tmshape.html"><a href="tmshape.html#map-projection"><i class="fa fa-check"></i><b>4.3</b> Map projection</a></li>
-<li class="chapter" data-level="4.4" data-path="tmshape.html"><a href="tmshape.html#bounding-box"><i class="fa fa-check"></i><b>4.4</b> Bounding box</a></li>
+<li class="chapter" data-level="4.4" data-path="tmshape.html"><a href="tmshape.html#map-extent"><i class="fa fa-check"></i><b>4.4</b> Map extent</a></li>
 <li class="chapter" data-level="4.5" data-path="tmshape.html"><a href="tmshape.html#data-simplification"><i class="fa fa-check"></i><b>4.5</b> Data simplification</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
@@ -615,7 +615,7 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 <!-- Raster data intro -->
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
-Figure <a href="tmshape.html#fig:rasterdown">4.4</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
+Figure <a href="tmshape.html#fig:rasterdown">4.7</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
 This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
 However, the <code>"cont"</code> style often better represent phenomena that progressively vary in space (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>

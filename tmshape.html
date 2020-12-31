@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-30" />
+<meta name="date" content="2020-12-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="tmshape.html"><a href="tmshape.html#shapes-and-layers"><i class="fa fa-check"></i><b>4.1</b> Shapes and layers</a></li>
 <li class="chapter" data-level="4.2" data-path="tmshape.html"><a href="tmshape.html#shapes-hierarchy"><i class="fa fa-check"></i><b>4.2</b> Shapes hierarchy</a></li>
 <li class="chapter" data-level="4.3" data-path="tmshape.html"><a href="tmshape.html#map-projection"><i class="fa fa-check"></i><b>4.3</b> Map projection</a></li>
-<li class="chapter" data-level="4.4" data-path="tmshape.html"><a href="tmshape.html#bounding-box"><i class="fa fa-check"></i><b>4.4</b> Bounding box</a></li>
+<li class="chapter" data-level="4.4" data-path="tmshape.html"><a href="tmshape.html#map-extent"><i class="fa fa-check"></i><b>4.4</b> Map extent</a></li>
 <li class="chapter" data-level="4.5" data-path="tmshape.html"><a href="tmshape.html#data-simplification"><i class="fa fa-check"></i><b>4.5</b> Data simplification</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>5</b> Layers</a><ul>
@@ -313,8 +313,8 @@ Another limitation of <code>raster.warp = TRUE</code> is the use of the nearest 
 <span id="cb11-2"><a href="tmshape.html#cb11-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>)) </span></code></pre></div>
 <p>The second approach (<code>raster.warp = FALSE</code>) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
 This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</p>
-<p>(Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:B shows an example of the second approach, which gave a better result in this case without any spurious lands.
-However, creation of the B map took about 10 times longer than the A map.</p>
+<p>Figure <a href="tmshape.html#fig:tm-map-proj">4.3</a>:B shows an example of the second approach, which gave a better result in this case without any spurious lands.
+However, creation of the B map takes about ten times longer than the A map.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="tmshape.html#cb12-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">projection =</span> <span class="dv">8857</span>, <span class="dt">raster.warp =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb12-2"><a href="tmshape.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tm-map-proj"></span>
@@ -323,20 +323,55 @@ However, creation of the B map took about 10 times longer than the A map.</p>
 FIGURE 4.3: Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE.
 </p>
 </div>
-<!-- add note about reprojecting first vs later - why and how -->
+<!-- add our recommendations -->
+<!-- about reprojecting first vs later - why and how -->
 </div>
-<div id="bounding-box" class="section level2">
-<h2><span class="header-section-number">4.4</span> Bounding box</h2>
-<!-- ?bb -->
+<div id="map-extent" class="section level2">
+<h2><span class="header-section-number">4.4</span> Map extent</h2>
+<p>Another important aspect of mapping, besides projection, is its extent - a portion of the area shown in a map.
+<!--add info about the bounding box term-->
+This is not an issue when the extent of our spatial data is the same as we want to show on a map.
+However, what should we do when the spatial data contains a larger region than we want to present?</p>
+<p>Again, we could take two routes.
+The first one is to preprocess our data before mapping - this can be done with vector clipping (e.g., <code>st_intersection()</code>) and raster cropping (e.g., <code>st_crop()</code>).
+We would recommend this approach if you plan to work on the smaller data in the other parts of the project.
+The second route is to specify the map extent in <strong>tmap</strong>.</p>
+<p><strong>tmap</strong> allows specifying map extent using three approaches.
+The first one is to specify minimum and maximum coordinates in the x and y directions that we want to represent.
+This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates need to be specified in the input data units^[This can also be done with the object of class <code>st_bbox</code> or a 2 by 2 matrix.
+In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (Figure <a href="tmshape.html#fig:tbbox1">4.4</a>).
+<!-- mention tm_grid? --></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tmshape.html#cb13-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">65</span>)) <span class="op">+</span></span>
 <span id="cb13-2"><a href="tmshape.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tmshape.html#cb14-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> metro_large) <span class="op">+</span></span>
+<div class="figure" style="text-align: center"><span id="fig:tbbox1"></span>
+<img src="04-tm-shape_files/figure-html/tbbox1-1.png" alt="Global elevation data limited to the extent of the specified minimum and maximum coordinates." width="672" />
+<p class="caption">
+FIGURE 4.4: Global elevation data limited to the extent of the specified minimum and maximum coordinates.
+</p>
+</div>
+<p>The second approach allows setting the map extent based on a search query.
+In the code below, we limit the map extent to the area of <code>"Europe"</code> (Figure <a href="tmshape.html#fig:tbbox2">4.5</a>).
+This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tmshape.html#cb14-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> <span class="st">&quot;Europe&quot;</span>) <span class="op">+</span></span>
 <span id="cb14-2"><a href="tmshape.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tmshape.html#cb15-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> <span class="st">&quot;Europe&quot;</span>) <span class="op">+</span></span>
+<div class="figure" style="text-align: center"><span id="fig:tbbox2"></span>
+<img src="04-tm-shape_files/figure-html/tbbox2-1.png" alt="Global elevation data limited to the extent specified with the 'Europe' query." width="672" />
+<p class="caption">
+FIGURE 4.5: Global elevation data limited to the extent specified with the ‘Europe’ query.
+</p>
+</div>
+<p>In the last approach, the map extent is based on another existing spatial object.
+Figure <a href="tmshape.html#fig:tbbox3">4.6</a> shows the elevation raster data (<code>land</code>) limited to the edge coordinates from <code>metro_large</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tmshape.html#cb15-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">bbox =</span> metro_large) <span class="op">+</span></span>
 <span id="cb15-2"><a href="tmshape.html#cb15-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">8</span>))</span></code></pre></div>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:tbbox3"></span>
+<img src="04-tm-shape_files/figure-html/tbbox3-1.png" alt="Global elevation data limited to the extent of the other spatial object." width="672" />
+<p class="caption">
+FIGURE 4.6: Global elevation data limited to the extent of the other spatial object.
+</p>
+</div>
+<!-- ?bb -->
+<!-- explain some additional arguments of bb?? -->
 </div>
 <div id="data-simplification" class="section level2">
 <h2><span class="header-section-number">4.5</span> Data simplification</h2>
@@ -377,7 +412,7 @@ FIGURE 4.3: Two elevation maps in the Equal Earth projection: (A) created using 
 #&gt; the shape. Alternatively, st_simplify from the sf
 #&gt; package can be used. See the underlying function
 #&gt; tmaptools::simplify_shape for details.</code></pre>
-<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="04-tm-shape_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- mention other arguments in ms_simplify -->
 <!-- 2/resolution -->
 <p>Raster data is represented by a grid of cells (Section <a href="geodata.html#raster-data-model">2.2.2</a>), and the number of cells impacts the time to render a map.
@@ -388,17 +423,17 @@ Therefore, the <strong>tmap</strong> package downsamples large rasters by defaul
 This values can be adjusted with the <code>max.raster</code> argument of <code>tmap_options()</code>, which expects a named vector with two elements - <code>plot</code> and <code>view</code>.
 <!-- btw - downsampling cont vs cat -->
 <!-- when and why -->
-(Figure <a href="tmshape.html#fig:rasterdown">4.4</a>:A).</p>
+(Figure <a href="tmshape.html#fig:rasterdown">4.7</a>:A).</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tmshape.html#cb21-1"></a><span class="kw">tmap_options</span>(<span class="dt">max.raster =</span> <span class="kw">c</span>(<span class="dt">plot =</span> <span class="dv">5000</span>, <span class="dt">view =</span> <span class="dv">2000</span>))</span>
 <span id="cb21-2"><a href="tmshape.html#cb21-2"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
 <span id="cb21-3"><a href="tmshape.html#cb21-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>)</span></code></pre></div>
-<p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="tmshape.html#fig:rasterdown">4.4</a>:B).</p>
+<p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="tmshape.html#fig:rasterdown">4.7</a>:B).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="tmshape.html#cb22-1"></a><span class="kw">tm_shape</span>(land, <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb22-2"><a href="tmshape.html#cb22-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;elevation&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rasterdown"></span>
 <img src="04-tm-shape_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
 <p class="caption">
-FIGURE 4.4: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
+FIGURE 4.7: (A) A raster map with the decreased resolution, (B) a raster map in the original resolution.
 </p>
 </div>
 <p>Any <strong>tmap</strong> options can be reset (set to default) with <code>tmap_options_reset()</code> (Chapter <a href="options.html#options">11</a>).</p>

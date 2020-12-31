@@ -17,6 +17,9 @@ tab:crs-recommendations
 fig:tmshape1
 fig:tmshape2
 fig:tm-map-proj
+fig:tbbox1
+fig:tbbox2
+fig:tbbox3
 fig:rasterdown
 tab:layers-table
 fig:tmpolygonsder
@@ -70,7 +73,7 @@ tmshape
 shapes-and-layers
 shapes-hierarchy
 map-projection
-bounding-box
+map-extent
 data-simplification
 layers
 polygons

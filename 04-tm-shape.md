@@ -104,8 +104,8 @@ tm_shape(land, projection = 8857) +
 The second approach (`raster.warp = FALSE`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
 This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach see `?stars::st_warp()` and of the second approach see `?stars::st_transform()`.].
 
-(Figure \@ref(fig:tm-map-proj):B shows an example of the second approach, which gave a better result in this case without any spurious lands.
-However, creation of the B map took about 10 times longer than the A map.
+Figure \@ref(fig:tm-map-proj):B shows an example of the second approach, which gave a better result in this case without any spurious lands.
+However, creation of the B map takes about ten times longer than the A map.
 
 
 ```r
@@ -120,11 +120,26 @@ tm_shape(land, projection = 8857, raster.warp = FALSE) +
 
 
 
-<!-- add note about reprojecting first vs later - why and how -->
+<!-- add our recommendations -->
+<!-- about reprojecting first vs later - why and how -->
 
-## Bounding box
+## Map extent
 
-<!-- ?bb -->
+Another important aspect of mapping, besides projection, is its extent - a portion of the area shown in a map.
+<!--add info about the bounding box term-->
+This is not an issue when the extent of our spatial data is the same as we want to show on a map.
+However, what should we do when the spatial data contains a larger region than we want to present?
+
+Again, we could take two routes.
+The first one is to preprocess our data before mapping - this can be done with vector clipping (e.g., `st_intersection()`) and raster cropping (e.g., `st_crop()`).
+We would recommend this approach if you plan to work on the smaller data in the other parts of the project.
+The second route is to specify the map extent in **tmap**.
+
+**tmap** allows specifying map extent using three approaches.
+The first one is to specify minimum and maximum coordinates in the x and y directions that we want to represent.
+This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates need to be specified in the input data units^[This can also be done with the object of class `st_bbox` or a 2 by 2 matrix.
+In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (Figure \@ref(fig:tbbox1)).
+<!-- mention tm_grid? -->
 
 
 ```r
@@ -132,15 +147,14 @@ tm_shape(land, bbox = c(-15, 35, 45, 65)) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="04-tm-shape_files/figure-html/tbbox1-1.png" alt="Global elevation data limited to the extent of the specified minimum and maximum coordinates." width="672" />
+<p class="caption">(\#fig:tbbox1)Global elevation data limited to the extent of the specified minimum and maximum coordinates.</p>
+</div>
 
-
-```r
-tm_shape(land, bbox = metro_large) +
-  tm_raster("elevation", palette = terrain.colors(8))
-```
-
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+The second approach allows setting the map extent based on a search query.
+In the code below, we limit the map extent to the area of `"Europe"` (Figure \@ref(fig:tbbox2)).
+This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.
 
 
 ```r
@@ -148,7 +162,27 @@ tm_shape(land, bbox = "Europe") +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="04-tm-shape_files/figure-html/tbbox2-1.png" alt="Global elevation data limited to the extent specified with the 'Europe' query." width="672" />
+<p class="caption">(\#fig:tbbox2)Global elevation data limited to the extent specified with the 'Europe' query.</p>
+</div>
+
+In the last approach, the map extent is based on another existing spatial object.
+Figure \@ref(fig:tbbox3) shows the elevation raster data (`land`) limited to the edge coordinates from `metro_large`. 
+
+
+```r
+tm_shape(land, bbox = metro_large) +
+  tm_raster("elevation", palette = terrain.colors(8))
+```
+
+<div class="figure" style="text-align: center">
+<img src="04-tm-shape_files/figure-html/tbbox3-1.png" alt="Global elevation data limited to the extent of the other spatial object." width="672" />
+<p class="caption">(\#fig:tbbox3)Global elevation data limited to the extent of the other spatial object.</p>
+</div>
+
+<!-- ?bb -->
+<!-- explain some additional arguments of bb?? -->
 
 ## Data simplification
 
@@ -209,7 +243,7 @@ tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
 #> tmaptools::simplify_shape for details.
 ```
 
-<img src="04-tm-shape_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+<img src="04-tm-shape_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
 
 
 <!-- mention other arguments in ms_simplify -->
