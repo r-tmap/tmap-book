@@ -128,19 +128,19 @@ bench::mark(print(tmp1), print(tmp2), check = FALSE)
 
 ## Map extent
 
-<!-- ?bb -->
-Another important aspect of mapping, besides projection, is its extent - a portion of area shown in a map.
+Another important aspect of mapping, besides projection, is its extent - a portion of the area shown in a map.
+<!--add info about the bounding box term-->
 This is not an issue when the extent of our spatial data is the same as we want to show on a map.
-However, what should we do when the spatial data contains larger region than we want to present?
+However, what should we do when the spatial data contains a larger region than we want to present?
 
 Again, we could take two routes.
 The first one is to preprocess our data before mapping - this can be done with vector clipping (e.g., `st_intersection()`) and raster cropping (e.g., `st_crop()`).
 We would recommend this approach if you plan to work on the smaller data in the other parts of the project.
 The second route is to specify the map extent in **tmap**.
 
-**tmap** allows to specify map extent using three approaches.
+**tmap** allows specifying map extent using three approaches.
 The first one is to specify minimum and maximum coordinates in the x and y directions that we want to represent.
-This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates needs to be specified in the input data units^[This can be also done with the object of class `st_bbox` or a 2 by 2 matrix.
+This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates need to be specified in the input data units^[This can also be done with the object of class `st_bbox` or a 2 by 2 matrix.
 In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (Figure \@ref(fig:tbbox1)).
 <!-- mention tm_grid? -->
 
@@ -149,22 +149,25 @@ tm_shape(land, bbox = c(-15, 35, 45, 65)) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
- (Figure \@ref(fig:tbbox2)).
+The second approach allows setting the map extent based on a search query.
+In the code below, we limit the map extent to the area of `"Europe"` (Figure \@ref(fig:tbbox2)).
+This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.
 
-```{r tbbox2, warning=FALSE, fig.cap=""}
+```{r tbbox2, warning=FALSE, fig.cap="Global elevation data limited to the extent specified with the 'Europe' query."}
 tm_shape(land, bbox = "Europe") +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
- (Figure \@ref(fig:tbbox3)).
+In the last approach, the map extent is based on another existing spatial object.
+Figure \@ref(fig:tbbox3) shows the elevation raster data (`land`) limited to the edge coordinates from `metro_large`. 
 
-```{r tbbox3, warning=FALSE, fig.cap=""}
+```{r tbbox3, warning=FALSE, fig.cap="Global elevation data limited to the extent of the other spatial object."}
 tm_shape(land, bbox = metro_large) +
   tm_raster("elevation", palette = terrain.colors(8))
 ```
 
-
 <!-- ?bb -->
+<!-- explain some additional arguments of bb?? -->
 
 ## Data simplification
 
