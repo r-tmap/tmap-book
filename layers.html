@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2020-12-31" />
+<meta name="date" content="2021-01-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -615,7 +615,7 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 <!-- Raster data intro -->
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
-Figure <a href="tmshape.html#fig:rasterdown">4.7</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
+Figure <a href="tmshape.html#fig:rasterdown">4.8</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
 This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
 However, the <code>"cont"</code> style often better represent phenomena that progressively vary in space (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">tm_shape</span>(land[<span class="dv">3</span>]) <span class="op">+</span></span>
@@ -704,7 +704,7 @@ FIGURE 5.9: Topographic tile layer used as a base map with the red dots represen
 </p>
 </div>
 <p>In the above code, we made two basemaps available - <code>"OpenTopoMap"</code>, and <code>"OpenStreetMap"</code>, and for the map legend purpose, we renamed them as <code>TopoMap</code> and <code>StreetMap</code>.
-A complete list of available basemaps is in the <code>leaflet::providers</code> object and on the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" class="uri">https://leaflet-extras.github.io/leaflet-providers/preview/</a> website<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.
+A complete list of available basemaps is in the <code>leaflet::providers</code> object and on the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" class="uri">https://leaflet-extras.github.io/leaflet-providers/preview/</a> website<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
 <!-- https://github.com/leaflet-extras/leaflet-providers -->
@@ -761,8 +761,8 @@ FIGURE 5.10: Topographic tile layer used as a base map with orange lines represe
 </div>
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p>Additional details can be found in the <code>leaflet::providers.details</code> object<a href="layers.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<ol start="9">
+<li id="fn9"><p>Additional details can be found in the <code>leaflet::providers.details</code> object<a href="layers.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>

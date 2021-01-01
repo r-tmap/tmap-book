@@ -47,7 +47,7 @@ Points can represent features on different spatial scales, from a GPS position, 
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
 A line extends the idea of a point.
-It consists of several points (with coordinates)<!--vertex--> that are arranged in some order.
+It consists of several points with coordinates (called vertices) that are arranged in some order.
 Consecutive points are connected by straight lines.
 Therefore, a straight spatial line consists of two points (two pairs of coordinates), while complex spatial lines could be created based on a large number of points.<!--to rewrite-->
 It gives the illusion that the line is curved. 
@@ -55,7 +55,7 @@ Lines are used to representing linear features, such as roads, rivers, boundarie
 In this case, we can express line features' attributes using either lines' color or their widths.
 <!-- ways to adjust lines aesthetics: colors, lwd (line width) -->
 <!-- in theory lty could be also used - but it is not implemented in tmap -->
-A polygon is again a set of ordered points connected by straight lines. 
+A polygon is again a set of ordered points (vertices) connected by straight lines. 
 Its only difference from the line is that the first and the last point in a polygon has the same coordinates, and thus close the object.
 <!-- examples of polygons -->
 The polygon representation is used to represent shapes and locations of different objects, from a lake or a patch of vegetation, through a building or a city block, to some administrative units. 

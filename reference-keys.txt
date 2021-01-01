@@ -20,6 +20,7 @@ fig:tm-map-proj
 fig:tbbox1
 fig:tbbox2
 fig:tbbox3
+fig:vectordown
 fig:rasterdown
 tab:layers-table
 fig:tmpolygonsder
