@@ -313,3 +313,5 @@ Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (
 ```r
 tmap_options_reset()
 ```
+
+<!-- is there anything important about tm_shape arguments that still is missing for the above text?? -->
