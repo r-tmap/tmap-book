@@ -171,27 +171,51 @@ tm_shape(land, bbox = metro_large) +
 
 ## Data simplification
 
+Geometries in spatial vector data consists of sets of coordinates (Section \@ref(vector-data-model)).
+Spatial vector objects grow larger with more features to present and more details to show, and this also has an impact on time to render a map.
+<!-- also to consider - the level of generalization -->
+Figure \@ref(fig:vectordown):A shows a map of countries from the `World` object.
+
 ```{r, eval=FALSE}
 tm_shape(World) +
   tm_polygons()
 ```
+
+This level of detail can be good for some maps, but sometimes the number of details can make reading the map harder.
+To show a simplified (smoother) version of vector data, we can use the `simplify` argument of `tm_shape()`^[Vector data simplification requires the **rmapshaper** package to be installed.].
+It expects a numeric value from 0 to 1 - a proportion of vertices in the data to retain.
+In the example below, we set `simplify` to 0.05, which keeps 5% of vertices (Figure \@ref(fig:vectordown):B).
 
 ```{r, eval=FALSE}
 tm_shape(World, simplify = 0.05) +
   tm_polygons()
 ```
 
+The process of simplification can also be more controlled.
+By default, the underlining algorithm (called the Visvalingam method, learn more at https://bost.ocks.org/mike/simplify/), removes small features, such as islands in our case.
+This could have far-reaching consequences - in the process of simplification, we can remove some countries!
+To prevent the deletion of small features, we also need to set `keep.units` to `TRUE`.
+
 ```{r, eval=FALSE}
 tm_shape(World, simplify = 0.05, keep.units = TRUE) +
   tm_polygons()
 ```
+
+Figure \@ref(fig:vectordown):C shows the result of such an operation.
+Now, our map contains all of the countries from the original data, but in a simplified form.
+`keep.units = TRUE`, however, does not keep all of the subfeatures.
+In the case of one country consisting of many small polygons, only one is sure to be retained.
+For example, look at New Zealand, which is now only represented by Te Waipounamu (the South Island).
+To keep all of the spatial geometries (even the smallest of islands), we should also specify `keep.subunits` to `TRUE`.
 
 ```{r, eval=FALSE}
 tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
   tm_polygons()
 ```
 
-```{r, echo=FALSE, message=FALSE}
+Figure \@ref(fig:vectordown):D contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
+
+```{r vectordown, echo=FALSE, message=FALSE, fig.cap="A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept."}
 tms1 = tm_shape(World) +
   tm_polygons() +
   tm_layout(title = "A")
@@ -207,8 +231,8 @@ tms4 = tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE)
 tmap_arrange(tms1, tms2, tms3, tms4)
 ```
 
-
-<!-- mention other arguments in ms_simplify -->
+All of the about vector simplification functions use the `ms_simplify()` from the **rmapshaper** package <!--add two citations: to mapshaper and rmapshaper-->.
+Therefore, you can customize the data simplification even further using other arguments of `ms_simplify()` (except for the arguments `input`, `keep`, `keep_shapes`, and `explode`).
 
 
 <!-- 2/resolution -->
