@@ -307,7 +307,7 @@ tm_shape(land, raster.downsample = FALSE) +
 <p class="caption">(\#fig:rasterdown)(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.</p>
 </div>
 
-Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (Chapter \@ref(options)).
+Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (We explain `tmap_options()` in details in Chapter \@ref(options)).
 
 
 ```r
