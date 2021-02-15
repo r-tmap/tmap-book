@@ -18,78 +18,78 @@
 <tbody>
   <tr grouplength="7"><td colspan="3" style="border-bottom: 1px solid;"><strong>Basic functions</strong></td></tr>
 <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_polygons() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_polygons() </td>
    <td style="text-align:left;"> polygons (borders and fill) </td>
    <td style="text-align:left;"> polygons </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_symbols() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_symbols() </td>
    <td style="text-align:left;"> symbols </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_lines() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_lines() </td>
    <td style="text-align:left;"> lines </td>
    <td style="text-align:left;"> lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_raster() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_raster() </td>
    <td style="text-align:left;"> raster </td>
    <td style="text-align:left;"> raster </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_text() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_text() </td>
    <td style="text-align:left;"> text </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_basemap() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_basemap() </td>
    <td style="text-align:left;"> tile </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_tiles() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_tiles() </td>
    <td style="text-align:left;"> tile </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr grouplength="8"><td colspan="3" style="border-bottom: 1px solid;"><strong>Derived functions</strong></td></tr>
 <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_borders() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_borders() </td>
    <td style="text-align:left;"> polygons (borders) </td>
    <td style="text-align:left;"> polygons </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_fill() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_fill() </td>
    <td style="text-align:left;"> polygons (fill) </td>
    <td style="text-align:left;"> polygons </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_bubbles() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_bubbles() </td>
    <td style="text-align:left;"> bubbles </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_dots() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_dots() </td>
    <td style="text-align:left;"> dots </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_markers() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_markers() </td>
    <td style="text-align:left;"> marker symbols </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_square() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_square() </td>
    <td style="text-align:left;"> squares </td>
    <td style="text-align:left;"> points, polygons, and lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_iso() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_iso() </td>
    <td style="text-align:left;"> lines with text labels </td>
    <td style="text-align:left;"> lines </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;font-family: monospace; padding-left:  2em;" indentlevel="1"> tm_rgb()/tm_rgba() </td>
+   <td style="text-align:left;font-weight: bold;font-family: monospace;padding-left: 2em;" indentlevel="1"> tm_rgb()/tm_rgba() </td>
    <td style="text-align:left;"> raster (RGB image) </td>
    <td style="text-align:left;"> raster </td>
   </tr>
@@ -112,22 +112,18 @@ Chapter \@ref(visual-variables), on the other hand, is all about how to present 
 
 
 ```r
-# replace this data with some new tmap dataset
 library(tmap)
 library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
-x = st_transform(x, 8857)
+ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ```
 
 The main function to visualize polygons is `tm_polygons()`.
 By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
-<!--JN: where can I find the actual default color values in the code?-->
 <!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R -->
 
 
 ```r
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_polygons()
 ```
 
@@ -135,7 +131,7 @@ Both, colors of areas (polygons' fillings) and colors of borders can be modified
 
 
 ```r
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_polygons(col = "lightblue", 
               border.col = "black", lwd = 0.5, lty = "dashed")
 ```
@@ -145,7 +141,7 @@ The `tm_fill()` function fills polygons with a fixed color or a color palette re
 
 
 ```r
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_fill(col = "lightblue")
 ```
 
@@ -154,7 +150,7 @@ It allows to change the colors of borders, their widths, or the lines type.
 
 
 ```r
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed")
 ```
 
@@ -172,10 +168,8 @@ More information on colors, and how they can be applied and modified is explaine
 
 
 ```r
-data("metro", package = "tmap")
-# to update later
-set.seed(222)
-metro2 = metro[sample(1:nrow(metro), 30), ]
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, natural == "volcano")
 ```
 
 Symbols are a very flexible layer type. 
@@ -204,7 +198,7 @@ All of them use `tm_symbols()`, but with different default values.
 
 
 ```r
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_squares()
 ```
 
@@ -214,7 +208,7 @@ tm_shape(metro2) +
 
 
 ```r
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_bubbles()
 ```
 
@@ -223,7 +217,7 @@ To do this, this layer has a small size value (`0.02`) at the default (Figure \@
 
 
 ```r
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_dots()
 ```
 
@@ -231,7 +225,7 @@ The last additional layer is `tm_markers()`, which uses a marker icon by default
 
 
 ```r
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_markers()
 ```
 
@@ -244,16 +238,14 @@ tm_shape(metro2) +
 
 
 ```r
-# replace dataset later
-library(tmap)
-data("rivers", package = "tmap")
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 ```
 
 The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
 
 ```r
-tm_shape(rivers) + 
+tm_shape(ei_roads) + 
   tm_lines()
 ```
 
@@ -273,8 +265,8 @@ The main function to create text labels is `tm_text()`, which adds a label to ea
 
 
 ```r
-tm_shape(metro2) +
-  tm_text(text = "name", size = "pop2020") +
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "ele") +
   tm_layout(legend.outside = TRUE)
 ```
 
@@ -301,16 +293,13 @@ Where should the labels be placed for lines or polygons - in the center of a lin
 
 
 ```r
-x2 = x %>% 
-  dplyr::group_by(region_un) %>% 
-  dplyr::summarise()
-#> `summarise()` ungrouping output (override with `.groups` argument)
-tm_shape(x2) +
-  tm_polygons() +
-  tm_text("region_un")
+# x2 = x %>% 
+#   dplyr::group_by(region_un) %>% 
+#   dplyr::summarise()
+# tm_shape(x2) +
+#   tm_polygons() +
+#   tm_text("region_un")
 ```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- add info about text location, e.g. -->
 <!-- add relation between text and other layers -->
@@ -494,8 +483,8 @@ However, we can change the used basemaps with a vector with the names of the til
 tmap_mode("view")
 tm_basemap(c(TopoMap = "OpenTopoMap",
              StreetMap = "OpenStreetMap")) +
-  tm_shape(metro, bbox = "India") + 
-  tm_dots(col = "red", group = "Metropolitan areas")
+  tm_shape(volcanos, is.master = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
 ```
 
 <div class="figure" style="text-align: center">
@@ -520,9 +509,9 @@ In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the pr
 ```r
 tm_basemap(c(TopoMap = "OpenTopoMap",
              StreetMap = "OpenStreetMap")) +
-  tm_tiles(c(Railways = "OpenRailwayMap")) +
-  tm_shape(metro, bbox = "India") + 
-  tm_dots(col = "red", group = "Metropolitan areas")
+  tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
+  tm_shape(volcanos, is.master = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
 ```
 
 <div class="figure" style="text-align: center">
@@ -535,12 +524,8 @@ tm_basemap(c(TopoMap = "OpenTopoMap",
 
 
 ```r
-library(raster)
 library(maptiles)
-vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
-zion = read_sf(vector_filepath)
-zion_osm = get_tiles(zion, crop = TRUE, zoom = 11, provider = "Stamen.Toner")
-zion_osm2 = stack(zion_osm)
+ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Toner")
 ```
 
 
@@ -551,27 +536,24 @@ get_credit("Stamen.Toner")
 
 ```r
 tmap_mode("plot")
-tm_shape(zion_osm2) + 
+tm_shape(ei_tiles) + 
   tm_rgb() + 
-  tm_shape(zion) +
-  tm_borders(lwd = 5, col = "gray95") +
-  tm_scale_bar(position = c("left", "bottom"),
-               breaks = c(0, 5, 10),
-               text.size = 1) +
+  tm_shape(ei_borders) +
+  tm_borders(lwd = 5, col = "lightblue") +
+  tm_scale_bar(breaks = c(0, 2, 4),
+               bg.color = "white") +
   tm_credits(get_credit("Stamen.Toner"),
-             position = c("RIGHT", "BOTTOM"))
+             bg.color = "white")
 ```
 
 ## Combining layers
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap") +
-  tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+# tm_shape(x) +
+#   tm_polygons(col = "gdpPercap") +
+#   tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
 ```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- 
 <!-- projection -->

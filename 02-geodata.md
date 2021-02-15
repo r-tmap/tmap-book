@@ -279,22 +279,22 @@ x
 #> dimension:      XY
 #> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6
 #> geographic CRS: WGS 84
-#> [90m# A tibble: 177 x 11[39m
+#> # A tibble: 177 x 11
 #>    iso_a2 name_long continent region_un subregion type 
-#>    [3m[90m<chr>[39m[23m  [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m     [3m[90m<chr>[39m[23m
-#> [90m 1[39m FJ     Fiji      Oceania   Oceania   Melanesia Sove…
-#> [90m 2[39m TZ     Tanzania  Africa    Africa    Eastern … Sove…
-#> [90m 3[39m EH     Western … Africa    Africa    Northern… Inde…
-#> [90m 4[39m CA     Canada    North Am… Americas  Northern… Sove…
-#> [90m 5[39m US     United S… North Am… Americas  Northern… Coun…
-#> [90m 6[39m KZ     Kazakhst… Asia      Asia      Central … Sove…
-#> [90m 7[39m UZ     Uzbekist… Asia      Asia      Central … Sove…
-#> [90m 8[39m PG     Papua Ne… Oceania   Oceania   Melanesia Sove…
-#> [90m 9[39m ID     Indonesia Asia      Asia      South-Ea… Sove…
-#> [90m10[39m AR     Argentina South Am… Americas  South Am… Sove…
-#> [90m# … with 167 more rows, and 5 more variables:[39m
-#> [90m#   area_km2 [3m[90m<dbl>[90m[23m, pop [3m[90m<dbl>[90m[23m, lifeExp [3m[90m<dbl>[90m[23m,[39m
-#> [90m#   gdpPercap [3m[90m<dbl>[90m[23m, geom [3m[90m<MULTIPOLYGON [°]>[90m[23m[39m
+#>    <chr>  <chr>     <chr>     <chr>     <chr>     <chr>
+#>  1 FJ     Fiji      Oceania   Oceania   Melanesia Sove…
+#>  2 TZ     Tanzania  Africa    Africa    Eastern … Sove…
+#>  3 EH     Western … Africa    Africa    Northern… Inde…
+#>  4 CA     Canada    North Am… Americas  Northern… Sove…
+#>  5 US     United S… North Am… Americas  Northern… Coun…
+#>  6 KZ     Kazakhst… Asia      Asia      Central … Sove…
+#>  7 UZ     Uzbekist… Asia      Asia      Central … Sove…
+#>  8 PG     Papua Ne… Oceania   Oceania   Melanesia Sove…
+#>  9 ID     Indonesia Asia      Asia      South-Ea… Sove…
+#> 10 AR     Argentina South Am… Americas  South Am… Sove…
+#> # … with 167 more rows, and 5 more variables:
+#> #   area_km2 <dbl>, pop <dbl>, lifeExp <dbl>,
+#> #   gdpPercap <dbl>, geom <MULTIPOLYGON [°]>
 ```
 
 The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
@@ -358,7 +358,7 @@ x2
 #>  3rd Qu.:2114  
 #>  Max.   :2892  
 #> dimension(s):
-#>   from  to  offset        delta refsys point values    
+#>   from  to  offset        delta refsys point values x/y
 #> x    1 465 -113.24  0.000833333 WGS 84 FALSE   NULL [x]
 #> y    1 457 37.5129 -0.000833333 WGS 84 FALSE   NULL [y]
 ```
