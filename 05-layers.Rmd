@@ -61,28 +61,24 @@ Chapter \@ref(visual-variables), on the other hand, is all about how to present 
 <!-- intro -->
 
 ```{r, warning=FALSE, message=FALSE}
-# replace this data with some new tmap dataset
 library(tmap)
 library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
-x = st_transform(x, 8857)
+ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ```
 
 The main function to visualize polygons is `tm_polygons()`.
 By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
-<!--JN: where can I find the actual default color values in the code?-->
 <!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R -->
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_polygons()
 ```
 
 Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (Figure \@ref(fig:tmpolygonsder):A).
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_polygons(col = "lightblue", 
               border.col = "black", lwd = 0.5, lty = "dashed")
 ```
@@ -91,7 +87,7 @@ In fact, `tm_polygons()` is a combination of two separate functions - `tm_fill()
 The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (Figure \@ref(fig:tmpolygonsder):B).
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_fill(col = "lightblue")
 ```
 
@@ -99,25 +95,25 @@ The `tm_borders()` function draws the borders of the polygons only (Figure \@ref
 It allows to change the colors of borders, their widths, or the lines type.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed")
 ```
 
 Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
 This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
-```{r tmpolygonsder, warning=FALSE, fig.cap="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' .", echo=FALSE}
-tmpa0 = tm_shape(x) +
+```{r tmpolygonsder, warning=FALSE, fig.cap="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' .", echo=FALSE, fig.asp=0.4}
+tmpa0 = tm_shape(ei_borders) +
   tm_polygons(col = "lightblue", 
               border.col = "black", lwd = 0.5, lty = "dashed") +
   tm_layout(title = "A")
-tmpa1 = tm_shape(x) +
+tmpa1 = tm_shape(ei_borders) +
   tm_fill(col = "lightblue") +
   tm_layout(title = "B")
-tmpa2 = tm_shape(x) +
+tmpa2 = tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed") +
   tm_layout(title = "C")
-tmap_arrange(tmpa0, tmpa1, tmpa2, ncol = 1)
+tmap_arrange(tmpa0, tmpa1, tmpa2, nrow = 1)
 ```
 
 More information on colors, and how they can be applied and modified is explained in detail in Chapter \@ref(colors).
@@ -125,10 +121,8 @@ More information on colors, and how they can be applied and modified is explaine
 ## Symbols
 
 ```{r}
-data("metro", package = "tmap")
-# to update later
-set.seed(222)
-metro2 = metro[sample(1:nrow(metro), 30), ]
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, natural == "volcano")
 ```
 
 Symbols are a very flexible layer type. 
@@ -140,7 +134,7 @@ The `tm_symbols()` is the main function in **tmap** allowing to use and modify s
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
 
 ```{r tmsymbols1, warning=FALSE, fig.cap="A map showing the default tmap symbols.", echo=FALSE, asp=0.25}
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_symbols()
 ```
 
@@ -156,7 +150,7 @@ All of them use `tm_symbols()`, but with different default values.
 <!--scale is 4/3 instead of 1-->
 
 ```{r, eval=FALSE}
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_squares()
 ```
 
@@ -165,7 +159,7 @@ tm_shape(metro2) +
 <!--scale is 4/3 instead of 1-->
 
 ```{r, eval=FALSE}
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_bubbles()
 ```
 
@@ -173,28 +167,28 @@ The main role of `tm_dots()` is to present many locations at the same time.
 To do this, this layer has a small size value (`0.02`) at the default (Figure \@ref(fig:tmsymbols2):C).
 
 ```{r, eval=FALSE}
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_dots()
 ```
 
 The last additional layer is `tm_markers()`, which uses a marker icon by default (Figure \@ref(fig:tmsymbols2):D).
 
 ```{r, eval=FALSE}
-tm_shape(metro2) +
+tm_shape(volcanos) +
   tm_markers()
 ```
 
-```{r tmsymbols2, warning=FALSE, fig.cap="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().", echo=FALSE}
-tm_ma1 = tm_shape(metro2) +
+```{r tmsymbols2, warning=FALSE, fig.cap="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().", echo=FALSE, fig.asp=0.69}
+tm_ma1 = tm_shape(volcanos) +
   tm_squares() +
   tm_layout(title = "A")
-tm_ma2 = tm_shape(metro2) +
+tm_ma2 = tm_shape(volcanos) +
   tm_bubbles() +
   tm_layout(title = "B")
-tm_ma3 = tm_shape(metro2) +
+tm_ma3 = tm_shape(volcanos) +
   tm_dots() +
   tm_layout(title = "C")
-tm_ma4 = tm_shape(metro2) +
+tm_ma4 = tm_shape(volcanos) +
   tm_markers() +
   tm_layout(title = "D")
 tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
@@ -203,15 +197,13 @@ tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
 ## Lines
 
 ```{r}
-# replace dataset later
-library(tmap)
-data("rivers", package = "tmap")
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 ```
 
 The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
 ```{r tmlines, fig.cap="Example of a map created with tm_lines."}
-tm_shape(rivers) + 
+tm_shape(ei_roads) + 
   tm_lines()
 ```
 
@@ -225,14 +217,14 @@ They can serve several functions, from naming features, indicating relations bet
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
 
 ```{r tmtext, fig.cap="Example of a map created with tm_text.", fig.asp=0.35}
-tm_shape(metro2) +
-  tm_text(text = "name", size = "pop2020") +
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "ele") +
   tm_layout(legend.outside = TRUE)
 ```
 ```{r, echo=FALSE, eval=FALSE}
-tm_shape(rivers[6:10, ]) + 
+tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd") +
-  tm_text("name")
+  tm_text("name", remove.overlap = TRUE, along.lines = TRUE)
 ```
 
 We can adjust colors (`col`) and sizes (`size`; Section \@ref(sizes)) of labels either by providing a single value or a name of a data variable.
@@ -259,12 +251,12 @@ tm_shape(metro3) +
 
 
 ```{r, warning=FALSE}
-x2 = x %>% 
-  dplyr::group_by(region_un) %>% 
-  dplyr::summarise()
-tm_shape(x2) +
-  tm_polygons() +
-  tm_text("region_un")
+# x2 = x %>% 
+#   dplyr::group_by(region_un) %>% 
+#   dplyr::summarise()
+# tm_shape(x2) +
+#   tm_polygons() +
+#   tm_text("region_un")
 ```
 
 <!-- add info about text location, e.g. -->
@@ -446,16 +438,16 @@ However, we can change the used basemaps with a vector with the names of the til
 tmap_mode("view")
 tm_basemap(c(TopoMap = "OpenTopoMap",
              StreetMap = "OpenStreetMap")) +
-  tm_shape(metro, bbox = "India") + 
-  tm_dots(col = "red", group = "Metropolitan areas")
+  tm_shape(volcanos, is.master = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
 ```
 
 ```{r tmbasemap1, screenshot.force = TRUE, fig.cap="Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India", cache = FALSE, eval=TRUE, echo=FALSE}
 # tmap_mode("view")
 # tmbasemap1 = tm_basemap(c(TopoMap = "OpenTopoMap",
 #              StreetMap = "OpenStreetMap")) +
-#   tm_shape(metro, bbox = "India") + 
-#   tm_dots(col = "red", group = "Metropolitan areas")
+#   tm_shape(volcanos, is.master = TRUE) + 
+#   tm_dots(col = "red", group = "Volcanos")
 # tmbasemap1_l = tmap_leaflet(tmbasemap1)
 # mapview::mapshot(tmbasemap1_l, file = paste0(getwd(), "/images/tmbasemap1.png"), vwidth = 800, vheight = 500)
 knitr::include_graphics("images/tmbasemap1.png")
@@ -477,19 +469,19 @@ In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the pr
 ```{r, eval=FALSE}
 tm_basemap(c(TopoMap = "OpenTopoMap",
              StreetMap = "OpenStreetMap")) +
-  tm_tiles(c(Railways = "OpenRailwayMap")) +
-  tm_shape(metro, bbox = "India") + 
-  tm_dots(col = "red", group = "Metropolitan areas")
+  tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
+  tm_shape(volcanos, is.master = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
 ```
 
 ```{r tmtiles1, screenshot.force = TRUE, fig.cap="Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India", cache = FALSE, eval=TRUE, echo=FALSE}
 # tmtiles1 = tm_basemap(c(TopoMap = "OpenTopoMap",
 #              StreetMap = "OpenStreetMap")) +
-#   tm_tiles(c(Railways = "OpenRailwayMap")) +
-#   tm_shape(metro, bbox = "India") +
-#   tm_dots(col = "red", group = "Metropolitan areas")
+#   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
+#   tm_shape(volcanos, is.master = TRUE) + 
+#   tm_dots(col = "red", group = "Volcanos")
 # tmtiles1_l = tmap_leaflet(tmtiles1)
-# vwidth = 1344, vheight = 830
+# # vwidth = 1344, vheight = 830
 # mapview::mapshot(tmtiles1_l, file = paste0(getwd(), "/images/tmtiles1.png"), vwidth = 800, vheight = 500)
 knitr::include_graphics("images/tmtiles1.png")
 ```
@@ -498,12 +490,8 @@ knitr::include_graphics("images/tmtiles1.png")
 <!-- + ref above -->
 
 ```{r, message=FALSE, eval=FALSE}
-library(raster)
 library(maptiles)
-vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
-zion = read_sf(vector_filepath)
-zion_osm = get_tiles(zion, crop = TRUE, zoom = 11, provider = "Stamen.Toner")
-zion_osm2 = stack(zion_osm)
+ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Toner")
 ```
 
 ```{r, eval=FALSE}
@@ -512,23 +500,22 @@ get_credit("Stamen.Toner")
 
 ```{r, eval=FALSE}
 tmap_mode("plot")
-tm_shape(zion_osm2) + 
+tm_shape(ei_tiles) + 
   tm_rgb() + 
-  tm_shape(zion) +
-  tm_borders(lwd = 5, col = "gray95") +
-  tm_scale_bar(position = c("left", "bottom"),
-               breaks = c(0, 5, 10),
-               text.size = 1) +
+  tm_shape(ei_borders) +
+  tm_borders(lwd = 5, col = "lightblue") +
+  tm_scale_bar(breaks = c(0, 2, 4),
+               bg.color = "white") +
   tm_credits(get_credit("Stamen.Toner"),
-             position = c("RIGHT", "BOTTOM"))
+             bg.color = "white")
 ```
 
 ## Combining layers
 
 ```{r, warning=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap") +
-  tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+# tm_shape(x) +
+#   tm_polygons(col = "gdpPercap") +
+#   tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
 ```
 
 <!-- 
