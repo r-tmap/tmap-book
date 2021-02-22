@@ -310,7 +310,9 @@ Isopleths can be created with the `tm_iso()` function.
 ## Raster
 
 ```{r}
-data(land, package = "tmap")
+library(stars)
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
 ```
 
 <!-- Raster data intro -->
@@ -321,28 +323,35 @@ This function attempts to recognize the type of a given raster - when the input 
 However, the `"cont"` style often better represent phenomena that progressively vary in space (Figure \@ref(fig:rastertype):A).
 
 ```{r, eval=FALSE}
-tm_shape(land[3]) +
-  tm_raster(style = "cont", palette = "viridis")
+tm_shape(ei_elev) +
+  tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis")
 ```
 
 On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (Figure \@ref(fig:rastertype):A).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 ```{r, eval=FALSE}
-tm_shape(land[2]) +
-  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
-                                               "#00DC82", "#FFDCD2", "#C31400",
-                                               "#FFF5D7", "#0046C8"))
+labels = c("flat", "summit", "ridge", "shoulder", "spur", 
+           "slope", "hollow", "footslope", "valley", "depression")
+colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
+           "#b4e614", "#3cfa96", "#0000ff", "#000038")
+
+tm_shape(ei_geomorphons) +
+  tm_raster(title = "Geomorphons:", style = "cat",
+            palette = colors, labels = labels)
 ```
 
 ```{r rastertype, echo=FALSE, fig.cap="Examples of (A) continuous raster maps, and (B) categorical raster maps."}
-tmrt1 = tm_shape(land[3]) +
-  tm_raster(palette = "viridis", style = "cont") +
+labels = c("flat", "summit", "ridge", "shoulder", "spur", 
+           "slope", "hollow", "footslope", "valley", "depression")
+colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
+           "#b4e614", "#3cfa96", "#0000ff", "#000038")
+tmrt1 = tm_shape(ei_elev) +
+  tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis") +
   tm_layout(title = "A")
-tmrt2 = tm_shape(land[2]) +
-  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
-                                               "#00DC82", "#FFDCD2", "#C31400",
-                                               "#FFF5D7", "#0046C8")) +
+tmrt2 = tm_shape(ei_geomorphons) +
+  tm_raster(title = "Geomorphons:", style = "cat",
+            palette = colors, labels = labels) +
   tm_layout(title = "B")
 tmap_arrange(tmrt1, tmrt2)
 ```
