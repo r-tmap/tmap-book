@@ -271,7 +271,7 @@ One example is an isopleth - a line drawn on a map through all points having the
 Isopleths can be created with the `tm_iso()` function.
 
 ```{r}
-# data(land, package = "tmap")
+data(land, package = "tmap")
 # library(raster)
 # elev = land["elevation"]
 # elev_isopleths = rasterToContour(as(elev, "Raster"))
