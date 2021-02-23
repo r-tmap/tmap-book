@@ -169,7 +169,7 @@ More information on colors, and how they can be applied and modified is explaine
 
 ```r
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
-volcanos = subset(ei_points, natural == "volcano")
+volcanos = subset(ei_points, type == "volcano")
 ```
 
 Symbols are a very flexible layer type. 
@@ -266,7 +266,7 @@ The main function to create text labels is `tm_text()`, which adds a label to ea
 
 ```r
 tm_shape(volcanos) +
-  tm_text(text = "name", size = "ele") +
+  tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
 ```
 
@@ -314,7 +314,7 @@ Isopleths can be created with the `tm_iso()` function.
 
 
 ```r
-# data(land, package = "tmap")
+data(land, package = "tmap")
 # library(raster)
 # elev = land["elevation"]
 # elev_isopleths = rasterToContour(as(elev, "Raster"))
@@ -354,7 +354,10 @@ Isopleths can be created with the `tm_iso()` function.
 
 
 ```r
-data(land, package = "tmap")
+library(stars)
+#> Loading required package: abind
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
 ```
 
 <!-- Raster data intro -->
@@ -366,8 +369,8 @@ However, the `"cont"` style often better represent phenomena that progressively 
 
 
 ```r
-tm_shape(land[3]) +
-  tm_raster(style = "cont", palette = "viridis")
+tm_shape(ei_elev) +
+  tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis")
 ```
 
 On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (Figure \@ref(fig:rastertype):A).
@@ -375,10 +378,20 @@ We can also adjust the legend title, used colors, and many more, in a similar fa
 
 
 ```r
-tm_shape(land[2]) +
-  tm_raster(title = "Land cover:", palette = c("#006400", "#BE9600", "#FFFF64",
-                                               "#00DC82", "#FFDCD2", "#C31400",
-                                               "#FFF5D7", "#0046C8"))
+labels = c("flat", "summit", "ridge", "shoulder", "spur", 
+           "slope", "hollow", "footslope", "valley", "depression")
+colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
+           "#b4e614", "#3cfa96", "#0000ff", "#000038")
+
+tm_shape(ei_geomorphons) +
+  tm_raster(title = "Geomorphons:", style = "cat",
+            palette = colors, labels = labels)
+```
+
+
+```
+#> stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)
+#> stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)
 ```
 
 <div class="figure" style="text-align: center">
@@ -418,7 +431,6 @@ We focus on how to specify and modify facets (also known as small multiples) in 
 ```r
 #to replace later
 library(stars)
-#> Loading required package: abind
 landsat = read_stars(system.file("raster/landsat.tif", package = "spDataLarge"))
 ```
 

@@ -528,6 +528,12 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 
 ## Sizes  <!--JN: I am not sure where this section should go-->
 
+
+```r
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+
 Differences in sizes between objects are relatively easy to recognize on maps. 
 Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
 Large sizes can be also used to attract viewers' attention.
@@ -538,10 +544,7 @@ We can change the sizes of all objects using the `size` argument (Figure \@ref(f
 
 
 ```r
-# replace dataset later
-library(tmap)
-data("metro", package = "tmap")
-tm_shape(metro) +
+tm_shape(volcanos) +
  tm_symbols(size = 0.5) 
 ```
 
@@ -550,8 +553,8 @@ Objects with small values will be represented by smaller circles, while larger v
 
 
 ```r
-tm_shape(metro) +
- tm_symbols(size = "pop2020") 
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation") 
 ```
 
 <!-- numeric only -->
@@ -566,11 +569,11 @@ However, this only modifies the legend, not the related objects.
 
 
 ```r
-tm_shape(metro) +
- tm_symbols(size = "pop2020",
-            title.size = "Population (2020)",
-            sizes.legend = c(1000000, 10000000),
-            sizes.legend.labels = c("small", "large")) 
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation",
+            title.size = "Elevation",
+            sizes.legend = c(100, 600),
+            sizes.legend.labels = c("low", "high")) 
 ```
 
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
@@ -585,11 +588,10 @@ The `lwd` argument in `tm_lines()` creates thin lines for small values and thick
 
 
 ```r
-# replace dataset later
-library(tmap)
-data("rivers", package = "tmap")
-tm_shape(rivers) + 
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
+tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd")
+#> Legend labels were too wide. Therefore, legend.text.size has been set to 0.59. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
 <div class="figure" style="text-align: center">
@@ -613,11 +615,8 @@ This allows us to not only locate different metropolitan areas on a map but also
 
 
 ```r
-# to update later
-set.seed(222)
-metro2 = metro[sample(1:nrow(metro), 30), ]
-tm_shape(metro2) +
-  tm_text(text = "name", size = "pop2020") +
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
 ```
 
@@ -637,12 +636,6 @@ tm_shape(metro2) +
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
 
-
-```r
-set.seed(231)
-metro2$group = as.character(sample(1:3, size = nrow(metro2), replace = TRUE))
-```
-
 Shapes allow representing different categories of point data.
 They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
 For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
@@ -652,10 +645,10 @@ It expects the name of the categorical variable.
 
 
 ```r
-tm_shape(metro2) +
-  tm_symbols(shape = "group",
-             title.shape = "Group:",
-             shapes.labels = c("First", "Second", "Third"))
+tm_shape(ei_points) +
+  tm_symbols(shape = "natural",
+             title.shape = "Type:",
+             shapes.labels = c("Cave entrance", "Peak", "Volcano"))
 ```
 
 By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
@@ -669,8 +662,8 @@ A complete list of available symbols and their corresponding numbers is in the `
 
 
 ```r
-tm_shape(metro2) +
-  tm_symbols(shape = "group",
+tm_shape(ei_points) +
+  tm_symbols(shape = "name",
              shapes = c(0, 2, 5))
 ```
 
@@ -703,7 +696,7 @@ Second option is to use a *grob* object.
 
 
 ```r
-tm_shape(metro2) +
+tm_shape(ei_points) +
   tm_symbols(shape = "group",
              shapes = my_icons)
 ```
@@ -724,8 +717,8 @@ Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tm
 
 
 ```r
-tm_shape(metro2) +
-  tm_symbols(shape = "group",
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
              shapes = my_icons,
              border.col = NULL)
 ```
@@ -750,9 +743,8 @@ This can be set with the `size` and `col` arguments.
 
 
 ```r
-# not the best example - to fix
-tm_shape(metro2) +
-  tm_symbols(size = "pop2020", col = "pop1950")
+tm_shape(ei_points) +
+  tm_symbols(size = "sv", col = "elevation")
 ```
 
 We can also modify all of the visual variables using the additional arguments explained in the previous sections.
@@ -760,10 +752,9 @@ For example, we can set the color style (`style`), color palette (`palette`), or
 
 
 ```r
-# not the best example - to fix
-tm_shape(metro2) +
-  tm_symbols(col = "pop1950", style = "cont", palette = "Greens",
-             shape = "group", shapes = c(23, 24, 25))
+tm_shape(ei_points) +
+  tm_symbols(col = "elevation", style = "cont", palette = "Greens",
+             shape = "type", shapes = c(23, 24, 25))
 ```
 
 When we use plot polygons, there is only one visual variable we can use - color. 
@@ -774,10 +765,9 @@ The color title is set with `title.col`, size title with `title.size`, and shape
 
 
 ```r
-# not the best example - to fix
-tm_shape(metro2) +
- tm_symbols(size = "pop1950", title.size = "Population (1950):",
-            shape = "group", title.shape = "Group name:")
+tm_shape(ei_points) +
+ tm_symbols(size = "elevation", title.size = "Elevation:",
+            shape = "type", title.shape = "Type:")
 ```
 
 <div class="figure" style="text-align: center">
@@ -786,6 +776,11 @@ tm_shape(metro2) +
 </div>
 
 For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
+
+
+```
+#> Legend labels were too wide. Therefore, legend.text.size has been set to 0.59. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+```
 
 <div class="figure" style="text-align: center">
 <img src="05b-visual-variables_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="672" />
