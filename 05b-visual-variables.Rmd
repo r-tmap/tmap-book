@@ -586,7 +586,7 @@ tm_shape(land) +
 
 ```{r}
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
-volcanos = subset(ei_points, natural == "volcano")
+volcanos = subset(ei_points, type == "volcano")
 ```
 
 Differences in sizes between objects are relatively easy to recognize on maps. 
@@ -607,7 +607,7 @@ Objects with small values will be represented by smaller circles, while larger v
 
 ```{r, eval=FALSE}
 tm_shape(volcanos) +
- tm_symbols(size = "ele") 
+ tm_symbols(size = "elevation") 
 ```
 
 <!-- numeric only -->
@@ -622,7 +622,7 @@ However, this only modifies the legend, not the related objects.
 
 ```{r, eval=FALSE}
 tm_shape(volcanos) +
- tm_symbols(size = "ele",
+ tm_symbols(size = "elevation",
             title.size = "Elevation",
             sizes.legend = c(100, 600),
             sizes.legend.labels = c("low", "high")) 
@@ -636,10 +636,10 @@ tmsize1 = tm_shape(volcanos) +
  tm_symbols(size = 0.5)  +
   tm_layout(title = "A")
 tmsize2 = tm_shape(volcanos) +
- tm_symbols(size = "ele") +
+ tm_symbols(size = "elevation") +
   tm_layout(title = "B")
 tmsize3 = tm_shape(volcanos) +
- tm_symbols(size = "ele",
+ tm_symbols(size = "elevation",
             title.size = "Elevation",
             sizes.legend = c(100, 600),
             sizes.legend.labels = c("low", "high")) +
@@ -687,7 +687,7 @@ This allows us to not only locate different metropolitan areas on a map but also
 
 ```{r tmtextsize, fig.asp=0.25, fig.cap="Example of a map where text sizes represent populations of the given metropolitan areas."}
 tm_shape(volcanos) +
-  tm_text(text = "name", size = "ele") +
+  tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
 ```
 
@@ -777,26 +777,26 @@ Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tm
 
 ```{r, eval=FALSE}
 tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              shapes = my_icons,
              border.col = NULL)
 ```
 
 ```{r tmsymshape, fig.asp=1.32, echo=FALSE, fig.cap="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons."}
 tmsymshape1 = tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              title.shape = "Type:",
              shapes.labels = c("Cave entrance", "Peak", "Volcano")) +
   tm_layout(title = "A")
 tmsymshape2 = tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              shapes = c(0, 2, 5))  +
   tm_layout(title = "B")
 tmsymshape3 = tm_shape(ei_points) +
-  tm_symbols(shape = "natural") +
+  tm_symbols(shape = "type") +
   tm_layout(title = "C")
 tmsymshape4 = tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              shapes = my_icons) +
   tm_layout(title = "D")
 tmap_arrange(tmsymshape1, tmsymshape2,
@@ -821,19 +821,17 @@ Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `
 This can be set with the `size` and `col` arguments.
 
 ```{r, eval=FALSE}
-# not the best example - to fix
-tm_shape(metro2) +
-  tm_symbols(size = "pop2020", col = "pop1950")
+tm_shape(ei_points) +
+  tm_symbols(size = "sv", col = "elevation")
 ```
 
 We can also modify all of the visual variables using the additional arguments explained in the previous sections.
 For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (Figure \@ref(fig:mixsymb):B).
 
 ```{r, eval=FALSE}
-# not the best example - to fix
-tm_shape(metro2) +
-  tm_symbols(col = "pop1950", style = "cont", palette = "Greens",
-             shape = "group", shapes = c(23, 24, 25))
+tm_shape(ei_points) +
+  tm_symbols(col = "elevation", style = "cont", palette = "Greens",
+             shape = "type", shapes = c(23, 24, 25))
 ```
 
 When we use plot polygons, there is only one visual variable we can use - color. 
@@ -843,23 +841,22 @@ In these cases, we need to specify a corresponding suffix for each `title` argum
 The color title is set with `title.col`, size title with `title.size`, and shape title with `title.size` (Figure \@ref(fig:mixsymb):C).
 
 ```{r, eval=FALSE}
-# not the best example - to fix
-tm_shape(metro2) +
- tm_symbols(size = "pop1950", title.size = "Population (1950):",
-            shape = "group", title.shape = "Group name:")
+tm_shape(ei_points) +
+ tm_symbols(size = "elevation", title.size = "Elevation:",
+            shape = "type", title.shape = "Type:")
 ```
 
 ```{r mixsymb, echo = FALSE, fig.asp=1, fig.cap="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape."}
-tm_mvv1 = tm_shape(metro2) +
- tm_symbols(size = "pop2020", col = "pop1950") +
+tm_mvv1 = tm_shape(ei_points) +
+ tm_symbols(size = "sv", col = "elevation") +
   tm_layout(title = "A")
-tm_mvv2 = tm_shape(metro2) +
-  tm_symbols(col = "pop1950", style = "cont", palette = "Greens",
-             shape = "group", shapes = c(23, 24, 25)) +
+tm_mvv2 = tm_shape(ei_points) +
+  tm_symbols(col = "elevation", style = "cont", palette = "Greens",
+             shape = "type", shapes = c(23, 24, 25)) +
   tm_layout(title = "B")
-tm_mvv3 = tm_shape(metro2) +
- tm_symbols(size = "pop1950", title.size = "Population (1950):",
-            shape = "group", title.shape = "Group name:") +
+tm_mvv3 = tm_shape(ei_points) +
+ tm_symbols(size = "elevation", title.size = "Elevation:",
+            shape = "type", title.shape = "Type:") +
   tm_layout(title = "C")
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
@@ -869,6 +866,6 @@ For line data, we can present its qualitative and quantitative variables using c
 ```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="A map using two visual variables, color and size (line width), at the same time."}
 # not the best example - to fix
 tm_shape(ei_roads) +
-  tm_lines(col = "highway", lwd = "strokelwd", palette = "Set1")
+  tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
 ```
 

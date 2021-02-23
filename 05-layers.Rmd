@@ -122,7 +122,7 @@ More information on colors, and how they can be applied and modified is explaine
 
 ```{r}
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
-volcanos = subset(ei_points, natural == "volcano")
+volcanos = subset(ei_points, type == "volcano")
 ```
 
 Symbols are a very flexible layer type. 
@@ -218,7 +218,7 @@ The main function to create text labels is `tm_text()`, which adds a label to ea
 
 ```{r tmtext, fig.cap="Example of a map created with tm_text.", fig.asp=0.35}
 tm_shape(volcanos) +
-  tm_text(text = "name", size = "ele") +
+  tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
 ```
 ```{r, echo=FALSE, eval=FALSE}
