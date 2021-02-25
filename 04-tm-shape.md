@@ -15,15 +15,24 @@ When multiple shape objects are used, each has to be defined in a separate `tm_s
 This is illustrated in the following example (Figure \@ref(fig:tmshape1)).
 
 
-
+```r
+# replace this data with some new tmap dataset
+library(tmap)
+library(dplyr)
+library(sf)
+library(stars)
+worldvector = read_sf("data/worldvector.gpkg")
+worldcities = read_sf("data/worldcities.gpkg")
+worldelevation = read_stars("data/worldelevation.tif")
+```
 
 
 ```r
-tm_shape(land) +
-  tm_raster("elevation", palette = terrain.colors(8)) +
-tm_shape(World) +
+tm_shape(worldelevation) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+tm_shape(worldvector) +
   tm_borders() +
-tm_shape(metro_large) +
+tm_shape(worldcities) +
   tm_dots() +
   tm_text("name")
 ```
@@ -57,11 +66,11 @@ In the following example, we set the `metro_large` object as the main *shape*, w
 
 
 ```r
-tm_shape(land) +
-  tm_raster("elevation", palette = terrain.colors(8)) +
-tm_shape(World) +
+tm_shape(worldelevation) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+tm_shape(worldvector) +
   tm_borders() +
-tm_shape(metro_large, is.master = TRUE) +
+tm_shape(worldcities, is.master = TRUE) +
   tm_dots() +
   tm_text("name")
 ```
@@ -97,8 +106,8 @@ Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor re
 
 
 ```r
-tm_shape(land, projection = 8857) +
-  tm_raster("elevation", palette = terrain.colors(8)) 
+tm_shape(worldelevation, projection = 8857) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8)) 
 ```
 
 The second approach (`raster.warp = FALSE`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
@@ -109,8 +118,8 @@ However, creation of the B map takes about ten times longer than the A map.
 
 
 ```r
-tm_shape(land, projection = 8857, raster.warp = FALSE) +
-  tm_raster("elevation", palette = terrain.colors(8))
+tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
 <div class="figure" style="text-align: center">
@@ -143,8 +152,8 @@ In the following example, we limit our map extent to the rectangular area betwee
 
 
 ```r
-tm_shape(land, bbox = c(-15, 35, 45, 65)) +
-  tm_raster("elevation", palette = terrain.colors(8))
+tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
 <div class="figure" style="text-align: center">
@@ -158,8 +167,8 @@ This approach uses the OpenStreetMap tool called Nominatim to automatically gene
 
 
 ```r
-tm_shape(land, bbox = "Europe") +
-  tm_raster("elevation", palette = terrain.colors(8))
+tm_shape(worldelevation, bbox = "Europe") +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
 <div class="figure" style="text-align: center">
@@ -172,8 +181,8 @@ Figure \@ref(fig:tbbox3) shows the elevation raster data (`land`) limited to the
 
 
 ```r
-tm_shape(land, bbox = metro_large) +
-  tm_raster("elevation", palette = terrain.colors(8))
+tm_shape(worldelevation, bbox = worldcities) +
+  tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
 <div class="figure" style="text-align: center">
@@ -193,7 +202,7 @@ Figure \@ref(fig:vectordown):A shows a map of countries from the `World` object.
 
 
 ```r
-tm_shape(World) +
+tm_shape(worldvector) +
   tm_polygons()
 ```
 
@@ -204,7 +213,7 @@ In the example below, we set `simplify` to 0.05, which keeps 5% of vertices (Fig
 
 
 ```r
-tm_shape(World, simplify = 0.05) +
+tm_shape(worldvector, simplify = 0.05) +
   tm_polygons()
 ```
 
@@ -215,7 +224,7 @@ To prevent the deletion of small features, we also need to set `keep.units` to `
 
 
 ```r
-tm_shape(World, simplify = 0.05, keep.units = TRUE) +
+tm_shape(worldvector, simplify = 0.05, keep.units = TRUE) +
   tm_polygons()
 ```
 
@@ -228,7 +237,7 @@ To keep all of the spatial geometries (even the smallest of islands), we should 
 
 
 ```r
-tm_shape(World, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
+tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
   tm_polygons()
 ```
 
@@ -290,16 +299,16 @@ This values can be adjusted with the `max.raster` argument of `tmap_options()`, 
 
 ```r
 tmap_options(max.raster = c(plot = 5000, view = 2000))
-tm_shape(land) +
-  tm_raster("elevation")
+tm_shape(worldelevation) +
+  tm_raster("worldelevation.tif")
 ```
 
 Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
 
 
 ```r
-tm_shape(land, raster.downsample = FALSE) +
-  tm_raster("elevation")
+tm_shape(worldelevation, raster.downsample = FALSE) +
+  tm_raster("worldelevation.tif")
 ```
 
 <div class="figure" style="text-align: center">

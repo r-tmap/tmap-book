@@ -102,6 +102,9 @@ interactive
 multiples
 options
 save
+graphics-formats
+vector-formats
+interactive-format
 animations
 shiny
 goodmaps

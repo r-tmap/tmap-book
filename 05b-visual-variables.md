@@ -194,8 +194,8 @@ Based on the result, it selects one of the build-in palettes: categorical `"Set3
 
 
 ```r
-tm_shape(x) + 
-  tm_polygons("lifeExp")
+tm_shape(worldvector) + 
+  tm_polygons("life_expectancy")
 ```
 
 It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
@@ -205,8 +205,8 @@ Importantly, the length of the provided vector does not need to be equal to the 
 
 
 ```r
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = c("yellow", "darkgreen"))
 ```
 
 Another approach is to provide the output of a palette function (Figure \@ref(fig:tmpals)).
@@ -216,8 +216,8 @@ Thus, we also used the `rev()` function here.
 
 
 ```r
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl")))
 ```
 
 The last approach is to use one of the names of color palettes build-in in **tmap** (Figure \@ref(fig:tmpals)).
@@ -225,8 +225,8 @@ In this example, we used the `"YlGn"` palette that goes from yellow to green.
 
 
 ```r
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = "YlGn")
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = "YlGn")
 ```
 
 You can find all of the named color palettes using an interactive app with `tmaptools::palette_explorer()`. 
@@ -250,8 +250,8 @@ To do that, we just need to set the `midpoint` argument to this value (Figure \@
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "lifeExp", midpoint = 73)
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", midpoint = 73)
 ```
 
 <div class="figure" style="text-align: center">
@@ -274,18 +274,18 @@ Each category in this variable (e.g., `"Africa"`) has a new, connected to it col
 <!-- also - improve example - maybe use less colors/categories -->
 
 ```r
-tm_shape(x) + 
-  tm_polygons("region_un", 
+tm_shape(worldvector) + 
+  tm_polygons("wb_region", 
     palette = c(
-      "Africa" = "#11467b",
-      "Americas" = "#ffd14d", 
-      "Antarctica" = "#86909a", 
-      "Asia" = "#14909a",
-      "Europe" = "#7fbee9",
-      "Oceania" = "#df5454",
-      "Seven seas (open ocean)" = "#7b1072")
+      "Latin America & Caribbean" = "#11467b",
+      "Europe & Central Asia" = "#ffd14d", 
+      "Middle East & North Africa" = "#86909a", 
+      "Sub-Saharan Africa" = "#14909a",
+      "East Asia & Pacific" = "#7fbee9",
+      "South Asia" = "#df5454",
+      "North America" = "#7b1072")
     )
-#> Some legend labels were too wide. These labels have been resized to 0.64. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+#> Some legend labels were too wide. These labels have been resized to 0.61, 0.62. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
 <div class="figure" style="text-align: center">
@@ -323,7 +323,7 @@ This happens when we provide a single color value, either as a color name or its
 
 
 ```r
-tm_shape(x) +
+tm_shape(worldvector) +
   tm_polygons(col = "lightblue")
 ```
 
@@ -347,8 +347,8 @@ We created it by providing a character variable's name, `"region_un"`, in the `c
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "region_un")
+tm_shape(worldvector) +
+  tm_polygons(col = "wb_region")
 ```
 <!-- categorical -->
 <div class="figure" style="text-align: center">
@@ -375,8 +375,8 @@ This style creates breaks that are whole numbers and spaces them evenly ^[For mo
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap")
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap")
 ```
 
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
@@ -389,9 +389,9 @@ Additionally, we can add a label to each break with the `labels` argument.
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
-              breaks = c(0, 10000, 30000, 121000),
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
+              breaks = c(0, 10000, 30000, 111000),
               labels = c("low", "medium", "high"))
 ```
 
@@ -418,8 +418,8 @@ The most common optimization method used in cartography is the Jenks optimizatio
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "jenks")
 ```
 
@@ -442,8 +442,8 @@ However, maps with logarithmically transformed variables are usually less intuit
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "log10_pretty")
 ```
 
@@ -469,8 +469,8 @@ The `cont` style works well in situations where there is a large number of objec
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "cont")
 ```
 
@@ -481,8 +481,8 @@ It is fairly analogous to the `quantile` style, with the values on a color scale
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "order")
 ```
 
@@ -490,8 +490,8 @@ Finally, the `log10` style is the continuous equivalent of the `log10_pretty` st
 
 
 ```r
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "log10")
 ```
 
@@ -505,7 +505,7 @@ When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored i
 
 
 ```r
-tm_shape(x) +
+tm_shape(worldvector) +
   tm_polygons(col = "MAP_COLORS")
 ```
 
