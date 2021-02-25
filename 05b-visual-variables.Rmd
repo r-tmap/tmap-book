@@ -186,12 +186,10 @@ More examples showing alternatives to the "rainbow" palette are in the documenta
 https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# replace this data with some new tmap dataset
 library(tmap)
 library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
-x = st_transform(x, 8857)
+file_path = "data/worldvector.gpkg"
+worldvector = read_sf(file_path)
 ```
 
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
@@ -200,8 +198,8 @@ Based on the result, it selects one of the build-in palettes: categorical `"Set3
 <!-- info about tm_layout or reference to a section about it -->
 
 ```{r, eval=FALSE}
-tm_shape(x) + 
-  tm_polygons("lifeExp")
+tm_shape(worldvector) + 
+  tm_polygons("life_expectancy")
 ```
 
 It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
@@ -210,8 +208,8 @@ Importantly, the length of the provided vector does not need to be equal to the 
 **tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = c("yellow", "darkgreen"))
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = c("yellow", "darkgreen"))
 ```
 
 Another approach is to provide the output of a palette function (Figure \@ref(fig:tmpals)).
@@ -220,16 +218,16 @@ This palette goes from green colors to yellow ones, however, we wanted to revers
 Thus, we also used the `rev()` function here. 
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl")))
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl")))
 ```
 
 The last approach is to use one of the names of color palettes build-in in **tmap** (Figure \@ref(fig:tmpals)).
 In this example, we used the `"YlGn"` palette that goes from yellow to green.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons("lifeExp", palette = "YlGn")
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = "YlGn")
 ```
 
 You can find all of the named color palettes using an interactive app with `tmaptools::palette_explorer()`. 
@@ -237,17 +235,17 @@ It is also possible to reverse the order of any named color palette by using the
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
 ```{r tmpals, warning=FALSE, fig.cap="Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes.", echo=FALSE}
-tm_pal1 = tm_shape(x) +
-  tm_polygons("lifeExp") +
+tm_pal1 = tm_shape(worldvector) +
+  tm_polygons("life_expectancy") +
   tm_layout(title = "A")
-tm_pal2 = tm_shape(x) +
-  tm_polygons("lifeExp", palette = c("yellow", "darkgreen")) +
+tm_pal2 = tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = c("yellow", "darkgreen")) +
   tm_layout(title = "B")
-tm_pal3 = tm_shape(x) +
-  tm_polygons("lifeExp", palette = rev(hcl.colors(7, "ag_GrnYl"))) +
+tm_pal3 = tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl"))) +
   tm_layout(title = "C")
-tm_pal4 = tm_shape(x) +
-  tm_polygons("lifeExp", palette = "YlGn") +
+tm_pal4 = tm_shape(worldvector) +
+  tm_polygons("life_expectancy", palette = "YlGn") +
   tm_layout(title = "D")
 tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
              ncol = 2)
@@ -264,17 +262,17 @@ To do that, we just need to set the `midpoint` argument to this value (Figure \@
 <!-- , style = "cont" -->
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "lifeExp", midpoint = 73)
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", midpoint = 73)
 ```
 
 ```{r tmmidpoint, warning=FALSE, fig.cap="Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73.", fig.asp=NA, fig.height=2, echo=FALSE}
 # mean(x$lifeExp, na.rm = TRUE)
-tm_mp1 = tm_shape(x) +
-  tm_polygons(col = "lifeExp") +
+tm_mp1 = tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy") +
   tm_layout(title = "A")
-tm_mp2 = tm_shape(x) +
-  tm_polygons(col = "lifeExp", midpoint = 71) +
+tm_mp2 = tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", midpoint = 71) +
   tm_layout(title = "B")
 tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
 ```
@@ -293,28 +291,28 @@ Each category in this variable (e.g., `"Africa"`) has a new, connected to it col
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories -->
 ```{r tmcatpals, warning=FALSE, fig.cap="An example of a categorical map with manually selected colors", fig.asp=NA, fig.height=2}
-tm_shape(x) + 
-  tm_polygons("region_un", 
+tm_shape(worldvector) + 
+  tm_polygons("wb_region", 
     palette = c(
-      "Africa" = "#11467b",
-      "Americas" = "#ffd14d", 
-      "Antarctica" = "#86909a", 
-      "Asia" = "#14909a",
-      "Europe" = "#7fbee9",
-      "Oceania" = "#df5454",
-      "Seven seas (open ocean)" = "#7b1072")
+      "Latin America & Caribbean" = "#11467b",
+      "Europe & Central Asia" = "#ffd14d", 
+      "Middle East & North Africa" = "#86909a", 
+      "Sub-Saharan Africa" = "#14909a",
+      "East Asia & Pacific" = "#7fbee9",
+      "South Asia" = "#df5454",
+      "North America" = "#7b1072")
     )
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "lifeExp")
-tm_shape(x) +
-  tm_polygons(col = "lifeExp", alpha = 0.5) 
-tm_shape(x) +
-  tm_polygons(col = "lifeExp", colorNA = "purple", textNA = "I do not know!") 
-tm_shape(x) +
-  tm_polygons(col = "lifeExp", contrast = c(0.4, 1)) 
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy")
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", alpha = 0.5) 
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", colorNA = "purple", textNA = "I do not know!") 
+tm_shape(worldvector) +
+  tm_polygons(col = "life_expectancy", contrast = c(0.4, 1)) 
 ```
 
 \index{color palettes!transparency}
@@ -344,12 +342,12 @@ The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (section \@ref(color-palettes)) (Figure \@ref(fig:colorscales1)).
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(worldvector) +
   tm_polygons(col = "lightblue")
 ```
 
 ```{r colorscales1, warning=FALSE, fig.cap="Example of a map with all polygons filled with the same color.", echo=FALSE, fig.asp=NA, fig.height=2}
-tm_one = tm_shape(x) +
+tm_one = tm_shape(worldvector) +
   tm_polygons(col = "lightblue")
 tm_one
 ```
@@ -368,13 +366,13 @@ An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
 We created it by providing a character variable's name, `"region_un"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "region_un")
+tm_shape(worldvector) +
+  tm_polygons(col = "wb_region")
 ```
 <!-- categorical -->
 ```{r colorscales2, warning=FALSE, fig.asp=NA, fig.height=2, message=FALSE, echo=FALSE, fig.cap="Example of a map in which polygons are colored based on the values of a categorical variable."}
-tm_cat = tm_shape(x) +
-  tm_polygons(col = "region_un")
+tm_cat = tm_shape(worldvector) +
+  tm_polygons(col = "wb_region")
 tm_cat
 ```
 
@@ -383,8 +381,8 @@ However, to change the order of legend labels, we need to provide an ordered fac
 As mentioned in the section \@ref(color-palettes), we can also change the used color palette with the `palette` argument.
 
 ```{r, eval=FALSE, echo=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "region_un", labels = as.character(1:7))
+tm_shape(worldvector) +
+  tm_polygons(col = "wb_region", labels = as.character(1:7))
 ```
 
 <!-- optimal number of classes? 3-7 -->
@@ -399,8 +397,8 @@ By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods):A).
 This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap")
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap")
 ```
 
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
@@ -412,9 +410,9 @@ It expects threshold values for each break, therefore, if we want to have three 
 Additionally, we can add a label to each break with the `labels` argument.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
-              breaks = c(0, 10000, 30000, 121000),
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
+              breaks = c(0, 10000, 30000, 111000),
               labels = c("low", "medium", "high"))
 ```
 
@@ -440,8 +438,8 @@ The most common optimization method used in cartography is the Jenks optimizatio
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "jenks")
 ```
 
@@ -463,27 +461,27 @@ This style allows for a better distinction between low, medium, and high values.
 However, maps with logarithmically transformed variables are usually less intuitive for the readers and require more attention from them.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "log10_pretty")
 ```
 
 <!-- discrete -->
 ```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method."}
-tm_pre = tm_shape(x) +
-  tm_polygons(col = "gdpPercap") +
+tm_pre = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap") +
   tm_layout(title = "A")
-tm_fix = tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
-              breaks = c(0, 10000, 30000, 121000),
+tm_fix = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
+              breaks = c(0, 10000, 30000, 111000),
               labels = c("low", "medium", "high")) +
   tm_layout(title = "B")
-tm_jen = tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_jen = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "jenks") +
   tm_layout(title = "C")
-tm_lop = tm_shape(x) +
-  tm_polygons(col = "gdpPercap", 
+tm_lop = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap", 
               style = "log10_pretty") +
   tm_layout(title = "D")
 tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
@@ -505,8 +503,8 @@ The main difference between these styles is that we can see differences between,
 The `cont` style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "cont")
 ```
 
@@ -516,30 +514,30 @@ The `order` style also uses a smooth gradient with a large number of colors, but
 It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "order")
 ```
 
 Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (Figure \@ref(fig:cont-methods):C).
 
 ```{r, eval=FALSE}
-tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "log10")
 ```
 
 ```{r cont-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method."}
-tm_con = tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_con = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "cont") +
   tm_layout(title = "A")
-tm_ord = tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_ord = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "order") +
   tm_layout(title = "B")
-tm_log = tm_shape(x) +
-  tm_polygons(col = "gdpPercap",
+tm_log = tm_shape(worldvector) +
+  tm_polygons(col = "gdp_per_cap",
               style = "log10") +
   tm_layout(title = "C")
 tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
@@ -550,14 +548,14 @@ The `tm_polygons()` also offer a third way of specifying the fill color.
 When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure \@ref(fig:colorscalesmc)).
 
 ```{r, eval=FALSE}
-tm_shape(x) +
+tm_shape(worldvector) +
   tm_polygons(col = "MAP_COLORS")
 ```
 
 In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
 
 ```{r colorscalesmc, warning=FALSE, fig.cap="Example of a map with adjacent polygons having different colors.", echo=FALSE, fig.asp=NA, fig.height=2}
-tm_uni = tm_shape(x) +
+tm_uni = tm_shape(worldvector) +
   tm_polygons(col = "MAP_COLORS")
 tm_uni
 ```
