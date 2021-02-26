@@ -138,7 +138,7 @@ tm_shape(volcanos) +
   tm_symbols()
 ```
 
-In the above example, each symbol is related to one feature (row) in the `metro2` object.
+In the above example, each symbol is related to one feature (row) in the `volcanos` object.
 However, in a case when we provide multi-element features (such as MULTIPOINT; section \@ref(vector-data-model)), each multi-element object is first split into a number of single-element features and then plotted.
 
 The `tm_symbols()` is a very flexible function with a large number of arguments.
@@ -431,10 +431,6 @@ tmap_arrange(tmrgb1, tmrgb2, asp = NA)
 
 ## Tile
 
-```{r}
-data(metro)
-```
-
 <!-- A tile layer is .. -->
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 
@@ -445,16 +441,16 @@ However, we can change the used basemaps with a vector with the names of the til
 
 ```{r, eval=FALSE}
 tmap_mode("view")
-tm_basemap(c(TopoMap = "OpenTopoMap",
-             StreetMap = "OpenStreetMap")) +
+tm_basemap(c(StreetMap = "OpenStreetMap",
+             TopoMap = "OpenTopoMap")) +
   tm_shape(volcanos, is.master = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmbasemap1, screenshot.force = TRUE, fig.cap="Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India", cache = FALSE, eval=TRUE, echo=FALSE}
+```{r tmbasemap1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island", cache = FALSE, eval=TRUE, echo=FALSE}
 # tmap_mode("view")
-# tmbasemap1 = tm_basemap(c(TopoMap = "OpenTopoMap",
-#              StreetMap = "OpenStreetMap")) +
+# tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
+#              TopoMap = "OpenTopoMap")) +
 #   tm_shape(volcanos, is.master = TRUE) + 
 #   tm_dots(col = "red", group = "Volcanos")
 # tmbasemap1_l = tmap_leaflet(tmbasemap1)
@@ -462,7 +458,7 @@ tm_basemap(c(TopoMap = "OpenTopoMap",
 knitr::include_graphics("images/tmbasemap1.png")
 ```
 
-In the above code, we made two basemaps available - `"OpenTopoMap"`, and `"OpenStreetMap"`, and for the map legend purpose, we renamed them as `TopoMap` and  `StreetMap`.
+In the above code, we made two basemaps available - `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
 A complete list of available basemaps is in the `leaflet::providers` object and on the https://leaflet-extras.github.io/leaflet-providers/preview/ website^[Additional details can be found in the `leaflet::providers.details` object].
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
@@ -473,19 +469,19 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
-In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the previously set basemaps, but below the following dots layer (Figure \@ref(fig:tmtiles1)).
+In the next example, we put the vector `"Stamen.TonerHybrid"` tiles on top of the previously set basemaps, but below the dots layer (Figure \@ref(fig:tmtiles1)).
 
 ```{r, eval=FALSE}
-tm_basemap(c(TopoMap = "OpenTopoMap",
-             StreetMap = "OpenStreetMap")) +
+tm_basemap(c(StreetMap = "OpenStreetMap",
+             TopoMap = "OpenTopoMap")) +
   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
   tm_shape(volcanos, is.master = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmtiles1, screenshot.force = TRUE, fig.cap="Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India", cache = FALSE, eval=TRUE, echo=FALSE}
-# tmtiles1 = tm_basemap(c(TopoMap = "OpenTopoMap",
-#              StreetMap = "OpenStreetMap")) +
+```{r tmtiles1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island", cache = FALSE, eval=TRUE, echo=FALSE}
+# tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
+#              TopoMap = "OpenTopoMap")) +
 #   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
 #   tm_shape(volcanos, is.master = TRUE) + 
 #   tm_dots(col = "red", group = "Volcanos")
