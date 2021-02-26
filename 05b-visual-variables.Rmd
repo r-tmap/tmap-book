@@ -188,8 +188,7 @@ https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(tmap)
 library(sf)
-file_path = "data/worldvector.gpkg"
-worldvector = read_sf(file_path)
+worldvector = read_sf("data/worldvector.gpkg")
 ```
 
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
@@ -363,7 +362,7 @@ However, when the provided variable is numerical, then it is possible to create 
 
 \index{Categorical maps}
 An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
-We created it by providing a character variable's name, `"region_un"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
+We created it by providing a character variable's name, `"wb_region"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 ```{r, eval=FALSE}
 tm_shape(worldvector) +
@@ -600,7 +599,7 @@ tm_shape(volcanos) +
  tm_symbols(size = 0.5) 
 ```
 
-On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"pop2020"`), then symbol sizes are scaled proportionally to the provided values.
+On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
 Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure \@ref(fig:tmsizes):B).
 
 ```{r, eval=FALSE}
@@ -683,7 +682,7 @@ However, text labels can be also used to represent the values of some numerical 
 Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
 This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).
 
-```{r tmtextsize, fig.asp=0.25, fig.cap="Example of a map where text sizes represent populations of the given metropolitan areas."}
+```{r tmtextsize, fig.asp=0.25, fig.cap="Example of a map where text sizes represent elevations of the volcanos."}
 tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
@@ -815,7 +814,7 @@ When we use symbols, then we are able to use colors for one qualitative or quant
 Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.
 
-Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
+Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
 This can be set with the `size` and `col` arguments.
 
 ```{r, eval=FALSE}
