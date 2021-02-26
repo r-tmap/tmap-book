@@ -409,27 +409,25 @@ This column contains geometries in a form of well-known text (WKT), storing all 
 The **sf** package can read all of the spatial data formats mentioned in section \@ref(vector-data-model) using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
 <!--improve example-->
 ```{r}
-# replace this data with some new tmap dataset
 library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
+worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-The new object, `x`, has a `sf` class. 
-It has `r nrow(x)` features (rows or geometries) and `r ncol(x) - 1` fields (columns with attributes). 
-There is also an `r ncol(x)`th column, `geom`, that stores geometries of each feature.
+The new object, `worldvector`, has a `sf` class. 
+It has `r nrow(worldvector)` features (rows or geometries) and `r ncol(worldvector) - 1` fields (columns with attributes). 
+There is also an `r ncol(worldvector)`th column, `geom`, that stores geometries of each feature.
 Objects of class `sf` also display a header containing spatial metadata.
 It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box (`bbox`), and information about the used Coordinate Reference System (`CRS`).
 
 ```{r}
-x
+worldvector
 ```
 
-The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+The `worldvector` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
 Each polygon's vertices are represented by a pair of values (`dimension: XY`).
 Bounding box allows to quickly understand the spatial extension of the input data. 
 <!--...--> 
-Finally, it has `r ifelse(sf::st_crs(x)$IsGeographic, "geographic", "projected")` CRS named `r sf::st_crs(x)$Name`.
+Finally, it has `r ifelse(sf::st_crs(worldvector)$IsGeographic, "geographic", "projected")` CRS named `r sf::st_crs(worldvector)$Name`.
 You can learn more about Coordinate Reference Systems in section \@ref(crs).
 <!-- ref to CRS section -->
 
@@ -465,22 +463,21 @@ This function requires at least one argument with a filename to be read.
 <!--improve example-->
 ```{r}
 library(stars)
-file_path2 = system.file("raster/srtm.tif", package = "spDataLarge")    
-x2 = read_stars(file_path2)
+worldelevation = read_stars("data/worldelevation.tif")
 ```
 
-The new object, `x2`, is of a `stars` class. 
-It has two dimensions, `x` and `y`, and one attribute `srtm.tif`.
+The new object, `worldelevation`, is of a `stars` class. 
+It has two dimensions, `x` and `y`, and one attribute `worldelevation.tif`.
 
 ```{r}
-x2
+worldelevation
 ```
 
-The `srtm.tif` attribute is a matrix, where each cell represents an elevation value.
-The `x` dimension has 465 elements (columns), starting from a coordinate (`offset`) of a cell boundary of `-113.24`. 
-Next, the coordinates of further cells increase by `0.000833333` (`delta`) - resolution in the `x` dimension.
-The `y` dimension has 457 elements (rows), starting from a coordinate (`offset`) of a cell boundary of `37.5129`. 
-For the `y` dimension, each further cell's coordinated decreases by `0.000833333` (notice the negative value of `delta`) - resolution in the `y` dimension.
+The `worldelevation.tif` attribute is a matrix, where each cell represents an elevation value.
+The `x` dimension has 1080 elements (columns), starting from a coordinate (`offset`) of a cell boundary of `-180`. 
+Next, the coordinates of further cells increase by `0.333333` (`delta`) - resolution in the `x` dimension.
+The `y` dimension has 540 elements (rows), starting from a coordinate (`offset`) of a cell boundary of `90`. 
+For the `y` dimension, each further cell's coordinated decreases by `0.333333` (notice the negative value of `delta`) - resolution in the `y` dimension.
 Both dimensions also have the same CRS - `WGS 84`.
 
 `read_stars()` also has several additional arguments including `RasterIO`, which gives control over the input data extent and resolution.
