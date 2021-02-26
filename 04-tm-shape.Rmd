@@ -25,7 +25,7 @@ worldcities = read_sf("data/worldcities.gpkg")
 worldelevation = read_stars("data/worldelevation.tif")
 ```
 
-```{r tmshape1, echo=TRUE, warning=FALSE, fig.cap="A map representing three shapes (land, World, and metro_large) using four layers."}
+```{r tmshape1, echo=TRUE, warning=FALSE, fig.cap="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers."}
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
 tm_shape(worldvector) +
@@ -35,7 +35,7 @@ tm_shape(worldcities) +
   tm_text("name")
 ```
 
-In this example, we use three shapes: `land` which is a `stars` object that contains an attribute called `"elevation"`, `World` which is an `sf` object with country borders, and `metro_large`, which is an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
+In this example, we use three shapes: `worldelevation` which is a `stars` object containing an attribute called `"worldelevation.tif"`, `worldvector` which is an `sf` object with country borders, and `worldcities`, which is an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
 
 Each `tm_shape()` function call is succeeded by one or more layer functions.
 In the example these are `tm_raster()`, `tm_borders()`, `tm_dots()` and `tm_text()`.
@@ -43,7 +43,7 @@ We will describe layer functions in detail in the next chapter.
 For this chapter, it is sufficient to know that each layer function call defines how the spatial data specified with `tm_shape()` is plotted.
 
 Shape objects can be used to plot multiple layers.
-In the example, shape `metro_large` is used for two layers, `tm_dots()` and `tm_text()`.
+In the example, shape `worldcities` is used for two layers, `tm_dots()` and `tm_text()`.
 We recommend to indent the code for the layer functions, in order to see which layers use which shape objects.
 <!--to discuss-->
 
@@ -51,13 +51,13 @@ We recommend to indent the code for the layer functions, in order to see which l
 
 The order of the `tm_shape()` functions' calls is crucial.
 The first `tm_shape()`, known as the main shape, is not only shown below the following *shapes*, but also sets the projection and extent of the whole map.
-In Figure \@ref(fig:tmshape1), the `land` object was used as the first *shape*, and thus the whole map has the projection and extent of this object.
+In Figure \@ref(fig:tmshape1), the `worldelevation` object was used as the first *shape*, and thus the whole map has the projection and extent of this object.
 
 However, we can quickly change the main *shape* with the `is.master` argument.
 <!--change to is.main later-->
-In the following example, we set the `metro_large` object as the main *shape*, which limits the output map to the point locations in `metro_large` (Figure \@ref(fig:tmshape2))^[We will show how to adjust margins and text locations later in the book].
+In the following example, we set the `worldcities` object as the main *shape*, which limits the output map to the point locations in `worldcities` (Figure \@ref(fig:tmshape2))^[We will show how to adjust margins and text locations later in the book].
 
-```{r tmshape2, fig.asp=0.35, fig.cap="A map representing three shapes (land, World, and metro_large) using four layers."}
+```{r tmshape2, fig.asp=0.35, fig.cap="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object."}
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
 tm_shape(worldvector) +
@@ -82,14 +82,14 @@ In the next example, we set `projection` to `8857`.
 This number represents EPSG 8857 of a projection called [Equal Earth](http://equal-earth.com/index.html) [@savric_equal_2019].
 The Equal Earth projection is an equal-area pseudocylindrical projection for world maps similar to the non-equal-area Robinson projection (Figure \@ref(fig:crs-robin)).
 
-Reprojections of vector data is usually straightforward because each spatial coordinate is reprojected individually. 
+Reprojections of vector data are usually straightforward because each spatial coordinate is reprojected individually. 
 However, reprojecting of raster data is more complex and requires using one of two approaches.
 The first approach (`raster.warp = TRUE`) applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 6 of @lovelace2019geocomputation).
 This is the default option in **tmap**, however, it has some limitations.
 
 Figure \@ref(fig:tm-map-proj):A shows the world elevation raster reprojected to Equal Earth.
 Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
-Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"elevation"` data).
+Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
 
 ```{r, warning=FALSE, eval=FALSE}
 tm_shape(worldelevation, projection = 8857) +
@@ -158,7 +158,7 @@ tm_shape(worldelevation, bbox = "Europe") +
 ```
 
 In the last approach, the map extent is based on another existing spatial object.
-Figure \@ref(fig:tbbox3) shows the elevation raster data (`land`) limited to the edge coordinates from `metro_large`. 
+Figure \@ref(fig:tbbox3) shows the elevation raster data (`worldelevation`) limited to the edge coordinates from `worldcities`. 
 
 ```{r tbbox3, fig.asp=0.35, warning=FALSE, fig.cap="Global elevation data limited to the extent of the other spatial object."}
 tm_shape(worldelevation, bbox = worldcities) +
@@ -173,7 +173,7 @@ tm_shape(worldelevation, bbox = worldcities) +
 Geometries in spatial vector data consists of sets of coordinates (Section \@ref(vector-data-model)).
 Spatial vector objects grow larger with more features to present and more details to show, and this also has an impact on time to render a map.
 <!-- also to consider - the level of generalization -->
-Figure \@ref(fig:vectordown):A shows a map of countries from the `World` object.
+Figure \@ref(fig:vectordown):A shows a map of countries from the `worldvector` object.
 
 ```{r, eval=FALSE}
 tm_shape(worldvector) +
@@ -192,7 +192,7 @@ tm_shape(worldvector, simplify = 0.05) +
 
 The process of simplification can also be more controlled.
 By default, the underlining algorithm (called the Visvalingam method, learn more at https://bost.ocks.org/mike/simplify/), removes small features, such as islands in our case.
-This could have far-reaching consequences - in the process of simplification, we can remove some countries!
+This could have far-reaching consequences - in the process of simplification, we could remove some countries!
 To prevent the deletion of small features, we also need to set `keep.units` to `TRUE`.
 
 ```{r, eval=FALSE}
