@@ -2,28 +2,26 @@
 
 In order to plot spatial data, at least two aspects need to be specified: the spatial data object itself, and the plotting method(s). 
 We will cover the former in this chapter. 
-The latter will be discussed in the next chapter.
-<!--to improve later-->
+The latter will be discussed in the next chapters.
 
 ## Shapes and layers
 
 As described in Chapter \@ref(geodata), shape objects can be vector or raster data.
-We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp` or `raster`` classes.].
-
-In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
-When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
-This is illustrated in the following example (Figure \@ref(fig:tmshape1)).
+We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp`, `raster`, and `terra` classes.].
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
-# replace this data with some new tmap dataset
 library(tmap)
 library(dplyr)
 library(sf)
 library(stars)
+worldelevation = read_stars("data/worldelevation.tif")
 worldvector = read_sf("data/worldvector.gpkg")
 worldcities = read_sf("data/worldcities.gpkg")
-worldelevation = read_stars("data/worldelevation.tif")
 ```
+
+In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
+When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
+This is illustrated in the following example (Figure \@ref(fig:tmshape1)).
 
 ```{r tmshape1, echo=TRUE, warning=FALSE, fig.cap="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers."}
 tm_shape(worldelevation) +
@@ -44,7 +42,7 @@ For this chapter, it is sufficient to know that each layer function call defines
 
 Shape objects can be used to plot multiple layers.
 In the example, shape `worldcities` is used for two layers, `tm_dots()` and `tm_text()`.
-We recommend to indent the code for the layer functions, in order to see which layers use which shape objects.
+<!-- We recommend to indent the code for the layer functions, in order to see which layers use which shape objects. -->
 <!--to discuss-->
 
 ## Shapes hierarchy
@@ -72,8 +70,8 @@ tm_shape(worldcities, is.master = TRUE) +
 ## Map projection
 \index{map projection}
 
-As we mentioned in the previous section, the created map uses the projection from the main *shape*.
-However, we often want to create a map with a different projection to preserve specific property (Chapter \@ref(crs)).
+As we mentioned in the previous section, created maps use the projection from the main *shape*.
+However, we often want to create a map with a different projection, for example to preserve a specific map property (Chapter \@ref(crs)).
 We can do this in two ways.
 The first way to use a different projection on a map is to reproject the main data before plotting, as shown in Section \@ref(crs-in-r).
 The second way is to specify the map projection using the `projection` argument of `tm_shape()`.
@@ -165,6 +163,7 @@ tm_shape(worldelevation, bbox = worldcities) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
+<!-- mention that legend related to the complete object -->
 <!-- ?bb -->
 <!-- explain some additional arguments of bb?? -->
 
