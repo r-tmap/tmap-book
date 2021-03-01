@@ -102,7 +102,9 @@ tm_shape(ei_borders) +
 Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
 This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
-```{r tmpolygonsder, warning=FALSE, fig.cap="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' .", echo=FALSE, fig.asp=0.4}
+(ref:tmpolygonsder) Example of a map created with: (A) 'tm_polygons()', (B) 'tm_fill()', (C) 'tm_borders()'.
+
+```{r tmpolygonsder, warning=FALSE, fig.cap="(ref:tmpolygonsder)", echo=FALSE, fig.asp=0.4}
 tmpa0 = tm_shape(ei_borders) +
   tm_polygons(col = "lightblue", 
               border.col = "black", lwd = 0.5, lty = "dashed") +
@@ -128,7 +130,7 @@ volcanos = subset(ei_points, type == "volcano")
 Symbols are a very flexible layer type. 
 They are usually used to represent point data, but can be also used for lines and polygons.
 In the latter cases, they are located in centroid coordinates of each feature.
-Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables).
+Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables)).
 
 The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(fig:tmsymbols1)).
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
@@ -178,7 +180,9 @@ tm_shape(volcanos) +
   tm_markers()
 ```
 
-```{r tmsymbols2, warning=FALSE, fig.cap="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().", echo=FALSE, fig.asp=0.69}
+(ref:tmsymbols2) Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().
+
+```{r tmsymbols2, warning=FALSE, fig.cap="(ref:tmsymbols2)", echo=FALSE, fig.asp=0.69}
 tm_ma1 = tm_shape(volcanos) +
   tm_squares() +
   tm_layout(title = "A")
@@ -202,7 +206,9 @@ ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 
 The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
-```{r tmlines, fig.cap="Example of a map created with tm_lines."}
+(ref:tmlines) Example of a map created with tm_lines().
+
+```{r tmlines, fig.cap="(ref:tmlines)"}
 tm_shape(ei_roads) + 
   tm_lines()
 ```
@@ -216,7 +222,9 @@ Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
 
-```{r tmtext, fig.cap="Example of a map created with tm_text.", fig.asp=0.35}
+(ref:tmtext) Example of a map created with tm_text().
+
+```{r tmtext, fig.cap="(ref:tmtext)", fig.asp=0.35}
 tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
@@ -309,7 +317,7 @@ data(land, package = "tmap")
 
 ## Raster
 
-```{r}
+```{r, message=FALSE}
 library(stars)
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
 ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
@@ -447,7 +455,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmbasemap1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island", cache = FALSE, eval=TRUE, echo=FALSE}
+```{r tmbasemap1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE}
 # tmap_mode("view")
 # tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
 #              TopoMap = "OpenTopoMap")) +
@@ -479,7 +487,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmtiles1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island", cache = FALSE, eval=TRUE, echo=FALSE}
+```{r tmtiles1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE}
 # tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
 #              TopoMap = "OpenTopoMap")) +
 #   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
