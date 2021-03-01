@@ -39,7 +39,7 @@ On the other hand, poor decisions about colors can lead to misinterpretation of 
 Section \@ref(color-palettes) explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
 Section \@ref(color-scale-styles) focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
 
-### Color palettes <!--JN: I am not sure where this section should go-->
+### Color palettes
 
 \index{color palettes}
 <!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
@@ -233,7 +233,9 @@ You can find all of the named color palettes using an interactive app with `tmap
 It is also possible to reverse the order of any named color palette by using the `-` prefix.
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
-```{r tmpals, warning=FALSE, fig.cap="Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes.", echo=FALSE}
+(ref:tmpals) Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes.
+
+```{r tmpals, warning=FALSE, fig.cap="(ref:tmpals)", echo=FALSE}
 tm_pal1 = tm_shape(worldvector) +
   tm_polygons("life_expectancy") +
   tm_layout(title = "A")
@@ -289,7 +291,7 @@ You can see it in the example below, where we plot the `"region_un"` categorical
 Each category in this variable (e.g., `"Africa"`) has a new, connected to it color (e.g., `"#11467b"`).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories -->
-```{r tmcatpals, warning=FALSE, fig.cap="An example of a categorical map with manually selected colors", fig.asp=NA, fig.height=2}
+```{r tmcatpals, warning=FALSE, fig.cap="An example of a categorical map with manually selected colors.", fig.asp=NA, fig.height=2}
 tm_shape(worldvector) + 
   tm_polygons("wb_region", 
     palette = c(
@@ -330,7 +332,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
-### Color scale styles <!--JN: I am not sure where this section should go-->
+### Color scale styles
 
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
@@ -465,8 +467,10 @@ tm_shape(worldvector) +
               style = "log10_pretty")
 ```
 
+(ref:discrete-methods) Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.
+
 <!-- discrete -->
-```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method."}
+```{r discrete-methods, warning=FALSE, fig.asp=NA, fig.height=3.46, message=FALSE, echo=FALSE, fig.cap="(ref:discrete-methods)"}
 tm_pre = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap") +
   tm_layout(title = "A")
@@ -579,7 +583,7 @@ tm_shape(land) +
 
 <!-- title?? -->
 
-## Sizes  <!--JN: I am not sure where this section should go-->
+## Sizes
 
 ```{r}
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
@@ -627,7 +631,7 @@ tm_shape(volcanos) +
 
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
 
-```{r tmsizes, echo=FALSE, fig.cap="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.", fig.asp=1}
+```{r tmsizes, echo=FALSE, fig.cap="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend.", fig.asp=0.42, message=FALSE}
 library(tmap)
 tmsize1 = tm_shape(volcanos) +
  tm_symbols(size = 0.5)  +
@@ -641,13 +645,13 @@ tmsize3 = tm_shape(volcanos) +
             sizes.legend = c(100, 600),
             sizes.legend.labels = c("low", "high")) +
   tm_layout(title = "C")
-tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 1)
+tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 3)
 ```
 
 Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
 The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (Figure \@ref(fig:tmlwd)).
 
-```{r tmlwd, fig.asp=0.33, fig.cap="Example of a map where lines' widths represent values of the corresponding lines."}
+```{r tmlwd, fig.asp=0.66, fig.cap="Example of a map where lines' widths represent values of the corresponding lines."}
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd")
@@ -679,8 +683,8 @@ tm_shape(rivers) +
 Text labels have a role to name features on a map or just to highlight some of them.
 Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
 However, text labels can be also used to represent the values of some numerical variables.
-Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
-This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).
+Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
+<!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
 
 ```{r tmtextsize, fig.asp=0.25, fig.cap="Example of a map where text sizes represent elevations of the volcanos."}
 tm_shape(volcanos) +
@@ -694,7 +698,7 @@ tm_shape(volcanos) +
 
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
-## Shapes  <!--JN: I am not sure where this section should go-->
+## Shapes
 <!-- ??and markers -->
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
@@ -708,7 +712,7 @@ It expects the name of the categorical variable.
 
 ```{r, eval=FALSE}
 tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              title.shape = "Type:",
              shapes.labels = c("Cave entrance", "Peak", "Volcano"))
 ```
@@ -724,7 +728,7 @@ A complete list of available symbols and their corresponding numbers is in the `
 
 ```{r, eval=FALSE}
 tm_shape(ei_points) +
-  tm_symbols(shape = "name",
+  tm_symbols(shape = "type",
              shapes = c(0, 2, 5))
 ```
 
@@ -794,7 +798,8 @@ tmsymshape3 = tm_shape(ei_points) +
   tm_layout(title = "C")
 tmsymshape4 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = my_icons) +
+             shapes = my_icons,
+             border.col = NULL) +
   tm_layout(title = "D")
 tmap_arrange(tmsymshape1, tmsymshape2,
              tmsymshape3, tmsymshape4,
@@ -860,8 +865,7 @@ tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 
 For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
 
-```{r mixline, echo = FALSE, fig.asp=0.33, fig.cap="A map using two visual variables, color and size (line width), at the same time."}
-# not the best example - to fix
+```{r mixline, echo = FALSE, fig.asp=0.66, fig.cap="A map using two visual variables, color and size (line width), at the same time."}
 tm_shape(ei_roads) +
   tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
 ```
