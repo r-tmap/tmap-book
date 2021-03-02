@@ -279,32 +279,29 @@ One example is an isopleth - a line drawn on a map through all points having the
 Isopleths can be created with the `tm_iso()` function.
 
 ```{r}
-data(land, package = "tmap")
-# library(raster)
-# elev = land["elevation"]
-# elev_isopleths = rasterToContour(as(elev, "Raster"))
+# to improve
+library(stars)
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_elev_raster = as(ei_elev, "Raster")
+elev_isopleths = raster::rasterToContour(ei_elev_raster)
 
-# think about tm_iso example
-# improve example
-# tm_shape(elev_isopleths) +
-#   tm_iso()
-# 
-# library(tmap)
-# data("dem", package = "spDataLarge")
-# # create hillshade
-# hs = hillShade(slope = terrain(dem, "slope"), aspect = terrain(dem, "aspect"))
-# # create contour
-# cn = rasterToContour(dem)
-# 
-# tm_shape(hs) +
-# 	tm_grid() +
-# 	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
-# 	tm_shape(dem) +
-# 	tm_raster(alpha = 0.5, palette = terrain.colors(25),
-# 	          legend.show = FALSE) +
-# 	tm_shape(cn) +
-# 	tm_lines(col = "white") +
-# 	tm_text("level", col = "white")
+tm_shape(elev_isopleths) +
+  tm_iso()
+```
+
+```{r}
+hs = raster::hillShade(slope = raster::terrain(ei_elev_raster, "slope"), 
+                       aspect = raster::terrain(ei_elev_raster, "aspect"))
+
+tm_shape(hs) +
+	tm_grid() +
+	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
+	tm_shape(ei_elev) +
+	tm_raster(alpha = 0.5, palette = terrain.colors(25),
+	          legend.show = FALSE) +
+	tm_shape(elev_isopleths) +
+	tm_lines(col = "white") +
+	tm_text("level", col = "white")
 ```
 
 <!-- auto.placement  -->
@@ -339,27 +336,16 @@ On the other hand, when the given raster is categorical, then `tm_raster` uses `
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 ```{r, eval=FALSE}
-labels = c("flat", "summit", "ridge", "shoulder", "spur", 
-           "slope", "hollow", "footslope", "valley", "depression")
-colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
-           "#b4e614", "#3cfa96", "#0000ff", "#000038")
-
 tm_shape(ei_geomorphons) +
-  tm_raster(title = "Geomorphons:", style = "cat",
-            palette = colors, labels = labels)
+  tm_raster(title = "Geomorphons:")
 ```
 
 ```{r rastertype, echo=FALSE, fig.cap="Examples of (A) continuous raster maps, and (B) categorical raster maps."}
-labels = c("flat", "summit", "ridge", "shoulder", "spur", 
-           "slope", "hollow", "footslope", "valley", "depression")
-colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
-           "#b4e614", "#3cfa96", "#0000ff", "#000038")
 tmrt1 = tm_shape(ei_elev) +
   tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis") +
   tm_layout(title = "A")
 tmrt2 = tm_shape(ei_geomorphons) +
-  tm_raster(title = "Geomorphons:", style = "cat",
-            palette = colors, labels = labels) +
+  tm_raster(title = "Geomorphons:", style = "cat") +
   tm_layout(title = "B")
 tmap_arrange(tmrt1, tmrt2)
 ```
@@ -368,30 +354,28 @@ The above examples used a raster with one layer only.
 However, rasters can have many layers, either represented by dimensions or attributes.
 By default, **tmap** shows all of the layers, where each raster has its own legend.
 
-```{r, eval=FALSE}
-tm_shape(land) +
+```{r, results='hide', message=FALSE, fig.show='hide'}
+raster2 = c(ei_elev, ei_geomorphons)
+tm_shape(raster2) +
   tm_raster()
 ```
 
-We can modify their arrangement with `tm_facets()` and (Figure \@ref(fig:tmrasterml)).
+We can modify their arrangement with `tm_facets()` (Figure \@ref(fig:tmrasterml)).
 
 ```{r tmrasterml, fig.cap="A map created from a multilayered raster.", message=FALSE}
-tm_shape(land) +
+tm_shape(raster2) +
   tm_raster() +
-  tm_facets(nrow = 1) +
-  tm_layout(panel.labels = c("Land cover", "Land cover (simpl.)",
-                             "Percent Tree Cover", "Elevation"))
+  tm_facets(ncol = 1) +
+  tm_layout(panel.labels = c("Elevation", "Geomorphons"))
 ```
 
-We focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
+If you want to learn more - we focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
 
 ```{r}
 #to replace later
 library(stars)
 landsat = read_stars(system.file("raster/landsat.tif", package = "spDataLarge"))
 ```
-
-<!-- maybe add an info on how to add static base maps?? -->
 
 The `landsat` object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
 We can plot all of the bands independently or as a combination of three bands.
@@ -501,8 +485,10 @@ knitr::include_graphics("images/tmtiles1.png")
 
 <!-- static map tiles -->
 <!-- + ref above -->
+<!-- https://github.com/riatelab/maptiles -->
+<!-- + mention alternatives -->
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE, cache=FALSE}
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Toner")
 ```
@@ -511,14 +497,18 @@ ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Tone
 get_credit("Stamen.Toner")
 ```
 
-```{r, eval=FALSE}
+```{r, echo=FALSE, cache=FALSE}
+library(tmap)
+library(sf)
+ei_borders = read_sf("data/easter_island/ei_border.gpkg")
+```
+
+```{r, cache=FALSE}
 tmap_mode("plot")
 tm_shape(ei_tiles) + 
   tm_rgb() + 
   tm_shape(ei_borders) +
   tm_borders(lwd = 5, col = "lightblue") +
-  tm_scale_bar(breaks = c(0, 2, 4),
-               bg.color = "white") +
   tm_credits(get_credit("Stamen.Toner"),
              bg.color = "white")
 ```
@@ -526,18 +516,26 @@ tm_shape(ei_tiles) +
 ## Combining layers
 
 ```{r, warning=FALSE}
-# tm_shape(x) +
-#   tm_polygons(col = "gdpPercap") +
-#   tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+tm_shape(ei_elev) +
+  tm_raster() +
+  tm_shape(ei_borders) + 
+  tm_borders() +
+  tm_shape(ei_roads) + 
+  tm_lines() +
+  tm_shape(volcanos) +
+  tm_symbols()
 ```
 
-<!-- 
-<!-- projection -->
-<!-- is.master -->
-
-<!-- or maybe start with it and explain the details later? -->
-
-<!-- show symbols on top of polygons-->
-<!-- think of a better example -->
-
+```{r, warning=FALSE}
+tm_shape(ei_elev) +
+  tm_raster(style = "cont", title = "Elevation (m asl)") +
+  tm_shape(ei_borders) + 
+  tm_borders() +
+  tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
+  tm_shape(volcanos) +
+  tm_symbols(shape = 24, size = 0.25) +
+  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos")+
+  tm_add_legend(type = "line", lwd = 1, col = "black", title = "Roads")
+```
 
