@@ -565,6 +565,7 @@ tm_uni
 
 All of the color scale styles mentioned above work not only for `tm_polygons()` - they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
 The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_lines()`, and cells in `tm_rasters()`.
+<!-- important - mention how to change raster categorical colors (for e.g. data subsets!) -->
 
 <!-- one color only: -->
 <!-- - tm_borders  -->
