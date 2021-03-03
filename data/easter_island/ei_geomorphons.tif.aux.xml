@@ -1,0 +1,17 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <CategoryNames>
+      <Category></Category>
+      <Category>flat</Category>
+      <Category>summit</Category>
+      <Category>ridge</Category>
+      <Category>shoulder</Category>
+      <Category>spur</Category>
+      <Category>slope</Category>
+      <Category>hollow</Category>
+      <Category>footslope</Category>
+      <Category>valley</Category>
+      <Category>depression</Category>
+    </CategoryNames>
+  </PAMRasterBand>
+</PAMDataset>
