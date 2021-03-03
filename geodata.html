@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,11 +194,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="visual-variables.html"><a href="visual-variables.html"><i class="fa fa-check"></i><b>6</b> Visual variables</a><ul>
 <li class="chapter" data-level="6.1" data-path="visual-variables.html"><a href="visual-variables.html#colors"><i class="fa fa-check"></i><b>6.1</b> Colors</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="visual-variables.html"><a href="visual-variables.html#color-palettes"><i class="fa fa-check"></i><b>6.1.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="6.1.2" data-path="visual-variables.html"><a href="visual-variables.html#color-scale-styles"><i class="fa fa-check"></i><b>6.1.2</b> Color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="6.1.1" data-path="visual-variables.html"><a href="visual-variables.html#color-palettes"><i class="fa fa-check"></i><b>6.1.1</b> Color palettes</a></li>
+<li class="chapter" data-level="6.1.2" data-path="visual-variables.html"><a href="visual-variables.html#color-scale-styles"><i class="fa fa-check"></i><b>6.1.2</b> Color scale styles</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="visual-variables.html"><a href="visual-variables.html#sizes"><i class="fa fa-check"></i><b>6.2</b> Sizes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="6.3" data-path="visual-variables.html"><a href="visual-variables.html#shapes"><i class="fa fa-check"></i><b>6.3</b> Shapes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="6.2" data-path="visual-variables.html"><a href="visual-variables.html#sizes"><i class="fa fa-check"></i><b>6.2</b> Sizes</a></li>
+<li class="chapter" data-level="6.3" data-path="visual-variables.html"><a href="visual-variables.html#shapes"><i class="fa fa-check"></i><b>6.3</b> Shapes</a></li>
 <li class="chapter" data-level="6.4" data-path="visual-variables.html"><a href="visual-variables.html#mixing-visual-variables"><i class="fa fa-check"></i><b>6.4</b> Mixing visual variables</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>7</b> Other types</a></li>
@@ -207,7 +207,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#layout-element"><i class="fa fa-check"></i><b>8.2</b> Layout element</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>9</b> Interactive settings</a></li>
-<li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a></li>
+<li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a><ul>
+<li class="chapter" data-level="10.1" data-path="multiples.html"><a href="multiples.html#vector-data"><i class="fa fa-check"></i><b>10.1</b> Vector data</a></li>
+<li class="chapter" data-level="10.2" data-path="multiples.html"><a href="multiples.html#raster-data"><i class="fa fa-check"></i><b>10.2</b> Raster data</a></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="options.html"><a href="options.html"><i class="fa fa-check"></i><b>11</b> tmap options</a></li>
 <li class="chapter" data-level="12" data-path="save.html"><a href="save.html"><i class="fa fa-check"></i><b>12</b> Save maps</a><ul>
 <li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#graphics-formats"><i class="fa fa-check"></i><b>12.1</b> Graphics formats</a></li>
@@ -477,42 +480,45 @@ This column contains geometries in a form of well-known text (WKT), storing all 
 <!-- - how to read sf objects from files -->
 <p>The <strong>sf</strong> package can read all of the spatial data formats mentioned in section <a href="geodata.html#vector-data-model">2.2.1</a> using the <code>read_sf()</code> function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
 <!--improve example--></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="co"># replace this data with some new tmap dataset</span></span>
-<span id="cb1-2"><a href="geodata.html#cb1-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb1-3"><a href="geodata.html#cb1-3"></a>file_path =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)</span>
-<span id="cb1-4"><a href="geodata.html#cb1-4"></a>x =<span class="st"> </span><span class="kw">read_sf</span>(file_path)</span></code></pre></div>
-<p>The new object, <code>x</code>, has a <code>sf</code> class.
-It has 177 features (rows or geometries) and 10 fields (columns with attributes).
-There is also an 11th column, <code>geom</code>, that stores geometries of each feature.
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geodata.html#cb1-1"></a><span class="kw">library</span>(sf)</span>
+<span id="cb1-2"><a href="geodata.html#cb1-2"></a>worldvector =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/worldvector.gpkg&quot;</span>)</span></code></pre></div>
+<p>The new object, <code>worldvector</code>, has a <code>sf</code> class.
+It has 185 features (rows or geometries) and 15 fields (columns with attributes).
+There is also an 16th column, <code>geom</code>, that stores geometries of each feature.
 Objects of class <code>sf</code> also display a header containing spatial metadata.
 It includes geometry type, dimension (<code>XY</code>, <code>XYZ</code>, <code>XYM</code>, <code>XYZM</code>), bounding box (<code>bbox</code>), and information about the used Coordinate Reference System (<code>CRS</code>).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a>x</span>
-<span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a>worldvector</span>
+<span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="co">#&gt; Simple feature collection with 185 features and 15 fields</span></span>
 <span id="cb2-3"><a href="geodata.html#cb2-3"></a><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></span>
 <span id="cb2-4"><a href="geodata.html#cb2-4"></a><span class="co">#&gt; dimension:      XY</span></span>
-<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6</span></span>
-<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; geographic CRS: WGS 84</span></span>
-<span id="cb2-7"><a href="geodata.html#cb2-7"></a><span class="co">#&gt; # A tibble: 177 x 11</span></span>
-<span id="cb2-8"><a href="geodata.html#cb2-8"></a><span class="co">#&gt;    iso_a2 name_long  continent region_un subregion type </span></span>
-<span id="cb2-9"><a href="geodata.html#cb2-9"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;</span></span>
-<span id="cb2-10"><a href="geodata.html#cb2-10"></a><span class="co">#&gt;  1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…</span></span>
-<span id="cb2-11"><a href="geodata.html#cb2-11"></a><span class="co">#&gt;  2 TZ     Tanzania   Africa    Africa    Eastern … Sove…</span></span>
-<span id="cb2-12"><a href="geodata.html#cb2-12"></a><span class="co">#&gt;  3 EH     Western S… Africa    Africa    Northern… Inde…</span></span>
-<span id="cb2-13"><a href="geodata.html#cb2-13"></a><span class="co">#&gt;  4 CA     Canada     North Am… Americas  Northern… Sove…</span></span>
-<span id="cb2-14"><a href="geodata.html#cb2-14"></a><span class="co">#&gt;  5 US     United St… North Am… Americas  Northern… Coun…</span></span>
-<span id="cb2-15"><a href="geodata.html#cb2-15"></a><span class="co">#&gt;  6 KZ     Kazakhstan Asia      Asia      Central … Sove…</span></span>
-<span id="cb2-16"><a href="geodata.html#cb2-16"></a><span class="co">#&gt;  7 UZ     Uzbekistan Asia      Asia      Central … Sove…</span></span>
-<span id="cb2-17"><a href="geodata.html#cb2-17"></a><span class="co">#&gt;  8 PG     Papua New… Oceania   Oceania   Melanesia Sove…</span></span>
-<span id="cb2-18"><a href="geodata.html#cb2-18"></a><span class="co">#&gt;  9 ID     Indonesia  Asia      Asia      South-Ea… Sove…</span></span>
-<span id="cb2-19"><a href="geodata.html#cb2-19"></a><span class="co">#&gt; 10 AR     Argentina  South Am… Americas  South Am… Sove…</span></span>
-<span id="cb2-20"><a href="geodata.html#cb2-20"></a><span class="co">#&gt; # … with 167 more rows, and 5 more variables:</span></span>
-<span id="cb2-21"><a href="geodata.html#cb2-21"></a><span class="co">#&gt; #   area_km2 &lt;dbl&gt;, pop &lt;dbl&gt;, lifeExp &lt;dbl&gt;,</span></span>
-<span id="cb2-22"><a href="geodata.html#cb2-22"></a><span class="co">#&gt; #   gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;</span></span></code></pre></div>
-<p>The <code>x</code> object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; bbox:           xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000</span></span>
+<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; projected CRS:  WGS 84 / Equal Earth Greenwich</span></span>
+<span id="cb2-7"><a href="geodata.html#cb2-7"></a><span class="co">#&gt; # A tibble: 185 x 16</span></span>
+<span id="cb2-8"><a href="geodata.html#cb2-8"></a><span class="co">#&gt;    GEO   name     wb_region  wb_income_region population</span></span>
+<span id="cb2-9"><a href="geodata.html#cb2-9"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                 &lt;dbl&gt;</span></span>
+<span id="cb2-10"><a href="geodata.html#cb2-10"></a><span class="co">#&gt;  1 AUS   Austral… East Asia… High income        42900000</span></span>
+<span id="cb2-11"><a href="geodata.html#cb2-11"></a><span class="co">#&gt;  2 AZE   Azerbai… Europe &amp; … Upper middle in…    9190000</span></span>
+<span id="cb2-12"><a href="geodata.html#cb2-12"></a><span class="co">#&gt;  3 BIH   Bosnia … Europe &amp; … Upper middle in…    1640000</span></span>
+<span id="cb2-13"><a href="geodata.html#cb2-13"></a><span class="co">#&gt;  4 BGD   Banglad… South Asia Lower middle in…  151000000</span></span>
+<span id="cb2-14"><a href="geodata.html#cb2-14"></a><span class="co">#&gt;  5 BEL   Belgium  Europe &amp; … High income        12500000</span></span>
+<span id="cb2-15"><a href="geodata.html#cb2-15"></a><span class="co">#&gt;  6 BFA   Burkina… Sub-Sahar… Low income         83200000</span></span>
+<span id="cb2-16"><a href="geodata.html#cb2-16"></a><span class="co">#&gt;  7 BGR   Bulgaria Europe &amp; … Upper middle in…    3590000</span></span>
+<span id="cb2-17"><a href="geodata.html#cb2-17"></a><span class="co">#&gt;  8 BDI   Burundi  Sub-Sahar… Low income         50900000</span></span>
+<span id="cb2-18"><a href="geodata.html#cb2-18"></a><span class="co">#&gt;  9 BEN   Benin    Sub-Sahar… Low income         47200000</span></span>
+<span id="cb2-19"><a href="geodata.html#cb2-19"></a><span class="co">#&gt; 10 BRN   Brunei   East Asia… High income          390000</span></span>
+<span id="cb2-20"><a href="geodata.html#cb2-20"></a><span class="co">#&gt; # … with 175 more rows, and 11 more variables:</span></span>
+<span id="cb2-21"><a href="geodata.html#cb2-21"></a><span class="co">#&gt; #   CO2_emissions &lt;dbl&gt;, gdp_per_cap &lt;dbl&gt;,</span></span>
+<span id="cb2-22"><a href="geodata.html#cb2-22"></a><span class="co">#&gt; #   life_expectancy &lt;dbl&gt;,</span></span>
+<span id="cb2-23"><a href="geodata.html#cb2-23"></a><span class="co">#&gt; #   corruption_perception_index &lt;dbl&gt;,</span></span>
+<span id="cb2-24"><a href="geodata.html#cb2-24"></a><span class="co">#&gt; #   democracy_score &lt;dbl&gt;, hdi &lt;dbl&gt;,</span></span>
+<span id="cb2-25"><a href="geodata.html#cb2-25"></a><span class="co">#&gt; #   energy_use_per_cap &lt;dbl&gt;, literacy_rate &lt;dbl&gt;,</span></span>
+<span id="cb2-26"><a href="geodata.html#cb2-26"></a><span class="co">#&gt; #   demo_corr &lt;dbl&gt;, demo_corr_rank &lt;int&gt;,</span></span>
+<span id="cb2-27"><a href="geodata.html#cb2-27"></a><span class="co">#&gt; #   geom &lt;MULTIPOLYGON [m]&gt;</span></span></code></pre></div>
+<p>The <code>worldvector</code> object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
 Each polygon’s vertices are represented by a pair of values (<code>dimension: XY</code>).
 Bounding box allows to quickly understand the spatial extension of the input data.
 <!--...-->
-Finally, it has geographic CRS named WGS 84.
+Finally, it has projected CRS named WGS 84 / Equal Earth Greenwich.
 You can learn more about Coordinate Reference Systems in section <a href="geodata.html#crs">2.4</a>.
 <!-- ref to CRS section --></p>
 <p>Spatial vector data of class <code>sf</code> can be also obtained using some of other R data packages.
@@ -542,29 +548,29 @@ The <strong>stars</strong> package is also well integrated with <strong>sf</stro
 This function requires at least one argument with a filename to be read.
 <!--improve example--></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="geodata.html#cb3-1"></a><span class="kw">library</span>(stars)</span>
-<span id="cb3-2"><a href="geodata.html#cb3-2"></a>file_path2 =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)    </span>
-<span id="cb3-3"><a href="geodata.html#cb3-3"></a>x2 =<span class="st"> </span><span class="kw">read_stars</span>(file_path2)</span></code></pre></div>
-<p>The new object, <code>x2</code>, is of a <code>stars</code> class.
-It has two dimensions, <code>x</code> and <code>y</code>, and one attribute <code>srtm.tif</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a>x2</span>
+<span id="cb3-2"><a href="geodata.html#cb3-2"></a>worldelevation =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/worldelevation.tif&quot;</span>)</span></code></pre></div>
+<p>The new object, <code>worldelevation</code>, is of a <code>stars</code> class.
+It has two dimensions, <code>x</code> and <code>y</code>, and one attribute <code>worldelevation.tif</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a>worldelevation</span>
 <span id="cb4-2"><a href="geodata.html#cb4-2"></a><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
 <span id="cb4-3"><a href="geodata.html#cb4-3"></a><span class="co">#&gt; attribute(s):</span></span>
-<span id="cb4-4"><a href="geodata.html#cb4-4"></a><span class="co">#&gt;    srtm.tif    </span></span>
-<span id="cb4-5"><a href="geodata.html#cb4-5"></a><span class="co">#&gt;  Min.   :1024  </span></span>
-<span id="cb4-6"><a href="geodata.html#cb4-6"></a><span class="co">#&gt;  1st Qu.:1535  </span></span>
-<span id="cb4-7"><a href="geodata.html#cb4-7"></a><span class="co">#&gt;  Median :1837  </span></span>
-<span id="cb4-8"><a href="geodata.html#cb4-8"></a><span class="co">#&gt;  Mean   :1843  </span></span>
-<span id="cb4-9"><a href="geodata.html#cb4-9"></a><span class="co">#&gt;  3rd Qu.:2114  </span></span>
-<span id="cb4-10"><a href="geodata.html#cb4-10"></a><span class="co">#&gt;  Max.   :2892  </span></span>
-<span id="cb4-11"><a href="geodata.html#cb4-11"></a><span class="co">#&gt; dimension(s):</span></span>
-<span id="cb4-12"><a href="geodata.html#cb4-12"></a><span class="co">#&gt;   from  to  offset        delta refsys point values x/y</span></span>
-<span id="cb4-13"><a href="geodata.html#cb4-13"></a><span class="co">#&gt; x    1 465 -113.24  0.000833333 WGS 84 FALSE   NULL [x]</span></span>
-<span id="cb4-14"><a href="geodata.html#cb4-14"></a><span class="co">#&gt; y    1 457 37.5129 -0.000833333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
-<p>The <code>srtm.tif</code> attribute is a matrix, where each cell represents an elevation value.
-The <code>x</code> dimension has 465 elements (columns), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>-113.24</code>.
-Next, the coordinates of further cells increase by <code>0.000833333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension.
-The <code>y</code> dimension has 457 elements (rows), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>37.5129</code>.
-For the <code>y</code> dimension, each further cell’s coordinated decreases by <code>0.000833333</code> (notice the negative value of <code>delta</code>) - resolution in the <code>y</code> dimension.
+<span id="cb4-4"><a href="geodata.html#cb4-4"></a><span class="co">#&gt;  worldelevation.tif </span></span>
+<span id="cb4-5"><a href="geodata.html#cb4-5"></a><span class="co">#&gt;  Min.   :-412       </span></span>
+<span id="cb4-6"><a href="geodata.html#cb4-6"></a><span class="co">#&gt;  1st Qu.: 218       </span></span>
+<span id="cb4-7"><a href="geodata.html#cb4-7"></a><span class="co">#&gt;  Median : 608       </span></span>
+<span id="cb4-8"><a href="geodata.html#cb4-8"></a><span class="co">#&gt;  Mean   :1140       </span></span>
+<span id="cb4-9"><a href="geodata.html#cb4-9"></a><span class="co">#&gt;  3rd Qu.:1941       </span></span>
+<span id="cb4-10"><a href="geodata.html#cb4-10"></a><span class="co">#&gt;  Max.   :6410       </span></span>
+<span id="cb4-11"><a href="geodata.html#cb4-11"></a><span class="co">#&gt;  NA&#39;s   :389580     </span></span>
+<span id="cb4-12"><a href="geodata.html#cb4-12"></a><span class="co">#&gt; dimension(s):</span></span>
+<span id="cb4-13"><a href="geodata.html#cb4-13"></a><span class="co">#&gt;   from   to offset     delta refsys point values x/y</span></span>
+<span id="cb4-14"><a href="geodata.html#cb4-14"></a><span class="co">#&gt; x    1 1080   -180  0.333333 WGS 84 FALSE   NULL [x]</span></span>
+<span id="cb4-15"><a href="geodata.html#cb4-15"></a><span class="co">#&gt; y    1  540     90 -0.333333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
+<p>The <code>worldelevation.tif</code> attribute is a matrix, where each cell represents an elevation value.
+The <code>x</code> dimension has 1080 elements (columns), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>-180</code>.
+Next, the coordinates of further cells increase by <code>0.333333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension.
+The <code>y</code> dimension has 540 elements (rows), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>90</code>.
+For the <code>y</code> dimension, each further cell’s coordinated decreases by <code>0.333333</code> (notice the negative value of <code>delta</code>) - resolution in the <code>y</code> dimension.
 Both dimensions also have the same CRS - <code>WGS 84</code>.</p>
 <p><code>read_stars()</code> also has several additional arguments including <code>RasterIO</code>, which gives control over the input data extent and resolution.
 For example, the below code will read just the first and second bands (results not shown).

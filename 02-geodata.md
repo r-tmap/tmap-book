@@ -259,49 +259,52 @@ The **sf** package can read all of the spatial data formats mentioned in section
 <!--improve example-->
 
 ```r
-# replace this data with some new tmap dataset
 library(sf)
-file_path = system.file("shapes/world.gpkg", package = "spData")
-x = read_sf(file_path)
+worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-The new object, `x`, has a `sf` class. 
-It has 177 features (rows or geometries) and 10 fields (columns with attributes). 
-There is also an 11th column, `geom`, that stores geometries of each feature.
+The new object, `worldvector`, has a `sf` class. 
+It has 185 features (rows or geometries) and 15 fields (columns with attributes). 
+There is also an 16th column, `geom`, that stores geometries of each feature.
 Objects of class `sf` also display a header containing spatial metadata.
 It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box (`bbox`), and information about the used Coordinate Reference System (`CRS`).
 
 
 ```r
-x
-#> Simple feature collection with 177 features and 10 fields
+worldvector
+#> Simple feature collection with 185 features and 15 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6
-#> geographic CRS: WGS 84
-#> # A tibble: 177 x 11
-#>    iso_a2 name_long  continent region_un subregion type 
-#>    <chr>  <chr>      <chr>     <chr>     <chr>     <chr>
-#>  1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…
-#>  2 TZ     Tanzania   Africa    Africa    Eastern … Sove…
-#>  3 EH     Western S… Africa    Africa    Northern… Inde…
-#>  4 CA     Canada     North Am… Americas  Northern… Sove…
-#>  5 US     United St… North Am… Americas  Northern… Coun…
-#>  6 KZ     Kazakhstan Asia      Asia      Central … Sove…
-#>  7 UZ     Uzbekistan Asia      Asia      Central … Sove…
-#>  8 PG     Papua New… Oceania   Oceania   Melanesia Sove…
-#>  9 ID     Indonesia  Asia      Asia      South-Ea… Sove…
-#> 10 AR     Argentina  South Am… Americas  South Am… Sove…
-#> # … with 167 more rows, and 5 more variables:
-#> #   area_km2 <dbl>, pop <dbl>, lifeExp <dbl>,
-#> #   gdpPercap <dbl>, geom <MULTIPOLYGON [°]>
+#> bbox:           xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000
+#> projected CRS:  WGS 84 / Equal Earth Greenwich
+#> # A tibble: 185 x 16
+#>    GEO   name     wb_region  wb_income_region population
+#>    <chr> <chr>    <chr>      <chr>                 <dbl>
+#>  1 AUS   Austral… East Asia… High income        42900000
+#>  2 AZE   Azerbai… Europe & … Upper middle in…    9190000
+#>  3 BIH   Bosnia … Europe & … Upper middle in…    1640000
+#>  4 BGD   Banglad… South Asia Lower middle in…  151000000
+#>  5 BEL   Belgium  Europe & … High income        12500000
+#>  6 BFA   Burkina… Sub-Sahar… Low income         83200000
+#>  7 BGR   Bulgaria Europe & … Upper middle in…    3590000
+#>  8 BDI   Burundi  Sub-Sahar… Low income         50900000
+#>  9 BEN   Benin    Sub-Sahar… Low income         47200000
+#> 10 BRN   Brunei   East Asia… High income          390000
+#> # … with 175 more rows, and 11 more variables:
+#> #   CO2_emissions <dbl>, gdp_per_cap <dbl>,
+#> #   life_expectancy <dbl>,
+#> #   corruption_perception_index <dbl>,
+#> #   democracy_score <dbl>, hdi <dbl>,
+#> #   energy_use_per_cap <dbl>, literacy_rate <dbl>,
+#> #   demo_corr <dbl>, demo_corr_rank <int>,
+#> #   geom <MULTIPOLYGON [m]>
 ```
 
-The `x` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
+The `worldvector` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
 Each polygon's vertices are represented by a pair of values (`dimension: XY`).
 Bounding box allows to quickly understand the spatial extension of the input data. 
 <!--...--> 
-Finally, it has geographic CRS named WGS 84.
+Finally, it has projected CRS named WGS 84 / Equal Earth Greenwich.
 You can learn more about Coordinate Reference Systems in section \@ref(crs).
 <!-- ref to CRS section -->
 
@@ -338,36 +341,36 @@ This function requires at least one argument with a filename to be read.
 
 ```r
 library(stars)
-file_path2 = system.file("raster/srtm.tif", package = "spDataLarge")    
-x2 = read_stars(file_path2)
+worldelevation = read_stars("data/worldelevation.tif")
 ```
 
-The new object, `x2`, is of a `stars` class. 
-It has two dimensions, `x` and `y`, and one attribute `srtm.tif`.
+The new object, `worldelevation`, is of a `stars` class. 
+It has two dimensions, `x` and `y`, and one attribute `worldelevation.tif`.
 
 
 ```r
-x2
+worldelevation
 #> stars object with 2 dimensions and 1 attribute
 #> attribute(s):
-#>    srtm.tif    
-#>  Min.   :1024  
-#>  1st Qu.:1535  
-#>  Median :1837  
-#>  Mean   :1843  
-#>  3rd Qu.:2114  
-#>  Max.   :2892  
+#>  worldelevation.tif 
+#>  Min.   :-412       
+#>  1st Qu.: 218       
+#>  Median : 608       
+#>  Mean   :1140       
+#>  3rd Qu.:1941       
+#>  Max.   :6410       
+#>  NA's   :389580     
 #> dimension(s):
-#>   from  to  offset        delta refsys point values x/y
-#> x    1 465 -113.24  0.000833333 WGS 84 FALSE   NULL [x]
-#> y    1 457 37.5129 -0.000833333 WGS 84 FALSE   NULL [y]
+#>   from   to offset     delta refsys point values x/y
+#> x    1 1080   -180  0.333333 WGS 84 FALSE   NULL [x]
+#> y    1  540     90 -0.333333 WGS 84 FALSE   NULL [y]
 ```
 
-The `srtm.tif` attribute is a matrix, where each cell represents an elevation value.
-The `x` dimension has 465 elements (columns), starting from a coordinate (`offset`) of a cell boundary of `-113.24`. 
-Next, the coordinates of further cells increase by `0.000833333` (`delta`) - resolution in the `x` dimension.
-The `y` dimension has 457 elements (rows), starting from a coordinate (`offset`) of a cell boundary of `37.5129`. 
-For the `y` dimension, each further cell's coordinated decreases by `0.000833333` (notice the negative value of `delta`) - resolution in the `y` dimension.
+The `worldelevation.tif` attribute is a matrix, where each cell represents an elevation value.
+The `x` dimension has 1080 elements (columns), starting from a coordinate (`offset`) of a cell boundary of `-180`. 
+Next, the coordinates of further cells increase by `0.333333` (`delta`) - resolution in the `x` dimension.
+The `y` dimension has 540 elements (rows), starting from a coordinate (`offset`) of a cell boundary of `90`. 
+For the `y` dimension, each further cell's coordinated decreases by `0.333333` (notice the negative value of `delta`) - resolution in the `y` dimension.
 Both dimensions also have the same CRS - `WGS 84`.
 
 `read_stars()` also has several additional arguments including `RasterIO`, which gives control over the input data extent and resolution.

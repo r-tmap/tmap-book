@@ -39,7 +39,7 @@ On the other hand, poor decisions about colors can lead to misinterpretation of 
 Section \@ref(color-palettes) explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
 Section \@ref(color-scale-styles) focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
 
-### Color palettes <!--JN: I am not sure where this section should go-->
+### Color palettes
 
 \index{color palettes}
 <!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
@@ -233,9 +233,11 @@ You can find all of the named color palettes using an interactive app with `tmap
 It is also possible to reverse the order of any named color palette by using the `-` prefix.
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
+(ref:tmpals) Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes.
+
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmpals-1.png" alt="Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes." width="672" />
-<p class="caption">(\#fig:tmpals)Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the hcl.colors function, and (D) one of the build-in palettes.</p>
+<img src="05b-visual-variables_files/figure-html/tmpals-1.png" alt="(ref:tmpals)" width="672" />
+<p class="caption">(\#fig:tmpals)(ref:tmpals)</p>
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
 
@@ -289,8 +291,8 @@ tm_shape(worldvector) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors" width="672" />
-<p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors</p>
+<img src="05b-visual-variables_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors." width="672" />
+<p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors.</p>
 </div>
 
 
@@ -311,7 +313,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
 
-### Color scale styles <!--JN: I am not sure where this section should go-->
+### Color scale styles
 
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
@@ -343,7 +345,7 @@ However, when the provided variable is numerical, then it is possible to create 
 
 \index{Categorical maps}
 An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
-We created it by providing a character variable's name, `"region_un"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
+We created it by providing a character variable's name, `"wb_region"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 
 ```r
@@ -447,10 +449,12 @@ tm_shape(worldvector) +
               style = "log10_pretty")
 ```
 
+(ref:discrete-methods) Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.
+
 <!-- discrete -->
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/discrete-methods-1.png" alt="Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method." width="672" />
-<p class="caption">(\#fig:discrete-methods)Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.</p>
+<img src="05b-visual-variables_files/figure-html/discrete-methods-1.png" alt="(ref:discrete-methods)" width="672" />
+<p class="caption">(\#fig:discrete-methods)(ref:discrete-methods)</p>
 </div>
 
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
@@ -518,6 +522,7 @@ In this case, it is also possible to change the default colors with the `palette
 
 All of the color scale styles mentioned above work not only for `tm_polygons()` - they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
 The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_lines()`, and cells in `tm_rasters()`.
+<!-- important - mention how to change raster categorical colors (for e.g. data subsets!) -->
 
 <!-- one color only: -->
 <!-- - tm_borders  -->
@@ -526,7 +531,7 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 
 <!-- title?? -->
 
-## Sizes  <!--JN: I am not sure where this section should go-->
+## Sizes
 
 
 ```r
@@ -548,7 +553,7 @@ tm_shape(volcanos) +
  tm_symbols(size = 0.5) 
 ```
 
-On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"pop2020"`), then symbol sizes are scaled proportionally to the provided values.
+On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
 Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure \@ref(fig:tmsizes):B).
 
 
@@ -579,8 +584,8 @@ tm_shape(volcanos) +
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend." width="672" />
-<p class="caption">(\#fig:tmsizes)Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the pop2020 variable, (C) sizes of symbols have a manually created legend.</p>
+<img src="05b-visual-variables_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend." width="672" />
+<p class="caption">(\#fig:tmsizes)Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend.</p>
 </div>
 
 Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
@@ -591,7 +596,6 @@ The `lwd` argument in `tm_lines()` creates thin lines for small values and thick
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd")
-#> Legend labels were too wide. Therefore, legend.text.size has been set to 0.59. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
 <div class="figure" style="text-align: center">
@@ -610,8 +614,8 @@ Also, similarly to the last example of the `tm_symbols` above, it is possible to
 Text labels have a role to name features on a map or just to highlight some of them.
 Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
 However, text labels can be also used to represent the values of some numerical variables.
-Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different metropolitan areas, while their sizes are related to the populations of the areas.
-This allows us to not only locate different metropolitan areas on a map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo).
+Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
+<!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
 
 
 ```r
@@ -621,8 +625,8 @@ tm_shape(volcanos) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent populations of the given metropolitan areas." width="672" />
-<p class="caption">(\#fig:tmtextsize)Example of a map where text sizes represent populations of the given metropolitan areas.</p>
+<img src="05b-visual-variables_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent elevations of the volcanos." width="672" />
+<p class="caption">(\#fig:tmtextsize)Example of a map where text sizes represent elevations of the volcanos.</p>
 </div>
 
 <!-- sizes.legend -->
@@ -631,7 +635,7 @@ tm_shape(volcanos) +
 
 <!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
 
-## Shapes  <!--JN: I am not sure where this section should go-->
+## Shapes
 <!-- ??and markers -->
 
 <!-- potential tmap improvement: do not allow to use shape for numerical vars -->
@@ -646,7 +650,7 @@ It expects the name of the categorical variable.
 
 ```r
 tm_shape(ei_points) +
-  tm_symbols(shape = "natural",
+  tm_symbols(shape = "type",
              title.shape = "Type:",
              shapes.labels = c("Cave entrance", "Peak", "Volcano"))
 ```
@@ -663,29 +667,32 @@ A complete list of available symbols and their corresponding numbers is in the `
 
 ```r
 tm_shape(ei_points) +
-  tm_symbols(shape = "name",
+  tm_symbols(shape = "type",
              shapes = c(0, 2, 5))
 ```
 
 Second option is to use a *grob* object.
+<!-- add intro what are grobs -->
+<!-- add reference to some section explaining tmap_grob (chapter 10??) -->
 
 
 ```r
 # library(grid)
 # library(ggplotify)
-# library(ggplot2)
-# 
+library(ggplot2)
+
 # p1 = as.grob(~barplot(1:10))
 # p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
 # p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
-# p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point() + theme_void())
+p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() + theme_void())
 ```
 
 
 ```r
-# tm_shape(metro2) +
-#   tm_symbols(shape = "group",
-#              shapes = list(p3, p3, p3)) 
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shapes = list(p4, p4, p4),
+             border.col = NULL)
 ```
 
 <!-- explain what's a grob -->
@@ -693,13 +700,6 @@ Second option is to use a *grob* object.
 <!-- add new example -->
 
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-
-
-```r
-tm_shape(ei_points) +
-  tm_symbols(shape = "group",
-             shapes = my_icons)
-```
 
 The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
 The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
@@ -738,7 +738,7 @@ When we use symbols, then we are able to use colors for one qualitative or quant
 Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.
 
-Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `pop2020` variable and they are colored using the values from `pop1950`.
+Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
 This can be set with the `size` and `col` arguments.
 
 
@@ -776,11 +776,6 @@ tm_shape(ei_points) +
 </div>
 
 For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
-
-
-```
-#> Legend labels were too wide. Therefore, legend.text.size has been set to 0.59. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
-```
 
 <div class="figure" style="text-align: center">
 <img src="05b-visual-variables_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="672" />

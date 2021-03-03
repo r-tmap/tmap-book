@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,11 +194,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="visual-variables.html"><a href="visual-variables.html"><i class="fa fa-check"></i><b>6</b> Visual variables</a><ul>
 <li class="chapter" data-level="6.1" data-path="visual-variables.html"><a href="visual-variables.html#colors"><i class="fa fa-check"></i><b>6.1</b> Colors</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="visual-variables.html"><a href="visual-variables.html#color-palettes"><i class="fa fa-check"></i><b>6.1.1</b> Color palettes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="6.1.2" data-path="visual-variables.html"><a href="visual-variables.html#color-scale-styles"><i class="fa fa-check"></i><b>6.1.2</b> Color scale styles <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="6.1.1" data-path="visual-variables.html"><a href="visual-variables.html#color-palettes"><i class="fa fa-check"></i><b>6.1.1</b> Color palettes</a></li>
+<li class="chapter" data-level="6.1.2" data-path="visual-variables.html"><a href="visual-variables.html#color-scale-styles"><i class="fa fa-check"></i><b>6.1.2</b> Color scale styles</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="visual-variables.html"><a href="visual-variables.html#sizes"><i class="fa fa-check"></i><b>6.2</b> Sizes <!--JN: I am not sure where this section should go--></a></li>
-<li class="chapter" data-level="6.3" data-path="visual-variables.html"><a href="visual-variables.html#shapes"><i class="fa fa-check"></i><b>6.3</b> Shapes <!--JN: I am not sure where this section should go--></a></li>
+<li class="chapter" data-level="6.2" data-path="visual-variables.html"><a href="visual-variables.html#sizes"><i class="fa fa-check"></i><b>6.2</b> Sizes</a></li>
+<li class="chapter" data-level="6.3" data-path="visual-variables.html"><a href="visual-variables.html#shapes"><i class="fa fa-check"></i><b>6.3</b> Shapes</a></li>
 <li class="chapter" data-level="6.4" data-path="visual-variables.html"><a href="visual-variables.html#mixing-visual-variables"><i class="fa fa-check"></i><b>6.4</b> Mixing visual variables</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>7</b> Other types</a></li>
@@ -207,7 +207,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#layout-element"><i class="fa fa-check"></i><b>8.2</b> Layout element</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>9</b> Interactive settings</a></li>
-<li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a></li>
+<li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a><ul>
+<li class="chapter" data-level="10.1" data-path="multiples.html"><a href="multiples.html#vector-data"><i class="fa fa-check"></i><b>10.1</b> Vector data</a></li>
+<li class="chapter" data-level="10.2" data-path="multiples.html"><a href="multiples.html#raster-data"><i class="fa fa-check"></i><b>10.2</b> Raster data</a></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="options.html"><a href="options.html"><i class="fa fa-check"></i><b>11</b> tmap options</a></li>
 <li class="chapter" data-level="12" data-path="save.html"><a href="save.html"><i class="fa fa-check"></i><b>12</b> Save maps</a><ul>
 <li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#graphics-formats"><i class="fa fa-check"></i><b>12.1</b> Graphics formats</a></li>
@@ -467,10 +470,11 @@ It allows to change the colors of borders, their widths, or the lines type.</p>
 <span id="cb29-2"><a href="layers.html#cb29-2"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">lwd =</span> <span class="fl">0.5</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <p>Notice that we have used the <code>col</code> argument in <code>tm_borders()</code>, but <code>border.col</code> in <code>tm_polygons()</code>.
 This is necessary to distinguish between the setting of the fillings color and the borders’ color.</p>
+
 <div class="figure" style="text-align: center"><span id="fig:tmpolygonsder"></span>
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' ." width="672" />
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) ‘tm_polygons()’, (B) ‘tm_fill()’, (C) ‘tm_borders()’." width="672" />
 <p class="caption">
-FIGURE 5.1: Example of a map created with: (A) ‘tm_polygons()’ , (B) ‘tm_fill()’ , (C) ‘tm_borders()’ .
+FIGURE 5.1: Example of a map created with: (A) ‘tm_polygons()’, (B) ‘tm_fill()’, (C) ‘tm_borders()’.
 </p>
 </div>
 <p>More information on colors, and how they can be applied and modified is explained in detail in Chapter <a href="visual-variables.html#colors">6.1</a>.</p>
@@ -482,7 +486,7 @@ FIGURE 5.1: Example of a map created with: (A) ‘tm_polygons()’ , (B) ‘tm_f
 <p>Symbols are a very flexible layer type.
 They are usually used to represent point data, but can be also used for lines and polygons.
 In the latter cases, they are located in centroid coordinates of each feature.
-Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter <a href="visual-variables.html#visual-variables">6</a>.</p>
+Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter <a href="visual-variables.html#visual-variables">6</a>).</p>
 <p>The <code>tm_symbols()</code> is the main function in <strong>tmap</strong> allowing to use and modify symbol elements (Figure <a href="layers.html#fig:tmsymbols1">5.2</a>).
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.</p>
 <div class="figure" style="text-align: center"><span id="fig:tmsymbols1"></span>
@@ -491,7 +495,7 @@ By default, this function draws a gray circle symbol with a black border for eac
 FIGURE 5.2: A map showing the default tmap symbols.
 </p>
 </div>
-<p>In the above example, each symbol is related to one feature (row) in the <code>metro2</code> object.
+<p>In the above example, each symbol is related to one feature (row) in the <code>volcanos</code> object.
 However, in a case when we provide multi-element features (such as MULTIPOINT; section <a href="geodata.html#vector-data-model">2.2.1</a>), each multi-element object is first split into a number of single-element features and then plotted.</p>
 <p>The <code>tm_symbols()</code> is a very flexible function with a large number of arguments.
 While this allows adjusting its results to almost any need, it also makes this function complicated.
@@ -513,6 +517,7 @@ To do this, this layer has a small size value (<code>0.02</code>) at the default
 <p>The last additional layer is <code>tm_markers()</code>, which uses a marker icon by default (Figure <a href="layers.html#fig:tmsymbols2">5.3</a>:D).</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="layers.html#cb34-1"></a><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
 <span id="cb34-2"><a href="layers.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_markers</span>()</span></code></pre></div>
+
 <div class="figure" style="text-align: center"><span id="fig:tmsymbols2"></span>
 <img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
 <p class="caption">
@@ -524,12 +529,13 @@ FIGURE 5.3: Maps showing default visualizations using: (A) tm_squares(), (B) tm_
 <h2><span class="header-section-number">5.3</span> Lines</h2>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="layers.html#cb35-1"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span></code></pre></div>
 <p>The <code>tm_lines()</code> function allows to visualize different types of line data (Figure <a href="layers.html#fig:tmlines">5.4</a>).</p>
+
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="layers.html#cb36-1"></a><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb36-2"><a href="layers.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_lines</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmlines"></span>
-<img src="05-layers_files/figure-html/tmlines-1.png" alt="Example of a map created with tm_lines." width="672" />
+<img src="05-layers_files/figure-html/tmlines-1.png" alt="Example of a map created with tm_lines()." width="672" />
 <p class="caption">
-FIGURE 5.4: Example of a map created with tm_lines.
+FIGURE 5.4: Example of a map created with tm_lines().
 </p>
 </div>
 <p>Lines can be presented using different colors, widths, or types (Chapter <a href="visual-variables.html#visual-variables">6</a>).
@@ -540,13 +546,14 @@ This allows to show a hierarchy (for example, increased line widths for higher c
 <p>Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable’s values.
 The main function to create text labels is <code>tm_text()</code>, which adds a label to each spatial feature (Figure <a href="layers.html#fig:tmtext">5.5</a>).</p>
+
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="layers.html#cb37-1"></a><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
 <span id="cb37-2"><a href="layers.html#cb37-2"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
 <span id="cb37-3"><a href="layers.html#cb37-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtext"></span>
-<img src="05-layers_files/figure-html/tmtext-1.png" alt="Example of a map created with tm_text." width="672" />
+<img src="05-layers_files/figure-html/tmtext-1.png" alt="Example of a map created with tm_text()." width="672" />
 <p class="caption">
-FIGURE 5.5: Example of a map created with tm_text.
+FIGURE 5.5: Example of a map created with tm_text().
 </p>
 </div>
 <p>We can adjust colors (<code>col</code>) and sizes (<code>size</code>; Section <a href="visual-variables.html#sizes">6.2</a>) of labels either by providing a single value or a name of a data variable.
@@ -574,32 +581,31 @@ Where should the labels be placed for lines or polygons - in the center of a lin
 <p>Text labels are also often presented together with lines (Section <a href="layers.html#lines">5.3</a>).
 One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
 Isopleths can be created with the <code>tm_iso()</code> function.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="kw">data</span>(land, <span class="dt">package =</span> <span class="st">&quot;tmap&quot;</span>)</span>
-<span id="cb39-2"><a href="layers.html#cb39-2"></a><span class="co"># library(raster)</span></span>
-<span id="cb39-3"><a href="layers.html#cb39-3"></a><span class="co"># elev = land[&quot;elevation&quot;]</span></span>
-<span id="cb39-4"><a href="layers.html#cb39-4"></a><span class="co"># elev_isopleths = rasterToContour(as(elev, &quot;Raster&quot;))</span></span>
-<span id="cb39-5"><a href="layers.html#cb39-5"></a></span>
-<span id="cb39-6"><a href="layers.html#cb39-6"></a><span class="co"># think about tm_iso example</span></span>
-<span id="cb39-7"><a href="layers.html#cb39-7"></a><span class="co"># improve example</span></span>
-<span id="cb39-8"><a href="layers.html#cb39-8"></a><span class="co"># tm_shape(elev_isopleths) +</span></span>
-<span id="cb39-9"><a href="layers.html#cb39-9"></a><span class="co">#   tm_iso()</span></span>
-<span id="cb39-10"><a href="layers.html#cb39-10"></a><span class="co"># </span></span>
-<span id="cb39-11"><a href="layers.html#cb39-11"></a><span class="co"># library(tmap)</span></span>
-<span id="cb39-12"><a href="layers.html#cb39-12"></a><span class="co"># data(&quot;dem&quot;, package = &quot;spDataLarge&quot;)</span></span>
-<span id="cb39-13"><a href="layers.html#cb39-13"></a><span class="co"># # create hillshade</span></span>
-<span id="cb39-14"><a href="layers.html#cb39-14"></a><span class="co"># hs = hillShade(slope = terrain(dem, &quot;slope&quot;), aspect = terrain(dem, &quot;aspect&quot;))</span></span>
-<span id="cb39-15"><a href="layers.html#cb39-15"></a><span class="co"># # create contour</span></span>
-<span id="cb39-16"><a href="layers.html#cb39-16"></a><span class="co"># cn = rasterToContour(dem)</span></span>
-<span id="cb39-17"><a href="layers.html#cb39-17"></a><span class="co"># </span></span>
-<span id="cb39-18"><a href="layers.html#cb39-18"></a><span class="co"># tm_shape(hs) +</span></span>
-<span id="cb39-19"><a href="layers.html#cb39-19"></a><span class="co">#   tm_grid() +</span></span>
-<span id="cb39-20"><a href="layers.html#cb39-20"></a><span class="co">#   tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +</span></span>
-<span id="cb39-21"><a href="layers.html#cb39-21"></a><span class="co">#   tm_shape(dem) +</span></span>
-<span id="cb39-22"><a href="layers.html#cb39-22"></a><span class="co">#   tm_raster(alpha = 0.5, palette = terrain.colors(25),</span></span>
-<span id="cb39-23"><a href="layers.html#cb39-23"></a><span class="co">#             legend.show = FALSE) +</span></span>
-<span id="cb39-24"><a href="layers.html#cb39-24"></a><span class="co">#   tm_shape(cn) +</span></span>
-<span id="cb39-25"><a href="layers.html#cb39-25"></a><span class="co">#   tm_lines(col = &quot;white&quot;) +</span></span>
-<span id="cb39-26"><a href="layers.html#cb39-26"></a><span class="co">#   tm_text(&quot;level&quot;, col = &quot;white&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="layers.html#cb39-1"></a><span class="co"># to improve</span></span>
+<span id="cb39-2"><a href="layers.html#cb39-2"></a><span class="kw">library</span>(stars)</span>
+<span id="cb39-3"><a href="layers.html#cb39-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
+<span id="cb39-4"><a href="layers.html#cb39-4"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
+<span id="cb39-5"><a href="layers.html#cb39-5"></a>ei_elev_raster =<span class="st"> </span><span class="kw">as</span>(ei_elev, <span class="st">&quot;Raster&quot;</span>)</span>
+<span id="cb39-6"><a href="layers.html#cb39-6"></a>elev_isopleths =<span class="st"> </span>raster<span class="op">::</span><span class="kw">rasterToContour</span>(ei_elev_raster)</span>
+<span id="cb39-7"><a href="layers.html#cb39-7"></a></span>
+<span id="cb39-8"><a href="layers.html#cb39-8"></a><span class="kw">tm_shape</span>(elev_isopleths) <span class="op">+</span></span>
+<span id="cb39-9"><a href="layers.html#cb39-9"></a><span class="st">  </span><span class="kw">tm_iso</span>()</span>
+<span id="cb39-10"><a href="layers.html#cb39-10"></a><span class="co">#&gt; Warning in sp::proj4string(obj): CRS object has comment,</span></span>
+<span id="cb39-11"><a href="layers.html#cb39-11"></a><span class="co">#&gt; which is lost in output</span></span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a>hs =<span class="st"> </span>raster<span class="op">::</span><span class="kw">hillShade</span>(<span class="dt">slope =</span> raster<span class="op">::</span><span class="kw">terrain</span>(ei_elev_raster, <span class="st">&quot;slope&quot;</span>), </span>
+<span id="cb40-2"><a href="layers.html#cb40-2"></a>                       <span class="dt">aspect =</span> raster<span class="op">::</span><span class="kw">terrain</span>(ei_elev_raster, <span class="st">&quot;aspect&quot;</span>))</span>
+<span id="cb40-3"><a href="layers.html#cb40-3"></a></span>
+<span id="cb40-4"><a href="layers.html#cb40-4"></a><span class="kw">tm_shape</span>(hs) <span class="op">+</span></span>
+<span id="cb40-5"><a href="layers.html#cb40-5"></a><span class="st">    </span><span class="kw">tm_grid</span>() <span class="op">+</span></span>
+<span id="cb40-6"><a href="layers.html#cb40-6"></a><span class="st">    </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="kw">gray</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">100</span> <span class="op">/</span><span class="st"> </span><span class="dv">100</span>), <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">legend.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb40-7"><a href="layers.html#cb40-7"></a><span class="st">    </span><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb40-8"><a href="layers.html#cb40-8"></a><span class="st">    </span><span class="kw">tm_raster</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">25</span>),</span>
+<span id="cb40-9"><a href="layers.html#cb40-9"></a>              <span class="dt">legend.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb40-10"><a href="layers.html#cb40-10"></a><span class="st">    </span><span class="kw">tm_shape</span>(elev_isopleths) <span class="op">+</span></span>
+<span id="cb40-11"><a href="layers.html#cb40-11"></a><span class="st">    </span><span class="kw">tm_lines</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb40-12"><a href="layers.html#cb40-12"></a><span class="st">    </span><span class="kw">tm_text</span>(<span class="st">&quot;level&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- auto.placement  -->
 <!-- remove.overlap -->
 <!-- xmod -->
@@ -609,30 +615,21 @@ Isopleths can be created with the <code>tm_iso()</code> function.</p>
 </div>
 <div id="raster" class="section level2">
 <h2><span class="header-section-number">5.5</span> Raster</h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="layers.html#cb40-1"></a><span class="kw">library</span>(stars)</span>
-<span id="cb40-2"><a href="layers.html#cb40-2"></a><span class="co">#&gt; Loading required package: abind</span></span>
-<span id="cb40-3"><a href="layers.html#cb40-3"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
-<span id="cb40-4"><a href="layers.html#cb40-4"></a>ei_geomorphons =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_geomorphons.tif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">library</span>(stars)</span>
+<span id="cb41-2"><a href="layers.html#cb41-2"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
+<span id="cb41-3"><a href="layers.html#cb41-3"></a>ei_geomorphons =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_geomorphons.tif&quot;</span>)</span></code></pre></div>
 <!-- Raster data intro -->
 <p>Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 <!-- continuous or categorical -->
 Figure <a href="tmshape.html#fig:rasterdown">4.8</a> shows two simple example of continuous and categorical raster visualization created with <code>tm_raster()</code>.
 This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
 However, the <code>"cont"</code> style often better represent phenomena that progressively vary in space (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="layers.html#cb41-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
-<span id="cb41-2"><a href="layers.html#cb41-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Elevation (m asl):&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb42-2"><a href="layers.html#cb42-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Elevation (m asl):&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
 <p>On the other hand, when the given raster is categorical, then <code>tm_raster</code> uses <code>style = "cat"</code> (Figure <a href="layers.html#fig:rastertype">5.6</a>:A).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="layers.html#cb42-1"></a>labels =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;flat&quot;</span>, <span class="st">&quot;summit&quot;</span>, <span class="st">&quot;ridge&quot;</span>, <span class="st">&quot;shoulder&quot;</span>, <span class="st">&quot;spur&quot;</span>, </span>
-<span id="cb42-2"><a href="layers.html#cb42-2"></a>           <span class="st">&quot;slope&quot;</span>, <span class="st">&quot;hollow&quot;</span>, <span class="st">&quot;footslope&quot;</span>, <span class="st">&quot;valley&quot;</span>, <span class="st">&quot;depression&quot;</span>)</span>
-<span id="cb42-3"><a href="layers.html#cb42-3"></a>colors =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#dcdcdc&quot;</span>, <span class="st">&quot;#380000&quot;</span>, <span class="st">&quot;#c80000&quot;</span>, <span class="st">&quot;#ff5014&quot;</span>, <span class="st">&quot;#fad23c&quot;</span>, <span class="st">&quot;#ffff3c&quot;</span>,</span>
-<span id="cb42-4"><a href="layers.html#cb42-4"></a>           <span class="st">&quot;#b4e614&quot;</span>, <span class="st">&quot;#3cfa96&quot;</span>, <span class="st">&quot;#0000ff&quot;</span>, <span class="st">&quot;#000038&quot;</span>)</span>
-<span id="cb42-5"><a href="layers.html#cb42-5"></a></span>
-<span id="cb42-6"><a href="layers.html#cb42-6"></a><span class="kw">tm_shape</span>(ei_geomorphons) <span class="op">+</span></span>
-<span id="cb42-7"><a href="layers.html#cb42-7"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Geomorphons:&quot;</span>, <span class="dt">style =</span> <span class="st">&quot;cat&quot;</span>,</span>
-<span id="cb42-8"><a href="layers.html#cb42-8"></a>            <span class="dt">palette =</span> colors, <span class="dt">labels =</span> labels)</span></code></pre></div>
-<pre><code>#&gt; stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)
-#&gt; stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="layers.html#cb43-1"></a><span class="kw">tm_shape</span>(ei_geomorphons) <span class="op">+</span></span>
+<span id="cb43-2"><a href="layers.html#cb43-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">title =</span> <span class="st">&quot;Geomorphons:&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:rastertype"></span>
 <img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="672" />
 <p class="caption">
@@ -642,25 +639,24 @@ FIGURE 5.6: Examples of (A) continuous raster maps, and (B) categorical raster m
 <p>The above examples used a raster with one layer only.
 However, rasters can have many layers, either represented by dimensions or attributes.
 By default, <strong>tmap</strong> shows all of the layers, where each raster has its own legend.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
-<span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
-<p>We can modify their arrangement with <code>tm_facets()</code> and (Figure <a href="layers.html#fig:tmrasterml">5.7</a>).</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1"></a><span class="kw">tm_shape</span>(land) <span class="op">+</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="layers.html#cb44-1"></a>raster2 =<span class="st"> </span><span class="kw">c</span>(ei_elev, ei_geomorphons)</span>
+<span id="cb44-2"><a href="layers.html#cb44-2"></a><span class="kw">tm_shape</span>(raster2) <span class="op">+</span></span>
+<span id="cb44-3"><a href="layers.html#cb44-3"></a><span class="st">  </span><span class="kw">tm_raster</span>()</span></code></pre></div>
+<p>We can modify their arrangement with <code>tm_facets()</code> (Figure <a href="layers.html#fig:tmrasterml">5.7</a>).</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="layers.html#cb45-1"></a><span class="kw">tm_shape</span>(raster2) <span class="op">+</span></span>
 <span id="cb45-2"><a href="layers.html#cb45-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
-<span id="cb45-3"><a href="layers.html#cb45-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb45-4"><a href="layers.html#cb45-4"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">panel.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Land cover&quot;</span>, <span class="st">&quot;Land cover (simpl.)&quot;</span>,</span>
-<span id="cb45-5"><a href="layers.html#cb45-5"></a>                             <span class="st">&quot;Percent Tree Cover&quot;</span>, <span class="st">&quot;Elevation&quot;</span>))</span></code></pre></div>
+<span id="cb45-3"><a href="layers.html#cb45-3"></a><span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb45-4"><a href="layers.html#cb45-4"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">panel.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Elevation&quot;</span>, <span class="st">&quot;Geomorphons&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmrasterml"></span>
 <img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="672" />
 <p class="caption">
 FIGURE 5.7: A map created from a multilayered raster.
 </p>
 </div>
-<p>We focus on how to specify and modify facets (also known as small multiples) in Chapter <a href="multiples.html#multiples">10</a> and how to modify map layout in Chapter <a href="layout.html#layout">8</a>.</p>
+<p>If you want to learn more - we focus on how to specify and modify facets (also known as small multiples) in Chapter <a href="multiples.html#multiples">10</a> and how to modify map layout in Chapter <a href="layout.html#layout">8</a>.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="layers.html#cb46-1"></a><span class="co">#to replace later</span></span>
 <span id="cb46-2"><a href="layers.html#cb46-2"></a><span class="kw">library</span>(stars)</span>
 <span id="cb46-3"><a href="layers.html#cb46-3"></a>landsat =<span class="st"> </span><span class="kw">read_stars</span>(<span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>))</span></code></pre></div>
-<!-- maybe add an info on how to add static base maps?? -->
 <p>The <code>landsat</code> object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
 We can plot all of the bands independently or as a combination of three bands.
 This combination is known as a color composite image, and we can create such images with the <code>tm_rgb()</code> function (Figure <a href="layers.html#fig:tmrgbs">5.8</a>).</p>
@@ -691,25 +687,24 @@ FIGURE 5.8: Two color composite images: (A) true color composite, (B) false colo
 </div>
 <div id="tile" class="section level2">
 <h2><span class="header-section-number">5.6</span> Tile</h2>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="layers.html#cb49-1"></a><span class="kw">data</span>(metro)</span></code></pre></div>
 <!-- A tile layer is .. -->
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 <p>Tile layers can be used for two purposes: either as a basemap or an overlay layer.
 By default, three basemaps are available in the interactive mode (<code>tmap_mode("view")</code>):
 <code>"Esri.WorldGrayCanvas"</code>, <code>"OpenStreetMap"</code>, and <code>"Esri.WorldTopoMap"</code>.
 However, we can change the used basemaps with a vector with the names of the tile layers’ providers (Figure <a href="layers.html#fig:tmbasemap1">5.9</a>).</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="layers.html#cb50-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb50-2"><a href="layers.html#cb50-2"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
-<span id="cb50-3"><a href="layers.html#cb50-3"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
-<span id="cb50-4"><a href="layers.html#cb50-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos, <span class="dt">is.master =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb50-5"><a href="layers.html#cb50-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="layers.html#cb49-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb49-2"><a href="layers.html#cb49-2"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>,</span>
+<span id="cb49-3"><a href="layers.html#cb49-3"></a>             <span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>)) <span class="op">+</span></span>
+<span id="cb49-4"><a href="layers.html#cb49-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos, <span class="dt">is.master =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb49-5"><a href="layers.html#cb49-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmbasemap1"></span>
-<img src="images/tmbasemap1.png" alt="Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India" width="400" />
+<img src="images/tmbasemap1.png" alt="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island." width="400" />
 <p class="caption">
-FIGURE 5.9: Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India
+FIGURE 5.9: OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.
 </p>
 </div>
-<p>In the above code, we made two basemaps available - <code>"OpenTopoMap"</code>, and <code>"OpenStreetMap"</code>, and for the map legend purpose, we renamed them as <code>TopoMap</code> and <code>StreetMap</code>.
+<p>In the above code, we made two basemaps available - <code>"OpenStreetMap"</code> and <code>"OpenTopoMap"</code>, and for the map legend purpose, we renamed them as <code>StreetMap</code> and <code>TopoMap</code>.
 A complete list of available basemaps is in the <code>leaflet::providers</code> object and on the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" class="uri">https://leaflet-extras.github.io/leaflet-providers/preview/</a> website<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
@@ -718,44 +713,59 @@ A complete list of available basemaps is in the <code>leaflet::providers</code> 
 <!-- how to setup your own server or some references? --></p>
 <p>The <code>tm_basemap(NULL)</code> function allows to disable basemaps entirely.</p>
 <p>The <code>tm_tiles()</code> function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous <code>tm_</code> layer.
-In the next example, we put the vector <code>"OpenRailwayMap"</code> tiles on top of the previously set basemaps, but below the following dots layer (Figure <a href="layers.html#fig:tmtiles1">5.10</a>).</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="layers.html#cb51-1"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>,</span>
-<span id="cb51-2"><a href="layers.html#cb51-2"></a>             <span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>)) <span class="op">+</span></span>
-<span id="cb51-3"><a href="layers.html#cb51-3"></a><span class="st">  </span><span class="kw">tm_tiles</span>(<span class="kw">c</span>(<span class="dt">TonerHybrid =</span> <span class="st">&quot;Stamen.TonerHybrid&quot;</span>)) <span class="op">+</span></span>
-<span id="cb51-4"><a href="layers.html#cb51-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos, <span class="dt">is.master =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb51-5"><a href="layers.html#cb51-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
+In the next example, we put the vector <code>"Stamen.TonerHybrid"</code> tiles on top of the previously set basemaps, but below the dots layer (Figure <a href="layers.html#fig:tmtiles1">5.10</a>).</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="layers.html#cb50-1"></a><span class="kw">tm_basemap</span>(<span class="kw">c</span>(<span class="dt">StreetMap =</span> <span class="st">&quot;OpenStreetMap&quot;</span>,</span>
+<span id="cb50-2"><a href="layers.html#cb50-2"></a>             <span class="dt">TopoMap =</span> <span class="st">&quot;OpenTopoMap&quot;</span>)) <span class="op">+</span></span>
+<span id="cb50-3"><a href="layers.html#cb50-3"></a><span class="st">  </span><span class="kw">tm_tiles</span>(<span class="kw">c</span>(<span class="dt">TonerHybrid =</span> <span class="st">&quot;Stamen.TonerHybrid&quot;</span>)) <span class="op">+</span></span>
+<span id="cb50-4"><a href="layers.html#cb50-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos, <span class="dt">is.master =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb50-5"><a href="layers.html#cb50-5"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">group =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:tmtiles1"></span>
-<img src="images/tmtiles1.png" alt="Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India" width="400" />
+<img src="images/tmtiles1.png" alt="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island." width="400" />
 <p class="caption">
-FIGURE 5.10: Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India
+FIGURE 5.10: OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.
 </p>
 </div>
 <!-- static map tiles -->
 <!-- + ref above -->
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="layers.html#cb52-1"></a><span class="kw">library</span>(maptiles)</span>
-<span id="cb52-2"><a href="layers.html#cb52-2"></a>ei_tiles =<span class="st"> </span><span class="kw">get_tiles</span>(ei_borders, <span class="dt">crop =</span> <span class="ot">TRUE</span>, <span class="dt">zoom =</span> <span class="dv">12</span>, <span class="dt">provider =</span> <span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="layers.html#cb53-1"></a><span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="layers.html#cb54-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb54-2"><a href="layers.html#cb54-2"></a><span class="kw">tm_shape</span>(ei_tiles) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb54-3"><a href="layers.html#cb54-3"></a><span class="st">  </span><span class="kw">tm_rgb</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb54-4"><a href="layers.html#cb54-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb54-5"><a href="layers.html#cb54-5"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
-<span id="cb54-6"><a href="layers.html#cb54-6"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>),</span>
-<span id="cb54-7"><a href="layers.html#cb54-7"></a>               <span class="dt">bg.color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
-<span id="cb54-8"><a href="layers.html#cb54-8"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>),</span>
-<span id="cb54-9"><a href="layers.html#cb54-9"></a>             <span class="dt">bg.color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<!-- https://github.com/riatelab/maptiles -->
+<!-- + mention alternatives -->
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="layers.html#cb51-1"></a><span class="kw">library</span>(maptiles)</span>
+<span id="cb51-2"><a href="layers.html#cb51-2"></a>ei_tiles =<span class="st"> </span><span class="kw">get_tiles</span>(ei_borders, <span class="dt">crop =</span> <span class="ot">TRUE</span>, <span class="dt">zoom =</span> <span class="dv">12</span>, <span class="dt">provider =</span> <span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="layers.html#cb52-1"></a><span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="layers.html#cb53-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb53-2"><a href="layers.html#cb53-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span>
+<span id="cb53-3"><a href="layers.html#cb53-3"></a><span class="kw">tm_shape</span>(ei_tiles) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-4"><a href="layers.html#cb53-4"></a><span class="st">  </span><span class="kw">tm_rgb</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-5"><a href="layers.html#cb53-5"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb53-6"><a href="layers.html#cb53-6"></a><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span></span>
+<span id="cb53-7"><a href="layers.html#cb53-7"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="kw">get_credit</span>(<span class="st">&quot;Stamen.Toner&quot;</span>),</span>
+<span id="cb53-8"><a href="layers.html#cb53-8"></a>             <span class="dt">bg.color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="combining-layers" class="section level2">
 <h2><span class="header-section-number">5.7</span> Combining layers</h2>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="layers.html#cb55-1"></a><span class="co"># tm_shape(x) +</span></span>
-<span id="cb55-2"><a href="layers.html#cb55-2"></a><span class="co">#   tm_polygons(col = &quot;gdpPercap&quot;) +</span></span>
-<span id="cb55-3"><a href="layers.html#cb55-3"></a><span class="co">#   tm_symbols(col = &quot;lifeExp&quot;, palette = &quot;viridis&quot;, size = 0.2)</span></span></code></pre></div>
-<!-- 
-<!-- projection -->
-<!-- is.master -->
-<!-- or maybe start with it and explain the details later? -->
-<!-- show symbols on top of polygons-->
-<!-- think of a better example -->
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="layers.html#cb54-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb54-2"><a href="layers.html#cb54-2"></a><span class="st">  </span><span class="kw">tm_raster</span>() <span class="op">+</span></span>
+<span id="cb54-3"><a href="layers.html#cb54-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb54-4"><a href="layers.html#cb54-4"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb54-5"><a href="layers.html#cb54-5"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb54-6"><a href="layers.html#cb54-6"></a><span class="st">  </span><span class="kw">tm_lines</span>() <span class="op">+</span></span>
+<span id="cb54-7"><a href="layers.html#cb54-7"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb54-8"><a href="layers.html#cb54-8"></a><span class="st">  </span><span class="kw">tm_symbols</span>()</span>
+<span id="cb54-9"><a href="layers.html#cb54-9"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="layers.html#cb55-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb55-2"><a href="layers.html#cb55-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Elevation (m asl)&quot;</span>) <span class="op">+</span></span>
+<span id="cb55-3"><a href="layers.html#cb55-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb55-4"><a href="layers.html#cb55-4"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb55-5"><a href="layers.html#cb55-5"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb55-6"><a href="layers.html#cb55-6"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>, <span class="dt">legend.lwd.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb55-7"><a href="layers.html#cb55-7"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb55-8"><a href="layers.html#cb55-8"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb55-9"><a href="layers.html#cb55-9"></a><span class="st">  </span><span class="kw">tm_add_legend</span>(<span class="dt">type =</span> <span class="st">&quot;symbol&quot;</span>, <span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)<span class="op">+</span></span>
+<span id="cb55-10"><a href="layers.html#cb55-10"></a><span class="st">  </span><span class="kw">tm_add_legend</span>(<span class="dt">type =</span> <span class="st">&quot;line&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Roads&quot;</span>)</span>
+<span id="cb55-11"><a href="layers.html#cb55-11"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<p><img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

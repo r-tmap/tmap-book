@@ -157,9 +157,11 @@ tm_shape(ei_borders) +
 Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
 This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
+(ref:tmpolygonsder) Example of a map created with: (A) 'tm_polygons()', (B) 'tm_fill()', (C) 'tm_borders()'.
+
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' ." width="672" />
-<p class="caption">(\#fig:tmpolygonsder)Example of a map created with: (A) 'tm_polygons()' ,  (B) 'tm_fill()' , (C) 'tm_borders()' .</p>
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="(ref:tmpolygonsder)" width="672" />
+<p class="caption">(\#fig:tmpolygonsder)(ref:tmpolygonsder)</p>
 </div>
 
 More information on colors, and how they can be applied and modified is explained in detail in Chapter \@ref(colors).
@@ -175,7 +177,7 @@ volcanos = subset(ei_points, type == "volcano")
 Symbols are a very flexible layer type. 
 They are usually used to represent point data, but can be also used for lines and polygons.
 In the latter cases, they are located in centroid coordinates of each feature.
-Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables).
+Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in Chapter \@ref(visual-variables)).
 
 The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (Figure \@ref(fig:tmsymbols1)).
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
@@ -185,7 +187,7 @@ By default, this function draws a gray circle symbol with a black border for eac
 <p class="caption">(\#fig:tmsymbols1)A map showing the default tmap symbols.</p>
 </div>
 
-In the above example, each symbol is related to one feature (row) in the `metro2` object.
+In the above example, each symbol is related to one feature (row) in the `volcanos` object.
 However, in a case when we provide multi-element features (such as MULTIPOINT; section \@ref(vector-data-model)), each multi-element object is first split into a number of single-element features and then plotted.
 
 The `tm_symbols()` is a very flexible function with a large number of arguments.
@@ -229,9 +231,11 @@ tm_shape(volcanos) +
   tm_markers()
 ```
 
+(ref:tmsymbols2) Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().
+
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()." width="672" />
-<p class="caption">(\#fig:tmsymbols2)Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().</p>
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="(ref:tmsymbols2)" width="672" />
+<p class="caption">(\#fig:tmsymbols2)(ref:tmsymbols2)</p>
 </div>
 
 ## Lines
@@ -243,6 +247,8 @@ ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 
 The `tm_lines()` function allows to visualize different types of line data (Figure \@ref(fig:tmlines)).
 
+(ref:tmlines) Example of a map created with tm_lines().
+
 
 ```r
 tm_shape(ei_roads) + 
@@ -250,8 +256,8 @@ tm_shape(ei_roads) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmlines-1.png" alt="Example of a map created with tm_lines." width="672" />
-<p class="caption">(\#fig:tmlines)Example of a map created with tm_lines.</p>
+<img src="05-layers_files/figure-html/tmlines-1.png" alt="(ref:tmlines)" width="672" />
+<p class="caption">(\#fig:tmlines)(ref:tmlines)</p>
 </div>
 
 Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
@@ -263,6 +269,8 @@ Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (Figure \@ref(fig:tmtext)).
 
+(ref:tmtext) Example of a map created with tm_text().
+
 
 ```r
 tm_shape(volcanos) +
@@ -271,8 +279,8 @@ tm_shape(volcanos) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmtext-1.png" alt="Example of a map created with tm_text." width="672" />
-<p class="caption">(\#fig:tmtext)Example of a map created with tm_text.</p>
+<img src="05-layers_files/figure-html/tmtext-1.png" alt="(ref:tmtext)" width="672" />
+<p class="caption">(\#fig:tmtext)(ref:tmtext)</p>
 </div>
 
 
@@ -314,33 +322,38 @@ Isopleths can be created with the `tm_iso()` function.
 
 
 ```r
-data(land, package = "tmap")
-# library(raster)
-# elev = land["elevation"]
-# elev_isopleths = rasterToContour(as(elev, "Raster"))
+# to improve
+library(stars)
+#> Loading required package: abind
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_elev_raster = as(ei_elev, "Raster")
+elev_isopleths = raster::rasterToContour(ei_elev_raster)
 
-# think about tm_iso example
-# improve example
-# tm_shape(elev_isopleths) +
-#   tm_iso()
-# 
-# library(tmap)
-# data("dem", package = "spDataLarge")
-# # create hillshade
-# hs = hillShade(slope = terrain(dem, "slope"), aspect = terrain(dem, "aspect"))
-# # create contour
-# cn = rasterToContour(dem)
-# 
-# tm_shape(hs) +
-# 	tm_grid() +
-# 	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
-# 	tm_shape(dem) +
-# 	tm_raster(alpha = 0.5, palette = terrain.colors(25),
-# 	          legend.show = FALSE) +
-# 	tm_shape(cn) +
-# 	tm_lines(col = "white") +
-# 	tm_text("level", col = "white")
+tm_shape(elev_isopleths) +
+  tm_iso()
+#> Warning in sp::proj4string(obj): CRS object has comment,
+#> which is lost in output
 ```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+hs = raster::hillShade(slope = raster::terrain(ei_elev_raster, "slope"), 
+                       aspect = raster::terrain(ei_elev_raster, "aspect"))
+
+tm_shape(hs) +
+	tm_grid() +
+	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
+	tm_shape(ei_elev) +
+	tm_raster(alpha = 0.5, palette = terrain.colors(25),
+	          legend.show = FALSE) +
+	tm_shape(elev_isopleths) +
+	tm_lines(col = "white") +
+	tm_text("level", col = "white")
+```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- auto.placement  -->
 <!-- remove.overlap -->
@@ -355,7 +368,6 @@ data(land, package = "tmap")
 
 ```r
 library(stars)
-#> Loading required package: abind
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
 ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
 ```
@@ -378,20 +390,8 @@ We can also adjust the legend title, used colors, and many more, in a similar fa
 
 
 ```r
-labels = c("flat", "summit", "ridge", "shoulder", "spur", 
-           "slope", "hollow", "footslope", "valley", "depression")
-colors = c("#dcdcdc", "#380000", "#c80000", "#ff5014", "#fad23c", "#ffff3c",
-           "#b4e614", "#3cfa96", "#0000ff", "#000038")
-
 tm_shape(ei_geomorphons) +
-  tm_raster(title = "Geomorphons:", style = "cat",
-            palette = colors, labels = labels)
-```
-
-
-```
-#> stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)
-#> stars object downsampled to 1194 by 837 cells. See tm_shape manual (argument raster.downsample)
+  tm_raster(title = "Geomorphons:")
 ```
 
 <div class="figure" style="text-align: center">
@@ -405,19 +405,19 @@ By default, **tmap** shows all of the layers, where each raster has its own lege
 
 
 ```r
-tm_shape(land) +
+raster2 = c(ei_elev, ei_geomorphons)
+tm_shape(raster2) +
   tm_raster()
 ```
 
-We can modify their arrangement with `tm_facets()` and (Figure \@ref(fig:tmrasterml)).
+We can modify their arrangement with `tm_facets()` (Figure \@ref(fig:tmrasterml)).
 
 
 ```r
-tm_shape(land) +
+tm_shape(raster2) +
   tm_raster() +
-  tm_facets(nrow = 1) +
-  tm_layout(panel.labels = c("Land cover", "Land cover (simpl.)",
-                             "Percent Tree Cover", "Elevation"))
+  tm_facets(ncol = 1) +
+  tm_layout(panel.labels = c("Elevation", "Geomorphons"))
 ```
 
 <div class="figure" style="text-align: center">
@@ -425,7 +425,7 @@ tm_shape(land) +
 <p class="caption">(\#fig:tmrasterml)A map created from a multilayered raster.</p>
 </div>
 
-We focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
+If you want to learn more - we focus on how to specify and modify facets (also known as small multiples) in Chapter \@ref(multiples) and how to modify map layout in Chapter \@ref(layout).
 
 
 ```r
@@ -433,8 +433,6 @@ We focus on how to specify and modify facets (also known as small multiples) in 
 library(stars)
 landsat = read_stars(system.file("raster/landsat.tif", package = "spDataLarge"))
 ```
-
-<!-- maybe add an info on how to add static base maps?? -->
 
 The `landsat` object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on 18th of August 2015.
 We can plot all of the bands independently or as a combination of three bands.
@@ -477,11 +475,6 @@ tm_shape(landsat) +
 
 ## Tile
 
-
-```r
-data(metro)
-```
-
 <!-- A tile layer is .. -->
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 
@@ -493,18 +486,18 @@ However, we can change the used basemaps with a vector with the names of the til
 
 ```r
 tmap_mode("view")
-tm_basemap(c(TopoMap = "OpenTopoMap",
-             StreetMap = "OpenStreetMap")) +
+tm_basemap(c(StreetMap = "OpenStreetMap",
+             TopoMap = "OpenTopoMap")) +
   tm_shape(volcanos, is.master = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
 <div class="figure" style="text-align: center">
-<img src="images/tmbasemap1.png" alt="Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India" width="400" />
-<p class="caption">(\#fig:tmbasemap1)Topographic tile layer used as a base map with the red dots representing major metropolitan areas in India</p>
+<img src="images/tmbasemap1.png" alt="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island." width="400" />
+<p class="caption">(\#fig:tmbasemap1)OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.</p>
 </div>
 
-In the above code, we made two basemaps available - `"OpenTopoMap"`, and `"OpenStreetMap"`, and for the map legend purpose, we renamed them as `TopoMap` and  `StreetMap`.
+In the above code, we made two basemaps available - `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
 A complete list of available basemaps is in the `leaflet::providers` object and on the https://leaflet-extras.github.io/leaflet-providers/preview/ website^[Additional details can be found in the `leaflet::providers.details` object].
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
@@ -515,24 +508,26 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
-In the next example, we put the vector `"OpenRailwayMap"` tiles on top of the previously set basemaps, but below the following dots layer (Figure \@ref(fig:tmtiles1)).
+In the next example, we put the vector `"Stamen.TonerHybrid"` tiles on top of the previously set basemaps, but below the dots layer (Figure \@ref(fig:tmtiles1)).
 
 
 ```r
-tm_basemap(c(TopoMap = "OpenTopoMap",
-             StreetMap = "OpenStreetMap")) +
+tm_basemap(c(StreetMap = "OpenStreetMap",
+             TopoMap = "OpenTopoMap")) +
   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
   tm_shape(volcanos, is.master = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
 <div class="figure" style="text-align: center">
-<img src="images/tmtiles1.png" alt="Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India" width="400" />
-<p class="caption">(\#fig:tmtiles1)Topographic tile layer used as a base map with orange lines representing railways and the red dots representing major metropolitan areas in India</p>
+<img src="images/tmtiles1.png" alt="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island." width="400" />
+<p class="caption">(\#fig:tmtiles1)OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.</p>
 </div>
 
 <!-- static map tiles -->
 <!-- + ref above -->
+<!-- https://github.com/riatelab/maptiles -->
+<!-- + mention alternatives -->
 
 
 ```r
@@ -546,34 +541,52 @@ get_credit("Stamen.Toner")
 ```
 
 
+
+
 ```r
 tmap_mode("plot")
+#> tmap mode set to plotting
 tm_shape(ei_tiles) + 
   tm_rgb() + 
   tm_shape(ei_borders) +
   tm_borders(lwd = 5, col = "lightblue") +
-  tm_scale_bar(breaks = c(0, 2, 4),
-               bg.color = "white") +
   tm_credits(get_credit("Stamen.Toner"),
              bg.color = "white")
 ```
+
+<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Combining layers
 
 
 ```r
-# tm_shape(x) +
-#   tm_polygons(col = "gdpPercap") +
-#   tm_symbols(col = "lifeExp", palette = "viridis", size = 0.2)
+tm_shape(ei_elev) +
+  tm_raster() +
+  tm_shape(ei_borders) + 
+  tm_borders() +
+  tm_shape(ei_roads) + 
+  tm_lines() +
+  tm_shape(volcanos) +
+  tm_symbols()
+#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
 ```
 
-<!-- 
-<!-- projection -->
-<!-- is.master -->
+<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
 
-<!-- or maybe start with it and explain the details later? -->
 
-<!-- show symbols on top of polygons-->
-<!-- think of a better example -->
+```r
+tm_shape(ei_elev) +
+  tm_raster(style = "cont", title = "Elevation (m asl)") +
+  tm_shape(ei_borders) + 
+  tm_borders() +
+  tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
+  tm_shape(volcanos) +
+  tm_symbols(shape = 24, size = 0.25) +
+  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos")+
+  tm_add_legend(type = "line", lwd = 1, col = "black", title = "Roads")
+#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
+```
 
+<img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
 
