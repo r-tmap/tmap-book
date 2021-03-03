@@ -734,22 +734,25 @@ tm_shape(ei_points) +
 ```
 
 Second option is to use a *grob* object.
+<!-- add intro what are grobs -->
+<!-- add reference to some section explaining tmap_grob (chapter 10??) -->
 
 ```{r}
 # library(grid)
 # library(ggplotify)
-# library(ggplot2)
-# 
+library(ggplot2)
+
 # p1 = as.grob(~barplot(1:10))
 # p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
 # p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
-# p4 = ggplotGrob(ggplot(data.frame(x = 1:10, y = 1:10), aes(x, y)) + geom_point() + theme_void())
+p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() + theme_void())
 ```
 
-```{r}
-# tm_shape(metro2) +
-#   tm_symbols(shape = "group",
-#              shapes = list(p3, p3, p3)) 
+```{r, eval=FALSE}
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shapes = list(p4, p4, p4),
+             border.col = NULL)
 ```
 
 <!-- explain what's a grob -->
@@ -757,12 +760,6 @@ Second option is to use a *grob* object.
 <!-- add new example -->
 
 <!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-
-```{r, eval=FALSE}
-tm_shape(ei_points) +
-  tm_symbols(shape = "group",
-             shapes = my_icons)
-```
 
 The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
 The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
@@ -795,7 +792,9 @@ tmsymshape2 = tm_shape(ei_points) +
              shapes = c(0, 2, 5))  +
   tm_layout(title = "B")
 tmsymshape3 = tm_shape(ei_points) +
-  tm_symbols(shape = "type") +
+  tm_symbols(shape = "type",
+             shapes = list(p4, p4, p4),
+             border.col = NULL) +
   tm_layout(title = "C")
 tmsymshape4 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
