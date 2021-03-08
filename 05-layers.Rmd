@@ -526,16 +526,5 @@ tm_shape(ei_elev) +
   tm_symbols()
 ```
 
-```{r, warning=FALSE}
-tm_shape(ei_elev) +
-  tm_raster(style = "cont", title = "Elevation (m asl)") +
-  tm_shape(ei_borders) + 
-  tm_borders() +
-  tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
-  tm_shape(volcanos) +
-  tm_symbols(shape = 24, size = 0.25) +
-  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos")+
-  tm_add_legend(type = "line", lwd = 1, col = "black", title = "Roads")
-```
+
 
