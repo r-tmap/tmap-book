@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-03" />
+<meta name="date" content="2021-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -245,22 +245,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="nutshell" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> <strong>tmap</strong> in a nutshell</h1>
 <!-- intro -->
+<!-- exploration vs communication -->
+<!-- data intro -->
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="nutshell.html#cb9-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb9-2"><a href="nutshell.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb9-3"><a href="nutshell.html#cb9-3"></a><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0</span></span>
+<span id="cb9-4"><a href="nutshell.html#cb9-4"></a><span class="kw">library</span>(stars)</span>
+<span id="cb9-5"><a href="nutshell.html#cb9-5"></a><span class="co">#&gt; Loading required package: abind</span></span>
+<span id="cb9-6"><a href="nutshell.html#cb9-6"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
+<span id="cb9-7"><a href="nutshell.html#cb9-7"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb9-8"><a href="nutshell.html#cb9-8"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span>
+<span id="cb9-9"><a href="nutshell.html#cb9-9"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
+<span id="cb9-10"><a href="nutshell.html#cb9-10"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <div id="regular-maps" class="section level2">
 <h2><span class="header-section-number">3.1</span> Regular maps</h2>
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
 <!-- explain line by line -->
 <!-- ref to other parts of the book -->
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="nutshell.html#cb10-1"></a>my_map =<span class="st"> </span><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb10-2"><a href="nutshell.html#cb10-2"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
+<span id="cb10-3"><a href="nutshell.html#cb10-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Elevation (m asl)&quot;</span>,</span>
+<span id="cb10-4"><a href="nutshell.html#cb10-4"></a>            <span class="dt">palette =</span> <span class="st">&quot;-RdYlGn&quot;</span>, <span class="dt">midpoint =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb10-5"><a href="nutshell.html#cb10-5"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-6"><a href="nutshell.html#cb10-6"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb10-7"><a href="nutshell.html#cb10-7"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-8"><a href="nutshell.html#cb10-8"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>, <span class="dt">legend.lwd.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb10-9"><a href="nutshell.html#cb10-9"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb10-10"><a href="nutshell.html#cb10-10"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb10-11"><a href="nutshell.html#cb10-11"></a><span class="st">  </span><span class="kw">tm_add_legend</span>(<span class="dt">type =</span> <span class="st">&quot;symbol&quot;</span>, <span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>) <span class="op">+</span></span>
+<span id="cb10-12"><a href="nutshell.html#cb10-12"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></span>
+<span id="cb10-13"><a href="nutshell.html#cb10-13"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>() <span class="op">+</span></span>
+<span id="cb10-14"><a href="nutshell.html#cb10-14"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
+<span id="cb10-15"><a href="nutshell.html#cb10-15"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="nutshell.html#cb11-1"></a>my_map</span></code></pre></div>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- refs  -->
 </div>
 <div id="quick-maps" class="section level2">
 <h2><span class="header-section-number">3.2</span> Quick maps</h2>
 <!-- customization vs quick map -->
 <!-- exploration vs communication -->
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="nutshell.html#cb12-1"></a><span class="kw">qtm</span>(ei_elev)</span>
+<span id="cb12-2"><a href="nutshell.html#cb12-2"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="nutshell.html#cb13-1"></a><span class="kw">qtm</span>(ei_roads, <span class="dt">lines.lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span></code></pre></div>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="nutshell.html#cb14-1"></a>my_map2 =<span class="st"> </span><span class="kw">qtm</span>(ei_elev) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="nutshell.html#cb14-2"></a><span class="st">  </span><span class="kw">qtm</span>(ei_roads, <span class="dt">lines.lwd =</span> <span class="st">&quot;strokelwd&quot;</span>)</span>
+<span id="cb14-3"><a href="nutshell.html#cb14-3"></a>my_map2</span>
+<span id="cb14-4"><a href="nutshell.html#cb14-4"></a><span class="co">#&gt; Variable(s) &quot;NA&quot; contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</span></span></code></pre></div>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="map-modes" class="section level2">
 <h2><span class="header-section-number">3.3</span> Map modes</h2>
 <!-- static maps, default -->
 <!-- interactive maps -->
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="nutshell.html#cb15-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb15-2"><a href="nutshell.html#cb15-2"></a><span class="co">#&gt; tmap mode set to interactive viewing</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="nutshell.html#cb16-1"></a>my_map</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="nutshell.html#cb17-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb17-2"><a href="nutshell.html#cb17-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="nutshell.html#cb18-1"></a>my_map</span></code></pre></div>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

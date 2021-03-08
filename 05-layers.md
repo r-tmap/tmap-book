@@ -574,19 +574,4 @@ tm_shape(ei_elev) +
 <img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
 
 
-```r
-tm_shape(ei_elev) +
-  tm_raster(style = "cont", title = "Elevation (m asl)") +
-  tm_shape(ei_borders) + 
-  tm_borders() +
-  tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
-  tm_shape(volcanos) +
-  tm_symbols(shape = 24, size = 0.25) +
-  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos")+
-  tm_add_legend(type = "line", lwd = 1, col = "black", title = "Roads")
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
 
