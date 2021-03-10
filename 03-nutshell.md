@@ -3,14 +3,14 @@
 <!-- intro -->
 <!-- exploration vs communication -->
 
+## Spatial data
+
 <!-- data intro -->
 
 ```r
 library(tmap)
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
 library(stars)
-#> Loading required package: abind
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
@@ -19,7 +19,38 @@ volcanos = subset(ei_points, type == "volcano")
 ```
 
 
+## Quick maps
+
+<!-- customization vs quick map -->
+<!-- exploration vs communication -->
+
+
+
+```r
+qtm(volcanos)
+```
+
+<img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
+```
+
+<img src="03-nutshell_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+
 ## Regular maps
+
+<!-- mention tmap elements -->
+
+<!-- reproduce the above plot -->
+
+```r
+tm_shape(volcanos) +
+  tm_symbols(shape = 24, size = "elevation") +
+  tm_layout(title = "Volcanos")
+```
+
 
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
@@ -37,8 +68,9 @@ my_map = tm_shape(ei_elev) +
   tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
   tm_shape(volcanos) +
-  tm_symbols(shape = 24, size = 0.25) +
-  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos") +
+  tm_symbols(shape = 24, size = "elevation",
+             title.size = "Volcanos (m asl)") +
+  tm_add_legend(type = "line", title = "Roads", col = "black") +
   tm_compass(position = c("right", "top")) +
   tm_scale_bar() +
   tm_layout(main.title = "Easter Island",
@@ -50,38 +82,9 @@ my_map = tm_shape(ei_elev) +
 my_map
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-nutshell_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- refs  -->
-
-## Quick maps
-
-<!-- customization vs quick map -->
-<!-- exploration vs communication -->
-
-```r
-qtm(ei_elev)
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
-```
-
-<img src="03-nutshell_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
-
-
-```r
-qtm(ei_roads, lines.lwd = "strokelwd")
-```
-
-<img src="03-nutshell_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
-
-
-```r
-my_map2 = qtm(ei_elev) + 
-  qtm(ei_roads, lines.lwd = "strokelwd")
-my_map2
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
-```
-
-<img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ## Map modes
@@ -110,5 +113,6 @@ tmap_mode("plot")
 my_map
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+## Small multiples {#sm-section}
 
+## Animations {#ani-section}
