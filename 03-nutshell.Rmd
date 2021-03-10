@@ -3,8 +3,10 @@
 <!-- intro -->
 <!-- exploration vs communication -->
 
+## Spatial data
+
 <!-- data intro -->
-```{r}
+```{r, message=FALSE}
 library(tmap)
 library(sf)
 library(stars)
@@ -16,7 +18,33 @@ volcanos = subset(ei_points, type == "volcano")
 ```
 
 
+## Quick maps
+
+<!-- customization vs quick map -->
+<!-- exploration vs communication -->
+```{r, eval=FALSE, echo=FALSE}
+qtm(ei_elev)
+```
+
+```{r}
+qtm(volcanos)
+```
+
+```{r}
+qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
+```
+
 ## Regular maps
+
+<!-- mention tmap elements -->
+
+<!-- reproduce the above plot -->
+```{r, eval=FALSE}
+tm_shape(volcanos) +
+  tm_symbols(shape = 24, size = "elevation") +
+  tm_layout(title = "Volcanos")
+```
+
 
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
@@ -33,37 +61,20 @@ my_map = tm_shape(ei_elev) +
   tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
   tm_shape(volcanos) +
-  tm_symbols(shape = 24, size = 0.25) +
-  tm_add_legend(type = "symbol", shape = 24, title = "Volcanos") +
+  tm_symbols(shape = 24, size = "elevation",
+             title.size = "Volcanos (m asl)") +
+  tm_add_legend(type = "line", title = "Roads", col = "black") +
   tm_compass(position = c("right", "top")) +
   tm_scale_bar() +
   tm_layout(main.title = "Easter Island",
             bg.color = "lightblue")
 ```
 
-```{r}
+```{r, fig.height=9, fig.asp=0.73}
 my_map
 ```
 
 <!-- refs  -->
-
-## Quick maps
-
-<!-- customization vs quick map -->
-<!-- exploration vs communication -->
-```{r}
-qtm(ei_elev)
-```
-
-```{r}
-qtm(ei_roads, lines.lwd = "strokelwd")
-```
-
-```{r}
-my_map2 = qtm(ei_elev) + 
-  qtm(ei_roads, lines.lwd = "strokelwd")
-my_map2
-```
 
 
 ## Map modes
@@ -82,7 +93,10 @@ my_map
 tmap_mode("plot")
 ```
 
-```{r}
+```{r, eval=FALSE}
 my_map
 ```
 
+## Small multiples {#sm-section}
+
+## Animations {#ani-section}
