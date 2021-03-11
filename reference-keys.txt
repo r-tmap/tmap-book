@@ -70,7 +70,7 @@ types-of-map-projections
 which-projection-to-choose
 crs-in-r
 nutshell
-spatial-data
+shape-objects
 quick-maps
 regular-maps
 map-modes

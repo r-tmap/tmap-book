@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-10" />
+<meta name="date" content="2021-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="nutshell.html"><a href="nutshell.html"><i class="fa fa-check"></i><b>3</b> <strong>tmap</strong> in a nutshell</a><ul>
-<li class="chapter" data-level="3.1" data-path="nutshell.html"><a href="nutshell.html#spatial-data"><i class="fa fa-check"></i><b>3.1</b> Spatial data</a></li>
+<li class="chapter" data-level="3.1" data-path="nutshell.html"><a href="nutshell.html#shape-objects"><i class="fa fa-check"></i><b>3.1</b> Shape objects</a></li>
 <li class="chapter" data-level="3.2" data-path="nutshell.html"><a href="nutshell.html#quick-maps"><i class="fa fa-check"></i><b>3.2</b> Quick maps</a></li>
 <li class="chapter" data-level="3.3" data-path="nutshell.html"><a href="nutshell.html#regular-maps"><i class="fa fa-check"></i><b>3.3</b> Regular maps</a></li>
 <li class="chapter" data-level="3.4" data-path="nutshell.html"><a href="nutshell.html#map-modes"><i class="fa fa-check"></i><b>3.4</b> Map modes</a></li>
@@ -247,11 +247,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="nutshell" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> <strong>tmap</strong> in a nutshell</h1>
-<!-- intro -->
-<!-- exploration vs communication -->
-<div id="spatial-data" class="section level2">
-<h2><span class="header-section-number">3.1</span> Spatial data</h2>
-<!-- data intro -->
+<p>The <strong>tmap</strong> package allows the creation of thematic maps with great flexibility.
+It accepts spatial data in various formats shape objects (section <a href="nutshell.html#shape-objects">3.1</a>)
+Next, the data can be used to create simple, quick maps (section <a href="nutshell.html#quick-maps">3.2</a>) and more complex and expandable maps (section <a href="nutshell.html#regular-maps">3.3</a>).
+These maps can be presented in two modes - as a static map and an interactive one.
+Additionally, <strong>tmap</strong> makes it possible to create small multiples map (section <a href="nutshell.html#sm-section">3.5</a>) and map animations (section <a href="nutshell.html#ani-section">3.6</a>).</p>
+<div id="shape-objects" class="section level2">
+<h2><span class="header-section-number">3.1</span> Shape objects</h2>
+<!-- two main data models -->
+<!-- many spatial data formats -->
+<!-- also many spatial data classes in r -->
+<!-- tmap collectively calls all of them shape objects -->
+<!-- ref to data chapter  (see chapter \@ref(geodata)) -->
+<!-- for example, below, we read ... -->
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="nutshell.html#cb9-1"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb9-2"><a href="nutshell.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
 <span id="cb9-3"><a href="nutshell.html#cb9-3"></a><span class="kw">library</span>(stars)</span>
@@ -260,6 +268,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-6"><a href="nutshell.html#cb9-6"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span>
 <span id="cb9-7"><a href="nutshell.html#cb9-7"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
 <span id="cb9-8"><a href="nutshell.html#cb9-8"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
+<!-- ref also to data appendix -->
+<!-- spatial data, no matter the format, usually stores spatial geometries/locations/shapes and related data/attributes -->
+<!-- if we just want to present data attributes, we could use regular plotting functions (e.g. ...) or packages (e.g. ) -->
+<!-- however, when we create maps - our goal is usually to either just visualize spatial shapes or spatial shapes together with their attributes -->
 </div>
 <div id="quick-maps" class="section level2">
 <h2><span class="header-section-number">3.2</span> Quick maps</h2>
