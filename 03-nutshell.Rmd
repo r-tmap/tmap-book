@@ -1,11 +1,21 @@
 # **tmap** in a nutshell {#nutshell}
 
-<!-- intro -->
-<!-- exploration vs communication -->
+The **tmap** package allows the creation of thematic maps with great flexibility.
+It accepts spatial data in various formats shape objects (section \@ref(shape-objects))
+Next, the data can be used to create simple, quick maps (section \@ref(quick-maps)) and more complex and expandable maps (section \@ref(regular-maps)).
+These maps can be presented in two modes - as a static map and an interactive one.
+Additionally, **tmap** makes it possible to create small multiples map (section \@ref(sm-section)) and map animations (section \@ref(ani-section)).
 
-## Spatial data
+## Shape objects
 
-<!-- data intro -->
+<!-- two main data models -->
+<!-- many spatial data formats -->
+<!-- also many spatial data classes in r -->
+<!-- tmap collectively calls all of them shape objects -->
+<!-- ref to data chapter  (see chapter \@ref(geodata)) -->
+
+<!-- for example, below, we read ... -->
+
 ```{r, message=FALSE}
 library(tmap)
 library(sf)
@@ -17,6 +27,11 @@ ei_points = read_sf("data/easter_island/ei_points.gpkg")
 volcanos = subset(ei_points, type == "volcano")
 ```
 
+<!-- ref also to data appendix -->
+
+<!-- spatial data, no matter the format, usually stores spatial geometries/locations/shapes and related data/attributes -->
+<!-- if we just want to present data attributes, we could use regular plotting functions (e.g. ...) or packages (e.g. ) -->
+<!-- however, when we create maps - our goal is usually to either just visualize spatial shapes or spatial shapes together with their attributes -->
 
 ## Quick maps
 
