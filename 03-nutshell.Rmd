@@ -34,11 +34,9 @@ On the other hand, **tmap** is suitable when our goal is to visualize spatial ge
 
 ## Quick maps
 
+<!-- The **tmap** package offers a distingison between quick and regular maps... -->
 <!-- customization vs quick map -->
 <!-- exploration vs communication -->
-```{r, eval=FALSE, echo=FALSE}
-qtm(ei_elev)
-```
 
 ```{r}
 qtm(volcanos)
