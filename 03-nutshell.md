@@ -8,11 +8,10 @@ Additionally, **tmap** makes it possible to create small multiples map (section 
 
 ## Shape objects
 
-<!-- two main data models -->
-<!-- many spatial data formats -->
-<!-- also many spatial data classes in r -->
-<!-- tmap collectively calls all of them shape objects -->
-<!-- ref to data chapter  (see chapter \@ref(geodata)) -->
+As we established in chapter \@ref(geodata), spatial data comes in various file formats related to two main data models - vector and raster.
+There are also several spatial object classes in R, for example, `sf` from the **sf** package for vector data and `stars` from **stars** for raster data and spatial data cubes.
+Additionally, packages such as **sp**, **raster**, or **terra** offer their own classes, and this abundance of spatial object classes can be generally overwhelming.
+Gladly, **tmap** can work with all of the above objects - it treats all supported spatial data classes as so-called *shape objects*.
 
 <!-- for example, below, we read ... -->
 
@@ -30,29 +29,29 @@ volcanos = subset(ei_points, type == "volcano")
 
 <!-- ref also to data appendix -->
 
-<!-- spatial data, no matter the format, usually stores spatial geometries/locations/shapes and related data/attributes -->
-<!-- if we just want to present data attributes, we could use regular plotting functions (e.g. ...) or packages (e.g. ) -->
-<!-- however, when we create maps - our goal is usually to either just visualize spatial shapes or spatial shapes together with their attributes -->
+Spatial data, no matter the class, usually stores two interrelated sets of information - about the locations/geometries and their associated values/attributes.
+Visualization of the attributes only can be done with regular plotting functions (e.g., `plot()`, `hist()`, `barplot()`) or dedicated packages, such as **ggplot2** <!--cite-->.
+On the other hand, **tmap** is suitable when our goal is to visualize spatial geometries only or spatial geometries together with their attributes.
 
 ## Quick maps
 
+<!-- The **tmap** package offers a distingison between quick and regular maps... -->
 <!-- customization vs quick map -->
 <!-- exploration vs communication -->
-
 
 
 ```r
 qtm(volcanos)
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-nutshell_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
 qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Regular maps
 
@@ -97,7 +96,7 @@ my_map = tm_shape(ei_elev) +
 my_map
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- refs  -->
 

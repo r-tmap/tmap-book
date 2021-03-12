@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-11" />
+<meta name="date" content="2021-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -254,11 +254,10 @@ These maps can be presented in two modes - as a static map and an interactive on
 Additionally, <strong>tmap</strong> makes it possible to create small multiples map (section <a href="nutshell.html#sm-section">3.5</a>) and map animations (section <a href="nutshell.html#ani-section">3.6</a>).</p>
 <div id="shape-objects" class="section level2">
 <h2><span class="header-section-number">3.1</span> Shape objects</h2>
-<!-- two main data models -->
-<!-- many spatial data formats -->
-<!-- also many spatial data classes in r -->
-<!-- tmap collectively calls all of them shape objects -->
-<!-- ref to data chapter  (see chapter \@ref(geodata)) -->
+<p>As we established in chapter <a href="geodata.html#geodata">2</a>, spatial data comes in various file formats related to two main data models - vector and raster.
+There are also several spatial object classes in R, for example, <code>sf</code> from the <strong>sf</strong> package for vector data and <code>stars</code> from <strong>stars</strong> for raster data and spatial data cubes.
+Additionally, packages such as <strong>sp</strong>, <strong>raster</strong>, or <strong>terra</strong> offer their own classes, and this abundance of spatial object classes can be generally overwhelming.
+Gladly, <strong>tmap</strong> can work with all of the above objects - it treats all supported spatial data classes as so-called <em>shape objects</em>.</p>
 <!-- for example, below, we read ... -->
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="nutshell.html#cb9-1"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb9-2"><a href="nutshell.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
@@ -269,18 +268,19 @@ Additionally, <strong>tmap</strong> makes it possible to create small multiples 
 <span id="cb9-7"><a href="nutshell.html#cb9-7"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
 <span id="cb9-8"><a href="nutshell.html#cb9-8"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <!-- ref also to data appendix -->
-<!-- spatial data, no matter the format, usually stores spatial geometries/locations/shapes and related data/attributes -->
-<!-- if we just want to present data attributes, we could use regular plotting functions (e.g. ...) or packages (e.g. ) -->
-<!-- however, when we create maps - our goal is usually to either just visualize spatial shapes or spatial shapes together with their attributes -->
+<p>Spatial data, no matter the class, usually stores two interrelated sets of information - about the locations/geometries and their associated values/attributes.
+Visualization of the attributes only can be done with regular plotting functions (e.g., <code>plot()</code>, <code>hist()</code>, <code>barplot()</code>) or dedicated packages, such as <strong>ggplot2</strong> <!--cite-->.
+On the other hand, <strong>tmap</strong> is suitable when our goal is to visualize spatial geometries only or spatial geometries together with their attributes.</p>
 </div>
 <div id="quick-maps" class="section level2">
 <h2><span class="header-section-number">3.2</span> Quick maps</h2>
+<!-- The **tmap** package offers a distingison between quick and regular maps... -->
 <!-- customization vs quick map -->
 <!-- exploration vs communication -->
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="nutshell.html#cb10-1"></a><span class="kw">qtm</span>(volcanos)</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="nutshell.html#cb11-1"></a><span class="kw">qtm</span>(volcanos, <span class="dt">symbols.shape =</span> <span class="dv">24</span>, <span class="dt">symbols.size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regular-maps" class="section level2">
 <h2><span class="header-section-number">3.3</span> Regular maps</h2>
@@ -310,7 +310,7 @@ Additionally, <strong>tmap</strong> makes it possible to create small multiples 
 <span id="cb13-15"><a href="nutshell.html#cb13-15"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
 <span id="cb13-16"><a href="nutshell.html#cb13-16"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="nutshell.html#cb14-1"></a>my_map</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- refs  -->
 </div>
 <div id="map-modes" class="section level2">
