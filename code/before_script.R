@@ -11,7 +11,10 @@ knitr::opts_chunk$set(
   fig.height = 7,
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold"#,out.width = "100%"
+  fig.show = "hold",
+  #,out.width = "100%"
+  dev.args = list(png = list(type = "cairo-png")),
+  optipng = "-o1 -quiet"
 )
 
 if(!knitr:::is_html_output()){
