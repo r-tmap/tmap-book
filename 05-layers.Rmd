@@ -102,7 +102,7 @@ tm_shape(ei_borders) +
 Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
 This is necessary to distinguish between the setting of the fillings color and the borders' color.
 
-(ref:tmpolygonsder) Example of a map created with: (A) 'tm_polygons()', (B) 'tm_fill()', (C) 'tm_borders()'.
+(ref:tmpolygonsder) Example of a map created with: (A) `tm_polygons()`, (B) `tm_fill()`, (C) `tm_borders()`.
 
 ```{r tmpolygonsder, warning=FALSE, fig.cap="(ref:tmpolygonsder)", echo=FALSE, fig.asp=0.4}
 tmpa0 = tm_shape(ei_borders) +
