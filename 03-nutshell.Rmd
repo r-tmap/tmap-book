@@ -34,17 +34,33 @@ On the other hand, **tmap** is suitable when our goal is to visualize spatial ge
 
 ## Quick maps
 
-<!-- The **tmap** package offers a distingison between quick and regular maps... -->
-<!-- customization vs quick map -->
-<!-- exploration vs communication -->
+The **tmap** package offers a distinction between quick and regular maps.
+The first approach, using the `qtm()` function, could be handy for data exploration.
+It works even if we just provide any *shape object* - in that case, only the geometry is plotted.
+Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanos`.
 
-```{r}
+```{r, eval=FALSE}
 qtm(volcanos)
 ```
 
-```{r}
+The `qtm()` function allows to customize many map elements for the provided *shape object*.
+For example, we can change the shapes of the points in `volcanos`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
+
+```{r, eval=FALSE}
 qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
 ```
+
+(ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
+
+```{r qtm, fig.cap="(ref:qtm)", echo=FALSE}
+tmq1 = qtm(volcanos) + tm_layout(title = "A")
+tmq2 = qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos") +
+   tm_layout(title = "B")
+tmap_arrange(tmq1, tmq2)
+```
+
+The `qtm()` function offers similar flexibility to the regular map approach. 
+However, it only supports one shape object.
 
 ## Regular maps
 
