@@ -35,29 +35,46 @@ On the other hand, **tmap** is suitable when our goal is to visualize spatial ge
 
 ## Quick maps
 
-<!-- The **tmap** package offers a distingison between quick and regular maps... -->
-<!-- customization vs quick map -->
-<!-- exploration vs communication -->
+The **tmap** package offers a distinction between quick and regular maps.
+The first approach, using the `qtm()` function, could be handy for data exploration.
+It works even if we just provide any *shape object* - in that case, only the geometry is plotted.
+Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanos`.
 
 
 ```r
 qtm(volcanos)
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+The `qtm()` function allows to customize many map elements for the provided *shape object*.
+For example, we can change the shapes of the points in `volcanos`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
 
 
 ```r
 qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+(ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
+
+<div class="figure" style="text-align: center">
+<img src="03-nutshell_files/figure-html/qtm-1.png" alt="(ref:qtm)" width="672" />
+<p class="caption">(\#fig:qtm)(ref:qtm)</p>
+</div>
+
+The `qtm()` function offers similar flexibility to the regular map approach. 
+However, it only supports one shape object.
 
 ## Regular maps
 
-<!-- mention tmap elements -->
+<!-- therefore, for most application, we recommend to use the regular map approach.  -->
+<!-- This approach uses many functions, called elements, that start with `tm_`. -->
+<!-- The first element always is `tm_shape()`, which specified the input shape object. -->
+<!-- Next map layers, additional map elements, and overall layout can be customized -->
+<!-- references -->
 
-<!-- reproduce the above plot -->
+<!-- add more content -->
+
+The last example in \@ref(quick-maps) can be reproduced with the second approach by using the following code:
+
 
 ```r
 tm_shape(volcanos) +
@@ -65,6 +82,7 @@ tm_shape(volcanos) +
   tm_layout(title = "Volcanos")
 ```
 
+<!-- explain the above code -->
 
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
@@ -96,7 +114,7 @@ my_map = tm_shape(ei_elev) +
 my_map
 ```
 
-<img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-nutshell_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- refs  -->
 

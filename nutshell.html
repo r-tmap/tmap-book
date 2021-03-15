@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-14" />
+<meta name="date" content="2021-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -274,21 +274,37 @@ On the other hand, <strong>tmap</strong> is suitable when our goal is to visuali
 </div>
 <div id="quick-maps" class="section level2">
 <h2><span class="header-section-number">3.2</span> Quick maps</h2>
-<!-- The **tmap** package offers a distingison between quick and regular maps... -->
-<!-- customization vs quick map -->
-<!-- exploration vs communication -->
+<p>The <strong>tmap</strong> package offers a distinction between quick and regular maps.
+The first approach, using the <code>qtm()</code> function, could be handy for data exploration.
+It works even if we just provide any <em>shape object</em> - in that case, only the geometry is plotted.
+Figure <a href="nutshell.html#fig:qtm">3.1</a>:A shows a visualization of the geometries from the <code>volcanos</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="nutshell.html#cb10-1"></a><span class="kw">qtm</span>(volcanos)</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The <code>qtm()</code> function allows to customize many map elements for the provided <em>shape object</em>.
+For example, we can change the shapes of the points in <code>volcanos</code>, make their sizes related to the the <code>"elevation"</code> argument, and add a title (Figure <a href="nutshell.html#fig:qtm">3.1</a>:B).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="nutshell.html#cb11-1"></a><span class="kw">qtm</span>(volcanos, <span class="dt">symbols.shape =</span> <span class="dv">24</span>, <span class="dt">symbols.size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+<div class="figure" style="text-align: center"><span id="fig:qtm"></span>
+<img src="03-nutshell_files/figure-html/qtm-1.png" alt="Two maps created with qtm(): (A) by providing only a shape object, (B) by providing a shape object and some other arguments." width="672" />
+<p class="caption">
+FIGURE 3.1: Two maps created with <code>qtm()</code>: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
+</p>
+</div>
+<p>The <code>qtm()</code> function offers similar flexibility to the regular map approach.
+However, it only supports one shape object.</p>
 </div>
 <div id="regular-maps" class="section level2">
 <h2><span class="header-section-number">3.3</span> Regular maps</h2>
-<!-- mention tmap elements -->
-<!-- reproduce the above plot -->
+<!-- therefore, for most application, we recommend to use the regular map approach.  -->
+<!-- This approach uses many functions, called elements, that start with `tm_`. -->
+<!-- The first element always is `tm_shape()`, which specified the input shape object. -->
+<!-- Next map layers, additional map elements, and overall layout can be customized -->
+<!-- references -->
+<!-- add more content -->
+<p>The last example in <a href="nutshell.html#quick-maps">3.2</a> can be reproduced with the second approach by using the following code:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="nutshell.html#cb12-1"></a><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
 <span id="cb12-2"><a href="nutshell.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
 <span id="cb12-3"><a href="nutshell.html#cb12-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
+<!-- explain the above code -->
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
 <!-- explain line by line -->
@@ -310,7 +326,7 @@ On the other hand, <strong>tmap</strong> is suitable when our goal is to visuali
 <span id="cb13-15"><a href="nutshell.html#cb13-15"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
 <span id="cb13-16"><a href="nutshell.html#cb13-16"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="nutshell.html#cb14-1"></a>my_map</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03-nutshell_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- refs  -->
 </div>
 <div id="map-modes" class="section level2">
