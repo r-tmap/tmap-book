@@ -64,22 +64,30 @@ However, it only supports one shape object.
 
 ## Regular maps
 
-<!-- mention tmap elements -->
+<!-- therefore, for most application, we recommend to use the regular map approach.  -->
+<!-- This approach uses many functions, called elements, that start with `tm_`. -->
+<!-- The first element always is `tm_shape()`, which specified the input shape object. -->
+<!-- Next map layers, additional map elements, and overall layout can be customized -->
+<!-- references -->
 
-<!-- reproduce the above plot -->
+<!-- add more content -->
+
+The last example in \@ref(quick-maps) can be reproduced with the second approach by using the following code:
+
 ```{r, eval=FALSE}
 tm_shape(volcanos) +
   tm_symbols(shape = 24, size = "elevation") +
   tm_layout(title = "Volcanos")
 ```
 
+<!-- explain the above code -->
 
 <!-- add a complete map code -->
 <!-- - Layered approach (grammar of graphics) -->
 <!-- explain line by line -->
 <!-- ref to other parts of the book -->
 
-```{r, warning=FALSE}
+```{r rmap, warning=FALSE}
 my_map = tm_shape(ei_elev) +
   tm_graticules() +
   tm_raster(style = "cont", title = "Elevation (m asl)",
