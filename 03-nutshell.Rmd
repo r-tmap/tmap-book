@@ -102,7 +102,7 @@ Look at the following example and try to guess how many *groups* it has, and how
 
 ```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73}
 tm_shape(ei_elev) +
-  tm_raster(style = "cont", palette = "-RdYlGn", 
+  tm_raster(style = "cont", palette = "-RdYlGn", midpoint = NA,
             title = "Elevation (m asl)") +
   tm_shape(ei_borders) + 
   tm_borders() +
