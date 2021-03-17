@@ -52,7 +52,7 @@ qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos"
 ```{r qtm, fig.cap="(ref:qtm)", echo=FALSE}
 tmq1 = qtm(volcanos) + tm_layout(title = "A")
 tmq2 = qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos") +
-   tm_layout(title = "B")
+   tm_layout(title = "B   Volcanos")
 tmap_arrange(tmq1, tmq2)
 ```
 
@@ -87,8 +87,8 @@ This plots each point with a size based on the `elevation` attribute from the `v
 The `tm_shape()` function and one or more following map layers create a *group* together.
 In other words, map layers are related only to the preceding `tm_shape()` call.
 One map can have several *groups*.
-
-<!-- explain new data -->
+Let's see how many *groups* work by reading some additional datasets - the `ei_elev` raster with elevation data for Easter Island, the `ei_borders` polygon with the island outline, and the `ei_roads` lines contains a road network for this island.
+<!-- ref data appendix -->
 
 ```{r}
 library(sf)
@@ -98,12 +98,12 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 ```
 
-<!-- the next example... -->
+Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group*.
 
 ```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73}
 tm_shape(ei_elev) +
-  tm_raster(style = "cont", title = "Elevation (m asl)",
-            palette = "-RdYlGn", midpoint = NA) +
+  tm_raster(style = "cont", palette = "-RdYlGn", 
+            title = "Elevation (m asl)") +
   tm_shape(ei_borders) + 
   tm_borders() +
   tm_shape(ei_roads) + 
@@ -115,15 +115,19 @@ tm_shape(ei_elev) +
             bg.color = "lightblue")
 ```
 
-<!-- add a complete map code -->
-<!-- - Layered approach (grammar of graphics) -->
-<!-- explain line by line -->
+The correct answer is four groups, all with just one layer.
+Each *group* is put on the top of the previous one - the **tmap** uses a layered approach.
+The first *group* represents elevation data with a continuous color scale style, a color palette called `"RdYlGn"`, and a legend title.
+The second *group* shows the borders of Easter Island with the default aesthetics, while the third *group* presents the road network (the `ei_roads` object), with each line's width based on the values from the `"strokelwd"` column, but with a legend hidden.
+The last *group* is similar to our previous example with fixed symbol shapes and sizes related to the `"elevation"` attribute, but also with the legend title instead of the map title.
 <!-- ref to other parts of the book -->
+
+
 
 ```{r, warning=FALSE}
 my_map = tm_shape(ei_elev) +
-  tm_raster(style = "cont", title = "Elevation (m asl)",
-            palette = "-RdYlGn", midpoint = NA) +
+  tm_raster(style = "cont", palette = "-RdYlGn", midpoint = NA,
+            title = "Elevation (m asl)") +
   tm_shape(ei_borders) + 
   tm_borders() +
   tm_shape(ei_roads) + 
