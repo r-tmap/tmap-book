@@ -98,11 +98,11 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 ```
 
-Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group*.
+Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group* (Figure \@ref(fig:rmap1)).
 
 ```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73}
 tm_shape(ei_elev) +
-  tm_raster(style = "cont", palette = "-RdYlGn", midpoint = NA,
+  tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
   tm_shape(ei_borders) + 
   tm_borders() +
@@ -123,12 +123,22 @@ The last *group* is similar to our previous example with fixed symbol shapes and
 Additionally, we use the `tm_layout()` function to add a map title.
 <!-- ref to other parts of the book -->
 
-Often, maps have also additional map elements, such as graticule lines, north arrow,  scale bar, or map credits. 
-<!-- explain -->
+Often, maps also have additional map elements, such as graticule lines, north arrow, scale bar, or map credits (Figure \@ref(fig:rmap2)). 
+They help map readers to understand data location or its size, and provide some ancillary information.
+The **tmap** package offers a set of functions for additional map elements.
+The `tm_graticules()` function draws latitude and longitude graticules and adds their labels.
+It also uses the layered approach, and thus, the lines will be drawn either below or above the shape objects, depending on the position of this function in the code.
+In our example below, `tm_graticules()` is used after all of the map groups, and that is why the graticule lines are put on the top of the spatial data.
+We can also use `tm_compass()` to create a north arrow, `tm_scale_bar()` to add a scale bar, and `tm_credits()` to add a text annotation representing credits or acknowledgments.
+The location of all these three elements on the map is, by default, automatically determined.
+It, however, can be adjusted with the `position` argument - see its example in the `tm_compass()` function below.
+<!-- manual legend -->
+<!-- creating map objects -->
+<!-- ref to other parts of the book -->
 
 ```{r, warning=FALSE}
 my_map = tm_shape(ei_elev) +
-  tm_raster(style = "cont", palette = "-RdYlGn", midpoint = NA,
+  tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
   tm_shape(ei_borders) + 
   tm_borders() +
