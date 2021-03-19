@@ -14,13 +14,13 @@ Additionally, packages such as **sp**, **raster**, or **terra** offer their own 
 Gladly, **tmap** can work with all of the above objects - it treats all supported spatial data classes as so-called *shape objects*.
 
 For example, we read the `ei_points.gpkg` file contains several points on Easter Island into a new object, `ei_points`, and select only points with the `type` of `"volcano"`.
-The `volcanos` object is a *shape object*.
+The `volcanoes` object is a *shape object*.
 
 ```{r, message=FALSE}
 library(tmap)
 library(sf)
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
-volcanos = subset(ei_points, type == "volcano")
+volcanoes = subset(ei_points, type == "volcano")
 ```
 
 <!-- ref also to data appendix -->
@@ -34,25 +34,25 @@ On the other hand, **tmap** is suitable when our goal is to visualize spatial ge
 The **tmap** package offers a distinction between quick and regular maps.
 The first approach, using the `qtm()` function, could be handy for data exploration.
 It works even if we just provide any *shape object* - in that case, only the geometry is plotted.
-Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanos`.
+Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanoes`.
 
 ```{r, eval=FALSE}
-qtm(volcanos)
+qtm(volcanoes)
 ```
 
 The `qtm()` function allows to customize many map elements for the provided *shape object*.
-For example, we can change the shapes of the points in `volcanos`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
+For example, we can change the shapes of the points in `volcanoes`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
 
 ```{r, eval=FALSE}
-qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos")
+qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes")
 ```
 
 (ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
 
 ```{r qtm, fig.cap="(ref:qtm)", echo=FALSE}
-tmq1 = qtm(volcanos) + tm_layout(title = "A")
-tmq2 = qtm(volcanos, symbols.shape = 24, symbols.size = "elevation", title = "Volcanos") +
-   tm_layout(title = "B   Volcanos")
+tmq1 = qtm(volcanoes) + tm_layout(title = "A")
+tmq2 = qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes") +
+   tm_layout(title = "B   Volcanoes")
 tmap_arrange(tmq1, tmq2)
 ```
 
@@ -71,9 +71,9 @@ Next, map layers, additional map elements, and overall layout can be customized.
 The last example in \@ref(quick-maps) can be reproduced with the regular map approach using the following code:
 
 ```{r, eval=FALSE}
-tm_shape(volcanos) +
+tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation") +
-  tm_layout(title = "Volcanos")
+  tm_layout(title = "volcanoes")
 ```
 
 Here, we specify the input data (our shape object) with `tm_shape()`, aesthetics (also known as *visual variables*) of map layers with `tm_symbols()`, and the map title with `tm_layout()`.
@@ -82,7 +82,7 @@ The **tmap** package has a number of possible map layers, but the most prominent
 Overall, most visual variables of map layers can be assigned in two main ways.
 First, they accept a fixed, constant value, for instance, `shape = 24`, which sets the symbols' shapes to triangles.
 Second, it is also possible to provide a variable name, for example `size = "elevation"`.
-This plots each point with a size based on the `elevation` attribute from the `volcanos` object and automatically adds a related map legend.
+This plots each point with a size based on the `elevation` attribute from the `volcanoes` object and automatically adds a related map legend.
 
 The `tm_shape()` function and one or more following map layers create a *group* together.
 In other words, map layers are related only to the preceding `tm_shape()` call.
@@ -100,7 +100,9 @@ ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 
 Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group* (Figure \@ref(fig:rmap1)).
 
-```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73}
+(ref:rmap1) Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer.
+
+```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap1)"}
 tm_shape(ei_elev) +
   tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
@@ -108,9 +110,9 @@ tm_shape(ei_elev) +
   tm_borders() +
   tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
-  tm_shape(volcanos) +
+  tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
-             title.size = "Volcanos (m asl)") +
+             title.size = "Volcanoes (m asl)") +
   tm_layout(main.title = "Easter Island",
             bg.color = "lightblue")
 ```
@@ -134,9 +136,6 @@ The location of all these three elements on the map is, by default, automaticall
 It, however, can be adjusted with the `position` argument - see an example of its use in the `tm_compass()` function below.
 Moreover, it is possible to add any type of manual legend with `tm_add_legend()`.
 It includes simple legends, such as the `"Roads"` legend below that is only represented by a single black line, but more complex legends with several elements are also possible. 
-
-<!-- manual legend -->
-<!-- creating map objects -->
 <!-- ref to other parts of the book -->
 
 ```{r, warning=FALSE}
@@ -147,9 +146,9 @@ my_map = tm_shape(ei_elev) +
   tm_borders() +
   tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
-  tm_shape(volcanos) +
+  tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
-             title.size = "Volcanos (m asl)") +
+             title.size = "Volcanoes (m asl)") +
   tm_graticules() +
   tm_compass(position = c("right", "top")) +
   tm_scale_bar() +
@@ -162,12 +161,13 @@ my_map = tm_shape(ei_elev) +
 Maps created with **tmap** can be saved as an R object.
 This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects.
 
-```{r rmap2, fig.height=9, fig.asp=0.73}
+(ref:rmap1) Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
+
+```{r rmap2, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap1)"}
 my_map
 ```
 
 <!-- refs  -->
-
 
 ## Map modes
 
