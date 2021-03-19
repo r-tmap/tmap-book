@@ -131,7 +131,10 @@ It also uses the layered approach, and thus, the lines will be drawn either belo
 In our example below, `tm_graticules()` is used after all of the map groups, and that is why the graticule lines are put on the top of the spatial data.
 We can also use `tm_compass()` to create a north arrow, `tm_scale_bar()` to add a scale bar, and `tm_credits()` to add a text annotation representing credits or acknowledgments.
 The location of all these three elements on the map is, by default, automatically determined.
-It, however, can be adjusted with the `position` argument - see its example in the `tm_compass()` function below.
+It, however, can be adjusted with the `position` argument - see an example of its use in the `tm_compass()` function below.
+Moreover, it is possible to add any type of manual legend with `tm_add_legend()`.
+It includes simple legends, such as the `"Roads"` legend below that is only represented by a single black line, but more complex legends with several elements are also possible. 
+
 <!-- manual legend -->
 <!-- creating map objects -->
 <!-- ref to other parts of the book -->
@@ -151,10 +154,13 @@ my_map = tm_shape(ei_elev) +
   tm_compass(position = c("right", "top")) +
   tm_scale_bar() +
   tm_credits("Author, 2021") +
-  tm_add_legend(type = "line", title = "Roads", col = "black") +
+  tm_add_legend(type = "line", col = "black", title = "Roads") +
   tm_layout(main.title = "Easter Island",
             bg.color = "lightblue")
 ```
+
+Maps created with **tmap** can be saved as an R object.
+This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects.
 
 ```{r rmap2, fig.height=9, fig.asp=0.73}
 my_map
