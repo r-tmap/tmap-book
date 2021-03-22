@@ -159,11 +159,11 @@ my_map = tm_shape(ei_elev) +
 ```
 
 Maps created with **tmap** can be saved as an R object.
-This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects.
+This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects to files.
 
-(ref:rmap1) Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
+(ref:rmap2) Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
 
-```{r rmap2, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap1)"}
+```{r rmap2, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap2)"}
 my_map
 ```
 
@@ -171,15 +171,36 @@ my_map
 
 ## Map modes
 
-<!-- static maps, default -->
-<!-- interactive maps -->
+Each map created with **tmap** can be viewed in one of two modes: `"plot"` and `"view"`.
+The `"plot"` mode is used by default and creates static maps similar to those shown before in this chapter. 
+<!-- You can think of static maps as of images. -->
+This mode supports almost all of **tmap**'s features, and it is recommended, for example, for scientific publications or printing.
+
+The second mode, `"view"`, allows creating interactive maps.
+They can be zoomed in and out or panned, allow for changing background tiles, or click on map objects to get some additional information.
+This mode has, however, some constraints and limitations comparing to `"plot"`, for example 
+the legend cannot be fully customized, and some additional map elements are not supported.
+
+The **tmap** package allows using both modes on the same code.
+Therefore, there is no need to create two separate maps for static and interactive use.
+The `tmap_mode()` function can be used to switch from one mode to the other^[Map modes can be also changed globally using `tmap_options()` or switched using `ttm()`.].
+
 ```{r}
 tmap_mode("view")
 ```
 
+<!-- explain that either tmap object or a new map can be used here -->
+
 ```{r, eval=FALSE}
 my_map
 ```
+
+<!-- explain messages -->
+
+```{r, echo=FALSE}
+widgetframe::frameWidget(tmap_leaflet(my_map))
+```
+
 
 ```{r}
 tmap_mode("plot")
@@ -188,6 +209,8 @@ tmap_mode("plot")
 ```{r, eval=FALSE}
 my_map
 ```
+
+More information about the interactive `"view"` mode is in chapter \@ref(interactive).
 
 ## Small multiples {#sm-section}
 
