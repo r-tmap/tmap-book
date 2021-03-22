@@ -14,7 +14,8 @@ knitr::opts_chunk$set(
   fig.show = "hold",
   #,out.width = "100%"
   dev.args = list(png = list(type = "cairo-png")),
-  optipng = "-o1 -quiet"
+  optipng = "-o1 -quiet",
+  widgetframe_widgets_dir = 'widgets'
 )
 
 if(!knitr:::is_html_output()){
