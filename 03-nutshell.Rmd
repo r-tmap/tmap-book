@@ -222,4 +222,12 @@ More information about the interactive `"view"` mode and how to customize its ou
 
 ## Small multiples {#sm-section}
 
+<!-- to write after the \@ref(multiples) chapter is done -->
+
+Chapter \@ref(multiples) 
+
 ## Animations {#ani-section}
+
+<!-- to write after the \@ref(animations) chapter is done -->
+
+Chapter \@ref(animations)
