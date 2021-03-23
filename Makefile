@@ -1,22 +1,23 @@
 html:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
 	Rscript code/generate_book_stats.R
-	mv widgets _book/.
+	cp -r widgets _book/.
+	#mv widgets _book/.
 
 pdf:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
-	mv widgets _book/.
+	cp -r widgets _book/.
 	
 all:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::epub_book")'
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE)'
-	mv widgets _book/.
+	cp -r widgets _book/.
 	
 both:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE)'
-	mv widgets _book/.
+	cp -r widgets _book/.
 
 clean:
 	Rscript -e "bookdown::clean_book(TRUE)"
