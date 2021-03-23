@@ -189,28 +189,36 @@ The `tmap_mode()` function can be used to switch from one mode to the other^[Map
 tmap_mode("view")
 ```
 
-<!-- explain that either tmap object or a new map can be used here -->
+The above line of code just changes the mode - it does not return anything except the message.
+Now, if we want to use this mode, we need to either write a new **tmap** code provide some existing **tmap** object, such as `my_map`.
 
 ```{r, eval=FALSE}
 my_map
 ```
 
-<!-- explain messages -->
+As a result, we get several messages and an interactive map.
+These messages inform us that some map elements specified in the previous code are not possible in the `"view"` mode.
+It includes the text annotation ("Credits"), the north arrow ("Compass"), and some legend options.
 
-```{r, echo=FALSE}
+(ref:imap1) Map from Figure \@ref(fig:rmap2) shown using the interactive ("view") mode.
+
+```{r imap1, echo=FALSE, fig.cap="(ref:imap1)"}
 widgetframe::frameWidget(tmap_leaflet(my_map))
 ```
 
+Our main result is the interactive map (Figure \@ref(fig:imap1)).
+<!-- improve -->
+It shows our spatial data using similar aesthetics to Figure \@ref(fig:rmap2), but allows us to zoom in and out or move the map.
+We also can select a background tile or click on any line and point to get some information.
 
-```{r}
+To go back to the `"plot"` mode, we need to use the `tmap_mode()` function again - map not shown:
+
+```{r, fig.show='hide'}
 tmap_mode("plot")
-```
-
-```{r, eval=FALSE}
 my_map
 ```
 
-More information about the interactive `"view"` mode is in chapter \@ref(interactive).
+More information about the interactive `"view"` mode and how to customize its outputs is in chapter \@ref(interactive).
 
 ## Small multiples {#sm-section}
 
