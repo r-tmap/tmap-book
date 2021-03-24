@@ -488,6 +488,7 @@ That being said, many people find them useful also for static maps, and several 
 It includes packages, such as **ceramic**, **mapmisc**, or **maptiles**.
 <!-- add refs -->
 <!-- https://github.com/riatelab/maptiles -->
+<!-- mention read_osm()? -->
 
 Here, we focus on **maptiles**.
 This package has one main function called `get_tiles()` that expects a spatial object with our area of interest and downloads a spatial data representing our tiles.
