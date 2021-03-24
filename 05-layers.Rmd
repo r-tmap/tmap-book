@@ -427,9 +427,9 @@ tmap_arrange(tmrgb1, tmrgb2, asp = NA)
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 
 Tile layers can be used for two purposes: either as a basemap or an overlay layer.
-By default, three basemaps are available in the interactive mode (`tmap_mode("view")`): 
+By default, three basemaps are used in the interactive mode (`tmap_mode("view")`): 
 `"Esri.WorldGrayCanvas"`, `"OpenStreetMap"`, and  `"Esri.WorldTopoMap"`.
-However, we can change the used basemaps with a vector with the names of the tile layers' providers (Figure \@ref(fig:tmbasemap1)).
+However, we can change the basemaps with a vector with the names of the tile layers' providers (Figure \@ref(fig:tmbasemap1)).
 
 ```{r, eval=FALSE}
 tmap_mode("view")
@@ -457,7 +457,6 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 <!-- https://github.com/leaflet-extras/leaflet-providers -->
 <!-- how to add url tiles -->
 <!-- how to setup your own server or some references? -->
-
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
@@ -483,21 +482,32 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 knitr::include_graphics("images/tmtiles1.png")
 ```
 
-<!-- static map tiles -->
-<!-- + ref above -->
+Tile layers are usually created to be used interactively.
+We can see it, for example, by their number of details varying depending on the zoom level we set.
+That being said, many people find them useful also for static maps, and several packages and functions were created to allow downloading tile layers and using them for static maps.
+It includes packages, such as **ceramic**, **mapmisc**, or **maptiles**.
+<!-- add refs -->
 <!-- https://github.com/riatelab/maptiles -->
-<!-- + mention alternatives -->
+
+Here, we focus on **maptiles**.
+This package has one main function called `get_tiles()` that expects a spatial object with our area of interest and downloads a spatial data representing our tiles.
+<!-- ... -->
+The `get_tiles()` function also allows us to select one of many map tiles providers and decide on the zoom level we want to use.
+A complete list of available providers and some information about zoom levels are in the help file of this function - `?get_tiles()`.
+In some cases, also the `crop` argument set to `TRUE` can be useful - it returns a tile cropped to the area of interest.
 
 ```{r, message=FALSE, cache=FALSE}
 library(maptiles)
-ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Toner")
+ei_tiles = get_tiles(ei_borders, provider = "Stamen.Toner", zoom = 12, crop = TRUE)
 ```
+
+In the above example, we downloaded the data for the area of `ei_borders` from the `"Stamen.Toner"` provider using the zoom of level 12, and we cropped the tile to the extent of the island area.
 
 ```{r, eval=FALSE}
 get_credit("Stamen.Toner")
 ```
 
-```{r, echo=FALSE, cache=FALSE}
+```{r, echo=FALSE, cache=FALSE, message=FALSE}
 library(tmap)
 library(sf)
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
