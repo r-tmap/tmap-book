@@ -943,7 +943,7 @@ However, this is only recommended when the target area spans less than 6 degrees
 \index{PROJ}
 Coordinate Reference Systems (CRSs) are implemented in the software library [**PROJ**](https://proj.org/).
 With implementation, we mean specifying a CRS and transforming coordinates from one CRS to another.
-**PROJ** is used by every popular software application for spatial data, in particular **ArcGIS**, **QGIS**, and **GRASS**, and also by many programming languages, including R. 
+**PROJ** is used by every popular software application for spatial data, in particular **ArcGIS**, **QGIS**, and **GRASS GIS**, and also by many programming languages, including R. 
 The **sf** package integrates the **PROJ** functions into R.   
 
 A CRS is represented in R by an object of class `crs`, which can be retrieved or set with the function `st_crs` (from the **sf** package).
@@ -951,7 +951,6 @@ In the following example, a `crs` object is created from an EPSG code, in this c
 
 ```{r crs-new}
 library(sf)
-
 # CRS Lambert Azimuthal Equal-Area projection
 st_crs(3035)
 ```
@@ -964,59 +963,72 @@ Understanding the exact content of the WTK is not important for most users, sinc
 \index{crs objects}
 \index{EPSG}
 \index{proj4}
-A `crs` object can be created in three ways:
+A `crs` object can be created in several ways:
 <!--to improve in the future-->
 
 1. The first is with an EPSG number as user input specification as shown above. <!--it can be also some other "provider", e.g. "ESRI:37001"-->
 2. The second is also with a user input specification, but with a so-called *proj4* character string. 
 The *proj4* character string for the LAEA projection is `"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`.
 However, *proj4* character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
-Also note that the name *proj4* stands for the **PROJ** library version 4, while the current major version of **PROJ** at the time of writing is already 7.
-3. The third way to create a `crs` object is to extract it from an existing spatial data object (e.g. an **sf** or **stars** object).
+Also note that the name *proj4* stands for the **PROJ** library version 4, while the current major version of **PROJ** at the time of writing is already 8.
+3. The third way is to provide some WKT definition of the projection. <!--...-->
+4. The last way to create a `crs` object is to extract it from an existing spatial data object (e.g., an **sf** or **stars** object) using the `st_crs()` function.
 
-A `crs` object can be used to define a new spatial object or to transform an existing spatial object into another projection.
+A `crs` object can define a new spatial object's projection or transform an existing spatial object into another projection.
+In the example below, we created a new object, `waterfalls`, with names and coordinates of three famous waterfalls.
+Next, we converted it into a spatial object of the `sf` class, `waterfalls_sf()` with `st_as_sf()`.
+We can see that our object's coordinate reference system is not defined with the `st_crs()` function.
 
 ```{r crs-use}
 # create a data.frame of three famous waterfalls
 waterfalls = data.frame(name = c("Iguazu Falls", "Niagara Falls", "Victoria Falls"), 
                         lat = c(-25.686785, 43.092461, -17.931805), 
                         lon = c(-54.444981, -79.047150, 25.825558))
-
 # create sf object (without specifying the crs)
 waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"))
-
 # extract crs (not defined yet)
 st_crs(waterfalls_sf)
+```
 
+This function also allows us to specify CRS of our object - in this example, coordinates of our object are in the WGS84 coordinate system, and thus we can use the EPSG code of 4326.
+We can also confirmed that our operation was successful also using `st_crs()`. 
+
+```{r}
 # specify crs
 st_crs(waterfalls_sf) = 4326
-
 # extract crs
 st_crs(waterfalls_sf)
+```
 
-# alternatively, create sf object with specifying the crs
+Alternatively, it is possible to set the CRS when creating a new `sf` object, as you can see below.
+
+```{r}
 waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
 ```
 
+The `st_transform()` function is used to convert the existing spatial object's coordinates into another projection.
+For example, let's transform our `waterfalls_sf` object to the Equal Earth projection (EPSG 8857).
+
 ```{r crs-trans, warning=FALSE, warning=FALSE}
-# transform to the Equal Earth projection (EPSG 8857)
 waterfalls_sf_trans = st_transform(waterfalls_sf, 8857)
 waterfalls_sf_trans
 ```
 
+Figure \@ref(fig:crs-trans-plot) shows the data in the WGS84 coordinate system on the top and in the Equal Earth projection on the bottom.
+You can see here that the decision of the projection used has an impact not only on the coordinates (notice the grid values), but also the continents' shapes.
 
-```{r crs-trans-plot, echo=FALSE, warning=FALSE}
-tmap_arrange({
-  tm_shape(World, projection = 4326) +
+```{r crs-trans-plot, echo=FALSE, warning=FALSE, fig.cap="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection."}
+ctp1 = tm_shape(World, projection = 4326) +
     tm_polygons() +
   tm_shape(waterfalls_sf) +
     tm_markers(text = "name") +
-  tm_grid()
-}, {
-  tm_shape(World, projection = 8857) +
+  tm_grid() +
+  tm_layout(title = "A")
+ctp2 = tm_shape(World, projection = 8857) +
     tm_polygons() +
   tm_shape(waterfalls_sf_trans) +
     tm_markers(text = "name") +
-  tm_grid()
-})
+  tm_grid() +
+  tm_layout(title = "B")
+tmap_arrange(ctp1, ctp2, ncol = 1)
 ```
