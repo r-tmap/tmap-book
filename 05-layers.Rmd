@@ -529,19 +529,3 @@ tm_shape(ei_tiles) +
   tm_credits(get_credit("Stamen.Toner"),
              bg.color = "white")
 ```
-
-## Combining layers
-
-```{r, warning=FALSE}
-tm_shape(ei_elev) +
-  tm_raster() +
-  tm_shape(ei_borders) + 
-  tm_borders() +
-  tm_shape(ei_roads) + 
-  tm_lines() +
-  tm_shape(volcanos) +
-  tm_symbols()
-```
-
-
-
