@@ -557,7 +557,7 @@ The world is shown as an orange below, not just to stimulate your appetite for t
 A world map can be seen as an orange peel that is put flat on the table.
 The question is how to do this.
 
-```{r crs-02, eval=TRUE, echo=FALSE, results='hide', warning=FALSE}
+```{r crs-02, eval=FALSE, echo=FALSE, results='hide', warning=FALSE}
 source("code/crs_examples.R")
 map_orange_world()
 ```
@@ -641,7 +641,7 @@ EPSG is an institute that maintains a database of standard map projections.
 
 <!--https://geographx.co.nz/map-projections/-->
 
-```{r crs-04, echo=FALSE, results='hide', warning=FALSE, fig.cap="Latitude longitude coordinates (EPSG 4326)", message=FALSE, fig.cap="The WGS84 coordinate system (EPSG4326)"}
+```{r crs-04, echo=FALSE, results='hide', warning=FALSE, fig.cap="Latitude longitude coordinates (EPSG 4326)", message=FALSE, fig.cap="The WGS84 coordinate system (EPSG4326)", eval=FALSE}
 source("code/crs_examples.R")
 
 m4326 = map_4326()
@@ -691,7 +691,7 @@ This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
 The cylinder and plain map that uses this projection are shown in Figure \@ref(fig:crs-05).
 
-```{r crs-05, echo=FALSE, results='hide', warning=FALSE, fig.cap="Web Mercator projection (EPSG3857)", message=FALSE}
+```{r crs-05, echo=FALSE, results='hide', warning=FALSE, fig.cap="Web Mercator projection (EPSG3857)", message=FALSE, eval=FALSE}
 source("code/crs_examples.R")
 
 m3857 = map_3857()
