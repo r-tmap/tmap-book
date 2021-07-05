@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 tmap in a nutshell | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.9 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 tmap in a nutshell | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-15" />
+<meta name="date" content="2021-07-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,9 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/pymjs-1.3.2/pym.v1.js"></script>
+<script src="libs/widgetframe-binding-0.3.1/widgetframe.js"></script>
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 <script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- a placeholder for a google analytics script -->
@@ -191,9 +194,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#symbols"><i class="fa fa-check"></i><b>5.2</b> Symbols</a></li>
 <li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#lines"><i class="fa fa-check"></i><b>5.3</b> Lines</a></li>
 <li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#text"><i class="fa fa-check"></i><b>5.4</b> Text</a></li>
-<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#raster"><i class="fa fa-check"></i><b>5.5</b> Raster</a></li>
+<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#raster-layer"><i class="fa fa-check"></i><b>5.5</b> Raster</a></li>
 <li class="chapter" data-level="5.6" data-path="layers.html"><a href="layers.html#tile"><i class="fa fa-check"></i><b>5.6</b> Tile</a></li>
-<li class="chapter" data-level="5.7" data-path="layers.html"><a href="layers.html#combining-layers"><i class="fa fa-check"></i><b>5.7</b> Combining layers</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="visual-variables.html"><a href="visual-variables.html"><i class="fa fa-check"></i><b>6</b> Visual variables</a><ul>
 <li class="chapter" data-level="6.1" data-path="visual-variables.html"><a href="visual-variables.html#colors"><i class="fa fa-check"></i><b>6.1</b> Colors</a><ul>
@@ -258,15 +260,12 @@ Additionally, <strong>tmap</strong> makes it possible to create small multiples 
 There are also several spatial object classes in R, for example, <code>sf</code> from the <strong>sf</strong> package for vector data and <code>stars</code> from <strong>stars</strong> for raster data and spatial data cubes.
 Additionally, packages such as <strong>sp</strong>, <strong>raster</strong>, or <strong>terra</strong> offer their own classes, and this abundance of spatial object classes can be generally overwhelming.
 Gladly, <strong>tmap</strong> can work with all of the above objects - it treats all supported spatial data classes as so-called <em>shape objects</em>.</p>
-<!-- for example, below, we read ... -->
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="nutshell.html#cb9-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb9-2"><a href="nutshell.html#cb9-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb9-3"><a href="nutshell.html#cb9-3"></a><span class="kw">library</span>(stars)</span>
-<span id="cb9-4"><a href="nutshell.html#cb9-4"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
-<span id="cb9-5"><a href="nutshell.html#cb9-5"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
-<span id="cb9-6"><a href="nutshell.html#cb9-6"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span>
-<span id="cb9-7"><a href="nutshell.html#cb9-7"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
-<span id="cb9-8"><a href="nutshell.html#cb9-8"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
+<p>For example, we read the <code>ei_points.gpkg</code> file contains several points on Easter Island into a new object, <code>ei_points</code>, and select only points with the <code>type</code> of <code>"volcano"</code>.
+The <code>volcanoes</code> object is a <em>shape object</em>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="nutshell.html#cb11-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb11-2"><a href="nutshell.html#cb11-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb11-3"><a href="nutshell.html#cb11-3"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
+<span id="cb11-4"><a href="nutshell.html#cb11-4"></a>volcanoes =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <!-- ref also to data appendix -->
 <p>Spatial data, no matter the class, usually stores two interrelated sets of information - about the locations/geometries and their associated values/attributes.
 Visualization of the attributes only can be done with regular plotting functions (e.g., <code>plot()</code>, <code>hist()</code>, <code>barplot()</code>) or dedicated packages, such as <strong>ggplot2</strong> <!--cite-->.
@@ -277,13 +276,13 @@ On the other hand, <strong>tmap</strong> is suitable when our goal is to visuali
 <p>The <strong>tmap</strong> package offers a distinction between quick and regular maps.
 The first approach, using the <code>qtm()</code> function, could be handy for data exploration.
 It works even if we just provide any <em>shape object</em> - in that case, only the geometry is plotted.
-Figure <a href="nutshell.html#fig:qtm">3.1</a>:A shows a visualization of the geometries from the <code>volcanos</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="nutshell.html#cb10-1"></a><span class="kw">qtm</span>(volcanos)</span></code></pre></div>
+Figure <a href="nutshell.html#fig:qtm">3.1</a>:A shows a visualization of the geometries from the <code>volcanoes</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="nutshell.html#cb12-1"></a><span class="kw">qtm</span>(volcanoes)</span></code></pre></div>
 <p>The <code>qtm()</code> function allows to customize many map elements for the provided <em>shape object</em>.
-For example, we can change the shapes of the points in <code>volcanos</code>, make their sizes related to the the <code>"elevation"</code> argument, and add a title (Figure <a href="nutshell.html#fig:qtm">3.1</a>:B).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="nutshell.html#cb11-1"></a><span class="kw">qtm</span>(volcanos, <span class="dt">symbols.shape =</span> <span class="dv">24</span>, <span class="dt">symbols.size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
+For example, we can change the shapes of the points in <code>volcanoes</code>, make their sizes related to the the <code>"elevation"</code> argument, and add a title (Figure <a href="nutshell.html#fig:qtm">3.1</a>:B).</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="nutshell.html#cb13-1"></a><span class="kw">qtm</span>(volcanoes, <span class="dt">symbols.shape =</span> <span class="dv">24</span>, <span class="dt">symbols.size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Volcanoes&quot;</span>)</span></code></pre></div>
 
-<div class="figure" style="text-align: center"><span id="fig:qtm"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:qtm"></span>
 <img src="03-nutshell_files/figure-html/qtm-1.png" alt="Two maps created with qtm(): (A) by providing only a shape object, (B) by providing a shape object and some other arguments." width="672" />
 <p class="caption">
 FIGURE 3.1: Two maps created with <code>qtm()</code>: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
@@ -294,59 +293,162 @@ However, it only supports one shape object.</p>
 </div>
 <div id="regular-maps" class="section level2">
 <h2><span class="header-section-number">3.3</span> Regular maps</h2>
-<!-- therefore, for most application, we recommend to use the regular map approach.  -->
-<!-- This approach uses many functions, called elements, that start with `tm_`. -->
-<!-- The first element always is `tm_shape()`, which specified the input shape object. -->
-<!-- Next map layers, additional map elements, and overall layout can be customized -->
-<!-- references -->
-<!-- add more content -->
-<p>The last example in <a href="nutshell.html#quick-maps">3.2</a> can be reproduced with the second approach by using the following code:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="nutshell.html#cb12-1"></a><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb12-2"><a href="nutshell.html#cb12-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
-<span id="cb12-3"><a href="nutshell.html#cb12-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">title =</span> <span class="st">&quot;Volcanos&quot;</span>)</span></code></pre></div>
-<!-- explain the above code -->
-<!-- add a complete map code -->
-<!-- - Layered approach (grammar of graphics) -->
-<!-- explain line by line -->
-<!-- ref to other parts of the book -->
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="nutshell.html#cb13-1"></a>my_map =<span class="st"> </span><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
-<span id="cb13-2"><a href="nutshell.html#cb13-2"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
-<span id="cb13-3"><a href="nutshell.html#cb13-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Elevation (m asl)&quot;</span>,</span>
-<span id="cb13-4"><a href="nutshell.html#cb13-4"></a>            <span class="dt">palette =</span> <span class="st">&quot;-RdYlGn&quot;</span>, <span class="dt">midpoint =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
-<span id="cb13-5"><a href="nutshell.html#cb13-5"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb13-6"><a href="nutshell.html#cb13-6"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
-<span id="cb13-7"><a href="nutshell.html#cb13-7"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb13-8"><a href="nutshell.html#cb13-8"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>, <span class="dt">legend.lwd.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb13-9"><a href="nutshell.html#cb13-9"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb13-10"><a href="nutshell.html#cb13-10"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>,</span>
-<span id="cb13-11"><a href="nutshell.html#cb13-11"></a>             <span class="dt">title.size =</span> <span class="st">&quot;Volcanos (m asl)&quot;</span>) <span class="op">+</span></span>
-<span id="cb13-12"><a href="nutshell.html#cb13-12"></a><span class="st">  </span><span class="kw">tm_add_legend</span>(<span class="dt">type =</span> <span class="st">&quot;line&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Roads&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
-<span id="cb13-13"><a href="nutshell.html#cb13-13"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></span>
-<span id="cb13-14"><a href="nutshell.html#cb13-14"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>() <span class="op">+</span></span>
-<span id="cb13-15"><a href="nutshell.html#cb13-15"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
-<span id="cb13-16"><a href="nutshell.html#cb13-16"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="nutshell.html#cb14-1"></a>my_map</span></code></pre></div>
-<p><img src="03-nutshell_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Therefore, for most applications, we recommend using the regular map approach.
+This approach operates on many functions that start with <code>tm_</code>.
+The first element always is <code>tm_shape()</code>, which specified the input shape object.
+Next, map layers, additional map elements, and overall layout can be customized.
+<!-- update terminology later -->
+<!-- references --></p>
+<p>The last example in <a href="nutshell.html#quick-maps">3.2</a> can be reproduced with the regular map approach using the following code:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="nutshell.html#cb14-1"></a><span class="kw">tm_shape</span>(volcanoes) <span class="op">+</span></span>
+<span id="cb14-2"><a href="nutshell.html#cb14-2"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
+<span id="cb14-3"><a href="nutshell.html#cb14-3"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">title =</span> <span class="st">&quot;volcanoes&quot;</span>)</span></code></pre></div>
+<p>Here, we specify the input data (our shape object) with <code>tm_shape()</code>, aesthetics (also known as <em>visual variables</em>) of map layers with <code>tm_symbols()</code>, and the map title with <code>tm_layout()</code>.</p>
+<p>The <strong>tmap</strong> package has a number of possible map layers, but the most prominent ones are <code>tm_polygons()</code>, <code>tm_symbols()</code>, <code>tm_lines()</code>, <code>tm_raster()</code>, and <code>tm_text()</code> (chapter <a href="layers.html#layers">5</a>).
+Overall, most visual variables of map layers can be assigned in two main ways.
+First, they accept a fixed, constant value, for instance, <code>shape = 24</code>, which sets the symbols’ shapes to triangles.
+Second, it is also possible to provide a variable name, for example <code>size = "elevation"</code>.
+This plots each point with a size based on the <code>elevation</code> attribute from the <code>volcanoes</code> object and automatically adds a related map legend.</p>
+<p>The <code>tm_shape()</code> function and one or more following map layers create a <em>group</em> together.
+In other words, map layers are related only to the preceding <code>tm_shape()</code> call.
+One map can have several <em>groups</em>.
+Let’s see how many <em>groups</em> work by reading some additional datasets - the <code>ei_elev</code> raster with elevation data for Easter Island, the <code>ei_borders</code> polygon with the island outline, and the <code>ei_roads</code> lines contains a road network for this island.
+<!-- ref data appendix --></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="nutshell.html#cb15-1"></a><span class="kw">library</span>(sf)</span>
+<span id="cb15-2"><a href="nutshell.html#cb15-2"></a><span class="kw">library</span>(stars)</span>
+<span id="cb15-3"><a href="nutshell.html#cb15-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
+<span id="cb15-4"><a href="nutshell.html#cb15-4"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
+<span id="cb15-5"><a href="nutshell.html#cb15-5"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb15-6"><a href="nutshell.html#cb15-6"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span></code></pre></div>
+<p>Look at the following example and try to guess how many <em>groups</em> it has, and how many layers exist for each <em>group</em> (Figure <a href="nutshell.html#fig:rmap1">3.2</a>).</p>
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="nutshell.html#cb16-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb16-2"><a href="nutshell.html#cb16-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;-RdYlGn&quot;</span>,</span>
+<span id="cb16-3"><a href="nutshell.html#cb16-3"></a>            <span class="dt">title =</span> <span class="st">&quot;Elevation (m asl)&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-4"><a href="nutshell.html#cb16-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb16-5"><a href="nutshell.html#cb16-5"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb16-6"><a href="nutshell.html#cb16-6"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb16-7"><a href="nutshell.html#cb16-7"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>, <span class="dt">legend.lwd.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb16-8"><a href="nutshell.html#cb16-8"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanoes) <span class="op">+</span></span>
+<span id="cb16-9"><a href="nutshell.html#cb16-9"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>,</span>
+<span id="cb16-10"><a href="nutshell.html#cb16-10"></a>             <span class="dt">title.size =</span> <span class="st">&quot;Volcanoes (m asl)&quot;</span>) <span class="op">+</span></span>
+<span id="cb16-11"><a href="nutshell.html#cb16-11"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
+<span id="cb16-12"><a href="nutshell.html#cb16-12"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rmap1"></span>
+<img src="03-nutshell_files/figure-html/rmap1-1.png" alt="Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer." width="672" />
+<p class="caption">
+FIGURE 3.2: Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer.
+</p>
+</div>
+<p>The correct answer is four groups, all with just one layer.
+Each <em>group</em> is put on the top of the previous one - the <strong>tmap</strong> uses a layered approach.
+The first <em>group</em> represents elevation data with a continuous color scale style, a color palette called <code>"RdYlGn"</code>, and a legend title.
+The second <em>group</em> shows the borders of Easter Island with the default aesthetics, while the third <em>group</em> presents the road network (the <code>ei_roads</code> object), with each line’s width based on the values from the <code>"strokelwd"</code> column, but with a legend hidden.
+The last <em>group</em> is similar to our previous example with fixed symbol shapes and sizes related to the <code>"elevation"</code> attribute, but also with the legend title instead of the map title.
+Additionally, we use the <code>tm_layout()</code> function to add a map title.
+<!-- ref to other parts of the book --></p>
+<p>Often, maps also have additional map elements, such as graticule lines, north arrow, scale bar, or map credits (Figure <a href="nutshell.html#fig:rmap2">3.3</a>).
+They help map readers to understand data location or its size, and provide some ancillary information.
+The <strong>tmap</strong> package offers a set of functions for additional map elements.
+The <code>tm_graticules()</code> function draws latitude and longitude graticules and adds their labels.
+It also uses the layered approach, and thus, the lines will be drawn either below or above the shape objects, depending on the position of this function in the code.
+In our example below, <code>tm_graticules()</code> is used after all of the map groups, and that is why the graticule lines are put on the top of the spatial data.
+We can also use <code>tm_compass()</code> to create a north arrow, <code>tm_scale_bar()</code> to add a scale bar, and <code>tm_credits()</code> to add a text annotation representing credits or acknowledgments.
+The location of all these three elements on the map is, by default, automatically determined.
+It, however, can be adjusted with the <code>position</code> argument - see an example of its use in the <code>tm_compass()</code> function below.
+Moreover, it is possible to add any type of manual legend with <code>tm_add_legend()</code>.
+It includes simple legends, such as the <code>"Roads"</code> legend below that is only represented by a single black line, but more complex legends with several elements are also possible.
+<!-- ref to other parts of the book --></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="nutshell.html#cb17-1"></a>my_map =<span class="st"> </span><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
+<span id="cb17-2"><a href="nutshell.html#cb17-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style =</span> <span class="st">&quot;cont&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;-RdYlGn&quot;</span>,</span>
+<span id="cb17-3"><a href="nutshell.html#cb17-3"></a>            <span class="dt">title =</span> <span class="st">&quot;Elevation (m asl)&quot;</span>) <span class="op">+</span></span>
+<span id="cb17-4"><a href="nutshell.html#cb17-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb17-5"><a href="nutshell.html#cb17-5"></a><span class="st">  </span><span class="kw">tm_borders</span>() <span class="op">+</span></span>
+<span id="cb17-6"><a href="nutshell.html#cb17-6"></a><span class="st">  </span><span class="kw">tm_shape</span>(ei_roads) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb17-7"><a href="nutshell.html#cb17-7"></a><span class="st">  </span><span class="kw">tm_lines</span>(<span class="dt">lwd =</span> <span class="st">&quot;strokelwd&quot;</span>, <span class="dt">legend.lwd.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb17-8"><a href="nutshell.html#cb17-8"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanoes) <span class="op">+</span></span>
+<span id="cb17-9"><a href="nutshell.html#cb17-9"></a><span class="st">  </span><span class="kw">tm_symbols</span>(<span class="dt">shape =</span> <span class="dv">24</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>,</span>
+<span id="cb17-10"><a href="nutshell.html#cb17-10"></a>             <span class="dt">title.size =</span> <span class="st">&quot;Volcanoes (m asl)&quot;</span>) <span class="op">+</span></span>
+<span id="cb17-11"><a href="nutshell.html#cb17-11"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
+<span id="cb17-12"><a href="nutshell.html#cb17-12"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></span>
+<span id="cb17-13"><a href="nutshell.html#cb17-13"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>() <span class="op">+</span></span>
+<span id="cb17-14"><a href="nutshell.html#cb17-14"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Author, 2021&quot;</span>) <span class="op">+</span></span>
+<span id="cb17-15"><a href="nutshell.html#cb17-15"></a><span class="st">  </span><span class="kw">tm_add_legend</span>(<span class="dt">type =</span> <span class="st">&quot;line&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Roads&quot;</span>) <span class="op">+</span></span>
+<span id="cb17-16"><a href="nutshell.html#cb17-16"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Easter Island&quot;</span>,</span>
+<span id="cb17-17"><a href="nutshell.html#cb17-17"></a>            <span class="dt">bg.color =</span> <span class="st">&quot;lightblue&quot;</span>)</span></code></pre></div>
+<p>Maps created with <strong>tmap</strong> can be saved as an R object.
+This is a useful feature, which allows to use one map in a few places in a code, modify existing <strong>tmap</strong> objects, or save these objects to files.</p>
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="nutshell.html#cb18-1"></a>my_map</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rmap2"></span>
+<img src="03-nutshell_files/figure-html/rmap2-1.png" alt="Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend." width="672" />
+<p class="caption">
+FIGURE 3.3: Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
+</p>
+</div>
 <!-- refs  -->
 </div>
 <div id="map-modes" class="section level2">
 <h2><span class="header-section-number">3.4</span> Map modes</h2>
-<!-- static maps, default -->
-<!-- interactive maps -->
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="nutshell.html#cb15-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb15-2"><a href="nutshell.html#cb15-2"></a><span class="co">#&gt; tmap mode set to interactive viewing</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="nutshell.html#cb16-1"></a>my_map</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="nutshell.html#cb17-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb17-2"><a href="nutshell.html#cb17-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="nutshell.html#cb18-1"></a>my_map</span></code></pre></div>
+<p>Each map created with <strong>tmap</strong> can be viewed in one of two modes: <code>"plot"</code> and <code>"view"</code>.
+The <code>"plot"</code> mode is used by default and creates static maps similar to those shown before in this chapter.
+<!-- You can think of static maps as of images. -->
+This mode supports almost all of <strong>tmap</strong>’s features, and it is recommended, for example, for scientific publications or printing.</p>
+<p>The second mode, <code>"view"</code>, allows creating interactive maps.
+They can be zoomed in and out or panned, allow for changing background tiles, or click on map objects to get some additional information.
+This mode has, however, some constraints and limitations comparing to <code>"plot"</code>, for example
+the legend cannot be fully customized, and some additional map elements are not supported.</p>
+<p>The <strong>tmap</strong> package allows using both modes on the same code.
+Therefore, there is no need to create two separate maps for static and interactive use.
+The <code>tmap_mode()</code> function can be used to switch from one mode to the other<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="nutshell.html#cb19-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb19-2"><a href="nutshell.html#cb19-2"></a><span class="co">#&gt; tmap mode set to interactive viewing</span></span></code></pre></div>
+<p>The above line of code just changes the mode - it does not return anything except the message.
+Now, if we want to use this mode, we need to either write a new <strong>tmap</strong> code provide some existing <strong>tmap</strong> object, such as <code>my_map</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="nutshell.html#cb20-1"></a>my_map</span></code></pre></div>
+<p>As a result, we get several messages and an interactive map.
+These messages inform us that some map elements specified in the previous code are not possible in the <code>"view"</code> mode.
+It includes the text annotation (“Credits”), the north arrow (“Compass”), and some legend options.</p>
+
+<pre><code>#&gt; Credits not supported in view mode.
+#&gt; Compass not supported in view mode.
+#&gt; Symbol shapes other than circles or icons are not supported in view mode.
+#&gt; Legend for symbol sizes not available in view mode.
+#&gt; only legends of type &quot;fill&quot; supported in view mode</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:imap1"></span>
+<div id="htmlwidget-53fc9accf140eba20abb" style="width:100%;height:415.296px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53fc9accf140eba20abb">{"x":{"url":"widgets/widget_imap1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+FIGURE 3.4: Map from Figure <a href="nutshell.html#fig:rmap2">3.3</a> shown using the interactive (“view”) mode.
+</p>
+</div>
+<p>Our main result is the interactive map (Figure <a href="nutshell.html#fig:imap1">3.4</a>).
+<!-- improve -->
+It shows our spatial data using similar aesthetics to Figure <a href="nutshell.html#fig:rmap2">3.3</a>, but allows us to zoom in and out or move the map.
+We also can select a background tile or click on any line and point to get some information.</p>
+<p>To go back to the <code>"plot"</code> mode, we need to use the <code>tmap_mode()</code> function again - map not shown:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="nutshell.html#cb22-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb22-2"><a href="nutshell.html#cb22-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span>
+<span id="cb22-3"><a href="nutshell.html#cb22-3"></a>my_map</span></code></pre></div>
+<p>More information about the interactive <code>"view"</code> mode and how to customize its outputs is in chapter <a href="interactive.html#interactive">9</a>.</p>
 </div>
 <div id="sm-section" class="section level2">
 <h2><span class="header-section-number">3.5</span> Small multiples</h2>
+<!-- to write after the \@ref(multiples) chapter is done -->
+<p>Chapter <a href="multiples.html#multiples">10</a></p>
 </div>
 <div id="ani-section" class="section level2">
 <h2><span class="header-section-number">3.6</span> Animations</h2>
+<!-- to write after the \@ref(animations) chapter is done -->
+<p>Chapter <a href="animations.html#animations">13</a></p>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Map modes can be also changed globally using <code>tmap_options()</code> or switched using <code>ttm()</code>.<a href="nutshell.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 <script>
 /*
@@ -401,6 +503,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

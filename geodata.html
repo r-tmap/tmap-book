@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Spatial data in R | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.9 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Spatial data in R | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-03-15" />
+<meta name="date" content="2021-07-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,9 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/pymjs-1.3.2/pym.v1.js"></script>
+<script src="libs/widgetframe-binding-0.3.1/widgetframe.js"></script>
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 <script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <!-- a placeholder for a google analytics script -->
@@ -191,9 +194,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="layers.html"><a href="layers.html#symbols"><i class="fa fa-check"></i><b>5.2</b> Symbols</a></li>
 <li class="chapter" data-level="5.3" data-path="layers.html"><a href="layers.html#lines"><i class="fa fa-check"></i><b>5.3</b> Lines</a></li>
 <li class="chapter" data-level="5.4" data-path="layers.html"><a href="layers.html#text"><i class="fa fa-check"></i><b>5.4</b> Text</a></li>
-<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#raster"><i class="fa fa-check"></i><b>5.5</b> Raster</a></li>
+<li class="chapter" data-level="5.5" data-path="layers.html"><a href="layers.html#raster-layer"><i class="fa fa-check"></i><b>5.5</b> Raster</a></li>
 <li class="chapter" data-level="5.6" data-path="layers.html"><a href="layers.html#tile"><i class="fa fa-check"></i><b>5.6</b> Tile</a></li>
-<li class="chapter" data-level="5.7" data-path="layers.html"><a href="layers.html#combining-layers"><i class="fa fa-check"></i><b>5.7</b> Combining layers</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="visual-variables.html"><a href="visual-variables.html"><i class="fa fa-check"></i><b>6</b> Visual variables</a><ul>
 <li class="chapter" data-level="6.1" data-path="visual-variables.html"><a href="visual-variables.html#colors"><i class="fa fa-check"></i><b>6.1</b> Colors</a><ul>
@@ -311,7 +313,7 @@ The values of polygons’ attributes can be represented by the areas (fill) colo
 The second part of the vector data model relates to non-spatial attributes (right part of Figure <a href="geodata.html#fig:vector-data-model">2.1</a>).
 Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single spatial geometry.</p>
-<div class="figure" style="text-align: center"><span id="fig:vector-data-model"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:vector-data-model"></span>
 <img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="480" />
 <p class="caption">
 FIGURE 2.1: Instances of spatial vector data model: POINTS, LINES, and POLYGONS.
@@ -357,7 +359,7 @@ Categorical rasters, on the other hand, uses integer values to represent classes
 Their examples include land cover or soil types maps.
 Raster data can also contain cells for which we do not know the value (Figure <a href="geodata.html#fig:raster-intro">2.2</a>).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.</p>
-<div class="figure" style="text-align: center"><span id="fig:raster-intro"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:raster-intro"></span>
 <img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
 <p class="caption">
 FIGURE 2.2: Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map
@@ -373,7 +375,7 @@ Sheared grids are created when the rotation coefficients are not equal.
 Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).
 In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure <a href="geodata.html#fig:grid-types">2.3</a>).</p>
 <!-- Q:should the counting in the below figure start from bottom left? -->
-<div class="figure" style="text-align: center"><span id="fig:grid-types"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:grid-types"></span>
 <img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
 <p class="caption">
 FIGURE 2.3: Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear
@@ -388,7 +390,7 @@ The most basic bands, representing the colors red, green, and blue, can be conne
 Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
 Additional information about multi-layer rasters can be also found in Section <a href="geodata.html#spatial-data-cubes">2.2.3</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:rgb-raster"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rgb-raster"></span>
 <img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
 <p class="caption">
 FIGURE 2.4: Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.
@@ -420,7 +422,7 @@ The third approach involves separating geometries from attributes, and where att
 The last idea is used in spatial vector data cubes (section <a href="geodata.html#the-stars-package">2.3.2</a>).
 An example of the spatial vector data cubes idea can be seen in Figure <a href="geodata.html#fig:vector-data-cubes">2.5</a>.
 It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Netherlands and an array connected to it that stores shares of land-use types for several years.</p>
-<div class="figure" style="text-align: center"><span id="fig:vector-data-cubes"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:vector-data-cubes"></span>
 <img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cube." width="576" />
 <p class="caption">
 FIGURE 2.5: Vector data cube.
@@ -437,7 +439,7 @@ Figure <a href="geodata.html#fig:raster-data-cubes">2.6</a> gives an example of 
 It consists of several single-layer rasters with the same spatial properties, such as resolution, extent, and CRS.
 These rasters are organized to store four-dimensions of the data: latitude, longitude, time, and attributes.
 It has values of three attributes for five moments in time in total.</p>
-<div class="figure" style="text-align: center"><span id="fig:raster-data-cubes"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:raster-data-cubes"></span>
 <img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cube." width="672" />
 <p class="caption">
 FIGURE 2.6: Raster data cube.
@@ -492,10 +494,10 @@ Objects of class <code>sf</code> also display a header containing spatial metada
 It includes geometry type, dimension (<code>XY</code>, <code>XYZ</code>, <code>XYM</code>, <code>XYZM</code>), bounding box (<code>bbox</code>), and information about the used Coordinate Reference System (<code>CRS</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="geodata.html#cb2-1"></a>worldvector</span>
 <span id="cb2-2"><a href="geodata.html#cb2-2"></a><span class="co">#&gt; Simple feature collection with 185 features and 15 fields</span></span>
-<span id="cb2-3"><a href="geodata.html#cb2-3"></a><span class="co">#&gt; geometry type:  MULTIPOLYGON</span></span>
-<span id="cb2-4"><a href="geodata.html#cb2-4"></a><span class="co">#&gt; dimension:      XY</span></span>
-<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; bbox:           xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000</span></span>
-<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; projected CRS:  WGS 84 / Equal Earth Greenwich</span></span>
+<span id="cb2-3"><a href="geodata.html#cb2-3"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb2-4"><a href="geodata.html#cb2-4"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb2-5"><a href="geodata.html#cb2-5"></a><span class="co">#&gt; Bounding box:  xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000</span></span>
+<span id="cb2-6"><a href="geodata.html#cb2-6"></a><span class="co">#&gt; Projected CRS: WGS 84 / Equal Earth Greenwich</span></span>
 <span id="cb2-7"><a href="geodata.html#cb2-7"></a><span class="co">#&gt; # A tibble: 185 x 16</span></span>
 <span id="cb2-8"><a href="geodata.html#cb2-8"></a><span class="co">#&gt;    GEO   name     wb_region  wb_income_region population</span></span>
 <span id="cb2-9"><a href="geodata.html#cb2-9"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;                 &lt;dbl&gt;</span></span>
@@ -557,18 +559,14 @@ It has two dimensions, <code>x</code> and <code>y</code>, and one attribute <cod
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geodata.html#cb4-1"></a>worldelevation</span>
 <span id="cb4-2"><a href="geodata.html#cb4-2"></a><span class="co">#&gt; stars object with 2 dimensions and 1 attribute</span></span>
 <span id="cb4-3"><a href="geodata.html#cb4-3"></a><span class="co">#&gt; attribute(s):</span></span>
-<span id="cb4-4"><a href="geodata.html#cb4-4"></a><span class="co">#&gt;  worldelevation.tif </span></span>
-<span id="cb4-5"><a href="geodata.html#cb4-5"></a><span class="co">#&gt;  Min.   :-412       </span></span>
-<span id="cb4-6"><a href="geodata.html#cb4-6"></a><span class="co">#&gt;  1st Qu.: 218       </span></span>
-<span id="cb4-7"><a href="geodata.html#cb4-7"></a><span class="co">#&gt;  Median : 608       </span></span>
-<span id="cb4-8"><a href="geodata.html#cb4-8"></a><span class="co">#&gt;  Mean   :1140       </span></span>
-<span id="cb4-9"><a href="geodata.html#cb4-9"></a><span class="co">#&gt;  3rd Qu.:1941       </span></span>
-<span id="cb4-10"><a href="geodata.html#cb4-10"></a><span class="co">#&gt;  Max.   :6410       </span></span>
-<span id="cb4-11"><a href="geodata.html#cb4-11"></a><span class="co">#&gt;  NA&#39;s   :389580     </span></span>
-<span id="cb4-12"><a href="geodata.html#cb4-12"></a><span class="co">#&gt; dimension(s):</span></span>
-<span id="cb4-13"><a href="geodata.html#cb4-13"></a><span class="co">#&gt;   from   to offset     delta refsys point values x/y</span></span>
-<span id="cb4-14"><a href="geodata.html#cb4-14"></a><span class="co">#&gt; x    1 1080   -180  0.333333 WGS 84 FALSE   NULL [x]</span></span>
-<span id="cb4-15"><a href="geodata.html#cb4-15"></a><span class="co">#&gt; y    1  540     90 -0.333333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
+<span id="cb4-4"><a href="geodata.html#cb4-4"></a><span class="co">#&gt;                     Min. 1st Qu. Median Mean 3rd Qu.</span></span>
+<span id="cb4-5"><a href="geodata.html#cb4-5"></a><span class="co">#&gt; worldelevation.tif  -412     218    608 1140    1941</span></span>
+<span id="cb4-6"><a href="geodata.html#cb4-6"></a><span class="co">#&gt;                     Max.   NA&#39;s</span></span>
+<span id="cb4-7"><a href="geodata.html#cb4-7"></a><span class="co">#&gt; worldelevation.tif  6410 389580</span></span>
+<span id="cb4-8"><a href="geodata.html#cb4-8"></a><span class="co">#&gt; dimension(s):</span></span>
+<span id="cb4-9"><a href="geodata.html#cb4-9"></a><span class="co">#&gt;   from   to offset     delta refsys point values x/y</span></span>
+<span id="cb4-10"><a href="geodata.html#cb4-10"></a><span class="co">#&gt; x    1 1080   -180  0.333333 WGS 84 FALSE   NULL [x]</span></span>
+<span id="cb4-11"><a href="geodata.html#cb4-11"></a><span class="co">#&gt; y    1  540     90 -0.333333 WGS 84 FALSE   NULL [y]</span></span></code></pre></div>
 <p>The <code>worldelevation.tif</code> attribute is a matrix, where each cell represents an elevation value.
 The <code>x</code> dimension has 1080 elements (columns), starting from a coordinate (<code>offset</code>) of a cell boundary of <code>-180</code>.
 Next, the coordinates of further cells increase by <code>0.333333</code> (<code>delta</code>) - resolution in the <code>x</code> dimension.
@@ -619,7 +617,7 @@ Let us wonder with them for a second.</p>
 <p>The world is shown as an orange below, not just to stimulate your appetite for this subject, but also since an orange peel is a good analogy for a two-dimensional map.
 A world map can be seen as an orange peel that is put flat on the table.
 The question is how to do this.</p>
-<div class="figure" style="text-align: center"><span id="fig:orange"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:orange"></span>
 <img src="images/orange_world.png" alt="How to peel an orange?" width="606" />
 <p class="caption">
 FIGURE 2.7: How to peel an orange?
@@ -630,7 +628,7 @@ What is interesting depends on the application; for applications where land mass
 The (interrupted) Goode homolosine projection, which is shown below, embodies this idea.
 All continents and countries are preserved, except Antarctica and Greenland.
 There is also a version of the Goode homolosine projection that focuses on preserving the oceans.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-goode"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-goode"></span>
 <img src="02-geodata_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
 <p class="caption">
 FIGURE 2.8: The (interrupted) Goode homolosine projection
@@ -685,22 +683,16 @@ Let’s take a closer look at two widely used map projections, namely the plain 
 These projections are indexed as EPSG4326 and EPSG3857 respectively.
 EPSG is an institute that maintains a database of standard map projections.</p>
 <!--https://geographx.co.nz/map-projections/-->
-<div class="figure" style="text-align: center"><span id="fig:crs-04"></span>
-<img src="02-geodata_files/figure-html/crs-04-1.png" alt="The WGS84 coordinate system (EPSG4326)" width="672" />
-<p class="caption">
-FIGURE 2.9: The WGS84 coordinate system (EPSG4326)
-</p>
-</div>
-<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="geodata.html#fig:crs-04">2.9</a> (left).
+<p>When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure <a href="#fig:crs-04"><strong>??</strong></a> (left).
 Note that the longitude lines have become straight vertical lines.
 When we unroll this cylinder, we obtain a map where the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates are the longitude and latitude respectively.
-This CRS, which is known as EPSG4326, is shown in Figure <a href="geodata.html#fig:crs-04">2.9</a> (right).</p>
+This CRS, which is known as EPSG4326, is shown in Figure <a href="#fig:crs-04"><strong>??</strong></a> (right).</p>
 <p>
 
 
 EPSG4326 is an <em>unprojected</em> CRS, since the longitude and latitude have not been transformed.
 With <em>projected</em> CRSs, the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates refer to specific measurement units, usually meters.
-The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="geodata.html#fig:crs-04">2.9</a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
+The projected variant of this CRS is called the <em>Platte Carrée</em> (EPSG4087), and is exactly the same map as shown in Figure <a href="#fig:crs-04"><strong>??</strong></a> (right), but with other <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> value ranges.</p>
 <p>Observe since we stretched the poles open, the area near the poles have been stretched out as well.
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
@@ -709,13 +701,7 @@ A good example is Greenland, which is normally a ‘tall’ area (as can be seen
 In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
-The cylinder and plain map that uses this projection are shown in Figure <a href="geodata.html#fig:crs-05">2.10</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-05"></span>
-<img src="02-geodata_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
-<p class="caption">
-FIGURE 2.10: Web Mercator projection (EPSG3857)
-</p>
-</div>
+The cylinder and plain map that uses this projection are shown in Figure <a href="#fig:crs-05"><strong>??</strong></a>.</p>
 <p>Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure <a href="geodata.html#fig:orange">2.7</a>).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
@@ -735,11 +721,11 @@ https://books.google.nl/books?id=E0JZDwAAQBAJ&pg=PA244&lpg=PA244&dq=Equidistant+
 <p>
 Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth?
 Although there are many ways, four basic map projection types can be distinguished.
-These are depicted in Figure <a href="geodata.html#fig:crs-types">2.11</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-types"></span>
+These are depicted in Figure <a href="geodata.html#fig:crs-types">2.9</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-types"></span>
 <img src="02-geodata_files/figure-html/crs-types-1.png" alt="Four types of map projections" width="100%" />
 <p class="caption">
-FIGURE 2.11: Four types of map projections
+FIGURE 2.9: Four types of map projections
 </p>
 </div>
 <p>
@@ -749,16 +735,16 @@ The cylinder is not placed upright, but horizontal.
 There are 60 positions in which this cylinder can be placed, where in each position, the cylinder faces a longitude range of 6 degrees.
 In other words the UTM is not a single projection, but a series of 60 projections.</p>
 <p>There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
-An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.12</a>.
+An example is the Robinson projection shown in Figure <a href="geodata.html#fig:crs-robin">2.10</a>.
 Almost all commonly used standard World map projections are (pseudo-)cylindrical.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-robin"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-robin"></span>
 <img src="02-geodata_files/figure-html/crs-robin-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.12: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.10: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
 <p>
-An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.13</a>(a).
+An example of a conic map projection is shown in <a href="geodata.html#fig:crs-conic-planar">2.11</a>(a).
 As a result of unfolding a cone on a flat surface, a gap is created.
 The size (angle) of this gap depends on the width of the cone.
 There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
@@ -770,20 +756,20 @@ This can best be explained by the position of an imaginary light source.
 It can be placed inside the globe, at the surface of the globe opposite to the disk, and at an infinite distance opposite to the disk.
 The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.</p>
 <p>Planar map projections are often used for a specific country or continent.
-An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b), which is optimized for Europe.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b), which is optimized for Europe.
 It can be classified as a stereographic projection, although the light beams are not straight but curved.
 Another example of a planar map projection is the orange shown in Figure <a href="geodata.html#fig:orange">2.7</a>.
 This is an orthogonal projection.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-conic-planar"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-conic-planar"></span>
 <img src="02-geodata_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="672" />
 <p class="caption">
-FIGURE 2.13: Examples of a conic (a) and a planar (b) projection.
+FIGURE 2.11: Examples of a conic (a) and a planar (b) projection.
 </p>
 </div>
 <p>
 The (interrupted) Goode homolosine projection shown in Figure <a href="geodata.html#fig:crs-goode">2.8</a> is an example of an interrupted projection.
 A special class of these projections are polyhedral projections, which consists of planar faces.
-In Figure <a href="geodata.html#fig:crs-types">2.11</a> a polyhedral of six faces is illustrated.
+In Figure <a href="geodata.html#fig:crs-types">2.9</a> a polyhedral of six faces is illustrated.
 There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.</p>
 </div>
 <div id="which-projection-to-choose" class="section level3">
@@ -797,7 +783,7 @@ The second factor is the area of interest.
 Is the whole World visualized or only a part, and in the latter case, which part?
 In this section, guidelines are provided to choose a proper projection based on those two aspects.</p>
 <p>Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b).
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.</p>
 <p><strong>Map projection properties</strong></p>
@@ -939,16 +925,16 @@ In practice, that means that for instance a map of a crossroad preserves the ang
 Therefore, this property is required for navigational purposes.
 As a consequence that local angles are preserved, local shapes are also preserved.
 That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
-The Web Mercator shown in Figure <a href="geodata.html#fig:crs-05">2.10</a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
+The Web Mercator shown in Figure <a href="#fig:crs-05"><strong>??</strong></a> satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.</p>
 <p>
 A map projection is called <em>equal-area</em> if the areas are proportional to the true areas.
 This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
-Figure <a href="geodata.html#fig:crs-bias">2.14</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+Figure <a href="geodata.html#fig:crs-bias">2.12</a> shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
 The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North Africa and Australia emerge as vast low-populated areas.</p>
-<div class="figure" style="text-align: center"><span id="fig:crs-bias"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-bias"></span>
 <img src="02-geodata_files/figure-html/crs-bias-1.png" alt="The Robinson projection, which is pseudo-cylindrical." width="100%" />
 <p class="caption">
-FIGURE 2.14: The Robinson projection, which is pseudo-cylindrical.
+FIGURE 2.12: The Robinson projection, which is pseudo-cylindrical.
 </p>
 </div>
 <p>
@@ -960,7 +946,7 @@ One example is a seismic map around the epicenter of a recent earthquake, where 
 <p>
 A map projection can satisfy at most two of these properties.
 Many map projection do not satisfy any property but are intended as a compromise.
-An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.12</a>.</p>
+An example is the Robinson projection, shown in Figure <a href="geodata.html#fig:crs-robin">2.10</a>.</p>
 <p><strong>Area of interest</strong></p>
 <p>
 The next aspect that is important for the choice of a map projection is the area of interest.
@@ -1031,10 +1017,10 @@ Azimuthal
 </tr>
 </tbody>
 </table>
-<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.12</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.14</a>(b)) are very popular because they have less distortion other map projections.
+<p>For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure <a href="geodata.html#fig:crs-robin">2.10</a>) and the Eckert IV projection (Figure <a href="geodata.html#fig:crs-bias">2.12</a>(b)) are very popular because they have less distortion other map projections.
 For areas that cover a half of the sphere, i.e. a hemisphere, azimuthal map projections are recommended.
 There are four hemispheres that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemisphere, which includes the other continents.
-However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.13</a>(b).</p>
+However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in Figure <a href="geodata.html#fig:crs-conic-planar">2.11</a>(b).</p>
 <p>For areas with the size of a continent or country, the azimuthal map projection type can be used when centered on the area of interest.
 In particular, the Lambert Azimuthal Equal-Area projection when equal area is required, and the Azimuthal Equidistant projection when preserving distances is important.
 Alternatively, cylindrical and conic map projection types can be used for areas at low and mid latitudes respectively.
@@ -1047,52 +1033,51 @@ However, this is only recommended when the target area spans less than 6 degrees
 
 Coordinate Reference Systems (CRSs) are implemented in the software library <a href="https://proj.org/"><strong>PROJ</strong></a>.
 With implementation, we mean specifying a CRS and transforming coordinates from one CRS to another.
-<strong>PROJ</strong> is used by every popular software application for spatial data, in particular <strong>ArcGIS</strong>, <strong>QGIS</strong>, and <strong>GRASS</strong>, and also by many programming languages, including R.
+<strong>PROJ</strong> is used by every popular software application for spatial data, in particular <strong>ArcGIS</strong>, <strong>QGIS</strong>, and <strong>GRASS GIS</strong>, and also by many programming languages, including R.
 The <strong>sf</strong> package integrates the <strong>PROJ</strong> functions into R.</p>
 <p>A CRS is represented in R by an object of class <code>crs</code>, which can be retrieved or set with the function <code>st_crs</code> (from the <strong>sf</strong> package).
 In the following example, a <code>crs</code> object is created from an EPSG code, in this case 3035, the Lambert Azimuthal Equal-Area projection for Europe.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="geodata.html#cb6-1"></a><span class="kw">library</span>(sf)</span>
-<span id="cb6-2"><a href="geodata.html#cb6-2"></a></span>
-<span id="cb6-3"><a href="geodata.html#cb6-3"></a><span class="co"># CRS Lambert Azimuthal Equal-Area projection</span></span>
-<span id="cb6-4"><a href="geodata.html#cb6-4"></a><span class="kw">st_crs</span>(<span class="dv">3035</span>)</span>
-<span id="cb6-5"><a href="geodata.html#cb6-5"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
-<span id="cb6-6"><a href="geodata.html#cb6-6"></a><span class="co">#&gt;   User input: EPSG:3035 </span></span>
-<span id="cb6-7"><a href="geodata.html#cb6-7"></a><span class="co">#&gt;   wkt:</span></span>
-<span id="cb6-8"><a href="geodata.html#cb6-8"></a><span class="co">#&gt; PROJCRS[&quot;ETRS89-extended / LAEA Europe&quot;,</span></span>
-<span id="cb6-9"><a href="geodata.html#cb6-9"></a><span class="co">#&gt;     BASEGEOGCRS[&quot;ETRS89&quot;,</span></span>
-<span id="cb6-10"><a href="geodata.html#cb6-10"></a><span class="co">#&gt;         DATUM[&quot;European Terrestrial Reference System 1989&quot;,</span></span>
-<span id="cb6-11"><a href="geodata.html#cb6-11"></a><span class="co">#&gt;             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,</span></span>
-<span id="cb6-12"><a href="geodata.html#cb6-12"></a><span class="co">#&gt;                 LENGTHUNIT[&quot;metre&quot;,1]]],</span></span>
-<span id="cb6-13"><a href="geodata.html#cb6-13"></a><span class="co">#&gt;         PRIMEM[&quot;Greenwich&quot;,0,</span></span>
-<span id="cb6-14"><a href="geodata.html#cb6-14"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
-<span id="cb6-15"><a href="geodata.html#cb6-15"></a><span class="co">#&gt;         ID[&quot;EPSG&quot;,4258]],</span></span>
-<span id="cb6-16"><a href="geodata.html#cb6-16"></a><span class="co">#&gt;     CONVERSION[&quot;Europe Equal Area 2001&quot;,</span></span>
-<span id="cb6-17"><a href="geodata.html#cb6-17"></a><span class="co">#&gt;         METHOD[&quot;Lambert Azimuthal Equal Area&quot;,</span></span>
-<span id="cb6-18"><a href="geodata.html#cb6-18"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,9820]],</span></span>
-<span id="cb6-19"><a href="geodata.html#cb6-19"></a><span class="co">#&gt;         PARAMETER[&quot;Latitude of natural origin&quot;,52,</span></span>
-<span id="cb6-20"><a href="geodata.html#cb6-20"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],</span></span>
-<span id="cb6-21"><a href="geodata.html#cb6-21"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8801]],</span></span>
-<span id="cb6-22"><a href="geodata.html#cb6-22"></a><span class="co">#&gt;         PARAMETER[&quot;Longitude of natural origin&quot;,10,</span></span>
-<span id="cb6-23"><a href="geodata.html#cb6-23"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],</span></span>
-<span id="cb6-24"><a href="geodata.html#cb6-24"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8802]],</span></span>
-<span id="cb6-25"><a href="geodata.html#cb6-25"></a><span class="co">#&gt;         PARAMETER[&quot;False easting&quot;,4321000,</span></span>
-<span id="cb6-26"><a href="geodata.html#cb6-26"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1],</span></span>
-<span id="cb6-27"><a href="geodata.html#cb6-27"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8806]],</span></span>
-<span id="cb6-28"><a href="geodata.html#cb6-28"></a><span class="co">#&gt;         PARAMETER[&quot;False northing&quot;,3210000,</span></span>
-<span id="cb6-29"><a href="geodata.html#cb6-29"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1],</span></span>
-<span id="cb6-30"><a href="geodata.html#cb6-30"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8807]]],</span></span>
-<span id="cb6-31"><a href="geodata.html#cb6-31"></a><span class="co">#&gt;     CS[Cartesian,2],</span></span>
-<span id="cb6-32"><a href="geodata.html#cb6-32"></a><span class="co">#&gt;         AXIS[&quot;northing (Y)&quot;,north,</span></span>
-<span id="cb6-33"><a href="geodata.html#cb6-33"></a><span class="co">#&gt;             ORDER[1],</span></span>
-<span id="cb6-34"><a href="geodata.html#cb6-34"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]],</span></span>
-<span id="cb6-35"><a href="geodata.html#cb6-35"></a><span class="co">#&gt;         AXIS[&quot;easting (X)&quot;,east,</span></span>
-<span id="cb6-36"><a href="geodata.html#cb6-36"></a><span class="co">#&gt;             ORDER[2],</span></span>
-<span id="cb6-37"><a href="geodata.html#cb6-37"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]],</span></span>
-<span id="cb6-38"><a href="geodata.html#cb6-38"></a><span class="co">#&gt;     USAGE[</span></span>
-<span id="cb6-39"><a href="geodata.html#cb6-39"></a><span class="co">#&gt;         SCOPE[&quot;unknown&quot;],</span></span>
-<span id="cb6-40"><a href="geodata.html#cb6-40"></a><span class="co">#&gt;         AREA[&quot;Europe - LCC &amp; LAEA&quot;],</span></span>
-<span id="cb6-41"><a href="geodata.html#cb6-41"></a><span class="co">#&gt;         BBOX[24.6,-35.58,84.17,44.83]],</span></span>
-<span id="cb6-42"><a href="geodata.html#cb6-42"></a><span class="co">#&gt;     ID[&quot;EPSG&quot;,3035]]</span></span></code></pre></div>
+<span id="cb6-2"><a href="geodata.html#cb6-2"></a><span class="co"># CRS Lambert Azimuthal Equal-Area projection</span></span>
+<span id="cb6-3"><a href="geodata.html#cb6-3"></a><span class="kw">st_crs</span>(<span class="dv">3035</span>)</span>
+<span id="cb6-4"><a href="geodata.html#cb6-4"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span id="cb6-5"><a href="geodata.html#cb6-5"></a><span class="co">#&gt;   User input: EPSG:3035 </span></span>
+<span id="cb6-6"><a href="geodata.html#cb6-6"></a><span class="co">#&gt;   wkt:</span></span>
+<span id="cb6-7"><a href="geodata.html#cb6-7"></a><span class="co">#&gt; PROJCRS[&quot;ETRS89-extended / LAEA Europe&quot;,</span></span>
+<span id="cb6-8"><a href="geodata.html#cb6-8"></a><span class="co">#&gt;     BASEGEOGCRS[&quot;ETRS89&quot;,</span></span>
+<span id="cb6-9"><a href="geodata.html#cb6-9"></a><span class="co">#&gt;         DATUM[&quot;European Terrestrial Reference System 1989&quot;,</span></span>
+<span id="cb6-10"><a href="geodata.html#cb6-10"></a><span class="co">#&gt;             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,</span></span>
+<span id="cb6-11"><a href="geodata.html#cb6-11"></a><span class="co">#&gt;                 LENGTHUNIT[&quot;metre&quot;,1]]],</span></span>
+<span id="cb6-12"><a href="geodata.html#cb6-12"></a><span class="co">#&gt;         PRIMEM[&quot;Greenwich&quot;,0,</span></span>
+<span id="cb6-13"><a href="geodata.html#cb6-13"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb6-14"><a href="geodata.html#cb6-14"></a><span class="co">#&gt;         ID[&quot;EPSG&quot;,4258]],</span></span>
+<span id="cb6-15"><a href="geodata.html#cb6-15"></a><span class="co">#&gt;     CONVERSION[&quot;Europe Equal Area 2001&quot;,</span></span>
+<span id="cb6-16"><a href="geodata.html#cb6-16"></a><span class="co">#&gt;         METHOD[&quot;Lambert Azimuthal Equal Area&quot;,</span></span>
+<span id="cb6-17"><a href="geodata.html#cb6-17"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,9820]],</span></span>
+<span id="cb6-18"><a href="geodata.html#cb6-18"></a><span class="co">#&gt;         PARAMETER[&quot;Latitude of natural origin&quot;,52,</span></span>
+<span id="cb6-19"><a href="geodata.html#cb6-19"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],</span></span>
+<span id="cb6-20"><a href="geodata.html#cb6-20"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8801]],</span></span>
+<span id="cb6-21"><a href="geodata.html#cb6-21"></a><span class="co">#&gt;         PARAMETER[&quot;Longitude of natural origin&quot;,10,</span></span>
+<span id="cb6-22"><a href="geodata.html#cb6-22"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],</span></span>
+<span id="cb6-23"><a href="geodata.html#cb6-23"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8802]],</span></span>
+<span id="cb6-24"><a href="geodata.html#cb6-24"></a><span class="co">#&gt;         PARAMETER[&quot;False easting&quot;,4321000,</span></span>
+<span id="cb6-25"><a href="geodata.html#cb6-25"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1],</span></span>
+<span id="cb6-26"><a href="geodata.html#cb6-26"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8806]],</span></span>
+<span id="cb6-27"><a href="geodata.html#cb6-27"></a><span class="co">#&gt;         PARAMETER[&quot;False northing&quot;,3210000,</span></span>
+<span id="cb6-28"><a href="geodata.html#cb6-28"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1],</span></span>
+<span id="cb6-29"><a href="geodata.html#cb6-29"></a><span class="co">#&gt;             ID[&quot;EPSG&quot;,8807]]],</span></span>
+<span id="cb6-30"><a href="geodata.html#cb6-30"></a><span class="co">#&gt;     CS[Cartesian,2],</span></span>
+<span id="cb6-31"><a href="geodata.html#cb6-31"></a><span class="co">#&gt;         AXIS[&quot;northing (Y)&quot;,north,</span></span>
+<span id="cb6-32"><a href="geodata.html#cb6-32"></a><span class="co">#&gt;             ORDER[1],</span></span>
+<span id="cb6-33"><a href="geodata.html#cb6-33"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]],</span></span>
+<span id="cb6-34"><a href="geodata.html#cb6-34"></a><span class="co">#&gt;         AXIS[&quot;easting (X)&quot;,east,</span></span>
+<span id="cb6-35"><a href="geodata.html#cb6-35"></a><span class="co">#&gt;             ORDER[2],</span></span>
+<span id="cb6-36"><a href="geodata.html#cb6-36"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]],</span></span>
+<span id="cb6-37"><a href="geodata.html#cb6-37"></a><span class="co">#&gt;     USAGE[</span></span>
+<span id="cb6-38"><a href="geodata.html#cb6-38"></a><span class="co">#&gt;         SCOPE[&quot;Statistical analysis.&quot;],</span></span>
+<span id="cb6-39"><a href="geodata.html#cb6-39"></a><span class="co">#&gt;         AREA[&quot;Europe - European Union (EU) countries and candidates. Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Cyprus; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Iceland; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal including Madeira and Azores; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain including Canary Islands; Sweden; Switzerland; Turkey; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.&quot;],</span></span>
+<span id="cb6-40"><a href="geodata.html#cb6-40"></a><span class="co">#&gt;         BBOX[24.6,-35.58,84.17,44.83]],</span></span>
+<span id="cb6-41"><a href="geodata.html#cb6-41"></a><span class="co">#&gt;     ID[&quot;EPSG&quot;,3035]]</span></span></code></pre></div>
 <p>
 A <code>crs</code> object is represented by Well Known Text (WKT).
 It includes a specification of the used datum as well as information how to transform it into other CRSs.
@@ -1100,71 +1085,80 @@ Understanding the exact content of the WTK is not important for most users, sinc
 <p>
 
 
-A <code>crs</code> object can be created in three ways:
+A <code>crs</code> object can be created in several ways:
 <!--to improve in the future--></p>
 <ol style="list-style-type: decimal">
 <li>The first is with an EPSG number as user input specification as shown above. <!--it can be also some other "provider", e.g. "ESRI:37001"--></li>
 <li>The second is also with a user input specification, but with a so-called <em>proj4</em> character string.
 The <em>proj4</em> character string for the LAEA projection is <code>"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"</code>.
 However, <em>proj4</em> character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
-Also note that the name <em>proj4</em> stands for the <strong>PROJ</strong> library version 4, while the current major version of <strong>PROJ</strong> at the time of writing is already 7.</li>
-<li>The third way to create a <code>crs</code> object is to extract it from an existing spatial data object (e.g. an <strong>sf</strong> or <strong>stars</strong> object).</li>
+Also note that the name <em>proj4</em> stands for the <strong>PROJ</strong> library version 4, while the current major version of <strong>PROJ</strong> at the time of writing is already 8.</li>
+<li>The third way is to provide some WKT definition of the projection. <!--...--></li>
+<li>The last way to create a <code>crs</code> object is to extract it from an existing spatial data object (e.g., an <strong>sf</strong> or <strong>stars</strong> object) using the <code>st_crs()</code> function.</li>
 </ol>
-<p>A <code>crs</code> object can be used to define a new spatial object or to transform an existing spatial object into another projection.</p>
+<p>A <code>crs</code> object can define a new spatial object’s projection or transform an existing spatial object into another projection.
+In the example below, we created a new object, <code>waterfalls</code>, with names and coordinates of three famous waterfalls.
+Next, we converted it into a spatial object of the <code>sf</code> class, <code>waterfalls_sf()</code> with <code>st_as_sf()</code>.
+We can see that our object’s coordinate reference system is not defined with the <code>st_crs()</code> function.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="geodata.html#cb7-1"></a><span class="co"># create a data.frame of three famous waterfalls</span></span>
 <span id="cb7-2"><a href="geodata.html#cb7-2"></a>waterfalls =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Iguazu Falls&quot;</span>, <span class="st">&quot;Niagara Falls&quot;</span>, <span class="st">&quot;Victoria Falls&quot;</span>), </span>
 <span id="cb7-3"><a href="geodata.html#cb7-3"></a>                        <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">25.686785</span>, <span class="fl">43.092461</span>, <span class="fl">-17.931805</span>), </span>
 <span id="cb7-4"><a href="geodata.html#cb7-4"></a>                        <span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">54.444981</span>, <span class="fl">-79.047150</span>, <span class="fl">25.825558</span>))</span>
-<span id="cb7-5"><a href="geodata.html#cb7-5"></a></span>
-<span id="cb7-6"><a href="geodata.html#cb7-6"></a><span class="co"># create sf object (without specifying the crs)</span></span>
-<span id="cb7-7"><a href="geodata.html#cb7-7"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>))</span>
-<span id="cb7-8"><a href="geodata.html#cb7-8"></a></span>
-<span id="cb7-9"><a href="geodata.html#cb7-9"></a><span class="co"># extract crs (not defined yet)</span></span>
-<span id="cb7-10"><a href="geodata.html#cb7-10"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
-<span id="cb7-11"><a href="geodata.html#cb7-11"></a><span class="co">#&gt; Coordinate Reference System: NA</span></span>
-<span id="cb7-12"><a href="geodata.html#cb7-12"></a></span>
-<span id="cb7-13"><a href="geodata.html#cb7-13"></a><span class="co"># specify crs</span></span>
-<span id="cb7-14"><a href="geodata.html#cb7-14"></a><span class="kw">st_crs</span>(waterfalls_sf) =<span class="st"> </span><span class="dv">4326</span></span>
-<span id="cb7-15"><a href="geodata.html#cb7-15"></a></span>
-<span id="cb7-16"><a href="geodata.html#cb7-16"></a><span class="co"># extract crs</span></span>
-<span id="cb7-17"><a href="geodata.html#cb7-17"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
-<span id="cb7-18"><a href="geodata.html#cb7-18"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
-<span id="cb7-19"><a href="geodata.html#cb7-19"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
-<span id="cb7-20"><a href="geodata.html#cb7-20"></a><span class="co">#&gt;   wkt:</span></span>
-<span id="cb7-21"><a href="geodata.html#cb7-21"></a><span class="co">#&gt; GEOGCRS[&quot;WGS 84&quot;,</span></span>
-<span id="cb7-22"><a href="geodata.html#cb7-22"></a><span class="co">#&gt;     DATUM[&quot;World Geodetic System 1984&quot;,</span></span>
-<span id="cb7-23"><a href="geodata.html#cb7-23"></a><span class="co">#&gt;         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,</span></span>
-<span id="cb7-24"><a href="geodata.html#cb7-24"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]]],</span></span>
-<span id="cb7-25"><a href="geodata.html#cb7-25"></a><span class="co">#&gt;     PRIMEM[&quot;Greenwich&quot;,0,</span></span>
-<span id="cb7-26"><a href="geodata.html#cb7-26"></a><span class="co">#&gt;         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
-<span id="cb7-27"><a href="geodata.html#cb7-27"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
-<span id="cb7-28"><a href="geodata.html#cb7-28"></a><span class="co">#&gt;         AXIS[&quot;geodetic latitude (Lat)&quot;,north,</span></span>
-<span id="cb7-29"><a href="geodata.html#cb7-29"></a><span class="co">#&gt;             ORDER[1],</span></span>
-<span id="cb7-30"><a href="geodata.html#cb7-30"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
-<span id="cb7-31"><a href="geodata.html#cb7-31"></a><span class="co">#&gt;         AXIS[&quot;geodetic longitude (Lon)&quot;,east,</span></span>
-<span id="cb7-32"><a href="geodata.html#cb7-32"></a><span class="co">#&gt;             ORDER[2],</span></span>
-<span id="cb7-33"><a href="geodata.html#cb7-33"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
-<span id="cb7-34"><a href="geodata.html#cb7-34"></a><span class="co">#&gt;     USAGE[</span></span>
-<span id="cb7-35"><a href="geodata.html#cb7-35"></a><span class="co">#&gt;         SCOPE[&quot;unknown&quot;],</span></span>
-<span id="cb7-36"><a href="geodata.html#cb7-36"></a><span class="co">#&gt;         AREA[&quot;World&quot;],</span></span>
-<span id="cb7-37"><a href="geodata.html#cb7-37"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
-<span id="cb7-38"><a href="geodata.html#cb7-38"></a><span class="co">#&gt;     ID[&quot;EPSG&quot;,4326]]</span></span>
-<span id="cb7-39"><a href="geodata.html#cb7-39"></a></span>
-<span id="cb7-40"><a href="geodata.html#cb7-40"></a><span class="co"># alternatively, create sf object with specifying the crs</span></span>
-<span id="cb7-41"><a href="geodata.html#cb7-41"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="geodata.html#cb8-1"></a><span class="co"># transform to the Equal Earth projection (EPSG 8857)</span></span>
-<span id="cb8-2"><a href="geodata.html#cb8-2"></a>waterfalls_sf_trans =<span class="st"> </span><span class="kw">st_transform</span>(waterfalls_sf, <span class="dv">8857</span>)</span>
-<span id="cb8-3"><a href="geodata.html#cb8-3"></a>waterfalls_sf_trans</span>
-<span id="cb8-4"><a href="geodata.html#cb8-4"></a><span class="co">#&gt; Simple feature collection with 3 features and 1 field</span></span>
-<span id="cb8-5"><a href="geodata.html#cb8-5"></a><span class="co">#&gt; geometry type:  POINT</span></span>
-<span id="cb8-6"><a href="geodata.html#cb8-6"></a><span class="co">#&gt; dimension:      XY</span></span>
-<span id="cb8-7"><a href="geodata.html#cb8-7"></a><span class="co">#&gt; bbox:           xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000</span></span>
-<span id="cb8-8"><a href="geodata.html#cb8-8"></a><span class="co">#&gt; projected CRS:  WGS 84 / Equal Earth Greenwich</span></span>
-<span id="cb8-9"><a href="geodata.html#cb8-9"></a><span class="co">#&gt;             name                  geometry</span></span>
-<span id="cb8-10"><a href="geodata.html#cb8-10"></a><span class="co">#&gt; 1   Iguazu Falls POINT (-4969711 -3244138)</span></span>
-<span id="cb8-11"><a href="geodata.html#cb8-11"></a><span class="co">#&gt; 2  Niagara Falls  POINT (-6583123 5261565)</span></span>
-<span id="cb8-12"><a href="geodata.html#cb8-12"></a><span class="co">#&gt; 3 Victoria Falls  POINT (2416945 -2285044)</span></span></code></pre></div>
-<p><img src="02-geodata_files/figure-html/crs-trans-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb7-5"><a href="geodata.html#cb7-5"></a><span class="co"># create sf object (without specifying the crs)</span></span>
+<span id="cb7-6"><a href="geodata.html#cb7-6"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>))</span>
+<span id="cb7-7"><a href="geodata.html#cb7-7"></a><span class="co"># extract crs (not defined yet)</span></span>
+<span id="cb7-8"><a href="geodata.html#cb7-8"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
+<span id="cb7-9"><a href="geodata.html#cb7-9"></a><span class="co">#&gt; Coordinate Reference System: NA</span></span></code></pre></div>
+<p>This function also allows us to specify CRS of our object - in this example, coordinates of our object are in the WGS84 coordinate system, and thus we can use the EPSG code of 4326.
+We can also confirmed that our operation was successful also using <code>st_crs()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="geodata.html#cb8-1"></a><span class="co"># specify crs</span></span>
+<span id="cb8-2"><a href="geodata.html#cb8-2"></a><span class="kw">st_crs</span>(waterfalls_sf) =<span class="st"> </span><span class="dv">4326</span></span>
+<span id="cb8-3"><a href="geodata.html#cb8-3"></a><span class="co"># extract crs</span></span>
+<span id="cb8-4"><a href="geodata.html#cb8-4"></a><span class="kw">st_crs</span>(waterfalls_sf)</span>
+<span id="cb8-5"><a href="geodata.html#cb8-5"></a><span class="co">#&gt; Coordinate Reference System:</span></span>
+<span id="cb8-6"><a href="geodata.html#cb8-6"></a><span class="co">#&gt;   User input: EPSG:4326 </span></span>
+<span id="cb8-7"><a href="geodata.html#cb8-7"></a><span class="co">#&gt;   wkt:</span></span>
+<span id="cb8-8"><a href="geodata.html#cb8-8"></a><span class="co">#&gt; GEOGCRS[&quot;WGS 84&quot;,</span></span>
+<span id="cb8-9"><a href="geodata.html#cb8-9"></a><span class="co">#&gt;     DATUM[&quot;World Geodetic System 1984&quot;,</span></span>
+<span id="cb8-10"><a href="geodata.html#cb8-10"></a><span class="co">#&gt;         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,</span></span>
+<span id="cb8-11"><a href="geodata.html#cb8-11"></a><span class="co">#&gt;             LENGTHUNIT[&quot;metre&quot;,1]]],</span></span>
+<span id="cb8-12"><a href="geodata.html#cb8-12"></a><span class="co">#&gt;     PRIMEM[&quot;Greenwich&quot;,0,</span></span>
+<span id="cb8-13"><a href="geodata.html#cb8-13"></a><span class="co">#&gt;         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-14"><a href="geodata.html#cb8-14"></a><span class="co">#&gt;     CS[ellipsoidal,2],</span></span>
+<span id="cb8-15"><a href="geodata.html#cb8-15"></a><span class="co">#&gt;         AXIS[&quot;geodetic latitude (Lat)&quot;,north,</span></span>
+<span id="cb8-16"><a href="geodata.html#cb8-16"></a><span class="co">#&gt;             ORDER[1],</span></span>
+<span id="cb8-17"><a href="geodata.html#cb8-17"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-18"><a href="geodata.html#cb8-18"></a><span class="co">#&gt;         AXIS[&quot;geodetic longitude (Lon)&quot;,east,</span></span>
+<span id="cb8-19"><a href="geodata.html#cb8-19"></a><span class="co">#&gt;             ORDER[2],</span></span>
+<span id="cb8-20"><a href="geodata.html#cb8-20"></a><span class="co">#&gt;             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],</span></span>
+<span id="cb8-21"><a href="geodata.html#cb8-21"></a><span class="co">#&gt;     USAGE[</span></span>
+<span id="cb8-22"><a href="geodata.html#cb8-22"></a><span class="co">#&gt;         SCOPE[&quot;Horizontal component of 3D system.&quot;],</span></span>
+<span id="cb8-23"><a href="geodata.html#cb8-23"></a><span class="co">#&gt;         AREA[&quot;World.&quot;],</span></span>
+<span id="cb8-24"><a href="geodata.html#cb8-24"></a><span class="co">#&gt;         BBOX[-90,-180,90,180]],</span></span>
+<span id="cb8-25"><a href="geodata.html#cb8-25"></a><span class="co">#&gt;     ID[&quot;EPSG&quot;,4326]]</span></span></code></pre></div>
+<p>Alternatively, it is possible to set the CRS when creating a new <code>sf</code> object, as you can see below.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="geodata.html#cb9-1"></a>waterfalls_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(waterfalls, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
+<p>The <code>st_transform()</code> function is used to convert the existing spatial object’s coordinates into another projection.
+For example, let’s transform our <code>waterfalls_sf</code> object to the Equal Earth projection (EPSG 8857).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="geodata.html#cb10-1"></a>waterfalls_sf_trans =<span class="st"> </span><span class="kw">st_transform</span>(waterfalls_sf, <span class="dv">8857</span>)</span>
+<span id="cb10-2"><a href="geodata.html#cb10-2"></a>waterfalls_sf_trans</span>
+<span id="cb10-3"><a href="geodata.html#cb10-3"></a><span class="co">#&gt; Simple feature collection with 3 features and 1 field</span></span>
+<span id="cb10-4"><a href="geodata.html#cb10-4"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb10-5"><a href="geodata.html#cb10-5"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb10-6"><a href="geodata.html#cb10-6"></a><span class="co">#&gt; Bounding box:  xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000</span></span>
+<span id="cb10-7"><a href="geodata.html#cb10-7"></a><span class="co">#&gt; Projected CRS: WGS 84 / Equal Earth Greenwich</span></span>
+<span id="cb10-8"><a href="geodata.html#cb10-8"></a><span class="co">#&gt;             name                  geometry</span></span>
+<span id="cb10-9"><a href="geodata.html#cb10-9"></a><span class="co">#&gt; 1   Iguazu Falls POINT (-4969711 -3244138)</span></span>
+<span id="cb10-10"><a href="geodata.html#cb10-10"></a><span class="co">#&gt; 2  Niagara Falls  POINT (-6583123 5261565)</span></span>
+<span id="cb10-11"><a href="geodata.html#cb10-11"></a><span class="co">#&gt; 3 Victoria Falls  POINT (2416945 -2285044)</span></span></code></pre></div>
+<p>Figure <a href="geodata.html#fig:crs-trans-plot">2.13</a> shows the data in the WGS84 coordinate system on the top and in the Equal Earth projection on the bottom.
+You can see here that the decision of the projection used has an impact not only on the coordinates (notice the grid values), but also the continents’ shapes.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:crs-trans-plot"></span>
+<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" alt="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection." width="672" />
+<p class="caption">
+FIGURE 2.13: Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection.
+</p>
+</div>
 
 </div>
 </div>
@@ -1237,6 +1231,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

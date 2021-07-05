@@ -363,7 +363,7 @@ tm_shape(hs) +
 
 <!-- clustering -->
 
-## Raster
+## Raster {#raster-layer}
 
 
 ```r
@@ -479,9 +479,9 @@ tm_shape(landsat) +
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
 
 Tile layers can be used for two purposes: either as a basemap or an overlay layer.
-By default, three basemaps are available in the interactive mode (`tmap_mode("view")`): 
+By default, three basemaps are used in the interactive mode (`tmap_mode("view")`): 
 `"Esri.WorldGrayCanvas"`, `"OpenStreetMap"`, and  `"Esri.WorldTopoMap"`.
-However, we can change the used basemaps with a vector with the names of the tile layers' providers (Figure \@ref(fig:tmbasemap1)).
+However, we can change the basemaps with a vector with the names of the tile layers' providers (Figure \@ref(fig:tmbasemap1)).
 
 
 ```r
@@ -504,7 +504,6 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 <!-- https://github.com/leaflet-extras/leaflet-providers -->
 <!-- how to add url tiles -->
 <!-- how to setup your own server or some references? -->
-
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
@@ -524,23 +523,61 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 <p class="caption">(\#fig:tmtiles1)OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.</p>
 </div>
 
-<!-- static map tiles -->
-<!-- + ref above -->
+Tile layers are usually created to be used interactively.
+We can see it, for example, by their number of details varying depending on the zoom level we set.
+That being said, many people find them useful also for static maps, and several packages and functions were created to allow downloading tile layers and using them for static maps.
+It includes packages, such as **ceramic**, **mapmisc**, or **maptiles**.
+<!-- add refs -->
 <!-- https://github.com/riatelab/maptiles -->
-<!-- + mention alternatives -->
+<!-- mention read_osm()? -->
+
+Here, we focus on **maptiles**.
+This package has one main function called `get_tiles()` that expects a spatial object with our area of interest and downloads a spatial data representing our tiles.
+<!-- ... -->
+The `get_tiles()` function also allows us to select one of many map tiles providers and decide on the zoom level we want to use from 0 to 20.
+A complete list of available providers and some [information about zoom levels](https://wiki.openstreetmap.org/wiki/Zoom_levels) are in the help file of this function - `?get_tiles()`.
+Different map tiles providers offer unique map styles, while zoom levels relate to different levels of detail -- the larger level, the more details we will get.
+In some cases, also the `crop` argument set to `TRUE` can be useful - it returns a tile cropped to the area of interest.
 
 
 ```r
 library(maptiles)
-ei_tiles = get_tiles(ei_borders, crop = TRUE, zoom = 12, provider = "Stamen.Toner")
+ei_tiles = get_tiles(ei_borders, provider = "Stamen.Toner", zoom = 12, crop = TRUE)
+#> Warning in CPL_gdalwarp(source, destination,
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpDGsdu8/
+#> file90067a815c68.tif, band 2: Setting nodata to
+#> nan on band 2, but band 1 has nodata at nan. The
+#> TIFFTAG_GDAL_NODATA only support one value per dataset.
+#> This value of nan will be used for all bands on re-
+#> opening
+#> Warning in CPL_gdalwarp(source, destination,
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpDGsdu8/
+#> file90067a815c68.tif, band 3: Setting nodata to
+#> nan on band 3, but band 1 has nodata at nan. The
+#> TIFFTAG_GDAL_NODATA only support one value per dataset.
+#> This value of nan will be used for all bands on re-
+#> opening
+#> Warning in CPL_gdalwarp(source, destination,
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpDGsdu8/
+#> file90067a815c68.tif, band 4: Setting nodata to
+#> nan on band 4, but band 1 has nodata at nan. The
+#> TIFFTAG_GDAL_NODATA only support one value per dataset.
+#> This value of nan will be used for all bands on re-
+#> opening
 ```
 
+In the above example, we downloaded the data for the area of `ei_borders` from the `"Stamen.Toner"` provider using the zoom of level 12, and we cropped the tile to the extent of the island area.
+The result is a spatial object <!--mention terra?--> with four layers, in which three first layers represent the visible red, green, and blue bands (section \@ref(raster-layer)).
+This object's structure allows us to create a **tmap** map with the `tm_rgb()` function.
 
-```r
-get_credit("Stamen.Toner")
-```
+When using map tiles, we should also consider adding their attribution to the map.
+Attribution for each provider can be obtained using the `get_credit()` function by specifying the provider name, for example `get_credit("Stamen.Toner")`.
+
+The code below plots the `"Stamen.Toner"` tiles in the background, adds the island outline in light blue color, and puts attribution text in the bottom right corner of the map (Figure \@ref(fig:stiles)).
 
 
+
+(ref:stiles) Example of a static map using a downloaded `"Stamen.Toner"` tile layer. 
 
 
 ```r
@@ -554,24 +591,7 @@ tm_shape(ei_tiles) +
              bg.color = "white")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" />
-
-## Combining layers
-
-
-```r
-tm_shape(ei_elev) +
-  tm_raster() +
-  tm_shape(ei_borders) + 
-  tm_borders() +
-  tm_shape(ei_roads) + 
-  tm_lines() +
-  tm_shape(volcanos) +
-  tm_symbols()
-#> Variable(s) "NA" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.
-```
-
-<img src="05-layers_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" />
-
-
-
+<div class="figure" style="text-align: center">
+<img src="05-layers_files/figure-html/stiles-1.png" alt="(ref:stiles) " width="672" />
+<p class="caption">(\#fig:stiles)(ref:stiles) </p>
+</div>

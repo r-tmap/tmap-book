@@ -273,10 +273,10 @@ It includes geometry type, dimension (`XY`, `XYZ`, `XYM`, `XYZM`), bounding box 
 ```r
 worldvector
 #> Simple feature collection with 185 features and 15 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000
-#> projected CRS:  WGS 84 / Equal Earth Greenwich
+#> Geometry type: MULTIPOLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000
+#> Projected CRS: WGS 84 / Equal Earth Greenwich
 #> # A tibble: 185 x 16
 #>    GEO   name     wb_region  wb_income_region population
 #>    <chr> <chr>    <chr>      <chr>                 <dbl>
@@ -352,14 +352,10 @@ It has two dimensions, `x` and `y`, and one attribute `worldelevation.tif`.
 worldelevation
 #> stars object with 2 dimensions and 1 attribute
 #> attribute(s):
-#>  worldelevation.tif 
-#>  Min.   :-412       
-#>  1st Qu.: 218       
-#>  Median : 608       
-#>  Mean   :1140       
-#>  3rd Qu.:1941       
-#>  Max.   :6410       
-#>  NA's   :389580     
+#>                     Min. 1st Qu. Median Mean 3rd Qu.
+#> worldelevation.tif  -412     218    608 1140    1941
+#>                     Max.   NA's
+#> worldelevation.tif  6410 389580
 #> dimension(s):
 #>   from   to offset     delta refsys point values x/y
 #> x    1 1080   -180  0.333333 WGS 84 FALSE   NULL [x]
@@ -506,10 +502,7 @@ EPSG is an institute that maintains a database of standard map projections.
 
 <!--https://geographx.co.nz/map-projections/-->
 
-<div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/crs-04-1.png" alt="The WGS84 coordinate system (EPSG4326)" width="672" />
-<p class="caption">(\#fig:crs-04)The WGS84 coordinate system (EPSG4326)</p>
-</div>
+
 
 When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure \@ref(fig:crs-04) (left).
 Note that the longitude lines have become straight vertical lines.
@@ -534,10 +527,7 @@ This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
 The cylinder and plain map that uses this projection are shown in Figure \@ref(fig:crs-05).
 
-<div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/crs-05-1.png" alt="Web Mercator projection (EPSG3857)" width="672" />
-<p class="caption">(\#fig:crs-05)Web Mercator projection (EPSG3857)</p>
-</div>
+
 
 Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure \@ref(fig:orange)).
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
@@ -781,7 +771,7 @@ However, this is only recommended when the target area spans less than 6 degrees
 \index{PROJ}
 Coordinate Reference Systems (CRSs) are implemented in the software library [**PROJ**](https://proj.org/).
 With implementation, we mean specifying a CRS and transforming coordinates from one CRS to another.
-**PROJ** is used by every popular software application for spatial data, in particular **ArcGIS**, **QGIS**, and **GRASS**, and also by many programming languages, including R. 
+**PROJ** is used by every popular software application for spatial data, in particular **ArcGIS**, **QGIS**, and **GRASS GIS**, and also by many programming languages, including R. 
 The **sf** package integrates the **PROJ** functions into R.   
 
 A CRS is represented in R by an object of class `crs`, which can be retrieved or set with the function `st_crs` (from the **sf** package).
@@ -790,7 +780,6 @@ In the following example, a `crs` object is created from an EPSG code, in this c
 
 ```r
 library(sf)
-
 # CRS Lambert Azimuthal Equal-Area projection
 st_crs(3035)
 #> Coordinate Reference System:
@@ -827,8 +816,8 @@ st_crs(3035)
 #>             ORDER[2],
 #>             LENGTHUNIT["metre",1]],
 #>     USAGE[
-#>         SCOPE["unknown"],
-#>         AREA["Europe - LCC & LAEA"],
+#>         SCOPE["Statistical analysis."],
+#>         AREA["Europe - European Union (EU) countries and candidates. Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Cyprus; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Iceland; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal including Madeira and Azores; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain including Canary Islands; Sweden; Switzerland; Turkey; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State."],
 #>         BBOX[24.6,-35.58,84.17,44.83]],
 #>     ID["EPSG",3035]]
 ```
@@ -841,17 +830,21 @@ Understanding the exact content of the WTK is not important for most users, sinc
 \index{crs objects}
 \index{EPSG}
 \index{proj4}
-A `crs` object can be created in three ways:
+A `crs` object can be created in several ways:
 <!--to improve in the future-->
 
 1. The first is with an EPSG number as user input specification as shown above. <!--it can be also some other "provider", e.g. "ESRI:37001"-->
 2. The second is also with a user input specification, but with a so-called *proj4* character string. 
 The *proj4* character string for the LAEA projection is `"+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`.
 However, *proj4* character strings should be used with caution since they often lack important CRS information regarding datums and CRS transformations.
-Also note that the name *proj4* stands for the **PROJ** library version 4, while the current major version of **PROJ** at the time of writing is already 7.
-3. The third way to create a `crs` object is to extract it from an existing spatial data object (e.g. an **sf** or **stars** object).
+Also note that the name *proj4* stands for the **PROJ** library version 4, while the current major version of **PROJ** at the time of writing is already 8.
+3. The third way is to provide some WKT definition of the projection. <!--...-->
+4. The last way to create a `crs` object is to extract it from an existing spatial data object (e.g., an **sf** or **stars** object) using the `st_crs()` function.
 
-A `crs` object can be used to define a new spatial object or to transform an existing spatial object into another projection.
+A `crs` object can define a new spatial object's projection or transform an existing spatial object into another projection.
+In the example below, we created a new object, `waterfalls`, with names and coordinates of three famous waterfalls.
+Next, we converted it into a spatial object of the `sf` class, `waterfalls_sf()` with `st_as_sf()`.
+We can see that our object's coordinate reference system is not defined with the `st_crs()` function.
 
 
 ```r
@@ -859,17 +852,20 @@ A `crs` object can be used to define a new spatial object or to transform an exi
 waterfalls = data.frame(name = c("Iguazu Falls", "Niagara Falls", "Victoria Falls"), 
                         lat = c(-25.686785, 43.092461, -17.931805), 
                         lon = c(-54.444981, -79.047150, 25.825558))
-
 # create sf object (without specifying the crs)
 waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"))
-
 # extract crs (not defined yet)
 st_crs(waterfalls_sf)
 #> Coordinate Reference System: NA
+```
 
+This function also allows us to specify CRS of our object - in this example, coordinates of our object are in the WGS84 coordinate system, and thus we can use the EPSG code of 4326.
+We can also confirmed that our operation was successful also using `st_crs()`. 
+
+
+```r
 # specify crs
 st_crs(waterfalls_sf) = 4326
-
 # extract crs
 st_crs(waterfalls_sf)
 #> Coordinate Reference System:
@@ -889,30 +885,41 @@ st_crs(waterfalls_sf)
 #>             ORDER[2],
 #>             ANGLEUNIT["degree",0.0174532925199433]],
 #>     USAGE[
-#>         SCOPE["unknown"],
-#>         AREA["World"],
+#>         SCOPE["Horizontal component of 3D system."],
+#>         AREA["World."],
 #>         BBOX[-90,-180,90,180]],
 #>     ID["EPSG",4326]]
-
-# alternatively, create sf object with specifying the crs
-waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
 ```
+
+Alternatively, it is possible to set the CRS when creating a new `sf` object, as you can see below.
 
 
 ```r
-# transform to the Equal Earth projection (EPSG 8857)
+waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
+```
+
+The `st_transform()` function is used to convert the existing spatial object's coordinates into another projection.
+For example, let's transform our `waterfalls_sf` object to the Equal Earth projection (EPSG 8857).
+
+
+```r
 waterfalls_sf_trans = st_transform(waterfalls_sf, 8857)
 waterfalls_sf_trans
 #> Simple feature collection with 3 features and 1 field
-#> geometry type:  POINT
-#> dimension:      XY
-#> bbox:           xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000
-#> projected CRS:  WGS 84 / Equal Earth Greenwich
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -6580000 ymin: -3240000 xmax: 2420000 ymax: 5260000
+#> Projected CRS: WGS 84 / Equal Earth Greenwich
 #>             name                  geometry
 #> 1   Iguazu Falls POINT (-4969711 -3244138)
 #> 2  Niagara Falls  POINT (-6583123 5261565)
 #> 3 Victoria Falls  POINT (2416945 -2285044)
 ```
 
+Figure \@ref(fig:crs-trans-plot) shows the data in the WGS84 coordinate system on the top and in the Equal Earth projection on the bottom.
+You can see here that the decision of the projection used has an impact not only on the coordinates (notice the grid values), but also the continents' shapes.
 
-<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" alt="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection." width="672" />
+<p class="caption">(\#fig:crs-trans-plot)Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection.</p>
+</div>
