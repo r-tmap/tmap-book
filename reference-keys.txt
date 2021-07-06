@@ -102,6 +102,9 @@ shapes
 mixing-visual-variables
 othertypes
 layout
+font-faces-and-font-families
+font-faces
+font-families
 attributes-layers
 layout-element
 interactive
