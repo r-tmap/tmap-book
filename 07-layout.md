@@ -2,6 +2,20 @@
 
 ## Font faces and font families
 
+<!-- where to put the font section ?? -->
+<!-- intro -->
+<!-- font faces and font families -->
+
+<img src="07-layout_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- Serif, Sans Serif, Monospace -->
+
+<img src="07-layout_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- role of font faces and font families: -->
+<!-- - highlight different levels/importance -->
+<!-- - distinguish our map from the others (defaults could be boring...) -->
+
 
 ```r
 library(tmap)
@@ -11,15 +25,6 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
 volcanos = subset(ei_points, type == "volcano")
 ```
-
-<!-- where to put the font section -->
-<!-- intro -->
-<!-- font faces and font families -->
-<!-- role of font faces and font families: -->
-<!-- - highlight different levels/importance -->
-<!-- - distinguish our map from the others (defaults could be boring...) -->
-
-
 <!-- explain defaults -->
 
 
@@ -32,7 +37,7 @@ tm_shape(ei_borders) +
             main.title = "Volcanos of Easter Island")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- explain that we can change font faces and families for each element or the whole map -->
 
