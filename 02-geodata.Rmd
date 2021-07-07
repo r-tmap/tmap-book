@@ -557,7 +557,7 @@ The world is shown as an orange below, not just to stimulate your appetite for t
 A world map can be seen as an orange peel that is put flat on the table.
 The question is how to do this.
 
-```{r crs-02, eval=FALSE, echo=FALSE, results='hide', warning=FALSE}
+```{r crs-02, echo=FALSE, results='hide', warning=FALSE, eval=FALSE}
 source("code/crs_examples.R")
 map_orange_world()
 ```
