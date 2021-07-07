@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
   widgetframe_widgets_dir = 'widgets'
 )
 
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 if(!knitr:::is_html_output()){
   options("width" = 56)
   knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 56, indent = 2),
