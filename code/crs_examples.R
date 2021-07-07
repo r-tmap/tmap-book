@@ -1,11 +1,14 @@
 map_orange_world = function() {
+  library(grid)
   if (file.exists("images/orange.png")) {
     World2 = World
     World2$geometry[World$iso_a3 == "USA"] = st_cast(World$geometry[World$iso_a3 == "USA"], "POLYGON")[6]
     ortho_crs = st_crs("+proj=ortho +lon_0=11 +lat_0=46")
     World_ortho = st_transform(World2, crs = ortho_crs)
-    World_ortho <- st_make_valid(World_ortho)
-    
+    World_ortho = st_make_valid(World_ortho)
+    World_ortho = st_cast(World_ortho, "MULTIPOLYGON")
+    World_ortho = World_ortho[!st_is_empty(World_ortho), ]
+
     ortho_bbx = st_bbox(c(xmin = -6377165, ymin = -6373732, xmax = 6377165, ymax = 6377634), crs = ortho_crs)
     
     png("images/orange_world.png", width = 1213, height = 1213)
@@ -16,10 +19,11 @@ map_orange_world = function() {
     grid.newpage()
     grid.draw(orange)
     vp = grid::viewport(width = .84, height = .84, x = .48)
-    print(tm_shape(World_ortho, bbox = ortho_bbx) + 
+    print(tm_shape(World_ortho, bbox = ortho_bbx) +
             # 	tm_borders("grey30", lwd = 2) +
             tm_polygons("red", border.col = "grey30", lwd = 4, alpha = .25) +
-            tm_graticules(x = seq(-180, 150, by = 30), y = seq(-90, 90, by = 30), labels.show = FALSE, lwd = 2) +
+            tm_graticules(x = seq(-180, 150, by = 30), y = seq(-90, 90, by = 30),
+                          labels.show = FALSE, lwd = 2) +
             tm_layout(frame = FALSE, bg.color = NA), vp = vp)
     dev.off()
   }
