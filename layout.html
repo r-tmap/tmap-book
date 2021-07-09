@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-07" />
+<meta name="date" content="2021-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -275,10 +275,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb101-3"><a href="layout.html#cb101-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
 <span id="cb101-4"><a href="layout.html#cb101-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
-<span id="cb101-5"><a href="layout.html#cb101-5"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">legend.outside =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb101-6"><a href="layout.html#cb101-6"></a>            <span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span id="cb101-5"><a href="layout.html#cb101-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb101-6"><a href="layout.html#cb101-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb101-7"><a href="layout.html#cb101-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
+<span id="cb101-8"><a href="layout.html#cb101-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb102-4"><a href="layout.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>) <span class="op">+</span></span>
+<span id="cb102-5"><a href="layout.html#cb102-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="op">+</span></span>
+<span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
+<span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
+<p><img src="07-layout_files/figure-html/font1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- explain that we can change font faces and families for each element or the whole map -->
+<!-- mention size -->
 <div id="font-faces" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Font faces</h3>
 <!-- explain what are font faces -->

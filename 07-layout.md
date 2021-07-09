@@ -33,13 +33,29 @@ tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
-  tm_layout(legend.outside = TRUE,
-            main.title = "Volcanos of Easter Island")
+  tm_credits("Data source: OSM") + 
+  tm_layout(main.title = "Volcanos of Easter Island",
+            fontface = "italic",
+            fontfamily = "serif")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+
+```r
+tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation", fontfamily = "sans") +
+  tm_credits("Data source: OSM", fontface = "bold") +
+  tm_layout(main.title = "Volcanos of Easter Island",
+            main.title.fontface = "bold.italic", 
+            legend.title.fontfamily = "monospace")
+```
+
+<img src="07-layout_files/figure-html/font1-1.png" width="672" style="display: block; margin: auto;" />
+
 
 <!-- explain that we can change font faces and families for each element or the whole map -->
+<!-- mention size -->
 
 ### Font faces
 
