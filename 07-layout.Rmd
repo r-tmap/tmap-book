@@ -54,16 +54,55 @@ volcanos = subset(ei_points, type == "volcano")
 ```
 <!-- explain defaults -->
 
-```{r}
+```{r, eval=FALSE}
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
-  tm_layout(legend.outside = TRUE,
-            main.title = "Volcanos of Easter Island")
+  tm_credits("Data source: OSM") + 
+  tm_layout(main.title = "Volcanos of Easter Island",
+            fontface = "italic",
+            fontfamily = "serif")
 ```
 
+```{r, eval=FALSE}
+tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation", fontfamily = "sans") +
+  tm_credits("Data source: OSM", fontface = "bold") +
+  tm_layout(main.title = "Volcanos of Easter Island",
+            main.title.fontface = "bold.italic", 
+            legend.title.fontfamily = "monospace")
+```
+
+```{r font1, echo=FALSE}
+tmt1 = tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation") +
+  tm_credits("Data source: OSM") + 
+  tm_layout(main.title = "Volcanos of Easter Island",
+            fontface = "italic",
+            fontfamily = "serif",
+            title.fontface = "plain",
+            title.fontfamily = "sans",
+            title = "A")
+tmt2 = tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation", fontfamily = "sans") +
+  tm_credits("Data source: OSM", fontface = "bold") +
+  tm_layout(main.title = "Volcanos of Easter Island",
+            main.title.fontface = "bold.italic", 
+            legend.title.fontfamily = "monospace",
+            title = "B")
+tmap_arrange(tmt1, tmt2, nrow = 1)
+```
+
+
 <!-- explain that we can change font faces and families for each element or the whole map -->
+<!-- mention size -->
 
 ### Font faces
 
