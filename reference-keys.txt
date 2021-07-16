@@ -102,7 +102,7 @@ shapes
 mixing-visual-variables
 othertypes
 layout
-font-faces-and-font-families
+typography
 font-faces
 font-families
 attributes-layers

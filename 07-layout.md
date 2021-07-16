@@ -1,10 +1,16 @@
 # Layout {#layout}
 
-## Font faces and font families
+## Typography
+
+<!-- Font faces and font families -->
+
+
 
 <!-- where to put the font section ?? -->
 <!-- intro -->
 <!-- font faces and font families -->
+
+@guidero_typography_2017
 
 <img src="07-layout_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
 
