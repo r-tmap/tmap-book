@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-16" />
+<meta name="date" content="2021-07-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#font-families"><i class="fa fa-check"></i><b>8.1.2</b> Font families</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#attributes-layers"><i class="fa fa-check"></i><b>8.2</b> Attributes layers</a></li>
-<li class="chapter" data-level="8.3" data-path="layout.html"><a href="layout.html#layout-element"><i class="fa fa-check"></i><b>8.3</b> Layout element</a></li>
+<li class="chapter" data-level="8.3" data-path="layout.html"><a href="layout.html#layout-elements"><i class="fa fa-check"></i><b>8.3</b> Layout elements</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>9</b> Interactive settings</a></li>
 <li class="chapter" data-level="10" data-path="multiples.html"><a href="multiples.html"><i class="fa fa-check"></i><b>10</b> Small multiples</a><ul>
@@ -256,13 +256,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="typography" class="section level2">
 <h2><span class="header-section-number">8.1</span> Typography</h2>
 <!-- Font faces and font families -->
-<!-- where to put the font section ?? -->
-<!-- intro -->
-<!-- font faces and font families -->
-<p><span class="citation">Guidero (<a href="#ref-guidero_typography_2017" role="doc-biblioref">2017</a>)</span></p>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The decision about the used fonts is often neglected when creating programmable plots and maps.
+Most often, the default fonts are used in these kinds of graphs.
+This, however, could be a missed opportunity.
+A lot of map information is expressed by text, including text labels (section <a href="layers.html#text">5.4</a>), legend labels, text in attribute layers (section <a href="layout.html#attributes-layers">8.2</a>), or the map title (section <a href="layout.html#layout-elements">8.3</a>).
+The used fonts impact the tone of the map <span class="citation">(Guidero <a href="#ref-guidero_typography_2017" role="doc-biblioref">2017</a>)</span>, and their customization allows for a map to stand out from maps using default options.</p>
+<p>In <strong>tmap</strong>, fonts are represented by the font family (<a href="layout.html#fig:fonts">8.1</a>:A) and the font face (<a href="layout.html#fig:fonts">8.1</a>:B).
+Three main groups of font families exist: <code>serif</code>, <code>sans</code>, and <code>monospace</code>.
+<!-- font families -->
+Next, each of the selected font families can be adjusted by one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code>.
+<!-- font faces --></p>
 <!-- Serif, Sans Serif, Monospace -->
-<p><img src="07-layout_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fonts"></span>
+<img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="672" />
+<p class="caption">
+FIGURE 8.1: Basic (A) font families, and (B) font faces implemented in the tmap package.
+</p>
+</div>
 <!-- role of font faces and font families: -->
 <!-- - highlight different levels/importance -->
 <!-- - distinguish our map from the others (defaults could be boring...) -->
@@ -401,8 +411,8 @@ adds minimap in the view mode only
 </tbody>
 </table>
 </div>
-<div id="layout-element" class="section level2">
-<h2><span class="header-section-number">8.3</span> Layout element</h2>
+<div id="layout-elements" class="section level2">
+<h2><span class="header-section-number">8.3</span> Layout elements</h2>
 
 </div>
 </div>

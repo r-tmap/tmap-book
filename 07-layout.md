@@ -3,20 +3,29 @@
 ## Typography
 
 <!-- Font faces and font families -->
+The decision about the used fonts is often neglected when creating programmable plots and maps.
+Most often, the default fonts are used in these kinds of graphs.
+This, however, could be a missed opportunity.
+A lot of map information is expressed by text, including text labels (section \@ref(text)), legend labels, text in attribute layers (section \@ref(attributes-layers)), or the map title (section \@ref(layout-elements)).
+The used fonts impact the tone of the map [@guidero_typography_2017], and their customization allows for a map to stand out from maps using default options.
+
+In **tmap**, fonts are represented by the font family (\@ref(fig:fonts):A) and the font face (\@ref(fig:fonts):B).
+Three main groups of font families exist: `serif`, `sans`, and `monospace`.
+<!-- font families -->
+Next, each of the selected font families can be adjusted by one of the font faces: `plain`, `italic`, `bold`, and `bold.italic`.
+<!-- font faces -->
 
 
-
-<!-- where to put the font section ?? -->
-<!-- intro -->
-<!-- font faces and font families -->
-
-@guidero_typography_2017
-
-<img src="07-layout_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- Serif, Sans Serif, Monospace -->
 
-<img src="07-layout_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+
+
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="672" />
+<p class="caption">(\#fig:fonts)Basic (A) font families, and (B) font faces implemented in the tmap package.</p>
+</div>
+
 
 <!-- role of font faces and font families: -->
 <!-- - highlight different levels/importance -->
@@ -135,4 +144,4 @@ tm_shape(ei_borders) +
 </tbody>
 </table>
 
-## Layout element
+## Layout elements

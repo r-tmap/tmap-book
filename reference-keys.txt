@@ -53,6 +53,7 @@ fig:tmtextsize
 fig:tmsymshape
 fig:mixsymb
 fig:mixline
+fig:fonts
 tab:attr-layers-table
 intro
 what-is-tmap
@@ -106,7 +107,7 @@ typography
 font-faces
 font-families
 attributes-layers
-layout-element
+layout-elements
 interactive
 multiples
 vector-data
