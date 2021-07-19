@@ -3,14 +3,20 @@
 ## Typography
 
 <!-- Font faces and font families -->
+The decision about the used fonts is often neglected when creating programmable plots and maps.
+Most often, the default fonts are used in these kinds of graphs.
+This, however, could be a missed opportunity.
+A lot of map information is expressed by text, including text labels (section \@ref(text)), legend labels, text in attribute layers (section \@ref(attributes-layers)), or the map title (section \@ref(layout-elements)).
+The used fonts impact the tone of the map [@guidero_typography_2017], and their customization allows for a map to stand out from maps using default options.
 
+In **tmap**, fonts are 
 
 
 <!-- where to put the font section ?? -->
 <!-- intro -->
 <!-- font faces and font families -->
 
-@guidero_typography_2017
+
 
 ```{r, echo=FALSE}
 library(tmap)
@@ -161,4 +167,4 @@ knitr::kable(attr_layers_df,
   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
-## Layout element
+## Layout elements
