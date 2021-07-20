@@ -9,15 +9,7 @@ This, however, could be a missed opportunity.
 A lot of map information is expressed by text, including text labels (section \@ref(text)), legend labels, text in attribute layers (section \@ref(attributes-layers)), or the map title (section \@ref(layout-elements)).
 The used fonts impact the tone of the map [@guidero_typography_2017], and their customization allows for a map to stand out from maps using default options.
 
-In **tmap**, fonts are represented by the font family (\@ref(fig:fonts):A) and the font face (\@ref(fig:fonts):B).
-Three main groups of font families exist: `serif`, `sans`, and `monospace`.
-<!-- font families -->
-Next, each of the selected font families can be adjusted by one of the font faces: `plain`, `italic`, `bold`, and `bold.italic`.
-<!-- font faces -->
 
-
-
-<!-- Serif, Sans Serif, Monospace -->
 
 
 
@@ -26,10 +18,41 @@ Next, each of the selected font families can be adjusted by one of the font face
 <p class="caption">(\#fig:fonts)Basic (A) font families, and (B) font faces implemented in the tmap package.</p>
 </div>
 
+In **tmap**, fonts are represented by a font family (Figure \@ref(fig:fonts):A) and a font face (Figure \@ref(fig:fonts):B).
+A font family is a collection of closely related lettering designs.
+Examples of font families include *Times*, *Helvetica*, *Courier*, Palatino, etc.
+The **tmap** package allows to select a font family based on its name (e.g., `Times`), but also has three general font families called `serif`, `sans`, and `monospace`.
+Each of them is a shortcut working on each operating system: `serif` for `Times`, `sans` for `Helvetica`, and `monospace` for `Courier` (Figure \@ref(fig:fonts):A). 
+Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (Figure \@ref(fig:fonts):B).
+Font faces influence the orientation or width of the fonts.
+A *font* is, thus, a combination of a selected font family and font face.
 
 <!-- role of font faces and font families: -->
 <!-- - highlight different levels/importance -->
-<!-- - distinguish our map from the others (defaults could be boring...) -->
+As we mentioned above, many different map elements can be expressed or can use fonts.
+In theory, we are able to set different font family and font face to each of them.
+However, this could result in a confusing visual mix that would hinder our map information.
+Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
+In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections.
+
+### Font families
+
+<!-- explain what are font families -->
+<!-- explain when each font family is useful -->
+<!-- show how to use them in **tmap** -->
+<!-- build-in fonts only -->
+
+<!-- external fonts with extrafont -->
+
+<!-- external fonts with showtext -->
+
+
+### Font faces
+
+<!-- explain what are font faces -->
+<!-- explain when each font face is useful -->
+<!-- show how to use them in **tmap** -->
+
 
 
 ```r
@@ -71,23 +94,6 @@ tm_shape(ei_borders) +
 
 <!-- explain that we can change font faces and families for each element or the whole map -->
 <!-- mention size -->
-
-### Font faces
-
-<!-- explain what are font faces -->
-<!-- explain when each font face is useful -->
-<!-- show how to use them in **tmap** -->
-
-### Font families
-
-<!-- explain what are font families -->
-<!-- explain when each font family is useful -->
-<!-- show how to use them in **tmap** -->
-<!-- build-in fonts only -->
-
-<!-- external fonts with extrafont -->
-
-<!-- external fonts with showtext -->
 
 
 ## Attributes layers

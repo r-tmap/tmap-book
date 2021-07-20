@@ -104,8 +104,8 @@ mixing-visual-variables
 othertypes
 layout
 typography
-font-faces
 font-families
+font-faces
 attributes-layers
 layout-elements
 interactive
