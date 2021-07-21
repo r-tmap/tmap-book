@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-20" />
+<meta name="date" content="2021-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,8 +209,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="othertypes.html"><a href="othertypes.html"><i class="fa fa-check"></i><b>7</b> Other types</a></li>
 <li class="chapter" data-level="8" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>8</b> Layout</a><ul>
 <li class="chapter" data-level="8.1" data-path="layout.html"><a href="layout.html#typography"><i class="fa fa-check"></i><b>8.1</b> Typography</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="layout.html"><a href="layout.html#font-families"><i class="fa fa-check"></i><b>8.1.1</b> Font families</a></li>
-<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#font-faces"><i class="fa fa-check"></i><b>8.1.2</b> Font faces</a></li>
+<li class="chapter" data-level="8.1.1" data-path="layout.html"><a href="layout.html#font-families-and-faces"><i class="fa fa-check"></i><b>8.1.1</b> Font families and faces</a></li>
+<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#fonts-in-tmap"><i class="fa fa-check"></i><b>8.1.2</b> Fonts in <strong>tmap</strong></a></li>
+<li class="chapter" data-level="8.1.3" data-path="layout.html"><a href="layout.html#fonts-on-maps"><i class="fa fa-check"></i><b>8.1.3</b> Fonts on maps</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#attributes-layers"><i class="fa fa-check"></i><b>8.2</b> Attributes layers</a></li>
 <li class="chapter" data-level="8.3" data-path="layout.html"><a href="layout.html#layout-elements"><i class="fa fa-check"></i><b>8.3</b> Layout elements</a></li>
@@ -281,21 +282,22 @@ A <em>font</em> is, thus, a combination of a selected font family and font face.
 In theory, we are able to set different font family and font face to each of them.
 However, this could result in a confusing visual mix that would hinder our map information.
 Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
-In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections.</p>
-<div id="font-families" class="section level3">
-<h3><span class="header-section-number">8.1.1</span> Font families</h3>
+<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. --></p>
+<div id="font-families-and-faces" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Font families and faces</h3>
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->
-<!-- show how to use them in **tmap** -->
+<!-- explain what are font faces -->
+<!-- explain when each font face is useful -->
+</div>
+<div id="fonts-in-tmap" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Fonts in <strong>tmap</strong></h3>
 <!-- build-in fonts only -->
 <!-- external fonts with extrafont -->
 <!-- external fonts with showtext -->
 </div>
-<div id="font-faces" class="section level3">
-<h3><span class="header-section-number">8.1.2</span> Font faces</h3>
-<!-- explain what are font faces -->
-<!-- explain when each font face is useful -->
-<!-- show how to use them in **tmap** -->
+<div id="fonts-on-maps" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> Fonts on maps</h3>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="layout.html#cb100-1"></a><span class="kw">library</span>(tmap)</span>
 <span id="cb100-2"><a href="layout.html#cb100-2"></a><span class="kw">library</span>(sf)</span>
 <span id="cb100-3"><a href="layout.html#cb100-3"></a><span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
@@ -303,6 +305,10 @@ In the next two sections, we show how to set up font families and font faces, an
 <span id="cb100-5"><a href="layout.html#cb100-5"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
 <span id="cb100-6"><a href="layout.html#cb100-6"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <!-- explain defaults -->
+<p>By default, <strong>tmap</strong> uses the <code>sans</code> font family with the <code>plain</code> font face (Figure <a href="layers.html#fig:tmtext">5.5</a>).
+There are, however, three ways to customize the used fonts.
+The first one is to change all of the fonts and font faces for the whole map at once (Figure <a href="#fig:mfonts"><strong>??</strong></a>:A).
+This can be done with the <code>fontfamily</code> and <code>fontface</code> arguments of <code>tm_layout()</code>.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb101-3"><a href="layout.html#cb101-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
@@ -311,6 +317,7 @@ In the next two sections, we show how to set up font families and font faces, an
 <span id="cb101-6"><a href="layout.html#cb101-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
 <span id="cb101-7"><a href="layout.html#cb101-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
 <span id="cb101-8"><a href="layout.html#cb101-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
+<p>(Figure <a href="#fig:mfonts"><strong>??</strong></a>:B)</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
@@ -319,7 +326,8 @@ In the next two sections, we show how to set up font families and font faces, an
 <span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
 <span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
 <span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/font1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/mfonts-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The third way is to use a different <em>tmap style</em> - see section @ref() for more details.</p>
 <!-- explain that we can change font faces and families for each element or the whole map -->
 <!-- mention size -->
 </div>

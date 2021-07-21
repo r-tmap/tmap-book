@@ -104,8 +104,9 @@ mixing-visual-variables
 othertypes
 layout
 typography
-font-families
-font-faces
+font-families-and-faces
+fonts-in-tmap
+fonts-on-maps
 attributes-layers
 layout-elements
 interactive

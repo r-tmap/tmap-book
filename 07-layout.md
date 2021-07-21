@@ -33,26 +33,23 @@ As we mentioned above, many different map elements can be expressed or can use f
 In theory, we are able to set different font family and font face to each of them.
 However, this could result in a confusing visual mix that would hinder our map information.
 Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
-In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections.
+<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. -->
 
-### Font families
+### Font families and faces
 
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->
-<!-- show how to use them in **tmap** -->
-<!-- build-in fonts only -->
-
-<!-- external fonts with extrafont -->
-
-<!-- external fonts with showtext -->
-
-
-### Font faces
 
 <!-- explain what are font faces -->
 <!-- explain when each font face is useful -->
-<!-- show how to use them in **tmap** -->
 
+### Fonts in **tmap**
+
+<!-- build-in fonts only -->
+<!-- external fonts with extrafont -->
+<!-- external fonts with showtext -->
+
+### Fonts on maps
 
 
 ```r
@@ -63,7 +60,12 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
 volcanos = subset(ei_points, type == "volcano")
 ```
+
 <!-- explain defaults -->
+By default, **tmap** uses the `sans` font family with the `plain` font face (Figure \@ref(fig:tmtext)). 
+There are, however, three ways to customize the used fonts.
+The first one is to change all of the fonts and font faces for the whole map at once (Figure \@ref(fig:mfonts):A).
+This can be done with the `fontfamily` and `fontface` arguments of `tm_layout()`.
 
 
 ```r
@@ -78,6 +80,9 @@ tm_shape(ei_borders) +
 ```
 
 
+(Figure \@ref(fig:mfonts):B)
+
+
 ```r
 tm_shape(ei_borders) +
   tm_polygons() +
@@ -89,8 +94,9 @@ tm_shape(ei_borders) +
             legend.title.fontfamily = "monospace")
 ```
 
-<img src="07-layout_files/figure-html/font1-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/mfonts-1.png" width="672" style="display: block; margin: auto;" />
 
+The third way is to use a different *tmap style* - see section \@ref() for more details.
 
 <!-- explain that we can change font faces and families for each element or the whole map -->
 <!-- mention size -->
