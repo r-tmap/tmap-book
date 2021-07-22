@@ -79,8 +79,9 @@ tm_shape(ei_borders) +
             fontfamily = "serif")
 ```
 
-
-(Figure \@ref(fig:mfonts):B)
+The second way is to specify just some text elements independently (Figure \@ref(fig:mfonts):B).
+Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` that can be adjusted.
+Additionally, `tm_layout()` allows to customize fonts for other map elements using prefixed arguments, such as, `main.title.fontface` or `legend.title.fontfamily`.
 
 
 ```r
@@ -94,7 +95,10 @@ tm_shape(ei_borders) +
             legend.title.fontfamily = "monospace")
 ```
 
-<img src="07-layout_files/figure-html/mfonts-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="672" />
+<p class="caption">(\#fig:mfonts)Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements.</p>
+</div>
 
 The third way is to use a different *tmap style* - see section \@ref() for more details.
 

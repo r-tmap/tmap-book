@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Layout | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.22.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Layout | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-21" />
+<meta name="date" content="2021-07-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -307,7 +307,7 @@ Therefore, the decision on the used fonts should be taken after considering the 
 <!-- explain defaults -->
 <p>By default, <strong>tmap</strong> uses the <code>sans</code> font family with the <code>plain</code> font face (Figure <a href="layers.html#fig:tmtext">5.5</a>).
 There are, however, three ways to customize the used fonts.
-The first one is to change all of the fonts and font faces for the whole map at once (Figure <a href="#fig:mfonts"><strong>??</strong></a>:A).
+The first one is to change all of the fonts and font faces for the whole map at once (Figure <a href="layout.html#fig:mfonts">8.2</a>:A).
 This can be done with the <code>fontfamily</code> and <code>fontface</code> arguments of <code>tm_layout()</code>.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
@@ -317,7 +317,9 @@ This can be done with the <code>fontfamily</code> and <code>fontface</code> argu
 <span id="cb101-6"><a href="layout.html#cb101-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
 <span id="cb101-7"><a href="layout.html#cb101-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
 <span id="cb101-8"><a href="layout.html#cb101-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
-<p>(Figure <a href="#fig:mfonts"><strong>??</strong></a>:B)</p>
+<p>The second way is to specify just some text elements independently (Figure <a href="layout.html#fig:mfonts">8.2</a>:B).
+Many <strong>tmap</strong> functions, such as <code>tm_text()</code> or <code>tm_credits()</code>, have their own <code>fontfamily</code> and <code>fontface</code> that can be adjusted.
+Additionally, <code>tm_layout()</code> allows to customize fonts for other map elements using prefixed arguments, such as, <code>main.title.fontface</code> or <code>legend.title.fontfamily</code>.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
@@ -326,7 +328,12 @@ This can be done with the <code>fontfamily</code> and <code>fontface</code> argu
 <span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
 <span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
 <span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/mfonts-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:mfonts"></span>
+<img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="672" />
+<p class="caption">
+FIGURE 8.2: Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements.
+</p>
+</div>
 <p>The third way is to use a different <em>tmap style</em> - see section @ref() for more details.</p>
 <!-- explain that we can change font faces and families for each element or the whole map -->
 <!-- mention size -->

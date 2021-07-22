@@ -54,6 +54,7 @@ fig:tmsymshape
 fig:mixsymb
 fig:mixline
 fig:fonts
+fig:mfonts
 tab:attr-layers-table
 intro
 what-is-tmap
