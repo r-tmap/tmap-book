@@ -104,8 +104,9 @@ tm_shape(ei_borders) +
             fontfamily = "serif")
 ```
 
-
-(Figure \@ref(fig:mfonts):B)
+The second way is to specify just some text elements independently (Figure \@ref(fig:mfonts):B).
+Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` that can be adjusted.
+Additionally, `tm_layout()` allows to customize fonts for other map elements using prefixed arguments, such as, `main.title.fontface` or `legend.title.fontfamily`.
 
 ```{r font2, eval=FALSE}
 tm_shape(ei_borders) +
@@ -118,7 +119,7 @@ tm_shape(ei_borders) +
             legend.title.fontfamily = "monospace")
 ```
 
-```{r mfonts, echo=FALSE}
+```{r mfonts, echo=FALSE, fig.cap="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements."}
 tmt1 = tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
