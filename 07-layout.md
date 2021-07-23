@@ -9,6 +9,17 @@ This, however, could be a missed opportunity.
 A lot of map information is expressed by text, including text labels (section \@ref(text)), legend labels, text in attribute layers (section \@ref(attributes-layers)), or the map title (section \@ref(layout-elements)).
 The used fonts impact the tone of the map [@guidero_typography_2017], and their customization allows for a map to stand out from maps using default options.
 
+<!-- role of font faces and font families: -->
+<!-- - highlight different levels/importance -->
+As we mentioned above, many different map elements can be expressed or can use fonts.
+In theory, we are able to set different fonts to each of them.
+However, this could result in a confusing visual mix that would hinder our map information.
+Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
+<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. -->
+
+### Font families and faces
+
+
 
 
 
@@ -20,22 +31,21 @@ The used fonts impact the tone of the map [@guidero_typography_2017], and their 
 
 In **tmap**, fonts are represented by a font family (Figure \@ref(fig:fonts):A) and a font face (Figure \@ref(fig:fonts):B).
 A font family is a collection of closely related lettering designs.
-Examples of font families include *Times*, *Helvetica*, *Courier*, Palatino, etc.
+Examples of font families include *Times*, *Helvetica*, *Courier*, *Palatino*, etc.
+Font faces, on the other hand, influence the orientation or width of the fonts.
+A *font* is, thus, a combination of a selected font family and font face.
+
+Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
+Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
+A graphic device is a place where a plot or map is rendered.
+The most commonly it is a some kind of a screen device, where we can see our plot or map directly after running the R code.
+Other graphic devices allow for saving plots or maps as files in various formats (e.g., `.png`, `.jpg`, `.pdf`).
+Visit `?Devices` or read the Graphic Devices chapter of @peng2016exploratory to learn more about them.
+<!-- state possible problems -->
+
 The **tmap** package allows to select a font family based on its name (e.g., `Times`), but also has three general font families called `serif`, `sans`, and `monospace`.
 Each of them is a shortcut working on each operating system: `serif` for `Times`, `sans` for `Helvetica`, and `monospace` for `Courier` (Figure \@ref(fig:fonts):A). 
 Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (Figure \@ref(fig:fonts):B).
-Font faces influence the orientation or width of the fonts.
-A *font* is, thus, a combination of a selected font family and font face.
-
-<!-- role of font faces and font families: -->
-<!-- - highlight different levels/importance -->
-As we mentioned above, many different map elements can be expressed or can use fonts.
-In theory, we are able to set different font family and font face to each of them.
-However, this could result in a confusing visual mix that would hinder our map information.
-Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
-<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. -->
-
-### Font families and faces
 
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->

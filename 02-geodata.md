@@ -277,7 +277,7 @@ worldvector
 #> Dimension:     XY
 #> Bounding box:  xmin: -16300000 ymin: -8390000 xmax: 16900000 ymax: 8320000
 #> Projected CRS: WGS 84 / Equal Earth Greenwich
-#> # A tibble: 185 x 16
+#> # A tibble: 185 × 16
 #>    GEO   name     wb_region  wb_income_region population
 #>    <chr> <chr>    <chr>      <chr>                 <dbl>
 #>  1 AUS   Austral… East Asia… High income        42900000

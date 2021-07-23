@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Layout | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.22.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Layout | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-22" />
+<meta name="date" content="2021-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -262,6 +262,15 @@ Most often, the default fonts are used in these kinds of graphs.
 This, however, could be a missed opportunity.
 A lot of map information is expressed by text, including text labels (section <a href="layers.html#text">5.4</a>), legend labels, text in attribute layers (section <a href="layout.html#attributes-layers">8.2</a>), or the map title (section <a href="layout.html#layout-elements">8.3</a>).
 The used fonts impact the tone of the map <span class="citation">(Guidero <a href="#ref-guidero_typography_2017" role="doc-biblioref">2017</a>)</span>, and their customization allows for a map to stand out from maps using default options.</p>
+<!-- role of font faces and font families: -->
+<!-- - highlight different levels/importance -->
+<p>As we mentioned above, many different map elements can be expressed or can use fonts.
+In theory, we are able to set different fonts to each of them.
+However, this could result in a confusing visual mix that would hinder our map information.
+Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
+<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. --></p>
+<div id="font-families-and-faces" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Font families and faces</h3>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fonts"></span>
 <img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="672" />
 <p class="caption">
@@ -270,21 +279,19 @@ FIGURE 8.1: Basic (A) font families, and (B) font faces implemented in the tmap 
 </div>
 <p>In <strong>tmap</strong>, fonts are represented by a font family (Figure <a href="layout.html#fig:fonts">8.1</a>:A) and a font face (Figure <a href="layout.html#fig:fonts">8.1</a>:B).
 A font family is a collection of closely related lettering designs.
-Examples of font families include <em>Times</em>, <em>Helvetica</em>, <em>Courier</em>, Palatino, etc.
-The <strong>tmap</strong> package allows to select a font family based on its name (e.g., <code>Times</code>), but also has three general font families called <code>serif</code>, <code>sans</code>, and <code>monospace</code>.
-Each of them is a shortcut working on each operating system: <code>serif</code> for <code>Times</code>, <code>sans</code> for <code>Helvetica</code>, and <code>monospace</code> for <code>Courier</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:A).
-Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).
-Font faces influence the orientation or width of the fonts.
+Examples of font families include <em>Times</em>, <em>Helvetica</em>, <em>Courier</em>, <em>Palatino</em>, etc.
+Font faces, on the other hand, influence the orientation or width of the fonts.
 A <em>font</em> is, thus, a combination of a selected font family and font face.</p>
-<!-- role of font faces and font families: -->
-<!-- - highlight different levels/importance -->
-<p>As we mentioned above, many different map elements can be expressed or can use fonts.
-In theory, we are able to set different font family and font face to each of them.
-However, this could result in a confusing visual mix that would hinder our map information.
-Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
-<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. --></p>
-<div id="font-families-and-faces" class="section level3">
-<h3><span class="header-section-number">8.1.1</span> Font families and faces</h3>
+<p>Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
+Additionally, which fonts are available and how they are supported depends on the used <em>graphic device</em>.
+A graphic device is a place where a plot or map is rendered.
+The most commonly it is a some kind of a screen device, where we can see our plot or map directly after running the R code.
+Other graphic devices allow for saving plots or maps as files in various formats (e.g., <code>.png</code>, <code>.jpg</code>, <code>.pdf</code>).
+Visit <code>?Devices</code> or read the Graphic Devices chapter of <span class="citation">(<span class="citeproc-not-found" data-reference-id="peng2016exploratory"><strong>???</strong></span>)</span> to learn more about them.
+<!-- state possible problems --></p>
+<p>The <strong>tmap</strong> package allows to select a font family based on its name (e.g., <code>Times</code>), but also has three general font families called <code>serif</code>, <code>sans</code>, and <code>monospace</code>.
+Each of them is a shortcut working on each operating system: <code>serif</code> for <code>Times</code>, <code>sans</code> for <code>Helvetica</code>, and <code>monospace</code> for <code>Courier</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:A).
+Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).</p>
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->
 <!-- explain what are font faces -->
