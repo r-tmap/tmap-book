@@ -68,8 +68,8 @@ Additionally, which fonts are available and how they are supported depends on th
 A graphic device is a place where a plot or map is rendered.
 The most commonly it is a some kind of a screen device, where we can see our plot or map directly after running the R code.
 Other graphic devices allow for saving plots or maps as files in various formats (e.g., `.png`, `.jpg`, `.pdf`).
-Visit `?Devices` or read the Graphic Devices chapter of @peng2016exploratory to learn more about them.
-<!-- state possible problems -->
+Therefore, it is possible to get different fonts on your map on the screen, and a (slightly) different one when saved to a file.
+Visit `?Devices` or read the Graphic Devices chapter of @peng2016exploratory to learn more about graphic devices.
 
 The **tmap** package allows to select a font family based on its name (e.g., `Times`), but also has three general font families called `serif`, `sans`, and `monospace`.
 Each of them is a shortcut working on each operating system: `serif` for `Times`, `sans` for `Helvetica`, and `monospace` for `Courier` (Figure \@ref(fig:fonts):A). 
