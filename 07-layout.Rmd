@@ -63,6 +63,14 @@ Examples of font families include *Times*, *Helvetica*, *Courier*, *Palatino*, e
 Font faces, on the other hand, influence the orientation or width of the fonts.
 A *font* is, thus, a combination of a selected font family and font face.
 
+<!-- explain what are font families -->
+<!-- explain when each font family is useful -->
+
+<!-- explain what are font faces -->
+<!-- explain when each font face is useful -->
+
+### Fonts in **tmap**
+
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
 A graphic device is a place where a plot or map is rendered.
@@ -71,17 +79,13 @@ Other graphic devices allow for saving plots or maps as files in various formats
 Therefore, it is possible to get different fonts on your map on the screen, and a (slightly) different one when saved to a file.
 Visit `?Devices` or read the Graphic Devices chapter of @peng2016exploratory to learn more about graphic devices.
 
-The **tmap** package allows to select a font family based on its name (e.g., `Times`), but also has three general font families called `serif`, `sans`, and `monospace`.
-Each of them is a shortcut working on each operating system: `serif` for `Times`, `sans` for `Helvetica`, and `monospace` for `Courier` (Figure \@ref(fig:fonts):A). 
+The **tmap** package has two mechanism to select a font family.
+The first one is by specifying on of three general font families - `serif`, `sans`, or `monospace`.
+It tries to match selected general font family with a font family existing on the operating system. 
+For example, `serif` can use the `Times` font family, `sans` - `Helvetica`, and `monospace` - `Courier` (Figure \@ref(fig:fonts):A).
+The second mechanism allows to select a font family based on its name (e.g., `Times` or `Palatino`).
+
 Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (Figure \@ref(fig:fonts):B).
-
-<!-- explain what are font families -->
-<!-- explain when each font family is useful -->
-
-<!-- explain what are font faces -->
-<!-- explain when each font face is useful -->
-
-### Fonts in **tmap**
 
 <!-- build-in fonts only -->
 <!-- external fonts with extrafont -->
