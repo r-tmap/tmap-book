@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-23" />
+<meta name="date" content="2021-07-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,16 +282,6 @@ A font family is a collection of closely related lettering designs.
 Examples of font families include <em>Times</em>, <em>Helvetica</em>, <em>Courier</em>, <em>Palatino</em>, etc.
 Font faces, on the other hand, influence the orientation or width of the fonts.
 A <em>font</em> is, thus, a combination of a selected font family and font face.</p>
-<p>Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
-Additionally, which fonts are available and how they are supported depends on the used <em>graphic device</em>.
-A graphic device is a place where a plot or map is rendered.
-The most commonly it is a some kind of a screen device, where we can see our plot or map directly after running the R code.
-Other graphic devices allow for saving plots or maps as files in various formats (e.g., <code>.png</code>, <code>.jpg</code>, <code>.pdf</code>).
-Visit <code>?Devices</code> or read the Graphic Devices chapter of <span class="citation">Peng (<a href="#ref-peng2016exploratory" role="doc-biblioref">2016</a>)</span> to learn more about them.
-<!-- state possible problems --></p>
-<p>The <strong>tmap</strong> package allows to select a font family based on its name (e.g., <code>Times</code>), but also has three general font families called <code>serif</code>, <code>sans</code>, and <code>monospace</code>.
-Each of them is a shortcut working on each operating system: <code>serif</code> for <code>Times</code>, <code>sans</code> for <code>Helvetica</code>, and <code>monospace</code> for <code>Courier</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:A).
-Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).</p>
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->
 <!-- explain what are font faces -->
@@ -299,6 +289,19 @@ Next, a member of the selected font families can be selected with one of the fon
 </div>
 <div id="fonts-in-tmap" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Fonts in <strong>tmap</strong></h3>
+<p>Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
+Additionally, which fonts are available and how they are supported depends on the used <em>graphic device</em>.
+A graphic device is a place where a plot or map is rendered.
+The most commonly it is a some kind of a screen device, where we can see our plot or map directly after running the R code.
+Other graphic devices allow for saving plots or maps as files in various formats (e.g., <code>.png</code>, <code>.jpg</code>, <code>.pdf</code>).
+Therefore, it is possible to get different fonts on your map on the screen, and a (slightly) different one when saved to a file.
+Visit <code>?Devices</code> or read the Graphic Devices chapter of <span class="citation">Peng (<a href="#ref-peng2016exploratory" role="doc-biblioref">2016</a>)</span> to learn more about graphic devices.</p>
+<p>The <strong>tmap</strong> package has two mechanism to select a font family.
+The first one is by specifying on of three general font families - <code>serif</code>, <code>sans</code>, or <code>monospace</code>.
+It tries to match selected general font family with a font family existing on the operating system.
+For example, <code>serif</code> can use the <code>Times</code> font family, <code>sans</code> - <code>Helvetica</code>, and <code>monospace</code> - <code>Courier</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:A).
+The second mechanism allows to select a font family based on its name (e.g., <code>Times</code> or <code>Palatino</code>).</p>
+<p>Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).</p>
 <!-- build-in fonts only -->
 <!-- external fonts with extrafont -->
 <!-- external fonts with showtext -->
