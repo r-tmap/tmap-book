@@ -60,14 +60,21 @@ tmap_arrange(tm_ff + tm_layout(title = "A. Font families"), tm_bf + tm_layout(ti
 In **tmap**, fonts are represented by a font family (Figure \@ref(fig:fonts):A) and a font face (Figure \@ref(fig:fonts):B).
 A font family is a collection of closely related lettering designs.
 Examples of font families include *Times*, *Helvetica*, *Courier*, *Palatino*, etc.
-Font faces, on the other hand, influence the orientation or width of the fonts.
+On the other hand, font faces, such as *italic* or *bold*, influence the orientation or width of the fonts.
 A *font* is, thus, a combination of a selected font family and font face.
+
 
 <!-- explain what are font families -->
 <!-- explain when each font family is useful -->
 
 <!-- explain what are font faces -->
 <!-- explain when each font face is useful -->
+
+A sans serif font can be used to label cultural objects, while serif fonts to label physical features. 
+Then, italics, for example, can be used to distinguish water areas.
+The role of bold font faces, together with an increased font size, is to highlight the hierarchy of labels - larger, bold fonts indicate more prominent map features.
+Additionally, customizing the fonts' colors can be helpful to distinguish different groups of map objects.
+<!-- cite - https://www.axismaps.com/guide/labeling -->
 
 ### Fonts in **tmap**
 
