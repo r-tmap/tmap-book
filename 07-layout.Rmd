@@ -63,18 +63,33 @@ Examples of font families include *Times*, *Helvetica*, *Courier*, *Palatino*, e
 On the other hand, font faces, such as *italic* or *bold*, influence the orientation or width of the fonts.
 A *font* is, thus, a combination of a selected font family and font face.
 
-
-<!-- explain what are font families -->
-<!-- explain when each font family is useful -->
+There are a few general font families, such as serifs, sans serifs, and monospaced fonts.
+Fonts from the serif family have small lines (known as *a serif*) attached to the end of some letters. 
+Notice, for example, short horizontal lines on the bottom of letters *r*, *i*, and *f* or vertical lines at the ends of the letter *s* in the top row of Figure \@ref(fig:fonts):A.
+The fonts in this family are often viewed as more formal.
+On the other hand, the sans serif family do not have serifs and is considered more informal and modern.
+The last font family, monospaced fonts, is often used in computer programming (IDEs, software text editors), but less often on maps. 
+A distinguishing feature of the monospaced fonts is that each letter or character in this family has the same width. 
+Therefore, letters, such as *i* and *a* will occupy the same space in the monospaced fonts. 
 
 <!-- explain what are font faces -->
-<!-- explain when each font face is useful -->
 
+Mixing the use of serif and sans serif fonts often works well for maps.
+However, a rule of thumb is not to mix more than two font families on one map.
 A sans serif font can be used to label cultural objects, while serif fonts to label physical features. 
 Then, italics, for example, can be used to distinguish water areas.
-The role of bold font faces, together with an increased font size, is to highlight the hierarchy of labels - larger, bold fonts indicate more prominent map features.
+The role of bold font faces, together with increased font size, is to highlight the hierarchy of labels - larger, bold fonts indicate more prominent map features.
 Additionally, customizing the fonts' colors can be helpful to distinguish different groups of map objects.
 <!-- cite - https://www.axismaps.com/guide/labeling -->
+
+<!-- other concerns -->
+<!-- map look/Semantic effect paragraph -->
+<!-- map feel - formal/informal/modern -->
+<!-- readablility -->
+<!-- number of fonts (2?) -->
+<!-- personal taste/branding -->
+
+<!-- suggested fonts or references??? -->
 
 ### Fonts in **tmap**
 
