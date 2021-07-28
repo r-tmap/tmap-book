@@ -82,12 +82,15 @@ The role of bold font faces, together with increased font size, is to highlight 
 Additionally, customizing the fonts' colors can be helpful to distinguish different groups of map objects.
 <!-- cite - https://www.axismaps.com/guide/labeling -->
 
-<!-- other concerns -->
-<!-- map look/Semantic effect paragraph -->
-<!-- map feel - formal/informal/modern -->
-<!-- readablility -->
-<!-- number of fonts (2?) -->
-<!-- personal taste/branding -->
+The decision on which fonts to use should also relates to the expected map look and feel. 
+Each font family has a distinct personality (creates a "semantic effect"), which can affect how the map is perceived. 
+<!-- references - https://gistbok.ucgis.org/bok-topics/typography -->
+Some fonts are more formal, some are less. 
+Some fonts have a modern look, while others look more traditional.
+<!-- add examples -->
+Another important concern is personal taste or map branding. 
+We should filter the decision about the used fonts based on our preferences or even our sense of beauty as it could create more personal and unique maps.
+We just need to remember about the readability of the fonts - they should not be too elaborate as it can hinder the main map message.
 
 <!-- suggested fonts or references??? -->
 
