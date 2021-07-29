@@ -15,7 +15,7 @@ As we mentioned above, many different map elements can be expressed or can use f
 In theory, we are able to set different fonts to each of them.
 However, this could result in a confusing visual mix that would hinder our map information.
 Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
-<!-- In the next two sections, we show how to set up font families and font faces, and give some overall tips on font selections. -->
+In the following three sections, we explain font families and font faces, and give some overall tips on font selections, show how to define used fonts, and how to customize fonts on maps.
 
 ### Font families and faces
 
