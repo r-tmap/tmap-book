@@ -296,8 +296,7 @@ worldvector
 #> #   corruption_perception_index <dbl>,
 #> #   democracy_score <dbl>, hdi <dbl>,
 #> #   energy_use_per_cap <dbl>, literacy_rate <dbl>,
-#> #   demo_corr <dbl>, demo_corr_rank <int>,
-#> #   geom <MULTIPOLYGON [m]>
+#> #   demo_corr <dbl>, demo_corr_rank <int>, …
 ```
 
 The `worldvector` object has MULTIPOLYGON geometry type, where each feature (row) can consist of one or more polygons.
