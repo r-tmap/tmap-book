@@ -23,7 +23,6 @@ In the following three sections, we explain font families and font faces, and gi
 
 
 
-
 <div class="figure" style="text-align: center">
 <img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="672" />
 <p class="caption">(\#fig:fonts)Basic (A) font families, and (B) font faces implemented in the tmap package.</p>
@@ -79,14 +78,33 @@ Visit `?Devices` or read the Graphic Devices chapter of @peng2016exploratory to 
 The **tmap** package has two mechanism to select a font family.
 The first one is by specifying on of three general font families - `serif`, `sans`, or `monospace`.
 It tries to match selected general font family with a font family existing on the operating system. 
+<!-- https://github.com/r-lib/systemfonts#system-defaults -->
 For example, `serif` can use the `Times` font family, `sans` - `Helvetica`, and `monospace` - `Courier` (Figure \@ref(fig:fonts):A).
 The second mechanism allows to select a font family based on its name (e.g., `Times` or `Palatino`).
-
 Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (Figure \@ref(fig:fonts):B).
 
 <!-- build-in fonts only -->
+As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device. 
+<!-- Therefore, there is not one function that shows all of possible font families. -->
+Available fonts on Windows can be checked with the `windowsFonts()` function, 
+
+
+```r
+library(systemfonts)
+system_fonts()
+```
+
 <!-- external fonts with extrafont -->
+
+```r
+library(extrafont)
+```
+
 <!-- external fonts with showtext -->
+
+```r
+library(showtext)
+```
 
 ### Fonts on maps
 

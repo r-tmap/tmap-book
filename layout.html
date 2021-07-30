@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Layout | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.22.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Layout | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-07-29" />
+<meta name="date" content="2021-07-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="othertypes.html"/>
 <link rel="next" href="interactive.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -321,45 +321,53 @@ Visit <code>?Devices</code> or read the Graphic Devices chapter of <span class="
 <p>The <strong>tmap</strong> package has two mechanism to select a font family.
 The first one is by specifying on of three general font families - <code>serif</code>, <code>sans</code>, or <code>monospace</code>.
 It tries to match selected general font family with a font family existing on the operating system.
+<!-- https://github.com/r-lib/systemfonts#system-defaults -->
 For example, <code>serif</code> can use the <code>Times</code> font family, <code>sans</code> - <code>Helvetica</code>, and <code>monospace</code> - <code>Courier</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:A).
-The second mechanism allows to select a font family based on its name (e.g., <code>Times</code> or <code>Palatino</code>).</p>
-<p>Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).</p>
+The second mechanism allows to select a font family based on its name (e.g., <code>Times</code> or <code>Palatino</code>).
+Next, a member of the selected font families can be selected with one of the font faces: <code>plain</code>, <code>italic</code>, <code>bold</code>, and <code>bold.italic</code> (Figure <a href="layout.html#fig:fonts">8.1</a>:B).</p>
 <!-- build-in fonts only -->
+<p>As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device.
+<!-- Therefore, there is not one function that shows all of possible font families. -->
+Available fonts on Windows can be checked with the <code>windowsFonts()</code> function,</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="layout.html#cb100-1"></a><span class="kw">library</span>(systemfonts)</span>
+<span id="cb100-2"><a href="layout.html#cb100-2"></a><span class="kw">system_fonts</span>()</span></code></pre></div>
 <!-- external fonts with extrafont -->
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">library</span>(extrafont)</span></code></pre></div>
 <!-- external fonts with showtext -->
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">library</span>(showtext)</span></code></pre></div>
 </div>
 <div id="fonts-on-maps" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Fonts on maps</h3>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="layout.html#cb100-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb100-2"><a href="layout.html#cb100-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb100-3"><a href="layout.html#cb100-3"></a><span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
-<span id="cb100-4"><a href="layout.html#cb100-4"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
-<span id="cb100-5"><a href="layout.html#cb100-5"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
-<span id="cb100-6"><a href="layout.html#cb100-6"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="layout.html#cb103-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb103-2"><a href="layout.html#cb103-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb103-3"><a href="layout.html#cb103-3"></a><span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
+<span id="cb103-4"><a href="layout.html#cb103-4"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb103-5"><a href="layout.html#cb103-5"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
+<span id="cb103-6"><a href="layout.html#cb103-6"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <!-- explain defaults -->
 <p>By default, <strong>tmap</strong> uses the <code>sans</code> font family with the <code>plain</code> font face (Figure <a href="layers.html#fig:tmtext">5.5</a>).
 There are, however, three ways to customize the used fonts.
 The first one is to change all of the fonts and font faces for the whole map at once (Figure <a href="layout.html#fig:mfonts">8.2</a>:A).
 This can be done with the <code>fontfamily</code> and <code>fontface</code> arguments of <code>tm_layout()</code>.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb101-3"><a href="layout.html#cb101-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb101-4"><a href="layout.html#cb101-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
-<span id="cb101-5"><a href="layout.html#cb101-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb101-6"><a href="layout.html#cb101-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
-<span id="cb101-7"><a href="layout.html#cb101-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
-<span id="cb101-8"><a href="layout.html#cb101-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="layout.html#cb104-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb104-2"><a href="layout.html#cb104-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb104-3"><a href="layout.html#cb104-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb104-4"><a href="layout.html#cb104-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
+<span id="cb104-5"><a href="layout.html#cb104-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb104-6"><a href="layout.html#cb104-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb104-7"><a href="layout.html#cb104-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
+<span id="cb104-8"><a href="layout.html#cb104-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
 <p>The second way is to specify just some text elements independently (Figure <a href="layout.html#fig:mfonts">8.2</a>:B).
 Many <strong>tmap</strong> functions, such as <code>tm_text()</code> or <code>tm_credits()</code>, have their own <code>fontfamily</code> and <code>fontface</code> that can be adjusted.
 Additionally, <code>tm_layout()</code> allows to customize fonts for other map elements using prefixed arguments, such as, <code>main.title.fontface</code> or <code>legend.title.fontfamily</code>.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb102-4"><a href="layout.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>) <span class="op">+</span></span>
-<span id="cb102-5"><a href="layout.html#cb102-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="op">+</span></span>
-<span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
-<span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
-<span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="layout.html#cb105-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb105-2"><a href="layout.html#cb105-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb105-3"><a href="layout.html#cb105-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb105-4"><a href="layout.html#cb105-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>) <span class="op">+</span></span>
+<span id="cb105-5"><a href="layout.html#cb105-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="op">+</span></span>
+<span id="cb105-6"><a href="layout.html#cb105-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb105-7"><a href="layout.html#cb105-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
+<span id="cb105-8"><a href="layout.html#cb105-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:mfonts"></span>
 <img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="672" />
 <p class="caption">
