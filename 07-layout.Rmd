@@ -114,20 +114,20 @@ Next, a member of the selected font families can be selected with one of the fon
 <!-- build-in fonts only -->
 As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device. 
 <!-- Therefore, there is not one function that shows all of possible font families. -->
-Available fonts on Windows can be checked with the `windowsFonts()` function, 
+<!-- Available fonts on Windows can be checked with the `windowsFonts()` function,  -->
 
+Available fonts 
 ```{r, eval=FALSE}
 library(systemfonts)
 system_fonts()
 ```
 
-<!-- external fonts with extrafont -->
-```{r, eval=FALSE}
-library(extrafont)
-```
+<!-- https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/ -->
 
+<!-- external fonts with extrafont -->
 <!-- external fonts with showtext -->
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=FALSE}
+library(extrafont)
 library(showtext)
 ```
 
