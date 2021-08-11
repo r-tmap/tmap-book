@@ -115,14 +115,22 @@ Next, a member of the selected font families can be selected with one of the fon
 As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device. 
 <!-- Therefore, there is not one function that shows all of possible font families. -->
 <!-- Available fonts on Windows can be checked with the `windowsFonts()` function,  -->
+Fonts available on the operating system can be checked with the `system_fonts()` function of the **systemfonts** package [@R-systemfonts] (result not shown).
 
-Available fonts 
 ```{r, eval=FALSE}
 library(systemfonts)
 system_fonts()
 ```
 
-<!-- https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/ -->
+<!-- how to add -->
+More information about installing and debugging custom fonts can be found in [a blog post](https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/) by June Choe.
+
+The next step is to either view or save our map.
+This also means that we need to carry over our fonts to the output window/file, which largely depends on the selected graphic device.
+In general, screen device or graphical raster output formats, such as PNG, JPEG, or TIFF, works well with custom fonts as they rasterize them during saving.
+On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error while saving the file].
+<!-- ref to map_save!! -->
+<!-- if/when the device argument is added to tmap_save, then mention saving to ragg/cairo_pdf -->
 
 <!-- external fonts with extrafont -->
 <!-- external fonts with showtext -->
@@ -201,6 +209,13 @@ The third way is to use a different *tmap style* - see section \@ref() for more 
 
 <!-- explain that we can change font faces and families for each element or the whole map -->
 <!-- mention size -->
+
+```{r, eval=FALSE, echo=FALSE}
+#saving tests
+tmap_save(tmt2, "tmt2.png")
+tmap_save(tmt2, "tmt2.pdf")
+
+```
 
 
 ## Attributes layers
