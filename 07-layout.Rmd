@@ -122,22 +122,22 @@ library(systemfonts)
 system_fonts()
 ```
 
-<!-- how to add -->
-More information about installing and debugging custom fonts can be found in [a blog post](https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/) by June Choe.
+Information about installing and debugging custom fonts can be found in [a blog post](https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/) by June Choe and in the **showtext** package [@R-showtext] documentation.
 
 The next step is to either view or save our map.
 This also means that we need to carry over our fonts to the output window/file, which largely depends on the selected graphic device.
 In general, screen device or graphical raster output formats, such as PNG, JPEG, or TIFF, works well with custom fonts as they rasterize them during saving.
+In case of any problems with graphical raster outputs, it is possible to try graphics devices implemented in the **ragg** package [@R-ragg].
 On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error while saving the file].
+The PDF device in R, by default, adds metadata about the used fonts, but does not store them.
+When the PDF reader needs to show us the document, then it tries to locate the font on your computer, and can use other fonts when the expected one does not exist.
+An alternative approach is called embedding, which adds a copy of each necessary font to the PDF file itself.
+Gladly a few possible technical solutions to create PDFs with proper fonts exist.
+Firstly, it could be worth trying some alternative graphic devices such as `cairo_pdf` or `svglite::svglite`.
+The second option is to try the **showtext** package [@R-showtext], which converts text into color-filled polygonal outlines for graphical vector formats.
+<!-- footnote: if/when the device argument is added to tmap_save, then mention saving to ragg/cairo_pdf -->
+Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in the PDF file, which makes PDFs properly displayed on computers that do not have the given font.
 <!-- ref to map_save!! -->
-<!-- if/when the device argument is added to tmap_save, then mention saving to ragg/cairo_pdf -->
-
-<!-- external fonts with extrafont -->
-<!-- external fonts with showtext -->
-```{r, eval=FALSE, echo=FALSE}
-library(extrafont)
-library(showtext)
-```
 
 ### Fonts on maps
 
