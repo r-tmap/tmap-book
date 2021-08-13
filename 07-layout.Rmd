@@ -93,7 +93,7 @@ We just need to remember about the readability of the fonts - they should not be
 
 <!-- suggested fonts or references??? -->
 
-### Fonts in **tmap**
+### Fonts available in **tmap**
 
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
@@ -165,7 +165,7 @@ tm_shape(ei_borders) +
 ```
 
 The second way is to specify just some text elements independently (Figure \@ref(fig:mfonts):B).
-Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` that can be adjusted.
+Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` arguments that can be adjusted.
 Additionally, `tm_layout()` allows to customize fonts for other map elements using prefixed arguments, such as, `main.title.fontface` or `legend.title.fontfamily`.
 
 ```{r font2, eval=FALSE}
@@ -205,16 +205,11 @@ tmap_arrange(tmt1, tmt2, nrow = 1)
 
 The third way is to use a different *tmap style* - see section \@ref() for more details.
 
-<!-- explain that we can change font faces and families for each element or the whole map -->
-<!-- mention size -->
-
 ```{r, eval=FALSE, echo=FALSE}
 #saving tests
 tmap_save(tmt2, "tmt2.png")
 tmap_save(tmt2, "tmt2.pdf")
-
 ```
-
 
 ## Attributes layers
 
