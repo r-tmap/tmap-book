@@ -1,6 +1,21 @@
-Package: placeholder
+Package: tmapbook
 Type: Book
-Title: Does not matter.
+Title: Elegant and informative maps with tmap
 Version: 0.0.1
-Imports: bookdown
-Remotes: rstudio/bookdown
+Imports: 
+  bookdown,
+  tmaptools,
+  tmap,
+  spDataLarge,
+  spData,
+  dplyr,
+  tidyr,
+  rgdal,
+  kableExtra,
+  curl,
+  maptiles
+Remotes: 
+  rstudio/bookdown,
+  mtennekes/tmaptools,
+  mtennekes/tmap,
+  Nowosad/spDataLarge

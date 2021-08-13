@@ -9,7 +9,8 @@ jobs:
   bookdown:
     name: Render-Book
     runs-on: ubuntu-latest
-    
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     services:
       postgres:
         image: kartoza/postgis
@@ -77,17 +78,6 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("remotes")
-          remotes::install_github("rstudio/bookdown")
-          remotes::install_github("mtennekes/tmaptools")
-          remotes::install_github("mtennekes/tmap")
-          remotes::install_cran("rgdal")
-          remotes::install_cran("dplyr")
-          remotes::install_cran("tidyr")
-          remotes::install_cran("spData")
-          remotes::install_cran("kableExtra")
-          remotes::install_cran("curl")
-          remotes::install_github("Nowosad/spDataLarge")
-          remotes::install_cran("maptiles")
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
