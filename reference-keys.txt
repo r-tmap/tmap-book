@@ -106,7 +106,7 @@ othertypes
 layout
 typography
 font-families-and-faces
-fonts-in-tmap
+fonts-available-in-tmap
 fonts-on-maps
 attributes-layers
 layout-elements
