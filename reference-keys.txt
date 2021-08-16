@@ -56,6 +56,7 @@ fig:mixline
 fig:fonts
 fig:mfonts
 tab:attr-layers-table
+fig:grids
 intro
 what-is-tmap
 thematic-maps
@@ -109,6 +110,13 @@ font-families-and-faces
 fonts-available-in-tmap
 fonts-on-maps
 attributes-layers
+grid-lines
+scale-bar
+north-arrow
+text-annotation
+logo
+axis-labels
+minimap
 layout-elements
 interactive
 multiples

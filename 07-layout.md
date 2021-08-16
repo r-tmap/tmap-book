@@ -219,4 +219,130 @@ The third way is to use a different *tmap style* - see section \@ref() for more 
 </tbody>
 </table>
 
+
+```r
+tm = tm_shape(ei_borders) +
+  tm_polygons()
+tm
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+
+### Grid lines
+
+
+```r
+tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_grid()
+```
+
+
+```r
+tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_graticules()
+```
+
+
+```r
+tm_shape(ei_borders) +
+  tm_graticules() +
+  tm_polygons()
+```
+
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/grids-1.png" alt="(A), (B), (C)." width="672" />
+<p class="caption">(\#fig:grids)(A), (B), (C).</p>
+</div>
+
+### Scale bar
+
+
+```r
+tm +
+  tm_scale_bar(breaks = c(0, 2, 4), text.size = 1)
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- mention position -->
+
+### North arrow
+
+
+```r
+tm +
+  tm_compass(type = "4star", size = 2,
+             position = c("left", "top"))
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- mention the north argument -->
+
+### Text annotation
+
+
+```r
+tm +
+  tm_credits("Data source: ")
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- ref to the text section -->
+<!-- mention position -->
+<!-- more than one -->
+
+### Logo
+
+
+```r
+tm +
+  tm_logo("https://www.r-project.org/logo/Rlogo.png",
+          height = 2)
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- mention position -->
+<!-- more than one -->
+
+### Axis labels
+
+
+```r
+tm +
+  tm_xlab("X") +
+  tm_ylab("Y")
+```
+
+<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- why this is useful? -->
+
+### Minimap
+
+
+```r
+tmap_mode("view")
+#> tmap mode set to interactive viewing
+```
+
+
+```r
+tm + 
+  tm_minimap()
+```
+
+<!-- mention/reference inset maps -->
+
+
+```r
+tmap_mode("plot")
+#> tmap mode set to plotting
+```
+
+
 ## Layout elements
