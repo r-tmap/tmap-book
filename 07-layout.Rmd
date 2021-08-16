@@ -244,4 +244,21 @@ knitr::kable(attr_layers_df,
   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
+### Grid lines
+
+### Scale bar
+
+### North arrow
+
+### Text annotation
+
+### Logo
+
+### Axis labels
+
+### Minimap
+
+
+
+
 ## Layout elements
