@@ -169,6 +169,7 @@ The third way is to use a different *tmap style* - see section \@ref() for more 
 
 
 
+<!-- intro about attribute layers -->
 \@ref(tab:attr-layers-table)
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -258,6 +259,12 @@ tm_shape(ei_borders) +
 
 ### Scale bar
 
+Scale bar is a graphic indicator of the relation between a distance on a map and the corresponding distance in the real world.
+Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
+Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map. 
+
+
+
 
 ```r
 tm +
@@ -268,6 +275,13 @@ tm +
 
 <!-- mention position -->
 
+Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection \@ref(types-of-map-projections)) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
+The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
+For example, try to add a scale bar to a world map seen in the section \@ref(shapes-and-layers).
+The created scale bar will be accurate for the equator, but less and less correct going to the north and south poles.
+
+
+
 ### North arrow
 
 
@@ -277,7 +291,9 @@ tm +
              position = c("left", "top"))
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+
+The `position` argument works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 <!-- mention the north argument -->
 
@@ -289,7 +305,7 @@ tm +
   tm_credits("Data source: ")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- ref to the text section -->
 <!-- mention position -->
@@ -304,7 +320,7 @@ tm +
           height = 2)
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- mention position -->
 <!-- more than one -->
@@ -318,7 +334,7 @@ tm +
   tm_ylab("Y")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- why this is useful? -->
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-08-16" />
+<meta name="date" content="2021-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -397,6 +397,7 @@ FIGURE 8.2: Examples of (A) one font (font family and font face) used for all of
 </div>
 <div id="attributes-layers" class="section level2">
 <h2><span class="header-section-number">8.2</span> Attributes layers</h2>
+<!-- intro about attribute layers -->
 <p><a href="layout.html#tab:attr-layers-table">8.1</a></p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -511,24 +512,32 @@ FIGURE 8.3: (A), (B), (C).
 </div>
 <div id="scale-bar" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Scale bar</h3>
+<p>Scale bar is a graphic indicator of the relation between a distance on a map and the corresponding distance in the real world.
+Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
+Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="layout.html#cb108-1"></a>tm <span class="op">+</span></span>
 <span id="cb108-2"><a href="layout.html#cb108-2"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="07-layout_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- mention position -->
+<p>Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection <a href="geodata.html#types-of-map-projections">2.4.4</a>) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
+The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
+For example, try to add a scale bar to a world map seen in the section <a href="tmshape.html#shapes-and-layers">4.1</a>.
+The created scale bar will be accurate for the equator, but less and less correct going to the north and south poles.</p>
 </div>
 <div id="north-arrow" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> North arrow</h3>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="layout.html#cb109-1"></a>tm <span class="op">+</span></span>
 <span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>,</span>
 <span id="cb109-3"><a href="layout.html#cb109-3"></a>             <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The <code>position</code> argument works in the same way in other functions, such as <code>tm_scale_bar()</code>, <code>tm_credits()</code>, <code>tm_logo()</code>, and in some of the <code>tm_layout()</code> arguments - <code>legend.position</code>, <code>title.position</code>, or <code>attr.position</code>.</p>
 <!-- mention the north argument -->
 </div>
 <div id="text-annotation" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Text annotation</h3>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="layout.html#cb110-1"></a>tm <span class="op">+</span></span>
 <span id="cb110-2"><a href="layout.html#cb110-2"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: &quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- ref to the text section -->
 <!-- mention position -->
 <!-- more than one -->
@@ -538,7 +547,7 @@ FIGURE 8.3: (A), (B), (C).
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="layout.html#cb111-1"></a>tm <span class="op">+</span></span>
 <span id="cb111-2"><a href="layout.html#cb111-2"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
 <span id="cb111-3"><a href="layout.html#cb111-3"></a>          <span class="dt">height =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- mention position -->
 <!-- more than one -->
 </div>
@@ -547,7 +556,7 @@ FIGURE 8.3: (A), (B), (C).
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="layout.html#cb112-1"></a>tm <span class="op">+</span></span>
 <span id="cb112-2"><a href="layout.html#cb112-2"></a><span class="st">  </span><span class="kw">tm_xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span></span>
 <span id="cb112-3"><a href="layout.html#cb112-3"></a><span class="st">  </span><span class="kw">tm_ylab</span>(<span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- why this is useful? -->
 </div>
 <div id="minimap" class="section level3">
