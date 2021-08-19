@@ -321,15 +321,23 @@ The decision on whether to use north arrows or not usually requires some critica
 While, it can be added to every map, north arrows are not always necessary - especially on maps of large areas (e.g., continents), where the cardinal directions are obvious for most people.
 The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers. 
 
-```{r}
+We can use the `tm_compass()` function to add the north arrow. 
+By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
+**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
+The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`).
+
+```{r na, fig.cap="na"}
 tm +
   tm_compass(type = "4star", size = 2, position = c("left", "top"))
 ```
 
+The location of the north arrow, by default, is placed automatically, but can also be changed using the `position` argument.
+It expects a vector of two values, specifying the x and y coordinates.
+The x coordinate can be set with `"left"`, `"LEFT"`, `"center"`, `"right"`, or `"RIGHT"`, while the y coordinate uses `"top"`, `"TOP"`, `"center"`, `"bottom"`, or `"BOTTOM"`.
+The arguments with all letters uppercase result in a position closer to the map frame (without margins).
+Alternatively, `position` can be specified with numeric values between 0 and 1 reepresenting the x and y value of the left bottom corner of the north arrow.
 
-<!-- mention the north argument -->
-
-The `position` argument works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
+The `position` argument also works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 ### Text annotation
 
