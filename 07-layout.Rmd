@@ -253,11 +253,18 @@ tm
 
 ### Grid lines
 
+The **tmap** package offers two ways to draws coordinate lines - `tm_grid()` and `tm_graticules()`.
+The role of `tm_grid()` is to represent the input data’s coordinates.
+For example, the `ei_borders` object's CRS is UTM zone 12S with the units in meters (figure \@ref(fig:grids):A).
+
 ```{r, grid1, eval=FALSE}
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_grid()
 ```
+
+`tm_graticules()` shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
+This can be seen with the degree signs in the labels (figure \@ref(fig:grids):B).
 
 ```{r, grid2, eval=FALSE}
 tm_shape(ei_borders) +
@@ -265,11 +272,18 @@ tm_shape(ei_borders) +
   tm_graticules()
 ```
 
+Both, `tm_grid()` and `tm_graticules()` can be placed above or below the map layers as their position on the map depends on their place in the code.
+When `tm_grid()` or `tm_graticules()` is placed after the map layer (e.g., `tm_polygons()`), the grid lines are plotted on the top of the map. 
+On the other hand, when `tm_grid()` or `tm_graticules()` is placed before the map layer code, the grid lines are plotted behind the spatial data (figure \@ref(fig:grids):C).
+
 ```{r, grid3, eval=FALSE}
 tm_shape(ei_borders) +
   tm_graticules() +
   tm_polygons()
 ```
+
+Grids and graticules can also be easily customized using several arguments, such as, `x` and `y` (x and y coordinates of the lines), `n.x` and `n.y` (number of horizontal (x) and vertical (y) lines),  `labels.inside.frame`, `ticks`, `lines`
+It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
 ```{r grids, fig.cap="(A), (B), (C).", echo=FALSE, fig.asp=0.33}
 tmap_arrange(
@@ -335,7 +349,7 @@ The location of the north arrow, by default, is placed automatically, but can al
 It expects a vector of two values, specifying the x and y coordinates.
 The x coordinate can be set with `"left"`, `"LEFT"`, `"center"`, `"right"`, or `"RIGHT"`, while the y coordinate uses `"top"`, `"TOP"`, `"center"`, `"bottom"`, or `"BOTTOM"`.
 The arguments with all letters uppercase result in a position closer to the map frame (without margins).
-Alternatively, `position` can be specified with numeric values between 0 and 1 reepresenting the x and y value of the left bottom corner of the north arrow.
+Alternatively, `position` can be specified with numeric values between 0 and 1 representing the x and y value of the left bottom corner of the north arrow.
 
 The `position` argument also works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
