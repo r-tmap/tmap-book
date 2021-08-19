@@ -231,12 +231,19 @@ tm
 
 ### Grid lines
 
+The **tmap** package offers two ways to draws coordinate lines - `tm_grid()` and `tm_graticules()`.
+The role of `tm_grid()` is to represent the input data’s coordinates.
+For example, the `ei_borders` object's CRS is UTM zone 12S with the units in meters (figure \@ref(fig:grids):A).
+
 
 ```r
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_grid()
 ```
+
+`tm_graticules()` shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
+This can be seen with the degree signs in the labels (figure \@ref(fig:grids):B).
 
 
 ```r
@@ -245,12 +252,19 @@ tm_shape(ei_borders) +
   tm_graticules()
 ```
 
+Both, `tm_grid()` and `tm_graticules()` can be placed above or below the map layers as their position on the map depends on their place in the code.
+When `tm_grid()` or `tm_graticules()` is placed after the map layer (e.g., `tm_polygons()`), the grid lines are plotted on the top of the map. 
+On the other hand, when `tm_grid()` or `tm_graticules()` is placed before the map layer code, the grid lines are plotted behind the spatial data (figure \@ref(fig:grids):C).
+
 
 ```r
 tm_shape(ei_borders) +
   tm_graticules() +
   tm_polygons()
 ```
+
+Grids and graticules can also be easily customized using several arguments, such as, `x` and `y` (x and y coordinates of the lines), `n.x` and `n.y` (number of horizontal (x) and vertical (y) lines),  `labels.inside.frame`, `ticks`, `lines`
+It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
 <div class="figure" style="text-align: center">
 <img src="07-layout_files/figure-html/grids-1.png" alt="(A), (B), (C)." width="672" />
@@ -263,7 +277,9 @@ Scale bar is a graphic indicator of the relation between a distance on a map and
 Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
 Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map. 
 
-
+The `tm_scale_bar()` function adds a scale bar. 
+By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
+It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument.
 
 
 ```r
@@ -273,7 +289,7 @@ tm +
 
 <img src="07-layout_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
 
-<!-- mention position -->
+The `tm_scale_bar()` also has several additional arguments, allowing to modify its colors, and position (subsection \@ref(north-arrow)).
 
 Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection \@ref(types-of-map-projections)) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
 The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
@@ -284,18 +300,34 @@ The created scale bar will be accurate for the equator, but less and less correc
 
 ### North arrow
 
+North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north^[Orientation may also be shown by graticule or grid lines (subsection \@ref(grid-lines)).].
+The decision on whether to use north arrows or not usually requires some critical thinking.
+While, it can be added to every map, north arrows are not always necessary - especially on maps of large areas (e.g., continents), where the cardinal directions are obvious for most people.
+The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers. 
+
+We can use the `tm_compass()` function to add the north arrow. 
+By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
+**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
+The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`).
+
 
 ```r
 tm +
-  tm_compass(type = "4star", size = 2,
-             position = c("left", "top"))
+  tm_compass(type = "4star", size = 2, position = c("left", "top"))
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/na-1.png" alt="na" width="672" />
+<p class="caption">(\#fig:na)na</p>
+</div>
 
-The `position` argument works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
+The location of the north arrow, by default, is placed automatically, but can also be changed using the `position` argument.
+It expects a vector of two values, specifying the x and y coordinates.
+The x coordinate can be set with `"left"`, `"LEFT"`, `"center"`, `"right"`, or `"RIGHT"`, while the y coordinate uses `"top"`, `"TOP"`, `"center"`, `"bottom"`, or `"BOTTOM"`.
+The arguments with all letters uppercase result in a position closer to the map frame (without margins).
+Alternatively, `position` can be specified with numeric values between 0 and 1 representing the x and y value of the left bottom corner of the north arrow.
 
-<!-- mention the north argument -->
+The `position` argument also works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 ### Text annotation
 
@@ -305,7 +337,7 @@ tm +
   tm_credits("Data source: ")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- ref to the text section -->
 <!-- mention position -->
@@ -314,13 +346,17 @@ tm +
 ### Logo
 
 
+
+
 ```r
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
           height = 2)
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+
+
 
 <!-- mention position -->
 <!-- more than one -->
@@ -334,7 +370,7 @@ tm +
   tm_ylab("Y")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- why this is useful? -->
 

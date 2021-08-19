@@ -57,6 +57,7 @@ fig:fonts
 fig:mfonts
 tab:attr-layers-table
 fig:grids
+fig:na
 intro
 what-is-tmap
 thematic-maps

@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-08-18" />
+<meta name="date" content="2021-08-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -494,15 +494,25 @@ adds minimap in the view mode only
 <p><img src="07-layout_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="grid-lines" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Grid lines</h3>
+<p>The <strong>tmap</strong> package offers two ways to draws coordinate lines - <code>tm_grid()</code> and <code>tm_graticules()</code>.
+The role of <code>tm_grid()</code> is to represent the input data’s coordinates.
+For example, the <code>ei_borders</code> object’s CRS is UTM zone 12S with the units in meters (figure <a href="layout.html#fig:grids">8.3</a>:A).</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="layout.html#cb105-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb105-2"><a href="layout.html#cb105-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb105-3"><a href="layout.html#cb105-3"></a><span class="st">  </span><span class="kw">tm_grid</span>()</span></code></pre></div>
+<p><code>tm_graticules()</code> shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
+This can be seen with the degree signs in the labels (figure <a href="layout.html#fig:grids">8.3</a>:B).</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="layout.html#cb106-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb106-2"><a href="layout.html#cb106-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
 <span id="cb106-3"><a href="layout.html#cb106-3"></a><span class="st">  </span><span class="kw">tm_graticules</span>()</span></code></pre></div>
+<p>Both, <code>tm_grid()</code> and <code>tm_graticules()</code> can be placed above or below the map layers as their position on the map depends on their place in the code.
+When <code>tm_grid()</code> or <code>tm_graticules()</code> is placed after the map layer (e.g., <code>tm_polygons()</code>), the grid lines are plotted on the top of the map.
+On the other hand, when <code>tm_grid()</code> or <code>tm_graticules()</code> is placed before the map layer code, the grid lines are plotted behind the spatial data (figure <a href="layout.html#fig:grids">8.3</a>:C).</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="layout.html#cb107-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
 <span id="cb107-2"><a href="layout.html#cb107-2"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
 <span id="cb107-3"><a href="layout.html#cb107-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
+<p>Grids and graticules can also be easily customized using several arguments, such as, <code>x</code> and <code>y</code> (x and y coordinates of the lines), <code>n.x</code> and <code>n.y</code> (number of horizontal (x) and vertical (y) lines), <code>labels.inside.frame</code>, <code>ticks</code>, <code>lines</code>
+It is also possible to customize their appearance, for example, by changing the colors of the lines (<code>col</code>), width (<code>lwd</code>) or labels’ sizes (<code>labels.size</code>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grids"></span>
 <img src="07-layout_files/figure-html/grids-1.png" alt="(A), (B), (C)." width="672" />
 <p class="caption">
@@ -515,10 +525,13 @@ FIGURE 8.3: (A), (B), (C).
 <p>Scale bar is a graphic indicator of the relation between a distance on a map and the corresponding distance in the real world.
 Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
 Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map.</p>
+<p>The <code>tm_scale_bar()</code> function adds a scale bar.
+By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
+It is possible, however, to manually update the values of scale bar’s breaks with the <code>breaks</code> argument and its size with the <code>text.size</code> argument.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="layout.html#cb108-1"></a>tm <span class="op">+</span></span>
 <span id="cb108-2"><a href="layout.html#cb108-2"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="07-layout_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<!-- mention position -->
+<p>The <code>tm_scale_bar()</code> also has several additional arguments, allowing to modify its colors, and position (subsection <a href="layout.html#north-arrow">8.2.3</a>).</p>
 <p>Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection <a href="geodata.html#types-of-map-projections">2.4.4</a>) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
 The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
 For example, try to add a scale bar to a world map seen in the section <a href="tmshape.html#shapes-and-layers">4.1</a>.
@@ -526,18 +539,34 @@ The created scale bar will be accurate for the equator, but less and less correc
 </div>
 <div id="north-arrow" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> North arrow</h3>
+<p>North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>.
+The decision on whether to use north arrows or not usually requires some critical thinking.
+While, it can be added to every map, north arrows are not always necessary - especially on maps of large areas (e.g., continents), where the cardinal directions are obvious for most people.
+The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers.</p>
+<p>We can use the <code>tm_compass()</code> function to add the north arrow.
+By default, its “north” is oriented toward the top of the map (the <code>north</code> argument of <code>0</code>), and the north arrow is represented by an actual arrow (the <code>type</code> argument of <code>"arrow"</code>).
+<strong>tmap</strong> offers also a few other north arrow types, including <code>"4star"</code> (figure <a href="layout.html#fig:na">8.4</a>), <code>"8star"</code>, <code>"radar"</code>, and <code>"rose"</code>.
+The north arrow can be also further customized with the <code>size</code>, <code>show.labels</code> and <code>cardinal.directions</code> arguments, and its colors may be modified (<code>text.color</code>, <code>color.dark</code>, <code>color.light</code>).</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="layout.html#cb109-1"></a>tm <span class="op">+</span></span>
-<span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>,</span>
-<span id="cb109-3"><a href="layout.html#cb109-3"></a>             <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>The <code>position</code> argument works in the same way in other functions, such as <code>tm_scale_bar()</code>, <code>tm_credits()</code>, <code>tm_logo()</code>, and in some of the <code>tm_layout()</code> arguments - <code>legend.position</code>, <code>title.position</code>, or <code>attr.position</code>.</p>
-<!-- mention the north argument -->
+<span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:na"></span>
+<img src="07-layout_files/figure-html/na-1.png" alt="na" width="672" />
+<p class="caption">
+FIGURE 8.4: na
+</p>
+</div>
+<p>The location of the north arrow, by default, is placed automatically, but can also be changed using the <code>position</code> argument.
+It expects a vector of two values, specifying the x and y coordinates.
+The x coordinate can be set with <code>"left"</code>, <code>"LEFT"</code>, <code>"center"</code>, <code>"right"</code>, or <code>"RIGHT"</code>, while the y coordinate uses <code>"top"</code>, <code>"TOP"</code>, <code>"center"</code>, <code>"bottom"</code>, or <code>"BOTTOM"</code>.
+The arguments with all letters uppercase result in a position closer to the map frame (without margins).
+Alternatively, <code>position</code> can be specified with numeric values between 0 and 1 representing the x and y value of the left bottom corner of the north arrow.</p>
+<p>The <code>position</code> argument also works in the same way in other functions, such as <code>tm_scale_bar()</code>, <code>tm_credits()</code>, <code>tm_logo()</code>, and in some of the <code>tm_layout()</code> arguments - <code>legend.position</code>, <code>title.position</code>, or <code>attr.position</code>.</p>
 </div>
 <div id="text-annotation" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Text annotation</h3>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="layout.html#cb110-1"></a>tm <span class="op">+</span></span>
 <span id="cb110-2"><a href="layout.html#cb110-2"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: &quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- ref to the text section -->
 <!-- mention position -->
 <!-- more than one -->
@@ -547,7 +576,7 @@ The created scale bar will be accurate for the equator, but less and less correc
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="layout.html#cb111-1"></a>tm <span class="op">+</span></span>
 <span id="cb111-2"><a href="layout.html#cb111-2"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
 <span id="cb111-3"><a href="layout.html#cb111-3"></a>          <span class="dt">height =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- mention position -->
 <!-- more than one -->
 </div>
@@ -556,7 +585,7 @@ The created scale bar will be accurate for the equator, but less and less correc
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="layout.html#cb112-1"></a>tm <span class="op">+</span></span>
 <span id="cb112-2"><a href="layout.html#cb112-2"></a><span class="st">  </span><span class="kw">tm_xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span></span>
 <span id="cb112-3"><a href="layout.html#cb112-3"></a><span class="st">  </span><span class="kw">tm_ylab</span>(<span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
-<p><img src="07-layout_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- why this is useful? -->
 </div>
 <div id="minimap" class="section level3">
@@ -600,6 +629,7 @@ The created scale bar will be accurate for the equator, but less and less correc
 <hr />
 <ol start="19">
 <li id="fn19"><p>You can get the <code>invalid font type</code> error while saving the file<a href="layout.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>Orientation may also be shown by graticule or grid lines (subsection <a href="layout.html#grid-lines">8.2.1</a>).<a href="layout.html#fnref20" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 <script>
