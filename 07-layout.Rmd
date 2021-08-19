@@ -289,14 +289,16 @@ Scale bar is a graphic indicator of the relation between a distance on a map and
 Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
 Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map. 
 
-
+The `tm_scale_bar()` function adds a scale bar. 
+By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
+It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument.
 
 ```{r}
 tm +
   tm_scale_bar(breaks = c(0, 2, 4), text.size = 1)
 ```
 
-<!-- mention position -->
+The `tm_scale_bar()` also has several additional arguments, allowing to modify its colors, and position (subsection \@ref(north-arrow)).
 
 Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection \@ref(types-of-map-projections)) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
 The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
@@ -314,15 +316,20 @@ tm_shape(worldelevation) +
 
 ### North arrow
 
+North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north^[Orientation may also be shown by graticule or grid lines (subsection \@ref(grid-lines)).].
+The decision on whether to use north arrows or not usually requires some critical thinking.
+While, it can be added to every map, north arrows are not always necessary - especially on maps of large areas (e.g., continents), where the cardinal directions are obvious for most people.
+The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers. 
+
 ```{r}
 tm +
-  tm_compass(type = "4star", size = 2,
-             position = c("left", "top"))
+  tm_compass(type = "4star", size = 2, position = c("left", "top"))
 ```
 
-The `position` argument works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 <!-- mention the north argument -->
+
+The `position` argument works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 ### Text annotation
 
@@ -337,11 +344,15 @@ tm +
 
 ### Logo
 
+
+
 ```{r}
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
           height = 2)
 ```
+
+
 
 <!-- mention position -->
 <!-- more than one -->
