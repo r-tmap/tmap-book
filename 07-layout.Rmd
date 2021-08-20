@@ -359,9 +359,9 @@ The `position` argument also works in the same way in other functions, such as `
 Text annotations, also known as map credits, are used to store additional information about the created map.
 They can include the source of data, the name of the author, the date of map creation, or information about the map projection.
 
-Text annotations are created with the `tm_credits()` function, which can be used more than one time.
+Text annotations are created with the `tm_credits()` function, which can be used more than one time (figure \@ref(fig:credits)).
 
-```{r}
+```{r credits}
 tm +
   tm_credits("Data source: ", fontface = "italic", align = "right") +
   tm_credits("Author: ", fontface = "bold", align = "right")
@@ -375,18 +375,23 @@ horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-map
 
 ### Logo
 
+Logos on maps can serve a similar purpose as text annotation or accompany them.
+They can represent your affiliation, funding institution, data sources logos, etc.
 
+The `tm_logo()` function adds png images, either from a file or url, to the map (figure \@ref(fig:logos)).
 
-```{r}
+```{r logos}
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
+          height = 1) +
+  tm_logo(c("https://www.r-project.org/logo/Rlogo.png",
+            "https://www.r-project.org/logo/Rlogo.png"),
           height = 2)
 ```
 
-
-
-<!-- mention position -->
-<!-- more than one -->
+There are two ways to use multiple logos.
+Many `tm_logo()` functions will places logos on top of each other, while providing a vector of png files will show them next to each other.
+Additional arguments include the height of the logo (`height`, the width is scaled automatically) and its position (`position`).
 
 ### Axis labels
 
