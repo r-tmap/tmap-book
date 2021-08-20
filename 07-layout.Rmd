@@ -355,14 +355,23 @@ The `position` argument also works in the same way in other functions, such as `
 
 ### Text annotation
 
+<!-- Text on maps serves many purposes - some are related to spatial objects (e.g., text labels, section \@ref(text)), while other are used to inform the map reader about the presented content (e.g., map title, section \@ref(layout-elements)). -->
+Text annotations, also known as map credits, are used to store additional information about the created map.
+They can include the source of data, the name of the author, the date of map creation, or information about the map projection.
+
+Text annotations are created with the `tm_credits()` function, which can be used more than one time.
+
 ```{r}
 tm +
-  tm_credits("Data source: ")
+  tm_credits("Data source: ", fontface = "italic", align = "right") +
+  tm_credits("Author: ", fontface = "bold", align = "right")
 ```
 
-<!-- ref to the text section -->
-<!-- mention position -->
-<!-- more than one -->
+The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
+When the created map has several facets (section \@ref(small-multiples)), it is also possible to provide each facet a different text.
+In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
+Text annotations can also be further customized, by changing their sizes (`size`), colors (`col`),
+horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-maps)).
 
 ### Logo
 
