@@ -57,7 +57,10 @@ fig:fonts
 fig:mfonts
 tab:attr-layers-table
 fig:grids
-fig:na
+fig:scalebar
+fig:northarrow
+fig:credits
+fig:logos
 intro
 what-is-tmap
 thematic-maps

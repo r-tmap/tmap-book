@@ -220,14 +220,14 @@ The third way is to use a different *tmap style* - see section \@ref() for more 
 </tbody>
 </table>
 
+For the examples in this section, we will use a simple map of the Easter Island polygon (not shown).
+
 
 ```r
 tm = tm_shape(ei_borders) +
   tm_polygons()
 tm
 ```
-
-<img src="07-layout_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
 
 ### Grid lines
 
@@ -267,8 +267,8 @@ Grids and graticules can also be easily customized using several arguments, such
 It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/grids-1.png" alt="(A), (B), (C)." width="672" />
-<p class="caption">(\#fig:grids)(A), (B), (C).</p>
+<img src="07-layout_files/figure-html/grids-1.png" alt="(A) Map grid, (B) graticules, and (C) graticules put behind the map layer." width="672" />
+<p class="caption">(\#fig:grids)(A) Map grid, (B) graticules, and (C) graticules put behind the map layer.</p>
 </div>
 
 ### Scale bar
@@ -279,7 +279,7 @@ Compared to the representative fraction, scale bars work correctly on variable s
 
 The `tm_scale_bar()` function adds a scale bar. 
 By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
-It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument.
+It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument (figure \@ref(fig:scalebar)).
 
 
 ```r
@@ -287,7 +287,10 @@ tm +
   tm_scale_bar(breaks = c(0, 2, 4), text.size = 1)
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/scalebar-1.png" alt="A map with a customized scale bar." width="672" />
+<p class="caption">(\#fig:scalebar)A map with a customized scale bar.</p>
+</div>
 
 The `tm_scale_bar()` also has several additional arguments, allowing to modify its colors, and position (subsection \@ref(north-arrow)).
 
@@ -308,7 +311,7 @@ The North arrow is, however, necessary when the north on the map is offset (rota
 We can use the `tm_compass()` function to add the north arrow. 
 By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
 **tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
-The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`).
+The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
 
 
 ```r
@@ -317,8 +320,8 @@ tm +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/na-1.png" alt="na" width="672" />
-<p class="caption">(\#fig:na)na</p>
+<img src="07-layout_files/figure-html/northarrow-1.png" alt="A map with customized north arrow." width="672" />
+<p class="caption">(\#fig:northarrow)A map with customized north arrow.</p>
 </div>
 
 The location of the north arrow, by default, is placed automatically, but can also be changed using the `position` argument.
@@ -331,35 +334,55 @@ The `position` argument also works in the same way in other functions, such as `
 
 ### Text annotation
 
+<!-- Text on maps serves many purposes - some are related to spatial objects (e.g., text labels, section \@ref(text)), while other are used to inform the map reader about the presented content (e.g., map title, section \@ref(layout-elements)). -->
+Text annotations, also known as map credits, are used to store additional information about the created map.
+They can include the source of data, the name of the author, the date of map creation, or information about the map projection.
+
+Text annotations are created with the `tm_credits()` function, which can be used more than one time (figure \@ref(fig:credits)).
+
 
 ```r
 tm +
-  tm_credits("Data source: ")
+  tm_credits("Data source: ", fontface = "italic", align = "right") +
+  tm_credits("Author: ", fontface = "bold", align = "right")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/credits-1.png" alt="A map with placeholders for text annotations." width="672" />
+<p class="caption">(\#fig:credits)A map with placeholders for text annotations.</p>
+</div>
 
-<!-- ref to the text section -->
-<!-- mention position -->
-<!-- more than one -->
+The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
+When the created map has several facets (section \@ref(small-multiples)), it is also possible to provide each facet a different text.
+In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
+Text annotations can also be further customized, by changing their sizes (`size`), colors (`col`),
+horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-maps)).
 
 ### Logo
 
+Logos on maps can serve a similar purpose as text annotation or accompany them.
+They can represent your affiliation, funding institution, data sources logos, etc.
 
+The `tm_logo()` function adds png images, either from a file or url, to the map (figure \@ref(fig:logos)).
 
 
 ```r
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
-          height = 2)
+          height = 2) +
+  tm_logo(c("https://www.r-project.org/logo/Rlogo.png",
+            "https://www.r-project.org/logo/Rlogo.png"),
+          height = 1)
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="07-layout_files/figure-html/logos-1.png" alt="A map with an array of R logos." width="672" />
+<p class="caption">(\#fig:logos)A map with an array of R logos.</p>
+</div>
 
-
-
-<!-- mention position -->
-<!-- more than one -->
+There are two ways to use multiple logos.
+Many `tm_logo()` functions will places logos on top of each other, while providing a vector of png files will show them next to each other.
+Additional arguments include the height of the logo (`height`, the width is scaled automatically) and its position (`position`).
 
 ### Axis labels
 
@@ -370,7 +393,7 @@ tm +
   tm_ylab("Y")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
 
 <!-- why this is useful? -->
 
