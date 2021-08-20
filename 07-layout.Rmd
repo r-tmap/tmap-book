@@ -245,7 +245,9 @@ knitr::kable(attr_layers_df,
   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
-```{r}
+For the examples in this section, we will use a simple map of the Easter Island polygon (not shown).
+
+```{r, fig.show='hide'}
 tm = tm_shape(ei_borders) +
   tm_polygons()
 tm
@@ -285,7 +287,7 @@ tm_shape(ei_borders) +
 Grids and graticules can also be easily customized using several arguments, such as, `x` and `y` (x and y coordinates of the lines), `n.x` and `n.y` (number of horizontal (x) and vertical (y) lines),  `labels.inside.frame`, `ticks`, `lines`
 It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
-```{r grids, fig.cap="(A), (B), (C).", echo=FALSE, fig.asp=0.33}
+```{r grids, fig.cap="(A) Map grid, (B) graticules, and (C) graticules put behind the map layer.", echo=FALSE, fig.asp=0.33}
 tmap_arrange(
     <<grid1>>
       + tm_layout(title = "A"),
@@ -305,9 +307,9 @@ Compared to the representative fraction, scale bars work correctly on variable s
 
 The `tm_scale_bar()` function adds a scale bar. 
 By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
-It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument.
+It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument (figure \@ref(fig:scalebar)).
 
-```{r}
+```{r scalebar, fig.cap="A map with a customized scale bar."}
 tm +
   tm_scale_bar(breaks = c(0, 2, 4), text.size = 1)
 ```
@@ -338,9 +340,9 @@ The North arrow is, however, necessary when the north on the map is offset (rota
 We can use the `tm_compass()` function to add the north arrow. 
 By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
 **tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
-The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`).
+The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
 
-```{r na, fig.cap="na"}
+```{r northarrow, fig.cap="A map with customized north arrow."}
 tm +
   tm_compass(type = "4star", size = 2, position = c("left", "top"))
 ```
@@ -361,7 +363,7 @@ They can include the source of data, the name of the author, the date of map cre
 
 Text annotations are created with the `tm_credits()` function, which can be used more than one time (figure \@ref(fig:credits)).
 
-```{r credits}
+```{r credits, fig.cap="A map with placeholders for text annotations."}
 tm +
   tm_credits("Data source: ", fontface = "italic", align = "right") +
   tm_credits("Author: ", fontface = "bold", align = "right")
@@ -380,13 +382,13 @@ They can represent your affiliation, funding institution, data sources logos, et
 
 The `tm_logo()` function adds png images, either from a file or url, to the map (figure \@ref(fig:logos)).
 
-```{r logos}
+```{r logos, fig.cap="A map with an array of R logos."}
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
-          height = 1) +
+          height = 2) +
   tm_logo(c("https://www.r-project.org/logo/Rlogo.png",
             "https://www.r-project.org/logo/Rlogo.png"),
-          height = 2)
+          height = 1)
 ```
 
 There are two ways to use multiple logos.
