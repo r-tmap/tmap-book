@@ -1,7 +1,52 @@
 # Save maps {#save}
 
-## Graphics formats
+<!-- intro - saving maps/tmap outputs -->
+<!-- relation between vector and raster spatial data and vector and raster graphics -->
+<!-- intro - below code -->
 
-## Vector formats
+```{r, message=FALSE, fig.show='hide'}
+library(tmap)
+library(sf)
+ei_borders = read_sf("data/easter_island/ei_border.gpkg")
+tm = tm_shape(ei_borders) +
+  tm_polygons() +
+  tm_text("name", fontface = "italic")
+tm
+```
+
+## Vector graphic formats
+
+```{r}
+tmap_save(tm, "my_map0.png")
+```
+
+```{r}
+tmap_save(tm, "my_map.png", width = 1000, height = 750, dpi = 300)
+```
+<!-- units -->
+<!-- , asp = 0 -->
+<!-- scale -->
+
+```{r}
+tmap_save(tm, "my_map.png", device = ragg::agg_png)
+```
+
+## Raster graphic formats
+
+```{r}
+tmap_save(tm, "my_map.svg")
+```
+
+<!-- scale -->
+<!-- ref to the fonts section -->
 
 ## Interactive format
+
+```{r}
+tmap_save(tm, "my_map.html")
+```
+
+<!-- add.titles -->
+<!-- in.iframe -->
+<!-- selfcontained -->
+<!-- arguments passed on to device functions or to saveWidget or saveWidgetframe -->
