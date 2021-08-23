@@ -339,7 +339,7 @@ The North arrow is, however, necessary when the north on the map is offset (rota
 
 We can use the `tm_compass()` function to add the north arrow. 
 By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
-**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
+**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:northarrow)), `"8star"`, `"radar"`, and `"rose"`.
 The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
 
 ```{r northarrow, fig.cap="A map with customized north arrow."}
@@ -370,7 +370,7 @@ tm +
 ```
 
 The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
-When the created map has several facets (section \@ref(small-multiples)), it is also possible to provide each facet a different text.
+When the created map has several facets (section \@ref(multiples)), it is also possible to provide each facet a different text.
 In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
 Text annotations can also be further customized, by changing their sizes (`size`), colors (`col`),
 horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-maps)).
