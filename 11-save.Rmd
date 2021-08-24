@@ -1,8 +1,13 @@
 # Save maps {#save}
 
-<!-- intro - saving maps/tmap outputs -->
-<!-- relation between vector and raster spatial data and vector and raster graphics -->
-<!-- intro - below code -->
+Maps created programmatically can serve several purposes, from exploratory, through visualizations of the processing steps, to being the final outputs of a given project.
+Therefore, often we want just to see our map on the screen, but sometimes we also want to save our map results to an external file.
+**tmap** objects can be directly saved to output files with `tmap_save()`^[Standard R approach of saving graphic files by opening a graphic device, e.g., `png()`, plotting the data, and then closing the device with `dev.off()` also works.].
+
+The `tmap_save()` function allows to save our map in three groups of file formats, (a) vector graphics (section \@ref(vector-graphic-formats)), (b) raster graphics (section \@ref(raster-graphic-formats)), and (c) interactive ones (section \@ref(interactive-format)).
+Additionally, chapter \@ref(animations) shows how to save map animations with the use of the `tmap_animation()` function.
+
+For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown).
 
 ```{r, message=FALSE, fig.show='hide'}
 library(tmap)
@@ -15,6 +20,8 @@ tm
 ```
 
 ## Vector graphic formats
+
+<!-- saving workflow - create tmap object -> tmap save -->
 
 ```{r}
 tmap_save(tm, "my_map0.png")
