@@ -4,10 +4,10 @@ Maps created programmatically can serve several purposes, from exploratory, thro
 Therefore, often we want just to see our map on the screen, but sometimes we also want to save our map results to an external file.
 **tmap** objects can be directly saved to output files with `tmap_save()`^[Standard R approach of saving graphic files by opening a graphic device, e.g., `png()`, plotting the data, and then closing the device with `dev.off()` also works.].
 
-The `tmap_save()` function allows to save our map in three groups of file formats, (a) vector graphics (section \@ref(vector-graphic-formats)), (b) raster graphics (section \@ref(raster-graphic-formats)), and (c) interactive ones (section \@ref(interactive-format)).
+The `tmap_save()` function allows to save our map in three groups of file formats, (a) raster graphics (section \@ref(raster-graphic-formats)), (b) vector graphics (section \@ref(vector-graphic-formats)), and (c) interactive ones (section \@ref(interactive-format)).
 Additionally, chapter \@ref(animations) shows how to save map animations with the use of the `tmap_animation()` function.
 
-For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown).
+For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown), stored in the `tm` object.
 
 ```{r, message=FALSE, fig.show='hide'}
 library(tmap)
@@ -19,18 +19,32 @@ tm = tm_shape(ei_borders) +
 tm
 ```
 
-## Vector graphic formats
+## Raster graphic formats
 
-<!-- saving workflow - create tmap object -> tmap save -->
+Raster graphics are non-spatial relatives of spatial rasters.
+The digital images are composed of many pixels - squares filled with specific colors.
+Main raster graphic file formats include PNG, JPEG, BMP, and TIFF.
+<!-- jn: should we describe each in one sentence? -->
+<!-- explain DPI -->
+
+Saving **tmap** objects to a file can be done with the `tmap_save()`.
+It usually accepts two arguments^[In fact, one argument is enough - if you just provide a **tmap** object, then it will be saved to a `tmap01` file with some default format.] - the first one, `tm`, is our map object, and the second one, `filename`, is the path to the created file.
 
 ```{r}
-tmap_save(tm, "my_map0.png")
+tmap_save(tm, "my_map.png")
 ```
+
+By default, DPI is set to 300, and the image width and height is automatically adjusted based on the map aspect ratio.
+These parameters can be, however, changed with the `dpi`, `width`, and `height` arguments^[You can even specify just one of `width` or `height`, and the value of the second one will be calculated using the formula `asp = width / height`.].
 
 ```{r}
 tmap_save(tm, "my_map.png", width = 1000, height = 750, dpi = 300)
 ```
-<!-- units -->
+
+The units of `width` or `height` depend on the value you set. 
+They are pixels (`"px"`) when the value is greater than 50, and inches (`"in"`) otherwise.
+Units can also be changed with the `units` argument.
+
 <!-- , asp = 0 -->
 <!-- scale -->
 
@@ -38,7 +52,12 @@ tmap_save(tm, "my_map.png", width = 1000, height = 750, dpi = 300)
 tmap_save(tm, "my_map.png", device = ragg::agg_png)
 ```
 
-## Raster graphic formats
+```{r, echo=FALSE, eval=FALSE}
+tmap_save(tm, "my_map_j1.jpg", quality = 100)
+tmap_save(tm, "my_map_j2.jpg", quality = 100)
+```
+
+## Vector graphic formats
 
 ```{r}
 tmap_save(tm, "my_map.svg")
