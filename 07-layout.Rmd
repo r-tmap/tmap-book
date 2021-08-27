@@ -93,7 +93,7 @@ We just need to remember about the readability of the fonts - they should not be
 
 <!-- suggested fonts or references??? -->
 
-### Fonts available in **tmap**
+### Fonts available in **tmap** {#fonts-tmap}
 
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
