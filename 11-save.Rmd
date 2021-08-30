@@ -67,12 +67,19 @@ tmap_save(tm, "my_map_j2.jpg", quality = 100)
 
 ## Vector graphic formats
 
+Vector graphics are quite distant relatives of spatial vectors, with vector graphics consisting of sets of coordinates.
+Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (section \@ref(vector-data-model)), but also using curves.
+This makes it possible to create polygons, circles, ellipses, and others.
+They also allow storing of text and other objects.
+The advantage of vector graphics over raster graphics is that they can be zoom in and out without any decrease in quality.
+On the other hand, vector graphics are not suitable for storing complex images or maps, and they are less supported by web browsers comparing to rasters.
+Common vector graphic file formats are SVG, EPS, PDF.
+
 ```{r}
 tmap_save(tm, "my_map.svg")
 ```
 
-<!-- scale -->
-<!-- ref to the fonts section -->
+Similar to the example in the previous section, we can also use other graphic devices here, such as `device = svglite::svglite`.
 
 ## Interactive format
 
