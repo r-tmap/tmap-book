@@ -100,3 +100,8 @@ tmap_save(tm, "my_map.html")
 <!-- in.iframe -->
 <!-- selfcontained -->
 <!-- arguments passed on to device functions or to saveWidget or saveWidgetframe -->
+
+```{r, echo=FALSE, results='hide', warning=FALSE}
+file.remove(c("my_map.png", "my_map.svg", "my_map.html"))
+```
+
