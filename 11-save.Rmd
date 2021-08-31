@@ -84,11 +84,16 @@ tmap_save(tm, "my_map00.svg", width = 10)
 tmap_save(tm, "my_map01.svg", width = 1)
 ```
 
-<!-- add impact of other arguments -->
+While a level of zoom does not impact vector graphics' quality, the `width`, `height`, and `scale` arguments still can impact the output file.
+For example, a vector graphic file saved with a narrower width value will have thicker lines and larger fonts compared to the one with a larger width value.
+You can check this effect by saving the `tm` object with `width = 1` and then with `width = 10`.
 
-The advantage of vector graphics over raster graphics is that they can be zoom in and out without any decrease in quality.
-On the other hand, vector graphics are not suitable for storing complex images or maps, and they are less supported by web browsers comparing to rasters.
-<!-- add when it is useful -->
+Compared to raster graphics, vector graphics are not suitable for storing complex images or maps, and they are less supported by web browsers comparing to rasters.
+They, however, has also many advantages.
+For example, they can be zoomed in and out without any decrease in quality.
+Vector graphics can also be easily edited in dedicated software (e.g., Inkscape or Adobe Illustrator), which allows to change the style of map elements and move them using a computer mouse outside of the R environment.
+This approach can be useful, for example, when you want to quickly adjust the position of map elements (e.g., labels) or collaborate with a graphic designer.
+Note, however, that this process is not fully reproducible.
 
 ## Interactive format
 
