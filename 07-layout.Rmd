@@ -126,7 +126,7 @@ The next step is to either view or save the map.
 This also means that we need to carry over our fonts to the output window/file, which largely depends on the selected graphic device.
 In general, screen device or graphical raster output formats, such as PNG, JPEG, or TIFF, works well with custom fonts as they rasterize them during saving.
 In case of any problems with graphical raster outputs, it is possible to try alternative graphics devices implemented in the **ragg** package [@R-ragg].
-On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error while saving the file].
+On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error when saving the file.].
 The PDF device in R, by default, adds metadata about the used fonts, but does not store them.
 When the PDF reader shows the document, it tries to locate the font on your computer, and use other fonts when the expected one does not exist.
 An alternative approach is called embedding, which adds a copy of each necessary font to the PDF file itself.
