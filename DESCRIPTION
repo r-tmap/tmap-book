@@ -1,7 +1,7 @@
 Package: tmapbook
 Type: Book
 Title: Elegant and informative maps with tmap
-Version: 0.0.1
+Version: 0.0.2
 Imports: 
   bookdown,
   tmaptools,
