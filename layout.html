@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Layout | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.23.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Layout | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-08-20" />
+<meta name="date" content="2021-09-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="othertypes.html"/>
 <link rel="next" href="interactive.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>8</b> Layout</a><ul>
 <li class="chapter" data-level="8.1" data-path="layout.html"><a href="layout.html#typography"><i class="fa fa-check"></i><b>8.1</b> Typography</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="layout.html"><a href="layout.html#font-families-and-faces"><i class="fa fa-check"></i><b>8.1.1</b> Font families and faces</a></li>
-<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#fonts-available-in-tmap"><i class="fa fa-check"></i><b>8.1.2</b> Fonts available in <strong>tmap</strong></a></li>
+<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#fonts-tmap"><i class="fa fa-check"></i><b>8.1.2</b> Fonts available in <strong>tmap</strong></a></li>
 <li class="chapter" data-level="8.1.3" data-path="layout.html"><a href="layout.html#fonts-on-maps"><i class="fa fa-check"></i><b>8.1.3</b> Fonts on maps</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#attributes-layers"><i class="fa fa-check"></i><b>8.2</b> Attributes layers</a><ul>
@@ -231,8 +231,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="options.html"><a href="options.html"><i class="fa fa-check"></i><b>11</b> tmap options</a></li>
 <li class="chapter" data-level="12" data-path="save.html"><a href="save.html"><i class="fa fa-check"></i><b>12</b> Save maps</a><ul>
-<li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#graphics-formats"><i class="fa fa-check"></i><b>12.1</b> Graphics formats</a></li>
-<li class="chapter" data-level="12.2" data-path="save.html"><a href="save.html#vector-formats"><i class="fa fa-check"></i><b>12.2</b> Vector formats</a></li>
+<li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#raster-graphic-formats"><i class="fa fa-check"></i><b>12.1</b> Raster graphic formats</a></li>
+<li class="chapter" data-level="12.2" data-path="save.html"><a href="save.html#vector-graphic-formats"><i class="fa fa-check"></i><b>12.2</b> Vector graphic formats</a></li>
 <li class="chapter" data-level="12.3" data-path="save.html"><a href="save.html#interactive-format"><i class="fa fa-check"></i><b>12.3</b> Interactive format</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="animations.html"><a href="animations.html"><i class="fa fa-check"></i><b>13</b> Animations</a></li>
@@ -317,7 +317,7 @@ We should filter the decision about the used fonts based on our preferences or e
 We just need to remember about the readability of the fonts - they should not be too elaborate as it can hinder the main map message.</p>
 <!-- suggested fonts or references??? -->
 </div>
-<div id="fonts-available-in-tmap" class="section level3">
+<div id="fonts-tmap" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Fonts available in <strong>tmap</strong></h3>
 <p>Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used <em>graphic device</em>.
@@ -550,7 +550,7 @@ While, it can be added to every map, north arrows are not always necessary - esp
 The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers.</p>
 <p>We can use the <code>tm_compass()</code> function to add the north arrow.
 By default, its “north” is oriented toward the top of the map (the <code>north</code> argument of <code>0</code>), and the north arrow is represented by an actual arrow (the <code>type</code> argument of <code>"arrow"</code>).
-<strong>tmap</strong> offers also a few other north arrow types, including <code>"4star"</code> (figure <a href="#fig:na"><strong>??</strong></a>), <code>"8star"</code>, <code>"radar"</code>, and <code>"rose"</code>.
+<strong>tmap</strong> offers also a few other north arrow types, including <code>"4star"</code> (figure <a href="layout.html#fig:northarrow">8.5</a>), <code>"8star"</code>, <code>"radar"</code>, and <code>"rose"</code>.
 The north arrow can be also further customized with the <code>size</code>, <code>show.labels</code> and <code>cardinal.directions</code> arguments, and its colors may be modified (<code>text.color</code>, <code>color.dark</code>, <code>color.light</code>) (figure <a href="layout.html#fig:northarrow">8.5</a>).</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="layout.html#cb109-1"></a>tm <span class="op">+</span></span>
 <span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
@@ -583,7 +583,7 @@ FIGURE 8.6: A map with placeholders for text annotations.
 </p>
 </div>
 <p>The first argument of <code>tm_credits()</code> is the text, which can be spread over multiple lines with the line break symbol <code>\n</code>.
-When the created map has several facets (section <a href="#small-multiples"><strong>??</strong></a>), it is also possible to provide each facet a different text.
+When the created map has several facets (section <a href="multiples.html#multiples">10</a>), it is also possible to provide each facet a different text.
 In that case, a vector of characters is expected, where you can use <code>""</code> to omit the credits for specific facets.
 Text annotations can also be further customized, by changing their sizes (<code>size</code>), colors (<code>col</code>),
 horizontal alignment (<code>align</code>), positions, and fonts (section <a href="layout.html#fonts-on-maps">8.1.3</a>).</p>
@@ -657,7 +657,7 @@ Additional arguments include the height of the logo (<code>height</code>, the wi
 <div class="footnotes">
 <hr />
 <ol start="19">
-<li id="fn19"><p>You can get the <code>invalid font type</code> error while saving the file<a href="layout.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>You can get the <code>invalid font type</code> error when saving the file.<a href="layout.html#fnref19" class="footnote-back">↩︎</a></p></li>
 <li id="fn20"><p>Orientation may also be shown by graticule or grid lines (subsection <a href="layout.html#grid-lines">8.2.1</a>).<a href="layout.html#fnref20" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
@@ -684,7 +684,6 @@ $(function(){
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -715,7 +714,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

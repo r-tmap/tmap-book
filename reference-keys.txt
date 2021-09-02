@@ -111,7 +111,7 @@ othertypes
 layout
 typography
 font-families-and-faces
-fonts-available-in-tmap
+fonts-tmap
 fonts-on-maps
 attributes-layers
 grid-lines
@@ -128,8 +128,8 @@ vector-data
 raster-data
 options
 save
-graphics-formats
-vector-formats
+raster-graphic-formats
+vector-graphic-formats
 interactive-format
 animations
 shiny

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Save maps | Elegant and informative maps with tmap</title>
   <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.23.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.23.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Save maps | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-08-20" />
+<meta name="date" content="2021-09-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,6 +34,7 @@
 <link rel="prev" href="options.html"/>
 <link rel="next" href="animations.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -41,7 +42,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="layout.html"><a href="layout.html"><i class="fa fa-check"></i><b>8</b> Layout</a><ul>
 <li class="chapter" data-level="8.1" data-path="layout.html"><a href="layout.html#typography"><i class="fa fa-check"></i><b>8.1</b> Typography</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="layout.html"><a href="layout.html#font-families-and-faces"><i class="fa fa-check"></i><b>8.1.1</b> Font families and faces</a></li>
-<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#fonts-available-in-tmap"><i class="fa fa-check"></i><b>8.1.2</b> Fonts available in <strong>tmap</strong></a></li>
+<li class="chapter" data-level="8.1.2" data-path="layout.html"><a href="layout.html#fonts-tmap"><i class="fa fa-check"></i><b>8.1.2</b> Fonts available in <strong>tmap</strong></a></li>
 <li class="chapter" data-level="8.1.3" data-path="layout.html"><a href="layout.html#fonts-on-maps"><i class="fa fa-check"></i><b>8.1.3</b> Fonts on maps</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="layout.html"><a href="layout.html#attributes-layers"><i class="fa fa-check"></i><b>8.2</b> Attributes layers</a><ul>
@@ -231,8 +231,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="options.html"><a href="options.html"><i class="fa fa-check"></i><b>11</b> tmap options</a></li>
 <li class="chapter" data-level="12" data-path="save.html"><a href="save.html"><i class="fa fa-check"></i><b>12</b> Save maps</a><ul>
-<li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#graphics-formats"><i class="fa fa-check"></i><b>12.1</b> Graphics formats</a></li>
-<li class="chapter" data-level="12.2" data-path="save.html"><a href="save.html#vector-formats"><i class="fa fa-check"></i><b>12.2</b> Vector formats</a></li>
+<li class="chapter" data-level="12.1" data-path="save.html"><a href="save.html#raster-graphic-formats"><i class="fa fa-check"></i><b>12.1</b> Raster graphic formats</a></li>
+<li class="chapter" data-level="12.2" data-path="save.html"><a href="save.html#vector-graphic-formats"><i class="fa fa-check"></i><b>12.2</b> Vector graphic formats</a></li>
 <li class="chapter" data-level="12.3" data-path="save.html"><a href="save.html#interactive-format"><i class="fa fa-check"></i><b>12.3</b> Interactive format</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="animations.html"><a href="animations.html"><i class="fa fa-check"></i><b>13</b> Animations</a></li>
@@ -262,16 +262,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="save" class="section level1">
 <h1><span class="header-section-number">Chapter 12</span> Save maps</h1>
-<div id="graphics-formats" class="section level2">
-<h2><span class="header-section-number">12.1</span> Graphics formats</h2>
+<p>Maps created programmatically can serve several purposes, from exploratory, through visualizations of the processing steps, to being the final outputs of a given project.
+Therefore, often we want just to see our map on the screen, but sometimes we also want to save our map results to an external file.
+<strong>tmap</strong> objects can be directly saved to output files with <code>tmap_save()</code><a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
+<p>The <code>tmap_save()</code> function allows to save our map in three groups of file formats, (a) raster graphics (section <a href="save.html#raster-graphic-formats">12.1</a>), (b) vector graphics (section <a href="save.html#vector-graphic-formats">12.2</a>), and (c) interactive ones (section <a href="save.html#interactive-format">12.3</a>).
+Additionally, chapter <a href="animations.html#animations">13</a> shows how to save map animations with the use of the <code>tmap_animation()</code> function.</p>
+<p>For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown), stored in the <code>tm</code> object.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="save.html#cb116-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb116-2"><a href="save.html#cb116-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb116-3"><a href="save.html#cb116-3"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb116-4"><a href="save.html#cb116-4"></a>tm =<span class="st"> </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb116-5"><a href="save.html#cb116-5"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb116-6"><a href="save.html#cb116-6"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>)</span>
+<span id="cb116-7"><a href="save.html#cb116-7"></a>tm</span></code></pre></div>
+<div id="raster-graphic-formats" class="section level2">
+<h2><span class="header-section-number">12.1</span> Raster graphic formats</h2>
+<p>Raster graphics are non-spatial relatives of spatial rasters.
+The digital images are composed of many pixels - squares filled with specific colors.
+Main raster graphic file formats include PNG, JPEG, BMP, and TIFF.
+<!-- jn: should we describe each in one sentence? -->
+One of the major parameters of the raster graphic images is DPI (<em>Dots Per Inch</em>, in this context, a more proper name probably should be PPI, <em>Pixels Per Inch</em>) - is a number of pixels per inch of the output image.
+For example, if the width and height of our image are 10 inches, then DPI of 300 would mean that our final image would have 3000 by 3000 pixels, and DPI of 72 would result in an image of 720 by 720 pixels.
+Therefore, an image with the same width and height, but larger value of DPI would occupy more space of the hard drive, but also have better quality.</p>
+<p>Saving <strong>tmap</strong> objects to a file can be done with the <code>tmap_save()</code>.
+It usually accepts two arguments<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> - the first one, <code>tm</code>, is our map object, and the second one, <code>filename</code>, is the path to the created file.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="save.html#cb117-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>)</span>
+<span id="cb117-2"><a href="save.html#cb117-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
+<span id="cb117-3"><a href="save.html#cb117-3"></a><span class="co">#&gt; Resolution: 2492 by 1769 pixels</span></span>
+<span id="cb117-4"><a href="save.html#cb117-4"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches (300 dpi)</span></span></code></pre></div>
+<p>By default, DPI is set to 300, and the image width and height is automatically adjusted based on the map aspect ratio.
+These parameters can be, however, changed with the <code>dpi</code>, <code>width</code>, and <code>height</code> arguments<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="save.html#cb118-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">width =</span> <span class="dv">1000</span>, <span class="dt">height =</span> <span class="dv">750</span>, <span class="dt">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb118-2"><a href="save.html#cb118-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
+<span id="cb118-3"><a href="save.html#cb118-3"></a><span class="co">#&gt; Resolution: 1000 by 750 pixels</span></span>
+<span id="cb118-4"><a href="save.html#cb118-4"></a><span class="co">#&gt; Size: 3.33 by 2.5 inches (300 dpi)</span></span></code></pre></div>
+<p>The units of <code>width</code> or <code>height</code> depend on the value you set.
+They are pixels (<code>"px"</code>) when the value is greater than 50, and inches (<code>"in"</code>) otherwise.
+Units can also be changed with the <code>units</code> argument.</p>
+<p>This function also has several additional arguments, including <code>outer.margins</code>, <code>scale</code> and <code>asp</code>.
+All of them override the arguments’ values set in <code>tm_layout()</code> (chapter <a href="layout.html#layout">8</a>).
+Additionally, when set to <code>0</code>, the’ asp’ argument has a side effect: it moves the map frame to the edges of the output image.</p>
+<p>By default, <strong>tmap</strong> uses graphic devices<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> incorporated in R.
+However, it is also possible to use other, external devices with the <code>device</code> argument.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="save.html#cb119-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">device =</span> ragg<span class="op">::</span>agg_png)</span></code></pre></div>
+<p>For example, the <code>ragg::agg_png</code> device is usually faster and has better support for non-standard fonts than the regular <code>grDevices::png</code>.</p>
 </div>
-<div id="vector-formats" class="section level2">
-<h2><span class="header-section-number">12.2</span> Vector formats</h2>
+<div id="vector-graphic-formats" class="section level2">
+<h2><span class="header-section-number">12.2</span> Vector graphic formats</h2>
+<p>Vector graphics are quite distant relatives of spatial vectors, with vector graphics consisting of sets of coordinates.
+Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (section <a href="geodata.html#vector-data-model">2.2.1</a>), but also using curves.
+This makes it possible to create polygons, circles, ellipses, and others.
+They also allow storing of text and other objects.
+Common vector graphic file formats are SVG, EPS, PDF.</p>
+<p>To save a map to a vector graphic format, we still can use <code>tmap_save()</code> but either with a proper extension or by using the <code>device</code> argument, for example <code>device = svglite::svglite</code>.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="save.html#cb120-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.svg&quot;</span>)</span>
+<span id="cb120-2"><a href="save.html#cb120-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.svg</span></span>
+<span id="cb120-3"><a href="save.html#cb120-3"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches</span></span></code></pre></div>
+<p>While a level of zoom does not impact vector graphics’ quality, the <code>width</code>, <code>height</code>, and <code>scale</code> arguments still can impact the output file.
+For example, a vector graphic file saved with a narrower width value will have thicker lines and larger fonts compared to the one with a larger width value.
+You can check this effect by saving the <code>tm</code> object with <code>width = 1</code> and then with <code>width = 10</code>.</p>
+<p>Compared to raster graphics, vector graphics are not suitable for storing complex images or maps, and they are less supported by web browsers comparing to rasters.
+They, however, has also many advantages.
+For example, they can be zoomed in and out without any decrease in quality.
+Vector graphics can also be easily edited in dedicated software (e.g., Inkscape or Adobe Illustrator), which allows to change the style of map elements and move them using a computer mouse outside of the R environment.
+This approach can be useful, for example, when you want to quickly adjust the position of map elements (e.g., labels) or collaborate with a graphic designer.
+Note, however, that this process is not fully reproducible.</p>
 </div>
 <div id="interactive-format" class="section level2">
 <h2><span class="header-section-number">12.3</span> Interactive format</h2>
+<p><code>tmap</code> map objects can not only be viewed in the interactive mode (section <a href="nutshell.html#map-modes">3.4</a>) but also saved as HTML files by adding the <code>.html</code> extension to the output file name.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="save.html#cb121-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.html&quot;</span>)</span>
+<span id="cb121-2"><a href="save.html#cb121-2"></a><span class="co">#&gt; Interactive map saved to /home/runner/work/tmap-book/tmap-book/my_map.html</span></span></code></pre></div>
+<p>The <code>tmap_save()</code> function also has several additional arguments reserved for the interactive format, including <code>selfcontained</code> and <code>in.iframe</code>.
+The <code>selfcontained</code> argument with <code>TRUE</code> by default saves our map together with additional resources (e.g., JavaScript libraries) into one HTML file.
+Otherwise, additional resources will be saved in an adjacent directory.
+The <code>in.iframe</code> argument (<code>FALSE</code> by default) allows saving an interactive map as an iframe - when <code>TRUE</code> it creates two HTML files - a small HTML file with the iframe container and a large one with the actual map.
+<!-- when `in.iframe = TRUE` is useful?? -->
+<!-- arguments passed on to device functions or to saveWidget or saveWidgetframe --></p>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="21">
+<li id="fn21"><p>Standard R approach of saving graphic files by opening a graphic device, e.g., <code>png()</code>, plotting the data, and then closing the device with <code>dev.off()</code> also works.<a href="save.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>In fact, one argument is enough - if you just provide a <strong>tmap</strong> object, then it will be saved to a <code>tmap01</code> file with some default format.<a href="save.html#fnref22" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>You can even specify just one of <code>width</code> or <code>height</code>, and the value of the second one will be calculated using the formula <code>asp = width / height</code>.<a href="save.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Short discussion about graphic devices can be found in section <a href="layout.html#fonts-tmap">8.1.2</a>.<a href="save.html#fnref24" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 <script>
 /*
@@ -296,7 +374,6 @@ $(function(){
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -327,7 +404,7 @@ gitbook.start({
 },
 "download": null,
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

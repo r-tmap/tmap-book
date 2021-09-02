@@ -65,7 +65,7 @@ We just need to remember about the readability of the fonts - they should not be
 
 <!-- suggested fonts or references??? -->
 
-### Fonts available in **tmap**
+### Fonts available in **tmap** {#fonts-tmap}
 
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
@@ -99,7 +99,7 @@ The next step is to either view or save the map.
 This also means that we need to carry over our fonts to the output window/file, which largely depends on the selected graphic device.
 In general, screen device or graphical raster output formats, such as PNG, JPEG, or TIFF, works well with custom fonts as they rasterize them during saving.
 In case of any problems with graphical raster outputs, it is possible to try alternative graphics devices implemented in the **ragg** package [@R-ragg].
-On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error while saving the file].
+On the other hand, graphical vector formats, such as PDF or SVG, could have some problems with saving maps containing custom fonts^[You can get the `invalid font type` error when saving the file.].
 The PDF device in R, by default, adds metadata about the used fonts, but does not store them.
 When the PDF reader shows the document, it tries to locate the font on your computer, and use other fonts when the expected one does not exist.
 An alternative approach is called embedding, which adds a copy of each necessary font to the PDF file itself.
@@ -310,7 +310,7 @@ The North arrow is, however, necessary when the north on the map is offset (rota
 
 We can use the `tm_compass()` function to add the north arrow. 
 By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
-**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:na)), `"8star"`, `"radar"`, and `"rose"`.
+**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:northarrow)), `"8star"`, `"radar"`, and `"rose"`.
 The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
 
 
@@ -353,7 +353,7 @@ tm +
 </div>
 
 The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
-When the created map has several facets (section \@ref(small-multiples)), it is also possible to provide each facet a different text.
+When the created map has several facets (section \@ref(multiples)), it is also possible to provide each facet a different text.
 In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
 Text annotations can also be further customized, by changing their sizes (`size`), colors (`col`),
 horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-maps)).
