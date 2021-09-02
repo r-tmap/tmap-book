@@ -10,7 +10,6 @@ Imports:
   spData,
   dplyr,
   tidyr,
-  ragg,
   rgdal,
   kableExtra,
   curl,
