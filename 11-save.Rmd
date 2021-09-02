@@ -54,7 +54,7 @@ Additionally, when set to `0`, the' asp' argument has a side effect: it moves th
 By default, **tmap** uses graphic devices^[Short discussion about graphic devices can be found in section \@ref(fonts-tmap).] incorporated in R.
 However, it is also possible to use other, external devices with the `device` argument.
 
-```{r}
+```{r, eval=FALSE}
 tmap_save(tm, "my_map.png", device = ragg::agg_png)
 ```
 
