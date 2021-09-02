@@ -90,7 +90,7 @@ One map can have several *groups*.
 Let's see how many *groups* work by reading some additional datasets - the `ei_elev` raster with elevation data for Easter Island, the `ei_borders` polygon with the island outline, and the `ei_roads` lines contains a road network for this island.
 <!-- ref data appendix -->
 
-```{r}
+```{r, message=FALSE}
 library(sf)
 library(stars)
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
