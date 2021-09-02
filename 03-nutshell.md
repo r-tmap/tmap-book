@@ -96,7 +96,6 @@ Let's see how many *groups* work by reading some additional datasets - the `ei_e
 ```r
 library(sf)
 library(stars)
-#> Loading required package: abind
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")

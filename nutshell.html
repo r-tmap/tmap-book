@@ -329,10 +329,9 @@ Let’s see how many <em>groups</em> work by reading some additional datasets - 
 <!-- ref data appendix --></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="nutshell.html#cb15-1"></a><span class="kw">library</span>(sf)</span>
 <span id="cb15-2"><a href="nutshell.html#cb15-2"></a><span class="kw">library</span>(stars)</span>
-<span id="cb15-3"><a href="nutshell.html#cb15-3"></a><span class="co">#&gt; Loading required package: abind</span></span>
-<span id="cb15-4"><a href="nutshell.html#cb15-4"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
-<span id="cb15-5"><a href="nutshell.html#cb15-5"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
-<span id="cb15-6"><a href="nutshell.html#cb15-6"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span></code></pre></div>
+<span id="cb15-3"><a href="nutshell.html#cb15-3"></a>ei_elev =<span class="st"> </span><span class="kw">read_stars</span>(<span class="st">&quot;data/easter_island/ei_elev.tif&quot;</span>)</span>
+<span id="cb15-4"><a href="nutshell.html#cb15-4"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb15-5"><a href="nutshell.html#cb15-5"></a>ei_roads =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_roads.gpkg&quot;</span>)</span></code></pre></div>
 <p>Look at the following example and try to guess how many <em>groups</em> it has, and how many layers exist for each <em>group</em> (Figure <a href="nutshell.html#fig:rmap1">3.2</a>).</p>
 
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="nutshell.html#cb16-1"></a><span class="kw">tm_shape</span>(ei_elev) <span class="op">+</span></span>
