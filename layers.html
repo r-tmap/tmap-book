@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Layers | Elegant and informative maps with tmap</title>
-  <meta name="description" content="This is a book in progress about the tmap package." />
-  <meta name="generator" content="bookdown 0.23.5 and GitBook 2.6.7" />
+  <meta name="description" content="This book teaches how to make elegant and informative maps with the R package tmap." />
+  <meta name="generator" content="bookdown 0.24.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://r-tmap.github.io/tmap-book/" />
   
-  
-  <meta property="og:description" content="This is a book in progress about the tmap package." />
-  <meta name="github-repo" content="mtennekes/tmap_book" />
+  <meta property="og:description" content="This book teaches how to make elegant and informative maps with the R package tmap." />
+  <meta name="github-repo" content="r-tmap/tmap-book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 5 Layers | Elegant and informative maps with tmap" />
   
-  <meta name="twitter:description" content="This is a book in progress about the tmap package." />
+  <meta name="twitter:description" content="This book teaches how to make elegant and informative maps with the R package tmap." />
   
 
 <meta name="author" content="Martijn Tennekes, Jakub Nowosad" />
 
 
-<meta name="date" content="2021-09-02" />
+<meta name="date" content="2021-09-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -760,22 +760,22 @@ In some cases, also the <code>crop</code> argument set to <code>TRUE</code> can 
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="layers.html#cb65-1"></a><span class="kw">library</span>(maptiles)</span>
 <span id="cb65-2"><a href="layers.html#cb65-2"></a>ei_tiles =<span class="st"> </span><span class="kw">get_tiles</span>(ei_borders, <span class="dt">provider =</span> <span class="st">&quot;Stamen.Toner&quot;</span>, <span class="dt">zoom =</span> <span class="dv">12</span>, <span class="dt">crop =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb65-3"><a href="layers.html#cb65-3"></a><span class="co">#&gt; Warning in CPL_gdalwarp(source, destination,</span></span>
-<span id="cb65-4"><a href="layers.html#cb65-4"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmpu6ubyA/</span></span>
-<span id="cb65-5"><a href="layers.html#cb65-5"></a><span class="co">#&gt; file453e22d3381b.tif, band 2: Setting nodata to</span></span>
+<span id="cb65-4"><a href="layers.html#cb65-4"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmp2lLB8N/</span></span>
+<span id="cb65-5"><a href="layers.html#cb65-5"></a><span class="co">#&gt; file451a38d57453.tif, band 2: Setting nodata to</span></span>
 <span id="cb65-6"><a href="layers.html#cb65-6"></a><span class="co">#&gt; nan on band 2, but band 1 has nodata at nan. The</span></span>
 <span id="cb65-7"><a href="layers.html#cb65-7"></a><span class="co">#&gt; TIFFTAG_GDAL_NODATA only support one value per dataset.</span></span>
 <span id="cb65-8"><a href="layers.html#cb65-8"></a><span class="co">#&gt; This value of nan will be used for all bands on re-</span></span>
 <span id="cb65-9"><a href="layers.html#cb65-9"></a><span class="co">#&gt; opening</span></span>
 <span id="cb65-10"><a href="layers.html#cb65-10"></a><span class="co">#&gt; Warning in CPL_gdalwarp(source, destination,</span></span>
-<span id="cb65-11"><a href="layers.html#cb65-11"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmpu6ubyA/</span></span>
-<span id="cb65-12"><a href="layers.html#cb65-12"></a><span class="co">#&gt; file453e22d3381b.tif, band 3: Setting nodata to</span></span>
+<span id="cb65-11"><a href="layers.html#cb65-11"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmp2lLB8N/</span></span>
+<span id="cb65-12"><a href="layers.html#cb65-12"></a><span class="co">#&gt; file451a38d57453.tif, band 3: Setting nodata to</span></span>
 <span id="cb65-13"><a href="layers.html#cb65-13"></a><span class="co">#&gt; nan on band 3, but band 1 has nodata at nan. The</span></span>
 <span id="cb65-14"><a href="layers.html#cb65-14"></a><span class="co">#&gt; TIFFTAG_GDAL_NODATA only support one value per dataset.</span></span>
 <span id="cb65-15"><a href="layers.html#cb65-15"></a><span class="co">#&gt; This value of nan will be used for all bands on re-</span></span>
 <span id="cb65-16"><a href="layers.html#cb65-16"></a><span class="co">#&gt; opening</span></span>
 <span id="cb65-17"><a href="layers.html#cb65-17"></a><span class="co">#&gt; Warning in CPL_gdalwarp(source, destination,</span></span>
-<span id="cb65-18"><a href="layers.html#cb65-18"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmpu6ubyA/</span></span>
-<span id="cb65-19"><a href="layers.html#cb65-19"></a><span class="co">#&gt; file453e22d3381b.tif, band 4: Setting nodata to</span></span>
+<span id="cb65-18"><a href="layers.html#cb65-18"></a><span class="co">#&gt; options, oo, doo): GDAL Message 1: /tmp/Rtmp2lLB8N/</span></span>
+<span id="cb65-19"><a href="layers.html#cb65-19"></a><span class="co">#&gt; file451a38d57453.tif, band 4: Setting nodata to</span></span>
 <span id="cb65-20"><a href="layers.html#cb65-20"></a><span class="co">#&gt; nan on band 4, but band 1 has nodata at nan. The</span></span>
 <span id="cb65-21"><a href="layers.html#cb65-21"></a><span class="co">#&gt; TIFFTAG_GDAL_NODATA only support one value per dataset.</span></span>
 <span id="cb65-22"><a href="layers.html#cb65-22"></a><span class="co">#&gt; This value of nan will be used for all bands on re-</span></span>
