@@ -242,39 +242,6 @@ tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) 
 
 Figure \@ref(fig:vectordown):D contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
 
-
-```
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-
-#> Warning: rmapshaper package is needed to simplify
-#> the shape. Alternatively, st_simplify from the sf
-#> package can be used. See the underlying function
-#> tmaptools::simplify_shape for details.
-```
-
 <div class="figure" style="text-align: center">
 <img src="04-tm-shape_files/figure-html/vectordown-1.png" alt="A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept." width="672" />
 <p class="caption">(\#fig:vectordown)A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept.</p>

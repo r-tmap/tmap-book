@@ -269,13 +269,13 @@ Therefore, often we want just to see our map on the screen, but sometimes we als
 <p>The <code>tmap_save()</code> function allows to save our map in three groups of file formats, (a) raster graphics (section <a href="save.html#raster-graphic-formats">12.1</a>), (b) vector graphics (section <a href="save.html#vector-graphic-formats">12.2</a>), and (c) interactive ones (section <a href="save.html#interactive-format">12.3</a>).
 Additionally, chapter <a href="animations.html#animations">13</a> shows how to save map animations with the use of the <code>tmap_animation()</code> function.</p>
 <p>For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown), stored in the <code>tm</code> object.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="save.html#cb116-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb116-2"><a href="save.html#cb116-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb116-3"><a href="save.html#cb116-3"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
-<span id="cb116-4"><a href="save.html#cb116-4"></a>tm =<span class="st"> </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb116-5"><a href="save.html#cb116-5"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb116-6"><a href="save.html#cb116-6"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>)</span>
-<span id="cb116-7"><a href="save.html#cb116-7"></a>tm</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="save.html#cb115-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb115-2"><a href="save.html#cb115-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb115-3"><a href="save.html#cb115-3"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb115-4"><a href="save.html#cb115-4"></a>tm =<span class="st"> </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb115-5"><a href="save.html#cb115-5"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb115-6"><a href="save.html#cb115-6"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>)</span>
+<span id="cb115-7"><a href="save.html#cb115-7"></a>tm</span></code></pre></div>
 <div id="raster-graphic-formats" class="section level2">
 <h2><span class="header-section-number">12.1</span> Raster graphic formats</h2>
 <p>Raster graphics are non-spatial relatives of spatial rasters.
@@ -287,16 +287,16 @@ For example, if the width and height of our image are 10 inches, then DPI of 300
 Therefore, an image with the same width and height, but larger value of DPI would occupy more space of the hard drive, but also have better quality.</p>
 <p>Saving <strong>tmap</strong> objects to a file can be done with the <code>tmap_save()</code>.
 It usually accepts two arguments<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> - the first one, <code>tm</code>, is our map object, and the second one, <code>filename</code>, is the path to the created file.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="save.html#cb117-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>)</span>
-<span id="cb117-2"><a href="save.html#cb117-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
-<span id="cb117-3"><a href="save.html#cb117-3"></a><span class="co">#&gt; Resolution: 2492 by 1769 pixels</span></span>
-<span id="cb117-4"><a href="save.html#cb117-4"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches (300 dpi)</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="save.html#cb116-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>)</span>
+<span id="cb116-2"><a href="save.html#cb116-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
+<span id="cb116-3"><a href="save.html#cb116-3"></a><span class="co">#&gt; Resolution: 2492 by 1769 pixels</span></span>
+<span id="cb116-4"><a href="save.html#cb116-4"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches (300 dpi)</span></span></code></pre></div>
 <p>By default, DPI is set to 300, and the image width and height is automatically adjusted based on the map aspect ratio.
 These parameters can be, however, changed with the <code>dpi</code>, <code>width</code>, and <code>height</code> arguments<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="save.html#cb118-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">width =</span> <span class="dv">1000</span>, <span class="dt">height =</span> <span class="dv">750</span>, <span class="dt">dpi =</span> <span class="dv">300</span>)</span>
-<span id="cb118-2"><a href="save.html#cb118-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
-<span id="cb118-3"><a href="save.html#cb118-3"></a><span class="co">#&gt; Resolution: 1000 by 750 pixels</span></span>
-<span id="cb118-4"><a href="save.html#cb118-4"></a><span class="co">#&gt; Size: 3.33 by 2.5 inches (300 dpi)</span></span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="save.html#cb117-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">width =</span> <span class="dv">1000</span>, <span class="dt">height =</span> <span class="dv">750</span>, <span class="dt">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb117-2"><a href="save.html#cb117-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.png</span></span>
+<span id="cb117-3"><a href="save.html#cb117-3"></a><span class="co">#&gt; Resolution: 1000 by 750 pixels</span></span>
+<span id="cb117-4"><a href="save.html#cb117-4"></a><span class="co">#&gt; Size: 3.33 by 2.5 inches (300 dpi)</span></span></code></pre></div>
 <p>The units of <code>width</code> or <code>height</code> depend on the value you set.
 They are pixels (<code>"px"</code>) when the value is greater than 50, and inches (<code>"in"</code>) otherwise.
 Units can also be changed with the <code>units</code> argument.</p>
@@ -305,7 +305,7 @@ All of them override the arguments’ values set in <code>tm_layout()</code> (ch
 Additionally, when set to <code>0</code>, the’ asp’ argument has a side effect: it moves the map frame to the edges of the output image.</p>
 <p>By default, <strong>tmap</strong> uses graphic devices<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> incorporated in R.
 However, it is also possible to use other, external devices with the <code>device</code> argument.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="save.html#cb119-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">device =</span> ragg<span class="op">::</span>agg_png)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="save.html#cb118-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.png&quot;</span>, <span class="dt">device =</span> ragg<span class="op">::</span>agg_png)</span></code></pre></div>
 <p>For example, the <code>ragg::agg_png</code> device is usually faster and has better support for non-standard fonts than the regular <code>grDevices::png</code>.</p>
 </div>
 <div id="vector-graphic-formats" class="section level2">
@@ -316,9 +316,9 @@ This makes it possible to create polygons, circles, ellipses, and others.
 They also allow storing of text and other objects.
 Common vector graphic file formats are SVG, EPS, PDF.</p>
 <p>To save a map to a vector graphic format, we still can use <code>tmap_save()</code> but either with a proper extension or by using the <code>device</code> argument, for example <code>device = svglite::svglite</code>.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="save.html#cb120-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.svg&quot;</span>)</span>
-<span id="cb120-2"><a href="save.html#cb120-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.svg</span></span>
-<span id="cb120-3"><a href="save.html#cb120-3"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches</span></span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="save.html#cb119-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.svg&quot;</span>)</span>
+<span id="cb119-2"><a href="save.html#cb119-2"></a><span class="co">#&gt; Map saved to /home/runner/work/tmap-book/tmap-book/my_map.svg</span></span>
+<span id="cb119-3"><a href="save.html#cb119-3"></a><span class="co">#&gt; Size: 8.31 by 5.9 inches</span></span></code></pre></div>
 <p>While a level of zoom does not impact vector graphics’ quality, the <code>width</code>, <code>height</code>, and <code>scale</code> arguments still can impact the output file.
 For example, a vector graphic file saved with a narrower width value will have thicker lines and larger fonts compared to the one with a larger width value.
 You can check this effect by saving the <code>tm</code> object with <code>width = 1</code> and then with <code>width = 10</code>.</p>
@@ -332,8 +332,8 @@ Note, however, that this process is not fully reproducible.</p>
 <div id="interactive-format" class="section level2">
 <h2><span class="header-section-number">12.3</span> Interactive format</h2>
 <p><code>tmap</code> map objects can not only be viewed in the interactive mode (section <a href="nutshell.html#map-modes">3.4</a>) but also saved as HTML files by adding the <code>.html</code> extension to the output file name.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="save.html#cb121-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.html&quot;</span>)</span>
-<span id="cb121-2"><a href="save.html#cb121-2"></a><span class="co">#&gt; Interactive map saved to /home/runner/work/tmap-book/tmap-book/my_map.html</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="save.html#cb120-1"></a><span class="kw">tmap_save</span>(tm, <span class="st">&quot;my_map.html&quot;</span>)</span>
+<span id="cb120-2"><a href="save.html#cb120-2"></a><span class="co">#&gt; Interactive map saved to /home/runner/work/tmap-book/tmap-book/my_map.html</span></span></code></pre></div>
 <p>The <code>tmap_save()</code> function also has several additional arguments reserved for the interactive format, including <code>selfcontained</code> and <code>in.iframe</code>.
 The <code>selfcontained</code> argument with <code>TRUE</code> by default saves our map together with additional resources (e.g., JavaScript libraries) into one HTML file.
 Otherwise, additional resources will be saved in an adjacent directory.

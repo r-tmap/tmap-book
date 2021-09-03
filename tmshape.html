@@ -439,35 +439,6 @@ To keep all of the spatial geometries (even the smallest of islands), we should 
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="tmshape.html#cb34-1"></a><span class="kw">tm_shape</span>(worldvector, <span class="dt">simplify =</span> <span class="fl">0.05</span>, <span class="dt">keep.units =</span> <span class="ot">TRUE</span>, <span class="dt">keep.subunits =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
 <span id="cb34-2"><a href="tmshape.html#cb34-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
 <p>Figure <a href="tmshape.html#fig:vectordown">4.7</a>:D contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.</p>
-<pre><code>#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.
-
-#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.
-
-#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.
-
-#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.
-
-#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.
-
-#&gt; Warning: rmapshaper package is needed to simplify
-#&gt; the shape. Alternatively, st_simplify from the sf
-#&gt; package can be used. See the underlying function
-#&gt; tmaptools::simplify_shape for details.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:vectordown"></span>
 <img src="04-tm-shape_files/figure-html/vectordown-1.png" alt="A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept." width="672" />
 <p class="caption">
@@ -486,12 +457,12 @@ This values can be adjusted with the <code>max.raster</code> argument of <code>t
 <!-- btw - downsampling cont vs cat -->
 <!-- when and why -->
 (Figure <a href="tmshape.html#fig:rasterdown">4.8</a>:A).</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tmshape.html#cb36-1"></a><span class="kw">tmap_options</span>(<span class="dt">max.raster =</span> <span class="kw">c</span>(<span class="dt">plot =</span> <span class="dv">5000</span>, <span class="dt">view =</span> <span class="dv">2000</span>))</span>
-<span id="cb36-2"><a href="tmshape.html#cb36-2"></a><span class="kw">tm_shape</span>(worldelevation) <span class="op">+</span></span>
-<span id="cb36-3"><a href="tmshape.html#cb36-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;worldelevation.tif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tmshape.html#cb35-1"></a><span class="kw">tmap_options</span>(<span class="dt">max.raster =</span> <span class="kw">c</span>(<span class="dt">plot =</span> <span class="dv">5000</span>, <span class="dt">view =</span> <span class="dv">2000</span>))</span>
+<span id="cb35-2"><a href="tmshape.html#cb35-2"></a><span class="kw">tm_shape</span>(worldelevation) <span class="op">+</span></span>
+<span id="cb35-3"><a href="tmshape.html#cb35-3"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;worldelevation.tif&quot;</span>)</span></code></pre></div>
 <p>Raster downsampling can be also disabled with the <code>raster.downsample</code> argument of <code>tm_shape()</code> (Figure <a href="tmshape.html#fig:rasterdown">4.8</a>:B).</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tmshape.html#cb37-1"></a><span class="kw">tm_shape</span>(worldelevation, <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb37-2"><a href="tmshape.html#cb37-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;worldelevation.tif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tmshape.html#cb36-1"></a><span class="kw">tm_shape</span>(worldelevation, <span class="dt">raster.downsample =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb36-2"><a href="tmshape.html#cb36-2"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="st">&quot;worldelevation.tif&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:rasterdown"></span>
 <img src="04-tm-shape_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
 <p class="caption">
@@ -499,7 +470,7 @@ FIGURE 4.8: (A) A raster map with the decreased resolution, (B) a raster map in 
 </p>
 </div>
 <p>Any <strong>tmap</strong> options can be reset (set to default) with <code>tmap_options_reset()</code> (We explain <code>tmap_options()</code> in details in Chapter <a href="options.html#options">11</a>).</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="tmshape.html#cb38-1"></a><span class="kw">tmap_options_reset</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tmshape.html#cb37-1"></a><span class="kw">tmap_options_reset</span>()</span></code></pre></div>
 <!-- is there anything important about tm_shape arguments that still is missing for the above text?? -->
 
 </div>
