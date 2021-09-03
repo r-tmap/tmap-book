@@ -11,6 +11,7 @@ Imports:
   dplyr,
   tidyr,
   rgdal,
+  rmapshaper,
   kableExtra,
   curl,
   maptiles
