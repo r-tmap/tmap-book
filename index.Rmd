@@ -43,6 +43,11 @@ We encourage contributions on any part of the book, including:
 
 ```
 
+```{asis index-2-4, echo=is_html}
+## Additional information
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+```
 
 ```{r index-2-2, echo=FALSE, eval=is_html, results="asis"}
 if (is_on_ghactions){
@@ -52,5 +57,4 @@ if (is_on_ghactions){
 }
 ```
 
-```{asis index-2-4, echo=is_html}
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+
