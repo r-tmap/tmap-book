@@ -31,13 +31,6 @@ is_html = knitr::is_html_output()
 This is the online home of *Elegant and informative maps with **tmap***, a work-in-progress book on geospatial data visualization with the R-package [tmap](https://github.com/mtennekes/tmap).
 ```
 
-```{r index-2-2, echo=FALSE, eval=is_html, results="asis"}
-if (is_on_ghactions){
-    cat(paste0("This version of the book was built on GH Actions on ", Sys.Date(), "."))
-} else {
-    cat(paste0("This version of the book was built on ", Sys.Date(), "."))
-}
-```
 
 ```{asis index-2-3, echo=is_html}
 ## How to contribute? {-}
@@ -48,5 +41,16 @@ We encourage contributions on any part of the book, including:
 - changes to the code
 - suggestions on content (see [the project’s issue tracker](https://github.com/r-tmap/tmap-book/issues))
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 ```
+
+
+```{r index-2-2, echo=FALSE, eval=is_html, results="asis"}
+if (is_on_ghactions){
+    cat(paste0("This version of the book was built on GH Actions on ", Sys.Date(), "."))
+} else {
+    cat(paste0("This version of the book was built on ", Sys.Date(), "."))
+}
+```
+
+```{asis index-2-4, echo=is_html}
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
