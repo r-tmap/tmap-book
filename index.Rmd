@@ -28,7 +28,7 @@ is_html = knitr::is_html_output()
 
 ```{asis index-2, echo=is_html}
 # Welcome {-}
-This is the online home of *Elegant and informative maps with **tmap***, a book on geospatial data visualization with the R-package tmap.
+This is the online home of *Elegant and informative maps with **tmap***, a work-in-progress book on geospatial data visualization with the R-package [tmap](https://github.com/mtennekes/tmap).
 ```
 
 ```{r index-2-2, echo=FALSE, eval=is_html, results="asis"}
@@ -41,4 +41,11 @@ if (is_on_ghactions){
 
 ```{asis index-2-3, echo=is_html}
 ## How to contribute? {-}
+
+We encourage contributions on any part of the book, including:
+
+- improvements to the text, e.g., clarifying unclear sentences, fixing typos - changes to the code
+- suggestions on content (see [the project’s issue tracker](https://github.com/r-tmap/tmap-book/issues))
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 ```
