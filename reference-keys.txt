@@ -61,6 +61,7 @@ fig:scalebar
 fig:northarrow
 fig:credits
 fig:logos
+additional-information
 intro
 what-is-tmap
 thematic-maps
