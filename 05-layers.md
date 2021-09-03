@@ -544,22 +544,22 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, provider = "Stamen.Toner", zoom = 12, crop = TRUE)
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpP5Fi7a/
-#> file447316547b74.tif, band 2: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpQ7tWgj/
+#> file448fc398540.tif, band 2: Setting nodata to
 #> nan on band 2, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpP5Fi7a/
-#> file447316547b74.tif, band 3: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpQ7tWgj/
+#> file448fc398540.tif, band 3: Setting nodata to
 #> nan on band 3, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpP5Fi7a/
-#> file447316547b74.tif, band 4: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpQ7tWgj/
+#> file448fc398540.tif, band 4: Setting nodata to
 #> nan on band 4, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
