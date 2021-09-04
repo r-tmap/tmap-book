@@ -492,13 +492,15 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-
-```
-#> tmap mode set to interactive viewing
-```
-
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmbasemap1-1.png" alt="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island." width="672" />
+
+```{=html}
+<div id="htmlwidget-53fc9accf140eba20abb" style="width:100%;height:415.296px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53fc9accf140eba20abb">{"x":{"url":"widgets/widget_tmbasemap1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```
+
+<p class="caption">(\#fig:tmbasemap1)OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.</p>
+</div>
 
 In the above code, we made two basemaps available - `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
 A complete list of available basemaps is in the `leaflet::providers` object and on the https://leaflet-extras.github.io/leaflet-providers/preview/ website^[Additional details can be found in the `leaflet::providers.details` object].
@@ -522,7 +524,14 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmtiles1-1.png" alt="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island." width="672" />
+
+```{=html}
+<div id="htmlwidget-cf3323a0c1b5e05a0798" style="width:100%;height:415.296px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cf3323a0c1b5e05a0798">{"x":{"url":"widgets/widget_tmtiles1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```
+
+<p class="caption">(\#fig:tmtiles1)OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.</p>
+</div>
 
 Tile layers are usually created to be used interactively.
 We can see it, for example, by their number of details varying depending on the zoom level we set.
@@ -545,22 +554,22 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, provider = "Stamen.Toner", zoom = 12, crop = TRUE)
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpZHIPXq/
-#> file44ab2e77132c.tif, band 2: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
+#> file44611acd760.tif, band 2: Setting nodata to
 #> nan on band 2, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpZHIPXq/
-#> file44ab2e77132c.tif, band 3: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
+#> file44611acd760.tif, band 3: Setting nodata to
 #> nan on band 3, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpZHIPXq/
-#> file44ab2e77132c.tif, band 4: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
+#> file44611acd760.tif, band 4: Setting nodata to
 #> nan on band 4, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-

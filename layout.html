@@ -343,8 +343,8 @@ Next, a member of the selected font families can be selected with one of the fon
 <!-- build-in fonts only -->
 <p>As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device.
 Fonts available on the operating system can be checked with the <code>system_fonts()</code> function of the <strong>systemfonts</strong> package <span class="citation">(Pedersen, Ooms, and Govett <a href="#ref-R-systemfonts" role="doc-biblioref">2021</a>)</span> (result not shown).</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="layout.html#cb100-1"></a><span class="kw">library</span>(systemfonts)</span>
-<span id="cb100-2"><a href="layout.html#cb100-2"></a><span class="kw">system_fonts</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="layout.html#cb99-1"></a><span class="kw">library</span>(systemfonts)</span>
+<span id="cb99-2"><a href="layout.html#cb99-2"></a><span class="kw">system_fonts</span>()</span></code></pre></div>
 <p>Information on installing and debugging custom fonts can be found in <a href="https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/">a blog post</a> by June Choe and in the <strong>showtext</strong> package <span class="citation">(Qiu and See file AUTHORS for details. <a href="#ref-R-showtext" role="doc-biblioref">2021</a>)</span> documentation.</p>
 <p>The next step is to either view or save the map.
 This also means that we need to carry over our fonts to the output window/file, which largely depends on the selected graphic device.
@@ -363,36 +363,36 @@ Thirdly, the <strong>extrafont</strong> <span class="citation">(Winston Chang <a
 </div>
 <div id="fonts-on-maps" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Fonts on maps</h3>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="kw">library</span>(sf)</span>
-<span id="cb101-3"><a href="layout.html#cb101-3"></a><span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
-<span id="cb101-4"><a href="layout.html#cb101-4"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
-<span id="cb101-5"><a href="layout.html#cb101-5"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
-<span id="cb101-6"><a href="layout.html#cb101-6"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="layout.html#cb100-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb100-2"><a href="layout.html#cb100-2"></a><span class="kw">library</span>(sf)</span>
+<span id="cb100-3"><a href="layout.html#cb100-3"></a><span class="co">#&gt; Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
+<span id="cb100-4"><a href="layout.html#cb100-4"></a>ei_borders =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_border.gpkg&quot;</span>)</span>
+<span id="cb100-5"><a href="layout.html#cb100-5"></a>ei_points =<span class="st"> </span><span class="kw">read_sf</span>(<span class="st">&quot;data/easter_island/ei_points.gpkg&quot;</span>)</span>
+<span id="cb100-6"><a href="layout.html#cb100-6"></a>volcanos =<span class="st"> </span><span class="kw">subset</span>(ei_points, type <span class="op">==</span><span class="st"> &quot;volcano&quot;</span>)</span></code></pre></div>
 <!-- explain defaults -->
 <p>By default, <strong>tmap</strong> uses the <code>sans</code> font family with the <code>plain</code> font face (Figure <a href="layers.html#fig:tmtext">5.5</a>).
 There are, however, three ways to customize the used fonts.
 The first one is to change all of the fonts and font faces for the whole map at once (Figure <a href="layout.html#fig:mfonts">8.2</a>:A).
 This can be done with the <code>fontfamily</code> and <code>fontface</code> arguments of <code>tm_layout()</code>.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb102-4"><a href="layout.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
-<span id="cb102-5"><a href="layout.html#cb102-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
-<span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
-<span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="layout.html#cb101-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb101-2"><a href="layout.html#cb101-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb101-3"><a href="layout.html#cb101-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb101-4"><a href="layout.html#cb101-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>) <span class="op">+</span></span>
+<span id="cb101-5"><a href="layout.html#cb101-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb101-6"><a href="layout.html#cb101-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb101-7"><a href="layout.html#cb101-7"></a>            <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
+<span id="cb101-8"><a href="layout.html#cb101-8"></a>            <span class="dt">fontfamily =</span> <span class="st">&quot;serif&quot;</span>)</span></code></pre></div>
 <p>The second way is to specify just some text elements independently (Figure <a href="layout.html#fig:mfonts">8.2</a>:B).
 Many <strong>tmap</strong> functions, such as <code>tm_text()</code> or <code>tm_credits()</code>, have their own <code>fontfamily</code> and <code>fontface</code> arguments that can be adjusted.
 Additionally, <code>tm_layout()</code> allows to customize fonts for other map elements using prefixed arguments, such as, <code>main.title.fontface</code> or <code>legend.title.fontfamily</code>.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="layout.html#cb103-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb103-2"><a href="layout.html#cb103-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb103-3"><a href="layout.html#cb103-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
-<span id="cb103-4"><a href="layout.html#cb103-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>) <span class="op">+</span></span>
-<span id="cb103-5"><a href="layout.html#cb103-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="op">+</span></span>
-<span id="cb103-6"><a href="layout.html#cb103-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
-<span id="cb103-7"><a href="layout.html#cb103-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
-<span id="cb103-8"><a href="layout.html#cb103-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="layout.html#cb102-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb102-2"><a href="layout.html#cb102-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb102-3"><a href="layout.html#cb102-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(volcanos) <span class="op">+</span></span>
+<span id="cb102-4"><a href="layout.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="dt">text =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">size =</span> <span class="st">&quot;elevation&quot;</span>, <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>) <span class="op">+</span></span>
+<span id="cb102-5"><a href="layout.html#cb102-5"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: OSM&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>) <span class="op">+</span></span>
+<span id="cb102-6"><a href="layout.html#cb102-6"></a><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">main.title =</span> <span class="st">&quot;Volcanos of Easter Island&quot;</span>,</span>
+<span id="cb102-7"><a href="layout.html#cb102-7"></a>            <span class="dt">main.title.fontface =</span> <span class="st">&quot;bold.italic&quot;</span>, </span>
+<span id="cb102-8"><a href="layout.html#cb102-8"></a>            <span class="dt">legend.title.fontfamily =</span> <span class="st">&quot;monospace&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:mfonts"></span>
 <img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="672" />
 <p class="caption">
@@ -496,28 +496,28 @@ adds minimap in the view mode only
 </tbody>
 </table>
 <p>For the examples in this section, we will use a simple map of the Easter Island polygon (not shown).</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="layout.html#cb104-1"></a>tm =<span class="st"> </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb104-2"><a href="layout.html#cb104-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span>
-<span id="cb104-3"><a href="layout.html#cb104-3"></a>tm</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="layout.html#cb103-1"></a>tm =<span class="st"> </span><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb103-2"><a href="layout.html#cb103-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span>
+<span id="cb103-3"><a href="layout.html#cb103-3"></a>tm</span></code></pre></div>
 <div id="grid-lines" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Grid lines</h3>
 <p>The <strong>tmap</strong> package offers two ways to draws coordinate lines - <code>tm_grid()</code> and <code>tm_graticules()</code>.
 The role of <code>tm_grid()</code> is to represent the input data’s coordinates.
 For example, the <code>ei_borders</code> object’s CRS is UTM zone 12S with the units in meters (figure <a href="layout.html#fig:grids">8.3</a>:A).</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="layout.html#cb105-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb105-2"><a href="layout.html#cb105-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb105-3"><a href="layout.html#cb105-3"></a><span class="st">  </span><span class="kw">tm_grid</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="layout.html#cb104-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb104-2"><a href="layout.html#cb104-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb104-3"><a href="layout.html#cb104-3"></a><span class="st">  </span><span class="kw">tm_grid</span>()</span></code></pre></div>
 <p><code>tm_graticules()</code> shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
 This can be seen with the degree signs in the labels (figure <a href="layout.html#fig:grids">8.3</a>:B).</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="layout.html#cb106-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb106-2"><a href="layout.html#cb106-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
-<span id="cb106-3"><a href="layout.html#cb106-3"></a><span class="st">  </span><span class="kw">tm_graticules</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="layout.html#cb105-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb105-2"><a href="layout.html#cb105-2"></a><span class="st">  </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb105-3"><a href="layout.html#cb105-3"></a><span class="st">  </span><span class="kw">tm_graticules</span>()</span></code></pre></div>
 <p>Both, <code>tm_grid()</code> and <code>tm_graticules()</code> can be placed above or below the map layers as their position on the map depends on their place in the code.
 When <code>tm_grid()</code> or <code>tm_graticules()</code> is placed after the map layer (e.g., <code>tm_polygons()</code>), the grid lines are plotted on the top of the map.
 On the other hand, when <code>tm_grid()</code> or <code>tm_graticules()</code> is placed before the map layer code, the grid lines are plotted behind the spatial data (figure <a href="layout.html#fig:grids">8.3</a>:C).</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="layout.html#cb107-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
-<span id="cb107-2"><a href="layout.html#cb107-2"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
-<span id="cb107-3"><a href="layout.html#cb107-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="layout.html#cb106-1"></a><span class="kw">tm_shape</span>(ei_borders) <span class="op">+</span></span>
+<span id="cb106-2"><a href="layout.html#cb106-2"></a><span class="st">  </span><span class="kw">tm_graticules</span>() <span class="op">+</span></span>
+<span id="cb106-3"><a href="layout.html#cb106-3"></a><span class="st">  </span><span class="kw">tm_polygons</span>()</span></code></pre></div>
 <p>Grids and graticules can also be easily customized using several arguments, such as, <code>x</code> and <code>y</code> (x and y coordinates of the lines), <code>n.x</code> and <code>n.y</code> (number of horizontal (x) and vertical (y) lines), <code>labels.inside.frame</code>, <code>ticks</code>, <code>lines</code>
 It is also possible to customize their appearance, for example, by changing the colors of the lines (<code>col</code>), width (<code>lwd</code>) or labels’ sizes (<code>labels.size</code>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grids"></span>
@@ -535,8 +535,8 @@ Compared to the representative fraction, scale bars work correctly on variable s
 <p>The <code>tm_scale_bar()</code> function adds a scale bar.
 By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
 It is possible, however, to manually update the values of scale bar’s breaks with the <code>breaks</code> argument and its size with the <code>text.size</code> argument (figure <a href="layout.html#fig:scalebar">8.4</a>).</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="layout.html#cb108-1"></a>tm <span class="op">+</span></span>
-<span id="cb108-2"><a href="layout.html#cb108-2"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="layout.html#cb107-1"></a>tm <span class="op">+</span></span>
+<span id="cb107-2"><a href="layout.html#cb107-2"></a><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:scalebar"></span>
 <img src="07-layout_files/figure-html/scalebar-1.png" alt="A map with a customized scale bar." width="672" />
 <p class="caption">
@@ -559,8 +559,8 @@ The North arrow is, however, necessary when the north on the map is offset (rota
 By default, its “north” is oriented toward the top of the map (the <code>north</code> argument of <code>0</code>), and the north arrow is represented by an actual arrow (the <code>type</code> argument of <code>"arrow"</code>).
 <strong>tmap</strong> offers also a few other north arrow types, including <code>"4star"</code> (figure <a href="layout.html#fig:northarrow">8.5</a>), <code>"8star"</code>, <code>"radar"</code>, and <code>"rose"</code>.
 The north arrow can be also further customized with the <code>size</code>, <code>show.labels</code> and <code>cardinal.directions</code> arguments, and its colors may be modified (<code>text.color</code>, <code>color.dark</code>, <code>color.light</code>) (figure <a href="layout.html#fig:northarrow">8.5</a>).</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="layout.html#cb109-1"></a>tm <span class="op">+</span></span>
-<span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="layout.html#cb108-1"></a>tm <span class="op">+</span></span>
+<span id="cb108-2"><a href="layout.html#cb108-2"></a><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;4star&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:northarrow"></span>
 <img src="07-layout_files/figure-html/northarrow-1.png" alt="A map with customized north arrow." width="672" />
 <p class="caption">
@@ -580,9 +580,9 @@ Alternatively, <code>position</code> can be specified with numeric values betwee
 <p>Text annotations, also known as map credits, are used to store additional information about the created map.
 They can include the source of data, the name of the author, the date of map creation, or information about the map projection.</p>
 <p>Text annotations are created with the <code>tm_credits()</code> function, which can be used more than one time (figure <a href="layout.html#fig:credits">8.6</a>).</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="layout.html#cb110-1"></a>tm <span class="op">+</span></span>
-<span id="cb110-2"><a href="layout.html#cb110-2"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: &quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="dt">align =</span> <span class="st">&quot;right&quot;</span>) <span class="op">+</span></span>
-<span id="cb110-3"><a href="layout.html#cb110-3"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Author: &quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">align =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="layout.html#cb109-1"></a>tm <span class="op">+</span></span>
+<span id="cb109-2"><a href="layout.html#cb109-2"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Data source: &quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>, <span class="dt">align =</span> <span class="st">&quot;right&quot;</span>) <span class="op">+</span></span>
+<span id="cb109-3"><a href="layout.html#cb109-3"></a><span class="st">  </span><span class="kw">tm_credits</span>(<span class="st">&quot;Author: &quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">align =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:credits"></span>
 <img src="07-layout_files/figure-html/credits-1.png" alt="A map with placeholders for text annotations." width="672" />
 <p class="caption">
@@ -600,12 +600,12 @@ horizontal alignment (<code>align</code>), positions, and fonts (section <a href
 <p>Logos on maps can serve a similar purpose as text annotation or accompany them.
 They can represent your affiliation, funding institution, data sources logos, etc.</p>
 <p>The <code>tm_logo()</code> function adds png images, either from a file or url, to the map (figure <a href="layout.html#fig:logos">8.7</a>).</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="layout.html#cb111-1"></a>tm <span class="op">+</span></span>
-<span id="cb111-2"><a href="layout.html#cb111-2"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
-<span id="cb111-3"><a href="layout.html#cb111-3"></a>          <span class="dt">height =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb111-4"><a href="layout.html#cb111-4"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="kw">c</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
-<span id="cb111-5"><a href="layout.html#cb111-5"></a>            <span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>),</span>
-<span id="cb111-6"><a href="layout.html#cb111-6"></a>          <span class="dt">height =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="layout.html#cb110-1"></a>tm <span class="op">+</span></span>
+<span id="cb110-2"><a href="layout.html#cb110-2"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
+<span id="cb110-3"><a href="layout.html#cb110-3"></a>          <span class="dt">height =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb110-4"><a href="layout.html#cb110-4"></a><span class="st">  </span><span class="kw">tm_logo</span>(<span class="kw">c</span>(<span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>,</span>
+<span id="cb110-5"><a href="layout.html#cb110-5"></a>            <span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span>),</span>
+<span id="cb110-6"><a href="layout.html#cb110-6"></a>          <span class="dt">height =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logos"></span>
 <img src="07-layout_files/figure-html/logos-1.png" alt="A map with an array of R logos." width="672" />
 <p class="caption">
@@ -618,21 +618,21 @@ Additional arguments include the height of the logo (<code>height</code>, the wi
 </div>
 <div id="axis-labels" class="section level3">
 <h3><span class="header-section-number">8.2.6</span> Axis labels</h3>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="layout.html#cb112-1"></a>tm <span class="op">+</span></span>
-<span id="cb112-2"><a href="layout.html#cb112-2"></a><span class="st">  </span><span class="kw">tm_xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span></span>
-<span id="cb112-3"><a href="layout.html#cb112-3"></a><span class="st">  </span><span class="kw">tm_ylab</span>(<span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="layout.html#cb111-1"></a>tm <span class="op">+</span></span>
+<span id="cb111-2"><a href="layout.html#cb111-2"></a><span class="st">  </span><span class="kw">tm_xlab</span>(<span class="st">&quot;X&quot;</span>) <span class="op">+</span></span>
+<span id="cb111-3"><a href="layout.html#cb111-3"></a><span class="st">  </span><span class="kw">tm_ylab</span>(<span class="st">&quot;Y&quot;</span>)</span></code></pre></div>
 <p><img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <!-- why this is useful? -->
 </div>
 <div id="minimap" class="section level3">
 <h3><span class="header-section-number">8.2.7</span> Minimap</h3>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="layout.html#cb113-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb113-2"><a href="layout.html#cb113-2"></a><span class="co">#&gt; tmap mode set to interactive viewing</span></span></code></pre></div>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="layout.html#cb114-1"></a>tm <span class="op">+</span><span class="st"> </span></span>
-<span id="cb114-2"><a href="layout.html#cb114-2"></a><span class="st">  </span><span class="kw">tm_minimap</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="layout.html#cb112-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb112-2"><a href="layout.html#cb112-2"></a><span class="co">#&gt; tmap mode set to interactive viewing</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="layout.html#cb113-1"></a>tm <span class="op">+</span><span class="st"> </span></span>
+<span id="cb113-2"><a href="layout.html#cb113-2"></a><span class="st">  </span><span class="kw">tm_minimap</span>()</span></code></pre></div>
 <!-- mention/reference inset maps -->
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="layout.html#cb115-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb115-2"><a href="layout.html#cb115-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="layout.html#cb114-1"></a><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb114-2"><a href="layout.html#cb114-2"></a><span class="co">#&gt; tmap mode set to plotting</span></span></code></pre></div>
 </div>
 </div>
 <div id="layout-elements" class="section level2">
