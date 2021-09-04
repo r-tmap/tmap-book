@@ -1,7 +1,7 @@
 --- 
 title: "Elegant and informative maps with **tmap**"
 author: "Martijn Tennekes, Jakub Nowosad"
-date: "2021-09-03"
+date: "2021-09-04"
 description: "This book teaches how to make elegant and informative maps with the R package tmap."
 knit: bookdown::render_book
 site: bookdown::bookdown_site
@@ -38,6 +38,6 @@ We encourage contributions on any part of the book, including:
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 
-This version of the book was built on GH Actions on 2021-09-03.
+This version of the book was built on GH Actions on 2021-09-04.
 
 
