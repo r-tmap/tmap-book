@@ -202,7 +202,9 @@ It includes the text annotation ("Credits"), the north arrow ("Compass"), and so
 
 (ref:imap1) Map from Figure \@ref(fig:rmap2) shown using the interactive ("view") mode.
 
-```{r imap1, echo=FALSE, fig.cap="(ref:imap1)"}
+```{r imap1, echo=FALSE, fig.cap="(ref:imap1)", cache=FALSE}
+# htmlwidgets::saveWidget(tmap_leaflet(my_map), file = "widgets/imap1.html")
+# knitr::include_url("https://r-tmap.github.io/tmap-book/widgets/imap1.html")
 widgetframe::frameWidget(tmap_leaflet(my_map))
 ```
 
