@@ -34,8 +34,6 @@ fig:tmtext
 fig:rastertype
 fig:tmrasterml
 fig:tmrgbs
-fig:tmbasemap1
-fig:tmtiles1
 fig:stiles
 fig:visual-variables
 fig:palette-types
