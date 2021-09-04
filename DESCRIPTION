@@ -14,7 +14,8 @@ Imports:
   rmapshaper,
   kableExtra,
   curl,
-  maptiles
+  maptiles,
+  webshot
 Remotes: 
   rstudio/bookdown,
   mtennekes/tmaptools,

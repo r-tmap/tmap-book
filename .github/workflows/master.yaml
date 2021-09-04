@@ -81,6 +81,7 @@ jobs:
         run: |
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
+          webshot::install_phantomjs()
         shell: Rscript {0}
 
       - name: Render Book
