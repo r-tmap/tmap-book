@@ -439,7 +439,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmbasemap1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE}
+```{r tmbasemap1, fig.cap="OpenStreetMap tile layer used as a base map with the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE, message=FALSE}
 tmap_mode("view")
 tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
@@ -470,7 +470,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_dots(col = "red", group = "Volcanos")
 ```
 
-```{r tmtiles1, screenshot.force = TRUE, fig.cap="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE}
+```{r tmtiles1, fig.cap="OpenStreetMap tile layer used as a base map with dashed lines representing island coastline and the red dots representing volcanos on Easter Island.", cache = FALSE, eval=TRUE, echo=FALSE, message=FALSE}
 tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
