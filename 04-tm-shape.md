@@ -36,7 +36,7 @@ tm_shape(worldcities) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tmshape1-1.png" alt="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers." width="672" />
+<img src="04-tm-shape_files/figure-html/tmshape1-1.png" alt="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers." width="100%" />
 <p class="caption">(\#fig:tmshape1)A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers.</p>
 </div>
 
@@ -74,7 +74,7 @@ tm_shape(worldcities, is.master = TRUE) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tmshape2-1.png" alt="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object." width="672" />
+<img src="04-tm-shape_files/figure-html/tmshape2-1.png" alt="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object." width="100%" />
 <p class="caption">(\#fig:tmshape2)A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object.</p>
 </div>
 
@@ -121,7 +121,7 @@ tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tm-map-proj-1.png" alt="Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE." width="672" />
+<img src="04-tm-shape_files/figure-html/tm-map-proj-1.png" alt="Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE." width="100%" />
 <p class="caption">(\#fig:tm-map-proj)Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE.</p>
 </div>
 
@@ -155,7 +155,7 @@ tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tbbox1-1.png" alt="Global elevation data limited to the extent of the specified minimum and maximum coordinates." width="672" />
+<img src="04-tm-shape_files/figure-html/tbbox1-1.png" alt="Global elevation data limited to the extent of the specified minimum and maximum coordinates." width="100%" />
 <p class="caption">(\#fig:tbbox1)Global elevation data limited to the extent of the specified minimum and maximum coordinates.</p>
 </div>
 
@@ -170,7 +170,7 @@ tm_shape(worldelevation, bbox = "Europe") +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tbbox2-1.png" alt="Global elevation data limited to the extent specified with the 'Europe' query." width="672" />
+<img src="04-tm-shape_files/figure-html/tbbox2-1.png" alt="Global elevation data limited to the extent specified with the 'Europe' query." width="100%" />
 <p class="caption">(\#fig:tbbox2)Global elevation data limited to the extent specified with the 'Europe' query.</p>
 </div>
 
@@ -184,7 +184,7 @@ tm_shape(worldelevation, bbox = worldcities) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/tbbox3-1.png" alt="Global elevation data limited to the extent of the other spatial object." width="672" />
+<img src="04-tm-shape_files/figure-html/tbbox3-1.png" alt="Global elevation data limited to the extent of the other spatial object." width="100%" />
 <p class="caption">(\#fig:tbbox3)Global elevation data limited to the extent of the other spatial object.</p>
 </div>
 
@@ -242,9 +242,11 @@ tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) 
 
 Figure \@ref(fig:vectordown):D contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
 
+(ref:vectordown) A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept.
+
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/vectordown-1.png" alt="A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept." width="672" />
-<p class="caption">(\#fig:vectordown)A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept.</p>
+<img src="04-tm-shape_files/figure-html/vectordown-1.png" alt="(ref:vectordown)" width="100%" />
+<p class="caption">(\#fig:vectordown)(ref:vectordown)</p>
 </div>
 
 All of the about vector simplification functions use the `ms_simplify()` from the **rmapshaper** package <!--add two citations: to mapshaper and rmapshaper-->.
@@ -278,7 +280,7 @@ tm_shape(worldelevation, raster.downsample = FALSE) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="04-tm-shape_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="672" />
+<img src="04-tm-shape_files/figure-html/rasterdown-1.png" alt="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution." width="100%" />
 <p class="caption">(\#fig:rasterdown)(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.</p>
 </div>
 

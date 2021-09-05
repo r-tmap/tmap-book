@@ -11,7 +11,7 @@ All of them can influence our perception and understanding of the presented info
 <!-- size symbol only has four symbols (the rest have five) -->
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/visual-variables-1.png" alt="Basic visual variables and their representations on maps" width="672" />
+<img src="05b-visual-variables_files/figure-html/visual-variables-1.png" alt="Basic visual variables and their representations on maps" width="100%" />
 <p class="caption">(\#fig:visual-variables)Basic visual variables and their representations on maps</p>
 </div>
 
@@ -129,7 +129,7 @@ It can also be used on maps to represent difference or change as well.
 <!-- idea: replace one diverging palette with the dark in the middle -->
 <!-- do it, if (when) tmap has hcl.colors build-in -->
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="672" />
+<img src="05b-visual-variables_files/figure-html/palette-types-1.png" alt="Examples of three main types of color palettes: categorical, sequential, and diverging" width="100%" />
 <p class="caption">(\#fig:palette-types)Examples of three main types of color palettes: categorical, sequential, and diverging</p>
 </div>
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
@@ -236,7 +236,7 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 (ref:tmpals) Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes.
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmpals-1.png" alt="(ref:tmpals)" width="672" />
+<img src="05b-visual-variables_files/figure-html/tmpals-1.png" alt="(ref:tmpals)" width="100%" />
 <p class="caption">(\#fig:tmpals)(ref:tmpals)</p>
 </div>
 <!-- state that the above example of setting colors works for most of palettes -->
@@ -257,7 +257,7 @@ tm_shape(worldvector) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmmidpoint-1.png" alt="Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmmidpoint-1.png" alt="Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73." width="100%" />
 <p class="caption">(\#fig:tmmidpoint)Examples of (A) a map with the default sequential color palette and (B) a map with the diverging color palette around the midpoint value of 73.</p>
 </div>
 
@@ -291,7 +291,7 @@ tm_shape(worldvector) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmcatpals-1.png" alt="An example of a categorical map with manually selected colors." width="100%" />
 <p class="caption">(\#fig:tmcatpals)An example of a categorical map with manually selected colors.</p>
 </div>
 
@@ -330,7 +330,7 @@ tm_shape(worldvector) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="672" />
+<img src="05b-visual-variables_files/figure-html/colorscales1-1.png" alt="Example of a map with all polygons filled with the same color." width="100%" />
 <p class="caption">(\#fig:colorscales1)Example of a map with all polygons filled with the same color.</p>
 </div>
 
@@ -354,7 +354,7 @@ tm_shape(worldvector) +
 ```
 <!-- categorical -->
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on the values of a categorical variable." width="672" />
+<img src="05b-visual-variables_files/figure-html/colorscales2-1.png" alt="Example of a map in which polygons are colored based on the values of a categorical variable." width="100%" />
 <p class="caption">(\#fig:colorscales2)Example of a map in which polygons are colored based on the values of a categorical variable.</p>
 </div>
 
@@ -453,7 +453,7 @@ tm_shape(worldvector) +
 
 <!-- discrete -->
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/discrete-methods-1.png" alt="(ref:discrete-methods)" width="672" />
+<img src="05b-visual-variables_files/figure-html/discrete-methods-1.png" alt="(ref:discrete-methods)" width="100%" />
 <p class="caption">(\#fig:discrete-methods)(ref:discrete-methods)</p>
 </div>
 
@@ -500,7 +500,7 @@ tm_shape(worldvector) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method." width="672" />
+<img src="05b-visual-variables_files/figure-html/cont-methods-1.png" alt="Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method." width="100%" />
 <p class="caption">(\#fig:cont-methods)Examples of three methods of creating continuous maps: (A) the ‘cont’ method, (B) the ‘order’ method, and (C) the ‘log10’ method.</p>
 </div>
 
@@ -516,7 +516,7 @@ tm_shape(worldvector) +
 In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="672" />
+<img src="05b-visual-variables_files/figure-html/colorscalesmc-1.png" alt="Example of a map with adjacent polygons having different colors." width="100%" />
 <p class="caption">(\#fig:colorscalesmc)Example of a map with adjacent polygons having different colors.</p>
 </div>
 
@@ -584,7 +584,7 @@ tm_shape(volcanos) +
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmsizes-1.png" alt="Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend." width="100%" />
 <p class="caption">(\#fig:tmsizes)Examples of three approaches for changing sizes of symbols: (A) all symbols have a consistent size of 0.5, (B) sizes of symbols depends on the values of the elevation variable, (C) sizes of symbols have a manually created legend.</p>
 </div>
 
@@ -599,7 +599,7 @@ tm_shape(ei_roads) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmlwd-1.png" alt="Example of a map where lines' widths represent values of the corresponding lines." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmlwd-1.png" alt="Example of a map where lines' widths represent values of the corresponding lines." width="100%" />
 <p class="caption">(\#fig:tmlwd)Example of a map where lines' widths represent values of the corresponding lines.</p>
 </div>
 
@@ -625,7 +625,7 @@ tm_shape(volcanos) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent elevations of the volcanos." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmtextsize-1.png" alt="Example of a map where text sizes represent elevations of the volcanos." width="100%" />
 <p class="caption">(\#fig:tmtextsize)Example of a map where text sizes represent elevations of the volcanos.</p>
 </div>
 
@@ -724,7 +724,7 @@ tm_shape(ei_points) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="672" />
+<img src="05b-visual-variables_files/figure-html/tmsymshape-1.png" alt="Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons." width="100%" />
 <p class="caption">(\#fig:tmsymshape)Examples of two maps with different symbols: (A) default symbols, (B) user-defined symbols, (C) grob objects, and (D) icons.</p>
 </div>
 
@@ -771,14 +771,14 @@ tm_shape(ei_points) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/mixsymb-1.png" alt="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape." width="672" />
+<img src="05b-visual-variables_files/figure-html/mixsymb-1.png" alt="Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape." width="100%" />
 <p class="caption">(\#fig:mixsymb)Examples of maps using two visual variables at the same time: (A) size and color, (B) color and shape, (C) size and shape.</p>
 </div>
 
 For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
 
 <div class="figure" style="text-align: center">
-<img src="05b-visual-variables_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="672" />
+<img src="05b-visual-variables_files/figure-html/mixline-1.png" alt="A map using two visual variables, color and size (line width), at the same time." width="100%" />
 <p class="caption">(\#fig:mixline)A map using two visual variables, color and size (line width), at the same time.</p>
 </div>
 

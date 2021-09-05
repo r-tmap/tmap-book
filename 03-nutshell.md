@@ -53,7 +53,7 @@ qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoe
 (ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
 
 <div class="figure" style="text-align: center">
-<img src="03-nutshell_files/figure-html/qtm-1.png" alt="(ref:qtm)" width="672" />
+<img src="03-nutshell_files/figure-html/qtm-1.png" alt="(ref:qtm)" width="100%" />
 <p class="caption">(\#fig:qtm)(ref:qtm)</p>
 </div>
 
@@ -122,7 +122,7 @@ tm_shape(ei_elev) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="03-nutshell_files/figure-html/rmap1-1.png" alt="(ref:rmap1)" width="672" />
+<img src="03-nutshell_files/figure-html/rmap1-1.png" alt="(ref:rmap1)" width="100%" />
 <p class="caption">(\#fig:rmap1)(ref:rmap1)</p>
 </div>
 
@@ -179,7 +179,7 @@ my_map
 ```
 
 <div class="figure" style="text-align: center">
-<img src="03-nutshell_files/figure-html/rmap2-1.png" alt="(ref:rmap2)" width="672" />
+<img src="03-nutshell_files/figure-html/rmap2-1.png" alt="(ref:rmap2)" width="100%" />
 <p class="caption">(\#fig:rmap2)(ref:rmap2)</p>
 </div>
 
@@ -219,17 +219,6 @@ As a result, we get several messages and an interactive map.
 These messages inform us that some map elements specified in the previous code are not possible in the `"view"` mode.
 It includes the text annotation ("Credits"), the north arrow ("Compass"), and some legend options.
 
-(ref:imap1) Map from Figure \@ref(fig:rmap2) shown using the interactive ("view") mode.
-
-
-```
-#> Credits not supported in view mode.
-#> Compass not supported in view mode.
-#> Symbol shapes other than circles or icons are not supported in view mode.
-#> Legend for symbol sizes not available in view mode.
-#> only legends of type "fill" supported in view mode
-```
-
 <div class="figure" style="text-align: center">
 
 ```{=html}
@@ -237,7 +226,7 @@ It includes the text annotation ("Credits"), the north arrow ("Compass"), and so
 <script type="application/json" data-for="htmlwidget-53fc9accf140eba20abb">{"x":{"url":"widgets/widget_imap1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 ```
 
-<p class="caption">(\#fig:imap1)(ref:imap1)</p>
+<p class="caption">(\#fig:imap1)Map from the previous figure shown using the interactive ("view") mode.</p>
 </div>
 
 Our main result is the interactive map (Figure \@ref(fig:imap1)).

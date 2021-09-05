@@ -160,7 +160,7 @@ This is necessary to distinguish between the setting of the fillings color and t
 (ref:tmpolygonsder) Example of a map created with: (A) `tm_polygons()`, (B) `tm_fill()`, (C) `tm_borders()`.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="(ref:tmpolygonsder)" width="672" />
+<img src="05-layers_files/figure-html/tmpolygonsder-1.png" alt="(ref:tmpolygonsder)" width="100%" />
 <p class="caption">(\#fig:tmpolygonsder)(ref:tmpolygonsder)</p>
 </div>
 
@@ -183,7 +183,7 @@ The `tm_symbols()` is the main function in **tmap** allowing to use and modify s
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols1-1.png" alt="A map showing the default tmap symbols." width="672" />
+<img src="05-layers_files/figure-html/tmsymbols1-1.png" alt="A map showing the default tmap symbols." width="100%" />
 <p class="caption">(\#fig:tmsymbols1)A map showing the default tmap symbols.</p>
 </div>
 
@@ -234,7 +234,7 @@ tm_shape(volcanos) +
 (ref:tmsymbols2) Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers().
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="(ref:tmsymbols2)" width="672" />
+<img src="05-layers_files/figure-html/tmsymbols2-1.png" alt="(ref:tmsymbols2)" width="100%" />
 <p class="caption">(\#fig:tmsymbols2)(ref:tmsymbols2)</p>
 </div>
 
@@ -256,7 +256,7 @@ tm_shape(ei_roads) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmlines-1.png" alt="(ref:tmlines)" width="672" />
+<img src="05-layers_files/figure-html/tmlines-1.png" alt="(ref:tmlines)" width="100%" />
 <p class="caption">(\#fig:tmlines)(ref:tmlines)</p>
 </div>
 
@@ -279,7 +279,7 @@ tm_shape(volcanos) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmtext-1.png" alt="(ref:tmtext)" width="672" />
+<img src="05-layers_files/figure-html/tmtext-1.png" alt="(ref:tmtext)" width="100%" />
 <p class="caption">(\#fig:tmtext)(ref:tmtext)</p>
 </div>
 
@@ -335,7 +335,7 @@ tm_shape(elev_isopleths) +
 #> which is lost in output
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -353,7 +353,7 @@ tm_shape(hs) +
 	tm_text("level", col = "white")
 ```
 
-<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-layers_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" />
 
 <!-- auto.placement  -->
 <!-- remove.overlap -->
@@ -395,7 +395,7 @@ tm_shape(ei_geomorphons) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="672" />
+<img src="05-layers_files/figure-html/rastertype-1.png" alt="Examples of (A) continuous raster maps, and (B) categorical raster maps." width="100%" />
 <p class="caption">(\#fig:rastertype)Examples of (A) continuous raster maps, and (B) categorical raster maps.</p>
 </div>
 
@@ -421,7 +421,7 @@ tm_shape(raster2) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="672" />
+<img src="05-layers_files/figure-html/tmrasterml-1.png" alt="A map created from a multilayered raster." width="100%" />
 <p class="caption">(\#fig:tmrasterml)A map created from a multilayered raster.</p>
 </div>
 
@@ -465,7 +465,7 @@ tm_shape(landsat) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/tmrgbs-1.png" alt="Two color composite images: (A) true color composite, (B) false color composite." width="672" />
+<img src="05-layers_files/figure-html/tmrgbs-1.png" alt="Two color composite images: (A) true color composite, (B) false color composite." width="100%" />
 <p class="caption">(\#fig:tmrgbs)Two color composite images: (A) true color composite, (B) false color composite.</p>
 </div>
 
@@ -554,22 +554,22 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, provider = "Stamen.Toner", zoom = 12, crop = TRUE)
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
-#> file44611acd760.tif, band 2: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpTUqNNh/
+#> file43f04516add0.tif, band 2: Setting nodata to
 #> nan on band 2, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
-#> file44611acd760.tif, band 3: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpTUqNNh/
+#> file43f04516add0.tif, band 3: Setting nodata to
 #> nan on band 3, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
 #> opening
 #> Warning in CPL_gdalwarp(source, destination,
-#> options, oo, doo): GDAL Message 1: /tmp/RtmpXXUxAQ/
-#> file44611acd760.tif, band 4: Setting nodata to
+#> options, oo, doo): GDAL Message 1: /tmp/RtmpTUqNNh/
+#> file43f04516add0.tif, band 4: Setting nodata to
 #> nan on band 4, but band 1 has nodata at nan. The
 #> TIFFTAG_GDAL_NODATA only support one value per dataset.
 #> This value of nan will be used for all bands on re-
@@ -602,6 +602,6 @@ tm_shape(ei_tiles) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="05-layers_files/figure-html/stiles-1.png" alt="(ref:stiles) " width="672" />
+<img src="05-layers_files/figure-html/stiles-1.png" alt="(ref:stiles) " width="100%" />
 <p class="caption">(\#fig:stiles)(ref:stiles) </p>
 </div>

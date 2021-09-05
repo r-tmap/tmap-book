@@ -76,7 +76,7 @@ Each row, on the other hand, relates to a single spatial geometry.
 
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="480" />
+<img src="02-geodata_files/figure-html/vector-data-model-1.png" alt="Instances of spatial vector data model: POINTS, LINES, and POLYGONS." width="100%" />
 <p class="caption">(\#fig:vector-data-model)Instances of spatial vector data model: POINTS, LINES, and POLYGONS.</p>
 </div>
 
@@ -125,7 +125,7 @@ Raster data can also contain cells for which we do not know the value (Figure \@
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="672" />
+<img src="02-geodata_files/figure-html/raster-intro-1.png" alt="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map" width="100%" />
 <p class="caption">(\#fig:raster-intro)Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map</p>
 </div>
 
@@ -141,7 +141,7 @@ In the last type of raster data grids, curvilinear grids, cells are cuboids of d
 
 <!-- Q:should the counting in the below figure start from bottom left? -->
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="672" />
+<img src="02-geodata_files/figure-html/grid-types-1.png" alt="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear" width="100%" />
 <p class="caption">(\#fig:grid-types)Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear</p>
 </div>
 
@@ -156,7 +156,7 @@ Temporal rasters store one attribute, but for many moments in time.
 Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="672" />
+<img src="02-geodata_files/figure-html/rgb-raster-1.png" alt="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands." width="100%" />
 <p class="caption">(\#fig:rgb-raster)Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands.</p>
 </div>
 
@@ -189,7 +189,7 @@ An example of the spatial vector data cubes idea can be seen in Figure \@ref(fig
 It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Netherlands and an array connected to it that stores shares of land-use types for several years. 
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cube." width="576" />
+<img src="02-geodata_files/figure-html/vector-data-cubes-1.png" alt="Vector data cube." width="100%" />
 <p class="caption">(\#fig:vector-data-cubes)Vector data cube.</p>
 </div>
 
@@ -206,7 +206,7 @@ These rasters are organized to store four-dimensions of the data: latitude, long
 It has values of three attributes for five moments in time in total.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cube." width="672" />
+<img src="02-geodata_files/figure-html/raster-data-cubes-1.png" alt="Raster data cube." width="100%" />
 <p class="caption">(\#fig:raster-data-cubes)Raster data cube.</p>
 </div>
 
@@ -429,7 +429,7 @@ The question is how to do this.
 
 
 <div class="figure" style="text-align: center">
-<img src="images/orange_world.png" alt="How to peel an orange?" width="606" />
+<img src="images/orange_world.png" alt="How to peel an orange?" width="100%" />
 <p class="caption">(\#fig:orange)How to peel an orange?</p>
 </div>
 
@@ -440,7 +440,7 @@ All continents and countries are preserved, except Antarctica and Greenland.
 There is also a version of the Goode homolosine projection that focuses on preserving the oceans.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="672" />
+<img src="02-geodata_files/figure-html/crs-goode-1.png" alt="The (interrupted) Goode homolosine projection" width="100%" />
 <p class="caption">(\#fig:crs-goode)The (interrupted) Goode homolosine projection</p>
 </div>
 
@@ -592,7 +592,7 @@ Another example of a planar map projection is the orange shown in Figure \@ref(f
 This is an orthogonal projection.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="672" />
+<img src="02-geodata_files/figure-html/crs-conic-planar-1.png" alt="Examples of a conic (a) and a planar (b) projection." width="100%" />
 <p class="caption">(\#fig:crs-conic-planar)Examples of a conic (a) and a planar (b) projection.</p>
 </div>
 
@@ -919,6 +919,6 @@ Figure \@ref(fig:crs-trans-plot) shows the data in the WGS84 coordinate system o
 You can see here that the decision of the projection used has an impact not only on the coordinates (notice the grid values), but also the continents' shapes.
 
 <div class="figure" style="text-align: center">
-<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" alt="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection." width="672" />
+<img src="02-geodata_files/figure-html/crs-trans-plot-1.png" alt="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection." width="100%" />
 <p class="caption">(\#fig:crs-trans-plot)Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection.</p>
 </div>

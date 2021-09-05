@@ -24,7 +24,7 @@ In the following three sections, we explain font families and font faces, and gi
 
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="672" />
+<img src="07-layout_files/figure-html/fonts-1.png" alt="Basic (A) font families, and (B) font faces implemented in the tmap package." width="100%" />
 <p class="caption">(\#fig:fonts)Basic (A) font families, and (B) font faces implemented in the tmap package.</p>
 </div>
 
@@ -157,7 +157,7 @@ tm_shape(ei_borders) +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="672" />
+<img src="07-layout_files/figure-html/mfonts-1.png" alt="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements." width="100%" />
 <p class="caption">(\#fig:mfonts)Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements.</p>
 </div>
 
@@ -267,7 +267,7 @@ Grids and graticules can also be easily customized using several arguments, such
 It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/grids-1.png" alt="(A) Map grid, (B) graticules, and (C) graticules put behind the map layer." width="672" />
+<img src="07-layout_files/figure-html/grids-1.png" alt="(A) Map grid, (B) graticules, and (C) graticules put behind the map layer." width="100%" />
 <p class="caption">(\#fig:grids)(A) Map grid, (B) graticules, and (C) graticules put behind the map layer.</p>
 </div>
 
@@ -288,7 +288,7 @@ tm +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/scalebar-1.png" alt="A map with a customized scale bar." width="672" />
+<img src="07-layout_files/figure-html/scalebar-1.png" alt="A map with a customized scale bar." width="100%" />
 <p class="caption">(\#fig:scalebar)A map with a customized scale bar.</p>
 </div>
 
@@ -320,7 +320,7 @@ tm +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/northarrow-1.png" alt="A map with customized north arrow." width="672" />
+<img src="07-layout_files/figure-html/northarrow-1.png" alt="A map with customized north arrow." width="100%" />
 <p class="caption">(\#fig:northarrow)A map with customized north arrow.</p>
 </div>
 
@@ -348,7 +348,7 @@ tm +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/credits-1.png" alt="A map with placeholders for text annotations." width="672" />
+<img src="07-layout_files/figure-html/credits-1.png" alt="A map with placeholders for text annotations." width="100%" />
 <p class="caption">(\#fig:credits)A map with placeholders for text annotations.</p>
 </div>
 
@@ -376,7 +376,7 @@ tm +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="07-layout_files/figure-html/logos-1.png" alt="A map with an array of R logos." width="672" />
+<img src="07-layout_files/figure-html/logos-1.png" alt="A map with an array of R logos." width="100%" />
 <p class="caption">(\#fig:logos)A map with an array of R logos.</p>
 </div>
 
@@ -393,7 +393,7 @@ tm +
   tm_ylab("Y")
 ```
 
-<img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
+<img src="07-layout_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
 <!-- why this is useful? -->
 
