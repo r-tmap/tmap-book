@@ -116,7 +116,6 @@ Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in 
 ```r
 library(tmap)
 library(sf)
-#> Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
 volcanos = subset(ei_points, type == "volcano")
