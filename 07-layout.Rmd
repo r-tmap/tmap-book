@@ -139,7 +139,7 @@ Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in 
 
 ### Fonts on maps
 
-```{r}
+```{r, message=FALSE}
 library(tmap)
 library(sf)
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
