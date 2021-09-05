@@ -213,7 +213,9 @@ tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) 
 
 Figure \@ref(fig:vectordown):D contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
 
-```{r vectordown, echo=FALSE, message=FALSE, fig.cap="A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept."}
+(ref:vectordown) A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept.
+
+```{r vectordown, echo=FALSE, message=FALSE, fig.cap="(ref:vectordown)"}
 tms1 = tm_shape(worldvector) +
   tm_polygons() +
   tm_layout(title = "A")
