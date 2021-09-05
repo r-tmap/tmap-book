@@ -445,9 +445,7 @@ tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
   tm_shape(volcanos, is.master = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
-widgetframe::frameWidget(tmap_leaflet(tmbasemap1))
-# mapview::mapshot(tmbasemap1_l, file = paste0(getwd(), "/images/tmbasemap1.png"), vwidth = 800, vheight = 500)
-# knitr::include_graphics("images/tmbasemap1.png")
+view_map(tmbasemap1, "tmbasemap1")
 ```
 
 In the above code, we made two basemaps available - `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
@@ -476,10 +474,7 @@ tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
   tm_tiles(c(TonerHybrid = "Stamen.TonerHybrid")) +
   tm_shape(volcanos, is.master = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
-widgetframe::frameWidget(tmap_leaflet(tmtiles1))
-# # vwidth = 1344, vheight = 830
-# mapview::mapshot(tmtiles1_l, file = paste0(getwd(), "/images/tmtiles1.png"), vwidth = 800, vheight = 500)
-# knitr::include_graphics("images/tmtiles1.png")
+view_map(tmtiles1, "tmtiles1")
 ```
 
 Tile layers are usually created to be used interactively.
