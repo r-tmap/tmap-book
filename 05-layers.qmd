@@ -3,7 +3,7 @@
 source("code/before_script.R")
 ```
 
-# Layers {#layers}
+# Layers {#sec-layers}
 
 <!-- make the order of the table to be consistent with the rest of the chapter! -->
 
@@ -66,7 +66,7 @@ Chapter \@ref(visual-variables), on the other hand, is all about how to present 
 
 <!-- maybe also we should add info about packages that tmap accepts (e.g., sf, sp, raster, stars, terra?) -->
 
-## Polygons
+## Polygons {#sec-polygons}
 
 <!-- intro -->
 
@@ -141,7 +141,7 @@ tmap_arrange(tmpa0, tmpa1, tmpa2, nrow = 1)
 
 More information on colors, and how they can be applied and modified is explained in detail in Chapter \@ref(colors).
 
-## Symbols
+## Symbols {#sec-symbols}
 
 ```{r}
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
@@ -233,7 +233,7 @@ tm_ma4 = tm_shape(volcanos) +
 tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
 ```
 
-## Lines
+## Lines {#sec-lines}
 
 ```{r}
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
@@ -253,7 +253,7 @@ tm_shape(ei_roads) +
 Lines can be presented using different colors, widths, or types (Chapter \@ref(visual-variables)).
 This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
 
-## Text
+## Text {#sec-text}
 
 Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
@@ -357,7 +357,7 @@ tm_shape(hs) +
 
 <!-- clustering -->
 
-## Raster {#raster-layer}
+## Raster {#sec-raster-layer}
 
 ```{r}
 #| message: false
@@ -484,7 +484,7 @@ tm_shape(landsat) +
 <!-- raster.warp -->
 <!-- raster margins -->
 
-## Tile
+## Tile {#sec-tile-layer}
 
 <!-- A tile layer is .. -->
 <!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->

@@ -3,4 +3,4 @@
 source("code/before_script.R")
 ```
 
-# Interactive settings {#interactive}
+# Interactive settings {#sec-interactive}

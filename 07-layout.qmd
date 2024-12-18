@@ -3,9 +3,9 @@
 source("code/before_script.R")
 ```
 
-# Layout {#layout}
+# Layout {#sec-layout}
 
-## Typography
+## Typography {#sec-typography}
 
 <!-- Font faces and font families -->
 The decision about the used fonts is often neglected when creating programmable plots and maps.
@@ -22,7 +22,7 @@ However, this could result in a confusing visual mix that would hinder our map i
 Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
 In the following three sections, we explain font families and font faces, and give some overall tips on font selections, show how to define used fonts, and how to customize fonts on maps.
 
-### Font families and faces
+### Font families and faces {#sec-fonts}
 
 ```{r}
 #| echo: false
@@ -103,7 +103,7 @@ We just need to remember about the readability of the fonts - they should not be
 
 <!-- suggested fonts or references??? -->
 
-### Fonts available in **tmap** {#fonts-tmap}
+### Fonts available in **tmap** {#sec-fonts-tmap}
 
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
@@ -148,7 +148,7 @@ The second option is to use the **showtext** package [@R-showtext], which conver
 Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in the PDF file, which makes PDFs properly displayed on computers that do not have the given font.
 <!-- ref to map_save!! -->
 
-### Fonts on maps
+### Fonts on maps {#sec-fonts-on-maps}
 
 ```{r}
 #| message: false
@@ -234,7 +234,7 @@ tmap_save(tmt2, "tmt2.png")
 tmap_save(tmt2, "tmt2.pdf")
 ```
 
-## Attributes layers
+## Attributes layers {#sec-attributes-layers}
 
 ```{r}
 #| echo: false
@@ -281,7 +281,7 @@ tm = tm_shape(ei_borders) +
 tm
 ```
 
-### Grid lines
+### Grid lines {#sec-grid-lines}
 
 The **tmap** package offers two ways to draws coordinate lines - `tm_grid()` and `tm_graticules()`.
 The role of `tm_grid()` is to represent the input data’s coordinates.
@@ -337,7 +337,7 @@ tmap_arrange(
 )
 ```
 
-### Scale bar
+### Scale bar {#sec-scale-bar}
 
 Scale bar is a graphic indicator of the relation between a distance on a map and the corresponding distance in the real world.
 Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
@@ -373,7 +373,7 @@ tm_shape(worldelevation) +
   tm_scale_bar()
 ```
 
-### North arrow
+### North arrow {#sec-north-arrow}
 
 North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north^[Orientation may also be shown by graticule or grid lines (subsection \@ref(grid-lines)).].
 The decision on whether to use north arrows or not usually requires some critical thinking.
@@ -400,7 +400,7 @@ Alternatively, `position` can be specified with numeric values between 0 and 1 r
 
 The `position` argument also works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
-### Text annotation
+### Text annotation {#sec-text-annotation}
 
 <!-- Text on maps serves many purposes - some are related to spatial objects (e.g., text labels, section \@ref(text)), while other are used to inform the map reader about the presented content (e.g., map title, section \@ref(layout-elements)). -->
 Text annotations, also known as map credits, are used to store additional information about the created map.
@@ -421,7 +421,7 @@ When the created map has several facets (section \@ref(multiples)), it is also p
 In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
 Text annotations can also be further customized, by changing their sizes (`size`), colors (`color`), positions, and fonts (section \@ref(fonts-on-maps)).
 
-### Logo
+### Logo {#sec-logo}
 
 Logos on maps can serve a similar purpose as text annotation or accompany them.
 They can represent your affiliation, funding institution, data sources logos, etc.
@@ -443,7 +443,7 @@ There are two ways to use multiple logos.
 Many `tm_logo()` functions will places logos on top of each other, while providing a vector of png files will show them next to each other.
 Additional arguments include the height of the logo (`height`, the width is scaled automatically) and its position (`position`).
 
-### Axis labels
+### Axis labels {#sec-axis-labels}
 
 ```{r}
 tm +
@@ -453,7 +453,7 @@ tm +
 
 <!-- why this is useful? -->
 
-### Minimap
+### Minimap {#sec-minimap}
 
 ```{r}
 tmap_mode("view")
@@ -472,4 +472,4 @@ tmap_mode("plot")
 ```
 
 
-## Layout elements
+## Layout elements {#sec-layout-elements}

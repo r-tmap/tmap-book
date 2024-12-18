@@ -3,4 +3,4 @@
 source("code/before_script.R")
 ```
 
-# tmap options {#options}
+# tmap options {#sec-options}

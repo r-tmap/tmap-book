@@ -3,7 +3,7 @@
 source("code/before_script.R")
 ```
 
-# Save maps {#save}
+# Save maps {#sec-save}
 
 Maps created programmatically can serve several purposes, from exploratory, through visualizations of the processing steps, to being the final outputs of a given project.
 Therefore, often we want just to see our map on the screen, but sometimes we also want to save our map results to an external file.
@@ -26,7 +26,7 @@ tm = tm_shape(ei_borders) +
 tm
 ```
 
-## Raster graphic formats
+## Raster graphic formats {#sec-raster-graphic-formats}
 
 Raster graphics are non-spatial relatives of spatial rasters.
 The digital images are composed of many pixels - squares filled with specific colors.
@@ -75,7 +75,7 @@ tmap_save(tm, "my_map_j1.jpg", quality = 100)
 tmap_save(tm, "my_map_j2.jpg", quality = 100)
 ```
 
-## Vector graphic formats
+## Vector graphic formats {#sec-vector-graphic-formats}
 
 Vector graphics are quite distant relatives of spatial vectors, with vector graphics consisting of sets of coordinates.
 Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (section \@ref(vector-data-model)), but also using curves.
@@ -107,7 +107,7 @@ Vector graphics can also be easily edited in dedicated software (e.g., Inkscape 
 This approach can be useful, for example, when you want to quickly adjust the position of map elements (e.g., labels) or collaborate with a graphic designer.
 Note, however, that this process is not fully reproducible.
 
-## Interactive format
+## Interactive format {#sec-interactive-format}
 
 `tmap` map objects can not only be viewed in the interactive mode (section \@ref(map-modes)) but also saved as HTML files by adding the `.html` extension to the output file name.
 

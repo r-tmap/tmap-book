@@ -3,7 +3,7 @@
 source("code/before_script.R")
 ```
 
-# **tmap** in a nutshell {#nutshell}
+# **tmap** in a nutshell {#sec-nutshell}
 
 The **tmap** package allows the creation of thematic maps with great flexibility.
 It accepts spatial data in various formats shape objects (section \@ref(shape-objects))
@@ -11,7 +11,7 @@ Next, the data can be used to create simple, quick maps (section \@ref(quick-map
 These maps can be presented in two modes - as a static map and an interactive one.
 Additionally, **tmap** makes it possible to create small multiples map (section \@ref(sm-section)) and map animations (section \@ref(ani-section)).
 
-## Shape objects
+## Shape objects {#sec-shape-objects}
 
 As we established in chapter \@ref(geodata), spatial data comes in various file formats related to two main data models - vector and raster.
 There are also several spatial object classes in R, for example, `sf` from the **sf** package for vector data and `stars` from **stars** for raster data and spatial data cubes.
@@ -35,7 +35,7 @@ Spatial data, no matter the class, usually stores two interrelated sets of infor
 Visualization of the attributes only can be done with regular plotting functions (e.g., `plot()`, `hist()`, `barplot()`) or dedicated packages, such as **ggplot2** <!--cite-->.
 On the other hand, **tmap** is suitable when our goal is to visualize spatial geometries only or spatial geometries together with their attributes.
 
-## Quick maps
+## Quick maps {#sec-quick-maps}
 
 The **tmap** package offers a distinction between quick and regular maps.
 The first approach, using the `qtm()` function, could be handy for data exploration.
@@ -70,7 +70,7 @@ tmap_arrange(tmq1, tmq2)
 The `qtm()` function offers similar flexibility to the regular map approach. 
 However, it only supports one shape object.
 
-## Regular maps
+## Regular maps {#sec-regular-maps}
 
 Therefore, for most applications, we recommend using the regular map approach.
 This approach operates on many functions that start with `tm_`. 
@@ -192,7 +192,7 @@ my_map
 
 <!-- refs  -->
 
-## Map modes
+## Map modes {#sec-modes}
 
 Each map created with **tmap** can be viewed in one of two modes: `"plot"` and `"view"`.
 The `"plot"` mode is used by default and creates static maps similar to those shown before in this chapter. 
@@ -248,13 +248,13 @@ my_map
 
 More information about the interactive `"view"` mode and how to customize its outputs is in chapter \@ref(interactive).
 
-## Small multiples {#sm-section}
+## Small multiples {#sec-sm-section}
 
 <!-- to write after the \@ref(multiples) chapter is done -->
 
 Chapter \@ref(multiples) 
 
-## Animations {#ani-section}
+## Animations {#sec-ani-section}
 
 <!-- to write after the \@ref(animations) chapter is done -->
 

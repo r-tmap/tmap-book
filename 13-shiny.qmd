@@ -3,4 +3,4 @@
 source("code/before_script.R")
 ```
 
-# **tmap** in **shiny** {#shiny}
+# **tmap** in **shiny** {#sec-shiny}

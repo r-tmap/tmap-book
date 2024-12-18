@@ -3,6 +3,6 @@
 source("code/before_script.R")
 ```
 
-# Animations
+# Animations {#sec-animations}
 
 <!-- tmap animations are a set of raster graphic images stitched together -->

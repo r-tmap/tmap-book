@@ -3,13 +3,13 @@
 source("code/before_script.R")
 ```
 
-# Specifying spatial data {#tmshape}
+# Specifying spatial data {#sec-tmshape}
 
 In order to plot spatial data, at least two aspects need to be specified: the spatial data object itself, and the plotting method(s). 
 We will cover the former in this chapter. 
 The latter will be discussed in the next chapters.
 
-## Shapes and layers
+## Shapes and layers {#sec-shapes-layers}
 
 As described in Chapter \@ref(geodata), shape objects can be vector or raster data.
 We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp`, `raster`, and `terra` classes.].
@@ -58,7 +58,7 @@ In the example, shape `worldcities` is used for two layers, `tm_dots()` and `tm_
 <!-- We recommend to indent the code for the layer functions, in order to see which layers use which shape objects. -->
 <!--to discuss-->
 
-## Shapes hierarchy
+## Shapes hierarchy {#sec-shapes-hierarchy}
 
 The order of the `tm_shape()` functions' calls is crucial.
 The first `tm_shape()`, known as the main shape, is not only shown below the following *shapes*, but also sets the projection and extent of the whole map.
@@ -84,7 +84,7 @@ tm_shape(worldcities, is.master = TRUE) +
 
 <!-- should we mention inner.margins here or later?? -->
 
-## Map projection
+## Map projection {#sec-map-projection}
 \index{map projection}
 
 As we mentioned in the previous section, created maps use the projection from the main *shape*.
@@ -151,7 +151,7 @@ bench::mark(print(tmp1), print(tmp2), check = FALSE)
 <!-- add our recommendations -->
 <!-- about reprojecting first vs later - why and how -->
 
-## Map extent
+## Map extent {#sec-map-extent}
 
 Another important aspect of mapping, besides projection, is its extent - a portion of the area shown in a map.
 <!--add info about the bounding box term-->
@@ -206,7 +206,7 @@ tm_shape(worldelevation, bbox = worldcities) +
 <!-- ?bb -->
 <!-- explain some additional arguments of bb?? -->
 
-## Data simplification
+## Data simplification {#sec-data-simplification}
 
 Geometries in spatial vector data consists of sets of coordinates (Section \@ref(vector-data-model)).
 Spatial vector objects grow larger with more features to present and more details to show, and this also has an impact on time to render a map.

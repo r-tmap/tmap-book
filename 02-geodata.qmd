@@ -1,10 +1,10 @@
-# Spatial data in R {#geodata}
+# Spatial data in R {#sec-geodata}
 <!-- # Geographic data in R {#geodata} -->
 <!-- to discuss -->
 
 \index{spatial data}
 
-## Introduction {#intro-geodata}
+## Introduction {#sec-intro-geodata}
 
 Vector and raster data models are two basic models used to represent spatial data.
 These spatial data models are closely related to map making, with each model having its own pros and cons. 
@@ -22,7 +22,7 @@ It also explains basic terms and gives an overview of map projections.
 <!-- geocompr, spatial data science, some crs book? -->
 <!-- explain that often there is a need to prepare spatial data before mapping -->
 
-## Data models
+## Data models {#sec-data-models}
 
 Traditionally, spatial data is described by two basic data models: 
 vector data model aimed at (section \@ref(vector-data-model)) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (section \@ref(raster-data-model)).
@@ -30,7 +30,7 @@ Additionally, now we have an abundance of available spatial data and a variety o
 It includes having many district variables and repeated measurements for the same area.
 Therefore, we also present the concept of spatial data cubes (section \@ref(spatial-data-cubes)).
 
-### Vector data model
+### Vector data model {#sec-vector-data-model}
 
 \index{vector data model}
 \index{spatial geometries}
@@ -415,7 +415,7 @@ It includes formats such as NetCDF (`.nc`) and HDF (`.hdf`).
 
 <!-- converting between spatial vector data cube and spatial raster data cube -->
 
-## Spatial data representations in R
+## Spatial data representations in R {#sec-spatial-data-representations-in-r}
 
 \index{vector data model}
 R has several packages aimed to represent spatial vector data.
@@ -562,11 +562,11 @@ The **stars** package also has support for vector data cubes, where each geometr
 More information on how the `stars` objects are organized and how to operate on them can be found in the **stars** package vignettes at https://r-spatial.github.io/stars. 
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
 
-## Map projections (CRS) {#crs}
+## Map projections (CRS) {#sec-crs}
 
 <!-- intro -->
 
-### What are map projections?
+### What are map projections? {#sec-crs-intro}
 
 ```{r}
 #| label: crs-01
@@ -656,7 +656,7 @@ These properties are needed in order to make a non-interrupted map, as we will s
 A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-goode) is an example, is called a *map projection*. 
 Technically, it is also known as a *coordinate reference system* (*CRS*), which specifies the corresponding coordinate system, as well as the transformations to other map projections.
 
-### A model of the Earth
+### A model of the Earth {#sec-crs-earth}
 
 \index{ellipsoid}
 <!--we should use either "Earth" or "earth" (both are right now in the text)-->
@@ -695,7 +695,7 @@ A datum is required.
 When people exchange latitude-longitude data, it is safe to assume that they implicitly have used the WGS84 datum.
 However, it is good practice to specify the datum explicitly.
 
-### Platte Carrée and Web Mercator
+### Platte Carrée and Web Mercator {#sec-crs-projections}
 
 \index{web mercator}
 \index{EPSG}
@@ -804,7 +804,7 @@ Also today, the Web Mercator is the de facto standard for interactive maps and n
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
 We will discuss this in the next section.
 
-### Types of map projections
+### Types of map projections {#sec-crs-types}
 
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
@@ -917,7 +917,7 @@ A special class of these projections are polyhedral projections, which consists 
 In Figure \@ref(fig:crs-types) a polyhedral of six faces is illustrated. 
 There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.
 
-### Which projection to choose?
+### Which projection to choose? {#sec-crs-choose}
 
 \index{map projections}
 Hopefully it is clear that there is no perfect projection, since each projection has its pros and cons.
@@ -1044,7 +1044,7 @@ Alternatively, cylindrical and conic map projection types can be used for areas 
 Another alternative is to use a UTM projection.
 However, this is only recommended when the target area spans less than 6 degrees longitude.<!--and do not cross the UTM zone lines-->
 
-### CRS in R
+### CRS in R {#sec-crs-r}
 
 \index{coordinate reference system (CRS)}
 \index{PROJ}

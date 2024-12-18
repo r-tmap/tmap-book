@@ -3,7 +3,7 @@
 source("code/before_script.R")
 ```
 
-# Small multiples {#multiples}
+# Small multiples {#sec-multiples}
 
 ## Vector data
 

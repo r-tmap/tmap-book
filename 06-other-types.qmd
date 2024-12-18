@@ -3,4 +3,4 @@
 source("code/before_script.R")
 ```
 
-# Other types {#othertypes}
+# Other types {#sec-other-types}
