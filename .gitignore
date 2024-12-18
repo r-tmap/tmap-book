@@ -19,8 +19,9 @@ rsconnect
 README_files/figure-html/
 man
 *_files
-bookdown*
 !ga.html
 *.utf8.md
 unnamed-chunk*
 inst/doc
+
+/.quarto/

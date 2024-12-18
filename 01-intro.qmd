@@ -1,4 +1,11 @@
-```{asis index-22, echo=knitr::is_latex_output()}
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+```{asis}
+#| label: index-22
+#| echo: !expr knitr::is_latex_output()
 \mainmatter
 ```
 

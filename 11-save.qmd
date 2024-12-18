@@ -1,3 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
 # Save maps {#save}
 
 Maps created programmatically can serve several purposes, from exploratory, through visualizations of the processing steps, to being the final outputs of a given project.
@@ -9,7 +14,9 @@ Additionally, chapter \@ref(animations) shows how to save map animations with th
 
 For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown), stored in the `tm` object.
 
-```{r, message=FALSE, fig.show='hide'}
+```{r}
+#| message: false
+#| fig-show: hide
 library(tmap)
 library(sf)
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
@@ -54,13 +61,16 @@ Additionally, when set to `0`, the' asp' argument has a side effect: it moves th
 By default, **tmap** uses graphic devices^[Short discussion about graphic devices can be found in section \@ref(fonts-tmap).] incorporated in R.
 However, it is also possible to use other, external devices with the `device` argument.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tmap_save(tm, "my_map.png", device = ragg::agg_png)
 ```
 
 For example, the `ragg::agg_png` device is usually faster and has better support for non-standard fonts than the regular `grDevices::png`.
 
-```{r, echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 tmap_save(tm, "my_map_j1.jpg", quality = 100)
 tmap_save(tm, "my_map_j2.jpg", quality = 100)
 ```
@@ -79,7 +89,9 @@ To save a map to a vector graphic format, we still can use `tmap_save()` but eit
 tmap_save(tm, "my_map.svg")
 ```
 
-```{r, echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 tmap_save(tm, "my_map00.svg", width = 10)
 tmap_save(tm, "my_map01.svg", width = 1)
 ```
@@ -110,6 +122,9 @@ The `in.iframe` argument (`FALSE` by default) allows saving an interactive map a
 <!-- when `in.iframe = TRUE` is useful?? -->
 <!-- arguments passed on to device functions or to saveWidget or saveWidgetframe -->
 
-```{r, echo=FALSE, results='hide', warning=FALSE}
+```{r}
+#| echo: false
+#| results: hide
+#| warning: false
 file.remove(c("my_map.png", "my_map.svg", "my_map.html"))
 ```

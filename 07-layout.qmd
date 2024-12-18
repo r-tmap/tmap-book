@@ -1,3 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
 # Layout {#layout}
 
 ## Typography
@@ -19,7 +24,8 @@ In the following three sections, we explain font families and font faces, and gi
 
 ### Font families and faces
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 library(tmap)
 data("World")
 bf = c("plain", "italic", "bold", "bold.italic")
@@ -36,7 +42,8 @@ tm_bf = tm_shape(World) +
   tm_layout(frame = FALSE)
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 library(tmap)
 data("World")
 # ff = c("Times", "Helvetica", "Courier")
@@ -52,7 +59,10 @@ tm_ff = tm_shape(World) +
   tm_layout(frame = FALSE)
 ```
 
-```{r fonts, fig.cap="Basic (A) font families, and (B) font faces implemented in the tmap package.", echo=FALSE}
+```{r}
+#| label: fonts
+#| echo: false
+#| fig-cap: Basic (A) font families, and (B) font faces implemented in the tmap package.
 tmap_arrange(tm_ff + tm_layout(title = "A. Font families"), tm_bf + tm_layout(title = "B. Font faces"), nrow = 1)
 ```
 
@@ -115,7 +125,8 @@ Next, a member of the selected font families can be selected with one of the fon
 As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device. 
 Fonts available on the operating system can be checked with the `system_fonts()` function of the **systemfonts** package [@R-systemfonts] (result not shown).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 library(systemfonts)
 system_fonts()
 ```
@@ -139,7 +150,8 @@ Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in 
 
 ### Fonts on maps
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 library(tmap)
 library(sf)
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
@@ -153,7 +165,9 @@ There are, however, three ways to customize the used fonts.
 The first one is to change all of the fonts and font faces for the whole map at once (Figure \@ref(fig:mfonts):A).
 This can be done with the `fontfamily` and `fontface` arguments of `tm_layout()`.
 
-```{r font1, eval=FALSE}
+```{r}
+#| label: font1
+#| eval: false
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
@@ -168,7 +182,9 @@ The second way is to specify just some text elements independently (Figure \@ref
 Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` arguments that can be adjusted.
 Additionally, `tm_layout()` allows to customize fonts for other map elements using prefixed arguments, such as, `main.title.fontface` or `legend.title.fontfamily`.
 
-```{r font2, eval=FALSE}
+```{r}
+#| label: font2
+#| eval: false
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
@@ -179,7 +195,12 @@ tm_shape(ei_borders) +
             legend.title.fontfamily = "monospace")
 ```
 
-```{r mfonts, echo=FALSE, fig.cap="Examples of (A) one font (font family and font face) used for all of the map elements (title, text labels, legend, and text annotation), and (B) different fonts used for different map elements."}
+```{r}
+#| label: mfonts
+#| echo: false
+#| fig-cap: Examples of (A) one font (font family and font face) used for all of the
+#|   map elements (title, text labels, legend, and text annotation), and (B) different
+#|   fonts used for different map elements.
 tmt1 = tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
@@ -205,7 +226,9 @@ tmap_arrange(tmt1, tmt2, nrow = 1)
 
 The third way is to use a different *tmap style* - see section \@ref() for more details.
 
-```{r, eval=FALSE, echo=FALSE}
+```{r}
+#| eval: false
+#| echo: false
 #saving tests
 tmap_save(tmt2, "tmt2.png")
 tmap_save(tmt2, "tmt2.pdf")
@@ -213,7 +236,8 @@ tmap_save(tmt2, "tmt2.pdf")
 
 ## Attributes layers
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 attr_layers_df = tibble::tribble(
   ~Function, ~Description,
   "tm_grid()", "draws coordinate grid lines of the coordinate system of the main shape object",
@@ -231,7 +255,10 @@ attr_layers_df = tibble::tribble(
 <!-- intro about attribute layers -->
 \@ref(tab:attr-layers-table)
 
-```{r attr-layers-table, echo=FALSE, warning=FALSE}
+```{r}
+#| label: attr-layers-table
+#| echo: false
+#| warning: false
 library(magrittr)
 library(kableExtra)
 options(kableExtra.html.bsTable = TRUE)
@@ -247,7 +274,8 @@ knitr::kable(attr_layers_df,
 
 For the examples in this section, we will use a simple map of the Easter Island polygon (not shown).
 
-```{r, fig.show='hide'}
+```{r}
+#| fig-show: hide
 tm = tm_shape(ei_borders) +
   tm_polygons()
 tm
@@ -259,7 +287,9 @@ The **tmap** package offers two ways to draws coordinate lines - `tm_grid()` and
 The role of `tm_grid()` is to represent the input data’s coordinates.
 For example, the `ei_borders` object's CRS is UTM zone 12S with the units in meters (figure \@ref(fig:grids):A).
 
-```{r, grid1, eval=FALSE}
+```{r}
+#| label: grid1
+#| eval: false
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_grid()
@@ -268,7 +298,9 @@ tm_shape(ei_borders) +
 `tm_graticules()` shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
 This can be seen with the degree signs in the labels (figure \@ref(fig:grids):B).
 
-```{r, grid2, eval=FALSE}
+```{r}
+#| label: grid2
+#| eval: false
 tm_shape(ei_borders) +
   tm_polygons() +
   tm_graticules()
@@ -278,7 +310,9 @@ Both, `tm_grid()` and `tm_graticules()` can be placed above or below the map lay
 When `tm_grid()` or `tm_graticules()` is placed after the map layer (e.g., `tm_polygons()`), the grid lines are plotted on the top of the map. 
 On the other hand, when `tm_grid()` or `tm_graticules()` is placed before the map layer code, the grid lines are plotted behind the spatial data (figure \@ref(fig:grids):C).
 
-```{r, grid3, eval=FALSE}
+```{r}
+#| label: grid3
+#| eval: false
 tm_shape(ei_borders) +
   tm_graticules() +
   tm_polygons()
@@ -287,7 +321,11 @@ tm_shape(ei_borders) +
 Grids and graticules can also be easily customized using several arguments, such as, `x` and `y` (x and y coordinates of the lines), `n.x` and `n.y` (number of horizontal (x) and vertical (y) lines),  `labels.inside.frame`, `ticks`, `lines`
 It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
-```{r grids, fig.cap="(A) Map grid, (B) graticules, and (C) graticules put behind the map layer.", echo=FALSE, fig.asp=0.33}
+```{r}
+#| label: grids
+#| echo: false
+#| fig-cap: (A) Map grid, (B) graticules, and (C) graticules put behind the map layer.
+#| fig-asp: 0.33
 tmap_arrange(
     <<grid1>>
       + tm_layout(title = "A"),
@@ -309,9 +347,12 @@ The `tm_scale_bar()` function adds a scale bar.
 By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
 It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument (figure \@ref(fig:scalebar)).
 
-```{r scalebar, fig.cap="A map with a customized scale bar."}
+```{r}
+#| label: scalebar
+#| fig-cap: A map with a customized scale bar.
 tm +
-  tm_scale_bar(breaks = c(0, 2, 4), text.size = 1)
+  tm_scalebar() 
+  # tm_scalebar(breaks = c(0, 1, 2), text.size = 1)
 ```
 
 The `tm_scale_bar()` also has several additional arguments, allowing to modify its colors, and position (subsection \@ref(north-arrow)).
@@ -321,7 +362,9 @@ The scale bar distortion increases with the true size of the area we are mapping
 For example, try to add a scale bar to a world map seen in the section \@ref(shapes-and-layers).
 The created scale bar will be accurate for the equator, but less and less correct going to the north and south poles.
 
-```{r, echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 library(stars)
 library(tmap)
 worldelevation = read_stars("data/worldelevation.tif")
@@ -342,7 +385,9 @@ By default, its "north" is oriented toward the top of the map (the `north` argum
 **tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:northarrow)), `"8star"`, `"radar"`, and `"rose"`.
 The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
 
-```{r northarrow, fig.cap="A map with customized north arrow."}
+```{r}
+#| label: northarrow
+#| fig-cap: A map with customized north arrow.
 tm +
   tm_compass(type = "4star", size = 2, position = c("left", "top"))
 ```
@@ -363,17 +408,18 @@ They can include the source of data, the name of the author, the date of map cre
 
 Text annotations are created with the `tm_credits()` function, which can be used more than one time (figure \@ref(fig:credits)).
 
-```{r credits, fig.cap="A map with placeholders for text annotations."}
+```{r}
+#| label: credits
+#| fig-cap: A map with placeholders for text annotations.
 tm +
-  tm_credits("Data source: ", fontface = "italic", align = "right") +
-  tm_credits("Author: ", fontface = "bold", align = "right")
+  tm_credits("Data source: ", fontface = "italic") +
+  tm_credits("Author: ", fontface = "bold")
 ```
 
 The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
 When the created map has several facets (section \@ref(multiples)), it is also possible to provide each facet a different text.
 In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
-Text annotations can also be further customized, by changing their sizes (`size`), colors (`col`),
-horizontal alignment (`align`), positions, and fonts (section \@ref(fonts-on-maps)).
+Text annotations can also be further customized, by changing their sizes (`size`), colors (`color`), positions, and fonts (section \@ref(fonts-on-maps)).
 
 ### Logo
 
@@ -382,7 +428,9 @@ They can represent your affiliation, funding institution, data sources logos, et
 
 The `tm_logo()` function adds png images, either from a file or url, to the map (figure \@ref(fig:logos)).
 
-```{r logos, fig.cap="A map with an array of R logos."}
+```{r}
+#| label: logos
+#| fig-cap: A map with an array of R logos.
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",
           height = 2) +
@@ -411,7 +459,8 @@ tm +
 tmap_mode("view")
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm + 
   tm_minimap()
 ```

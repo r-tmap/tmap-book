@@ -1,3 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
 # Specifying spatial data {#tmshape}
 
 In order to plot spatial data, at least two aspects need to be specified: the spatial data object itself, and the plotting method(s). 
@@ -9,7 +14,10 @@ The latter will be discussed in the next chapters.
 As described in Chapter \@ref(geodata), shape objects can be vector or raster data.
 We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp`, `raster`, and `terra` classes.].
 
-```{r, echo=TRUE, warning=FALSE, message=FALSE}
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
 library(tmap)
 library(dplyr)
 library(sf)
@@ -23,7 +31,12 @@ In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
 When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
 This is illustrated in the following example (Figure \@ref(fig:tmshape1)).
 
-```{r tmshape1, echo=TRUE, warning=FALSE, fig.cap="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers."}
+```{r}
+#| label: tmshape1
+#| echo: true
+#| warning: false
+#| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
+#|   using four layers.
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
 tm_shape(worldvector) +
@@ -55,7 +68,11 @@ However, we can quickly change the main *shape* with the `is.master` argument.
 <!--change to is.main later-->
 In the following example, we set the `worldcities` object as the main *shape*, which limits the output map to the point locations in `worldcities` (Figure \@ref(fig:tmshape2))^[We will show how to adjust margins and text locations later in the book].
 
-```{r tmshape2, fig.asp=0.35, fig.cap="A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object."}
+```{r}
+#| label: tmshape2
+#| fig-asp: 0.35
+#| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
+#|   using four layers and zoomed into the locations in the worldcities object.
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
 tm_shape(worldvector) +
@@ -89,7 +106,9 @@ Figure \@ref(fig:tm-map-proj):A shows the world elevation raster reprojected to 
 Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
 Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
 
-```{r, warning=FALSE, eval=FALSE}
+```{r}
+#| warning: false
+#| eval: false
 tm_shape(worldelevation, projection = 8857) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) 
 ```
@@ -100,12 +119,19 @@ This calculation could deform the shapes of original grid cells, and usually cur
 Figure \@ref(fig:tm-map-proj):B shows an example of the second approach, which gave a better result in this case without any spurious lands.
 However, creation of the B map takes about ten times longer than the A map.
 
-```{r, warning=FALSE, eval=FALSE}
+```{r}
+#| warning: false
+#| eval: false
 tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
 
-```{r tm-map-proj, echo=FALSE, warning=FALSE, fig.cap="Two elevation maps in the Equal Earth projection: (A) created using raster.warp = TRUE, (B) created using raster.warp = FALSE."}
+```{r}
+#| label: tm-map-proj
+#| echo: false
+#| warning: false
+#| fig-cap: 'Two elevation maps in the Equal Earth projection: (A) created using raster.warp
+#|   = TRUE, (B) created using raster.warp = FALSE.'
 tmp1 = tm_shape(worldelevation, projection = 8857) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
   tm_layout(title = "A")
@@ -115,7 +141,9 @@ tmp2 = tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
 tmap_arrange(tmp1, tmp2)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 bench::mark(print(tmp1), print(tmp2), check = FALSE)
 # 2.28s vs 24.52s
 ```
@@ -141,7 +169,11 @@ This can be done with a numeric vector of four values in the order of minimum x,
 In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (Figure \@ref(fig:tbbox1)).
 <!-- mention tm_grid? -->
 
-```{r tbbox1, warning=FALSE, fig.cap="Global elevation data limited to the extent of the specified minimum and maximum coordinates."}
+```{r}
+#| label: tbbox1
+#| warning: false
+#| fig-cap: Global elevation data limited to the extent of the specified minimum and
+#|   maximum coordinates.
 tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
@@ -150,7 +182,10 @@ The second approach allows setting the map extent based on a search query.
 In the code below, we limit the map extent to the area of `"Europe"` (Figure \@ref(fig:tbbox2)).
 This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.
 
-```{r tbbox2, warning=FALSE, fig.cap="Global elevation data limited to the extent specified with the 'Europe' query."}
+```{r}
+#| label: tbbox2
+#| warning: false
+#| fig-cap: Global elevation data limited to the extent specified with the 'Europe' query.
 tm_shape(worldelevation, bbox = "Europe") +
   tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
@@ -158,7 +193,11 @@ tm_shape(worldelevation, bbox = "Europe") +
 In the last approach, the map extent is based on another existing spatial object.
 Figure \@ref(fig:tbbox3) shows the elevation raster data (`worldelevation`) limited to the edge coordinates from `worldcities`. 
 
-```{r tbbox3, fig.asp=0.35, warning=FALSE, fig.cap="Global elevation data limited to the extent of the other spatial object."}
+```{r}
+#| label: tbbox3
+#| warning: false
+#| fig-asp: 0.35
+#| fig-cap: Global elevation data limited to the extent of the other spatial object.
 tm_shape(worldelevation, bbox = worldcities) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8))
 ```
@@ -174,7 +213,8 @@ Spatial vector objects grow larger with more features to present and more detail
 <!-- also to consider - the level of generalization -->
 Figure \@ref(fig:vectordown):A shows a map of countries from the `worldvector` object.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(worldvector) +
   tm_polygons()
 ```
@@ -184,7 +224,8 @@ To show a simplified (smoother) version of vector data, we can use the `simplify
 It expects a numeric value from 0 to 1 - a proportion of vertices in the data to retain.
 In the example below, we set `simplify` to 0.05, which keeps 5% of vertices (Figure \@ref(fig:vectordown):B).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(worldvector, simplify = 0.05) +
   tm_polygons()
 ```
@@ -194,7 +235,8 @@ By default, the underlining algorithm (called the Visvalingam method, learn more
 This could have far-reaching consequences - in the process of simplification, we could remove some countries!
 To prevent the deletion of small features, we also need to set `keep.units` to `TRUE`.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(worldvector, simplify = 0.05, keep.units = TRUE) +
   tm_polygons()
 ```
@@ -206,7 +248,8 @@ In the case of one country consisting of many small polygons, only one is sure t
 For example, look at New Zealand, which is now only represented by Te Waipounamu (the South Island).
 To keep all of the spatial geometries (even the smallest of islands), we should also specify `keep.subunits` to `TRUE`.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
   tm_polygons()
 ```
@@ -215,7 +258,11 @@ Figure \@ref(fig:vectordown):D contains a simplified map, where each spatial geo
 
 (ref:vectordown) A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept.
 
-```{r vectordown, echo=FALSE, message=FALSE, fig.cap="(ref:vectordown)"}
+```{r}
+#| label: vectordown
+#| echo: false
+#| message: false
+#| fig-cap: (ref:vectordown)
 tms1 = tm_shape(worldvector) +
   tm_polygons() +
   tm_layout(title = "A")
@@ -246,21 +293,28 @@ This values can be adjusted with the `max.raster` argument of `tmap_options()`, 
 <!-- when and why -->
  (Figure \@ref(fig:rasterdown):A).
 
-```{r, eval=FALSE}
-tmap_options(max.raster = c(plot = 5000, view = 2000))
+```{r}
+#| eval: false
+# tmap_options(max.raster = c(plot = 5000, view = 2000))
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif")
 ```
 
 Raster downsampling can be also disabled with the `raster.downsample` argument of `tm_shape()` (Figure \@ref(fig:rasterdown):B).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(worldelevation, raster.downsample = FALSE) +
   tm_raster("worldelevation.tif")
 ```
 
-```{r rasterdown, echo=FALSE, fig.cap="(A) A raster map with the decreased resolution, (B) a raster map in the original resolution.", message=FALSE}
-tmap_options(max.raster = c(plot = 5000, view = 2000))
+```{r}
+#| label: rasterdown
+#| echo: false
+#| message: false
+#| fig-cap: (A) A raster map with the decreased resolution, (B) a raster map in the original
+#|   resolution.
+# tmap_options(max.raster = c(plot = 5000, view = 2000))
 tmr1 = tm_shape(worldelevation) +
   tm_raster("worldelevation.tif") +
   tm_layout(title = "A")
@@ -272,7 +326,8 @@ tmap_arrange(tmr1, tmr2)
 
 Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (We explain `tmap_options()` in details in Chapter \@ref(options)).
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 tmap_options_reset()
 ```
 

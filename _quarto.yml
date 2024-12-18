@@ -1,0 +1,69 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: "Elegant and informative maps with **tmap**"
+  page-footer: "Elegant and informative maps with **tmap** by Martijn Tennekes and Jakub Nowosad."
+  # number-sections: true
+  author: "Martijn Tennekes and Jakub Nowosad"
+  description: | 
+    This book teaches how to make elegant and informative maps with the R package tmap.
+  # cover-image: https://geocompx.org/static/img/book_cover_py.png
+  # site-url: https://py.geocompx.org
+  # repo-url: https://github.com/geocompx/geocompy/
+  repo-branch: main
+  repo-actions: [edit]
+  # sharing: [twitter, facebook, linkedin]
+  # google-analytics: G-ZEMGTY4VV3
+  # favicon: favicon-32x32.png
+  chapters:
+    - "index.qmd"
+    - "01-intro.qmd"
+    - "02-geodata.qmd" 
+    - "03-nutshell.qmd" 
+    - "04-tm-shape.qmd" 
+    - "05-layers.qmd" 
+    - "05b-visual-variables.qmd" 
+    - "06-other-types.qmd"
+    - "07-layout.qmd" 
+    - "08-interactive.qmd" 
+    - "09-small-multiples.qmd" 
+    - "10-options.qmd" 
+    - "11-save.qmd" 
+    - "12-animations.qmd"
+    - "13-shiny.qmd" 
+    - "14-good-maps.qmd"
+    - "references.qmd"
+
+format:
+  html: 
+    theme: flatly
+    code-link: true
+    # template-partials: [helpers/toc.html, helpers/title-block.html]
+    toc-title: "On this page"
+    code-overflow: wrap
+    toc-depth: 4
+    # css: [helpers/mystyle.css]
+  # pdf:
+  #   documentclass: krantz
+  #   monofont: 'Source Code Pro'
+  #   monofontoptions: 
+  #     - Scale=0.7
+  #   pdf-engine: xelatex
+  #   keep-tex: true
+  #   number-sections: true
+  #   top-level-division: chapter
+  #   include-before-body: helpers/before_body.tex
+  #   include-in-header: 
+  #     text: |
+  #       \AtBeginEnvironment{longtable}{\footnotesize}
+  #       \usepackage{makeidx}
+  #       \makeindex
+  #   include-after-body: 
+  #     text: |
+  #       \printindex
+
+bibliography: 
+  - r-tmap.bib
+  - packages.bib

@@ -1,3 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
 # **tmap** in a nutshell {#nutshell}
 
 The **tmap** package allows the creation of thematic maps with great flexibility.
@@ -16,7 +21,8 @@ Gladly, **tmap** can work with all of the above objects - it treats all supporte
 For example, we read the `ei_points.gpkg` file contains several points on Easter Island into a new object, `ei_points`, and select only points with the `type` of `"volcano"`.
 The `volcanoes` object is a *shape object*.
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 library(tmap)
 library(sf)
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
@@ -36,20 +42,25 @@ The first approach, using the `qtm()` function, could be handy for data explorat
 It works even if we just provide any *shape object* - in that case, only the geometry is plotted.
 Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanoes`.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 qtm(volcanoes)
 ```
 
 The `qtm()` function allows to customize many map elements for the provided *shape object*.
 For example, we can change the shapes of the points in `volcanoes`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes")
 ```
 
 (ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
 
-```{r qtm, fig.cap="(ref:qtm)", echo=FALSE}
+```{r}
+#| label: qtm
+#| echo: false
+#| fig-cap: (ref:qtm)
 tmq1 = qtm(volcanoes) + tm_layout(title = "A")
 tmq2 = qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes") +
    tm_layout(title = "B   Volcanoes")
@@ -70,7 +81,8 @@ Next, map layers, additional map elements, and overall layout can be customized.
 
 The last example in \@ref(quick-maps) can be reproduced with the regular map approach using the following code:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation") +
   tm_layout(title = "volcanoes")
@@ -90,7 +102,8 @@ One map can have several *groups*.
 Let's see how many *groups* work by reading some additional datasets - the `ei_elev` raster with elevation data for Easter Island, the `ei_borders` polygon with the island outline, and the `ei_roads` lines contains a road network for this island.
 <!-- ref data appendix -->
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 library(sf)
 library(stars)
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
@@ -102,7 +115,12 @@ Look at the following example and try to guess how many *groups* it has, and how
 
 (ref:rmap1) Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer.
 
-```{r rmap1, warning=FALSE, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap1)"}
+```{r}
+#| label: rmap1
+#| warning: false
+#| fig-height: 9
+#| fig-asp: 0.73
+#| fig-cap: (ref:rmap1)
 tm_shape(ei_elev) +
   tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
@@ -138,7 +156,8 @@ Moreover, it is possible to add any type of manual legend with `tm_add_legend()`
 It includes simple legends, such as the `"Roads"` legend below that is only represented by a single black line, but more complex legends with several elements are also possible. 
 <!-- ref to other parts of the book -->
 
-```{r, warning=FALSE}
+```{r}
+#| warning: false
 my_map = tm_shape(ei_elev) +
   tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
@@ -153,7 +172,7 @@ my_map = tm_shape(ei_elev) +
   tm_compass(position = c("right", "top")) +
   tm_scale_bar() +
   tm_credits("Author, 2021") +
-  tm_add_legend(type = "line", col = "black", title = "Roads") +
+  # tm_add_legend(type = "line", col = "black", title = "Roads") +
   tm_layout(main.title = "Easter Island",
             bg.color = "lightblue")
 ```
@@ -163,7 +182,11 @@ This is a useful feature, which allows to use one map in a few places in a code,
 
 (ref:rmap2) Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
 
-```{r rmap2, fig.height=9, fig.asp=0.73, fig.cap="(ref:rmap2)"}
+```{r}
+#| label: rmap2
+#| fig-height: 9
+#| fig-asp: 0.73
+#| fig-cap: (ref:rmap2)
 my_map
 ```
 
@@ -192,7 +215,8 @@ tmap_mode("view")
 The above line of code just changes the mode - it does not return anything except the message.
 Now, if we want to use this mode, we need to either write a new **tmap** code provide some existing **tmap** object, such as `my_map`.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 my_map
 ```
 
@@ -200,7 +224,12 @@ As a result, we get several messages and an interactive map.
 These messages inform us that some map elements specified in the previous code are not possible in the `"view"` mode.
 It includes the text annotation ("Credits"), the north arrow ("Compass"), and some legend options.
 
-```{r imap1, echo=FALSE, fig.cap='Map from the previous figure shown using the interactive ("view") mode.', cache=FALSE, message=FALSE}
+```{r}
+#| label: imap1
+#| echo: false
+#| cache: false
+#| message: false
+#| fig-cap: Map from the previous figure shown using the interactive ("view") mode.
 view_map(my_map, "imap1")
 ```
 
@@ -211,7 +240,8 @@ We also can select a background tile or click on any line and point to get some 
 
 To go back to the `"plot"` mode, we need to use the `tmap_mode()` function again - map not shown:
 
-```{r, fig.show='hide'}
+```{r}
+#| fig-show: hide
 tmap_mode("plot")
 my_map
 ```

@@ -1,0 +1,6 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# tmap options {#options}

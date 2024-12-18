@@ -1,0 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Animations
+
+<!-- tmap animations are a set of raster graphic images stitched together -->
