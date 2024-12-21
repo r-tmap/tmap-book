@@ -192,7 +192,7 @@ my_map
 
 <!-- refs  -->
 
-## Map modes {#sec-modes}
+## Map modes {#sec-map-modes}
 
 Each map created with **tmap** can be viewed in one of two modes: `"plot"` and `"view"`.
 The `"plot"` mode is used by default and creates static maps similar to those shown before in this chapter. 

@@ -9,8 +9,8 @@ Maps created programmatically can serve several purposes, from exploratory, thro
 Therefore, often we want just to see our map on the screen, but sometimes we also want to save our map results to an external file.
 **tmap** objects can be directly saved to output files with `tmap_save()`^[Standard R approach of saving graphic files by opening a graphic device, e.g., `png()`, plotting the data, and then closing the device with `dev.off()` also works.].
 
-The `tmap_save()` function allows to save our map in three groups of file formats, (a) raster graphics (section \@ref(raster-graphic-formats)), (b) vector graphics (section \@ref(vector-graphic-formats)), and (c) interactive ones (section \@ref(interactive-format)).
-Additionally, chapter \@ref(animations) shows how to save map animations with the use of the `tmap_animation()` function.
+The `tmap_save()` function allows to save our map in three groups of file formats, (a) raster graphics (@sec-raster-graphic-formats), (b) vector graphics (@sec-vector-graphic-formats), and (c) interactive ones (@sec-interactive-format).
+Additionally, @sec-animations shows how to save map animations with the use of the `tmap_animation()` function.
 
 For the examples in this section, we will use a simple map of the Easter Island polygon with the island name superimposed (not shown), stored in the `tm` object.
 
@@ -55,10 +55,10 @@ They are pixels (`"px"`) when the value is greater than 50, and inches (`"in"`) 
 Units can also be changed with the `units` argument.
 
 This function also has several additional arguments, including `outer.margins`, `scale` and `asp`.
-All of them override the arguments' values set in `tm_layout()` (chapter \@ref(layout)).
+All of them override the arguments' values set in `tm_layout()` (@sec-layout).
 Additionally, when set to `0`, the' asp' argument has a side effect: it moves the map frame to the edges of the output image.
 
-By default, **tmap** uses graphic devices^[Short discussion about graphic devices can be found in section \@ref(fonts-tmap).] incorporated in R.
+By default, **tmap** uses graphic devices^[Short discussion about graphic devices can be found in section @sec-fonts-tmap.] incorporated in R.
 However, it is also possible to use other, external devices with the `device` argument.
 
 ```{r}
@@ -78,7 +78,7 @@ tmap_save(tm, "my_map_j2.jpg", quality = 100)
 ## Vector graphic formats {#sec-vector-graphic-formats}
 
 Vector graphics are quite distant relatives of spatial vectors, with vector graphics consisting of sets of coordinates.
-Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (section \@ref(vector-data-model)), but also using curves.
+Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (@sec-vector-data-model), but also using curves.
 This makes it possible to create polygons, circles, ellipses, and others.
 They also allow storing of text and other objects.
 Common vector graphic file formats are SVG, EPS, PDF.
@@ -109,7 +109,7 @@ Note, however, that this process is not fully reproducible.
 
 ## Interactive format {#sec-interactive-format}
 
-`tmap` map objects can not only be viewed in the interactive mode (section \@ref(map-modes)) but also saved as HTML files by adding the `.html` extension to the output file name.
+`tmap` map objects can not only be viewed in the interactive mode (@sec-map-modes) but also saved as HTML files by adding the `.html` extension to the output file name.
 
 ```{r}
 tmap_save(tm, "my_map.html")
