@@ -6,14 +6,14 @@ source("code/before_script.R")
 # **tmap** in a nutshell {#sec-nutshell}
 
 The **tmap** package allows the creation of thematic maps with great flexibility.
-It accepts spatial data in various formats shape objects (section \@ref(shape-objects))
-Next, the data can be used to create simple, quick maps (section \@ref(quick-maps)) and more complex and expandable maps (section \@ref(regular-maps)).
+It accepts spatial data in various formats shape objects (@sec-shape-objects)
+Next, the data can be used to create simple, quick maps (@sec-quick-maps) and more complex and expandable maps (@sec-regular-maps).
 These maps can be presented in two modes - as a static map and an interactive one.
-Additionally, **tmap** makes it possible to create small multiples map (section \@ref(sm-section)) and map animations (section \@ref(ani-section)).
+Additionally, **tmap** makes it possible to create small multiples map (@sec-sm-section) and map animations (@sec-ani-section).
 
 ## Shape objects {#sec-shape-objects}
 
-As we established in chapter \@ref(geodata), spatial data comes in various file formats related to two main data models - vector and raster.
+As we established in @sec-geodata, spatial data comes in various file formats related to two main data models - vector and raster.
 There are also several spatial object classes in R, for example, `sf` from the **sf** package for vector data and `stars` from **stars** for raster data and spatial data cubes.
 Additionally, packages such as **sp**, **raster**, or **terra** offer their own classes, and this abundance of spatial object classes can be generally overwhelming.
 Gladly, **tmap** can work with all of the above objects - it treats all supported spatial data classes as so-called *shape objects*.
@@ -40,7 +40,7 @@ On the other hand, **tmap** is suitable when our goal is to visualize spatial ge
 The **tmap** package offers a distinction between quick and regular maps.
 The first approach, using the `qtm()` function, could be handy for data exploration.
 It works even if we just provide any *shape object* - in that case, only the geometry is plotted.
-Figure \@ref(fig:qtm):A shows a visualization of the geometries from the `volcanoes`.
+@fig-qtm A shows a visualization of the geometries from the `volcanoes`.
 
 ```{r}
 #| eval: false
@@ -48,19 +48,17 @@ qtm(volcanoes)
 ```
 
 The `qtm()` function allows to customize many map elements for the provided *shape object*.
-For example, we can change the shapes of the points in `volcanoes`, make their sizes related to the the `"elevation"` argument, and add a title (Figure \@ref(fig:qtm):B).
+For example, we can change the shapes of the points in `volcanoes`, make their sizes related to the the `"elevation"` argument, and add a title (@fig-qtm B).
 
 ```{r}
 #| eval: false
 qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes")
 ```
 
-(ref:qtm) Two maps created with `qtm()`: (A) by providing only a shape object, (B) by providing a shape object and some other arguments.
-
 ```{r}
-#| label: qtm
+#| label: fig-qtm
 #| echo: false
-#| fig-cap: (ref:qtm)
+#| fig-cap: Example of a quick map created with the `qtm()` function. A) A map with geometries only. B) A map with geometries and attributes.
 tmq1 = qtm(volcanoes) + tm_layout(title = "A")
 tmq2 = qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes") +
    tm_layout(title = "B   Volcanoes")
@@ -79,7 +77,7 @@ Next, map layers, additional map elements, and overall layout can be customized.
 <!-- update terminology later -->
 <!-- references -->
 
-The last example in \@ref(quick-maps) can be reproduced with the regular map approach using the following code:
+The last example in @sec-quick-maps can be reproduced with the regular map approach using the following code:
 
 ```{r}
 #| eval: false
@@ -90,7 +88,7 @@ tm_shape(volcanoes) +
 
 Here, we specify the input data (our shape object) with `tm_shape()`, aesthetics (also known as *visual variables*) of map layers with `tm_symbols()`, and the map title with `tm_layout()`.
 
-The **tmap** package has a number of possible map layers, but the most prominent ones are `tm_polygons()`, `tm_symbols()`, `tm_lines()`, `tm_raster()`, and `tm_text()` (chapter \@ref(layers)).
+The **tmap** package has a number of possible map layers, but the most prominent ones are `tm_polygons()`, `tm_symbols()`, `tm_lines()`, `tm_raster()`, and `tm_text()` (@sec-layers).
 Overall, most visual variables of map layers can be assigned in two main ways.
 First, they accept a fixed, constant value, for instance, `shape = 24`, which sets the symbols' shapes to triangles.
 Second, it is also possible to provide a variable name, for example `size = "elevation"`.
@@ -111,16 +109,14 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
 ```
 
-Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group* (Figure \@ref(fig:rmap1)).
-
-(ref:rmap1) Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer.
+Look at the following example and try to guess how many *groups* it has, and how many layers exist for each *group* (@fig-rmap1).
 
 ```{r}
-#| label: rmap1
+#| label: fig-rmap1
 #| warning: false
 #| fig-height: 9
 #| fig-asp: 0.73
-#| fig-cap: (ref:rmap1)
+#| fig-cap: "Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer."
 tm_shape(ei_elev) +
   tm_raster(style = "cont", palette = "-RdYlGn",
             title = "Elevation (m asl)") +
@@ -143,13 +139,13 @@ The last *group* is similar to our previous example with fixed symbol shapes and
 Additionally, we use the `tm_layout()` function to add a map title.
 <!-- ref to other parts of the book -->
 
-Often, maps also have additional map elements, such as graticule lines, north arrow, scale bar, or map credits (Figure \@ref(fig:rmap2)). 
+Often, maps also have additional map elements, such as graticule lines, north arrow, scale bar, or map credits (@fig-rmap2). 
 They help map readers to understand data location or its size, and provide some ancillary information.
 The **tmap** package offers a set of functions for additional map elements.
 The `tm_graticules()` function draws latitude and longitude graticules and adds their labels.
 It also uses the layered approach, and thus, the lines will be drawn either below or above the shape objects, depending on the position of this function in the code.
 In our example below, `tm_graticules()` is used after all of the map groups, and that is why the graticule lines are put on the top of the spatial data.
-We can also use `tm_compass()` to create a north arrow, `tm_scale_bar()` to add a scale bar, and `tm_credits()` to add a text annotation representing credits or acknowledgments.
+We can also use `tm_compass()` to create a north arrow, `tm_scalebar()` to add a scale bar, and `tm_credits()` to add a text annotation representing credits or acknowledgments.
 The location of all these three elements on the map is, by default, automatically determined.
 It, however, can be adjusted with the `position` argument - see an example of its use in the `tm_compass()` function below.
 Moreover, it is possible to add any type of manual legend with `tm_add_legend()`.
@@ -170,7 +166,7 @@ my_map = tm_shape(ei_elev) +
              title.size = "Volcanoes (m asl)") +
   tm_graticules() +
   tm_compass(position = c("right", "top")) +
-  tm_scale_bar() +
+  tm_scalebar() +
   tm_credits("Author, 2021") +
   # tm_add_legend(type = "line", col = "black", title = "Roads") +
   tm_layout(main.title = "Easter Island",
@@ -180,13 +176,11 @@ my_map = tm_shape(ei_elev) +
 Maps created with **tmap** can be saved as an R object.
 This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects to files.
 
-(ref:rmap2) Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
-
 ```{r}
-#| label: rmap2
+#| label: fig-rmap2
 #| fig-height: 9
 #| fig-asp: 0.73
-#| fig-cap: (ref:rmap2)
+#| fig-cap: Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
 my_map
 ```
 
@@ -225,7 +219,7 @@ These messages inform us that some map elements specified in the previous code a
 It includes the text annotation ("Credits"), the north arrow ("Compass"), and some legend options.
 
 ```{r}
-#| label: imap1
+#| label: fig-imap1
 #| echo: false
 #| cache: false
 #| message: false
@@ -233,9 +227,9 @@ It includes the text annotation ("Credits"), the north arrow ("Compass"), and so
 view_map(my_map, "imap1")
 ```
 
-Our main result is the interactive map (Figure \@ref(fig:imap1)).
+Our main result is the interactive map (@fig-imap1).
 <!-- improve -->
-It shows our spatial data using similar aesthetics to Figure \@ref(fig:rmap2), but allows us to zoom in and out or move the map.
+It shows our spatial data using similar aesthetics to @fig-rmap2, but allows us to zoom in and out or move the map.
 We also can select a background tile or click on any line and point to get some information.
 
 To go back to the `"plot"` mode, we need to use the `tmap_mode()` function again - map not shown:
@@ -246,16 +240,16 @@ tmap_mode("plot")
 my_map
 ```
 
-More information about the interactive `"view"` mode and how to customize its outputs is in chapter \@ref(interactive).
+More information about the interactive `"view"` mode and how to customize its outputs is in @sec-interactive.
 
 ## Small multiples {#sec-sm-section}
 
 <!-- to write after the \@ref(multiples) chapter is done -->
 
-Chapter \@ref(multiples) 
+@sec-multiples
 
 ## Animations {#sec-ani-section}
 
 <!-- to write after the \@ref(animations) chapter is done -->
 
-Chapter \@ref(animations)
+@sec-animations

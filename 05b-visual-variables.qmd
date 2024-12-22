@@ -15,7 +15,7 @@ All of them can influence our perception and understanding of the presented info
 <!-- size symbol only has four symbols (the rest have five) -->
 
 ```{r}
-#| label: visual-variables
+#| label: fig-visual-variables
 #| echo: false
 #| warning: false
 #| message: false
@@ -26,13 +26,13 @@ visual_variables()
 ```
 
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
-Figure \@ref(fig:visual-variables) shows examples of different visual variables.
+@fig-visual-variables shows examples of different visual variables.
 Color is the most universal visual variable.
-It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (sections \@ref(color-palettes) and \@ref(color-scale-styles)).
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (@sec-color-palettes and @sec-color-scale-styles).
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
-Quantitative values of line data can be shown with the widths of the lines (section \@ref(sizes)).
-The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (section \@ref(shapes)).
+Quantitative values of line data can be shown with the widths of the lines (@sec-sizes).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (@sec-shapes).
 <!--JN: line type is it a shape or should we make a new group-->
 Similarly, qualitative variables in lines can be presented by different line types.
 Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
@@ -46,8 +46,8 @@ Values of polygons usually cannot be represented by either shapes or sizes, as t
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
 On the other hand, poor decisions about colors can lead to misinterpretation of the map.
-Section \@ref(color-palettes) explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
-Section \@ref(color-scale-styles) focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
+@sec-color-palettes explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
+@sec-color-scale-styles focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
 
 ### Color palettes {#sec-color-palettes}
 
@@ -122,7 +122,7 @@ For example, using a bright or dark background color on a map has an impact on h
 <!-- hard to grasp, hard to learn, look for good examples and be inspired -->
 
 \index{color palettes}
-Generally, color palettes can be divided into three main types (Figure \@ref(fig:palette-types)):
+Generally, color palettes can be divided into three main types (@fig-palette-types):
 
 - **Categorical** (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
@@ -139,7 +139,7 @@ It can also be used on maps to represent difference or change as well.
 <!-- idea: replace one diverging palette with the dark in the middle -->
 <!-- do it, if (when) tmap has hcl.colors build-in -->
 ```{r}
-#| label: palette-types
+#| label: fig-palette-types
 #| echo: false
 #| fig-cap: 'Examples of three main types of color palettes: categorical, sequential,
 #|   and diverging'
@@ -211,7 +211,7 @@ worldvector = read_sf("data/worldvector.gpkg")
 
 <!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
 By default, the **tmap** package attempts to identify the type of the used variable.
-Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"` (Figure \@ref(fig:tmpals)).
+Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"` (@fig-tmpals).
 <!-- info about tm_layout or reference to a section about it -->
 
 ```{r}
@@ -220,8 +220,8 @@ tm_shape(worldvector) +
   tm_polygons("life_expectancy")
 ```
 
-It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (Figure \@ref(fig:tmpals)).
-A vector of colors can be specified using color names or hexadecimal representations (Figure \@ref(fig:tmpals)).
+It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (@fig-tmpals).
+A vector of colors can be specified using color names or hexadecimal representations (@fig-tmpals).
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
 **tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
 
@@ -231,7 +231,7 @@ tm_shape(worldvector) +
   tm_polygons("life_expectancy", palette = c("yellow", "darkgreen"))
 ```
 
-Another approach is to provide the output of a palette function (Figure \@ref(fig:tmpals)).
+Another approach is to provide the output of a palette function (@fig-tmpals).
 In the example below, we derived seven colors from `"ag_GrnYl"` palette.
 This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
 Thus, we also used the `rev()` function here. 
@@ -242,7 +242,7 @@ tm_shape(worldvector) +
   tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl")))
 ```
 
-The last approach is to use one of the names of color palettes build-in in **tmap** (Figure \@ref(fig:tmpals)).
+The last approach is to use one of the names of color palettes build-in in **tmap** (@fig-tmpals).
 In this example, we used the `"YlGn"` palette that goes from yellow to green.
 
 ```{r}
@@ -255,13 +255,11 @@ You can find all of the named color palettes using an interactive app with `tmap
 It is also possible to reverse the order of any named color palette by using the `-` prefix.
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
-(ref:tmpals) Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes.
-
 ```{r}
-#| label: tmpals
+#| label: fig-tmpals
 #| warning: false
 #| echo: false
-#| fig-cap: (ref:tmpals)
+#| fig-cap: "Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes."
 tm_pal1 = tm_shape(worldvector) +
   tm_polygons("life_expectancy") +
   tm_layout(title = "A")
@@ -280,12 +278,12 @@ tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
 <!-- state that the above example of setting colors works for most of palettes -->
 
 <!-- midpoint argument -->
-The default color palette for positive numerical variables is `"YlOrBr"` as seen in Figure \@ref(fig:tmmidpoint):A.
+The default color palette for positive numerical variables is `"YlOrBr"` as seen in @fig-tmmidpoint A.
 On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"RdYlGn"` color palette, with red colors below the midpoint value, yellow color around the midpoint value, and green colors above the midpoint value.
 The use of diverging color palettes can be adjusted using the `midpoint` argument. 
 It has a value of 0 as the default, however, it is possible to change it to any other value.
 For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
-To do that, we just need to set the `midpoint` argument to this value (Figure \@ref(fig:tmmidpoint):B).
+To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint B).
 <!-- , style = "cont" -->
 
 ```{r}
@@ -295,7 +293,7 @@ tm_shape(worldvector) +
 ```
 
 ```{r}
-#| label: tmmidpoint
+#| label: fig-tmmidpoint
 #| warning: false
 #| echo: false
 #| fig-cap: Examples of (A) a map with the default sequential color palette and (B) a
@@ -320,12 +318,12 @@ However, it is possible to change this color with the `colorNA` argument and its
 **tmap** has a special way to set colors for categorical maps manually.
 It works by providing a named vector to the `palette` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
-You can see it in the example below, where we plot the `"region_un"` categorical variable (Figure \@ref(fig:tmcatpals)).
+You can see it in the example below, where we plot the `"region_un"` categorical variable (@fig-tmcatpals).
 Each category in this variable (e.g., `"Africa"`) has a new, connected to it color (e.g., `"#11467b"`).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories -->
 ```{r}
-#| label: tmcatpals
+#| label: fig-tmcatpals
 #| warning: false
 #| fig-cap: An example of a categorical map with manually selected colors.
 #| fig-height: 2
@@ -379,7 +377,7 @@ The `alpha` argument is useful in two ways: one - it allows us to see-through so
 \index{Color scale styles}
 `tm_polygons()` accepts three ways of specifying the fill color with the `col` argument^[To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.].
 The first one is to fill all polygons with the same color.
-This happens when we provide a single color value, either as a color name or its hexadecimal form (section \@ref(color-palettes)) (Figure \@ref(fig:colorscales1)).
+This happens when we provide a single color value, either as a color name or its hexadecimal form (@sec-color-palettes) (@fig-colorscales1).
 
 ```{r}
 #| eval: false
@@ -388,7 +386,7 @@ tm_shape(worldvector) +
 ```
 
 ```{r}
-#| label: colorscales1
+#| label: fig-colorscales1
 #| warning: false
 #| echo: false
 #| fig-cap: Example of a map with all polygons filled with the same color.
@@ -408,7 +406,7 @@ In general, a categorical map is created when the provided variable contains cha
 However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.
 
 \index{Categorical maps}
-An example of a categorical map can be seen in Figure \@ref(fig:colorscales2).
+An example of a categorical map can be seen in @fig-colorscales2.
 We created it by providing a character variable's name, `"wb_region"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
 
 ```{r}
@@ -418,7 +416,7 @@ tm_shape(worldvector) +
 ```
 <!-- categorical -->
 ```{r}
-#| label: colorscales2
+#| label: fig-colorscales2
 #| warning: false
 #| message: false
 #| echo: false
@@ -432,7 +430,7 @@ tm_cat
 
 It is possible to change the names of legend labels with the `labels` argument.
 However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the section \@ref(color-palettes), we can also change the used color palette with the `palette` argument.
+As mentioned in the @sec-color-palettes, we can also change the used color palette with the `palette` argument.
 
 ```{r}
 #| eval: false
@@ -449,7 +447,7 @@ Several approaches can be used to convert continuous variables to discrete ones,
 **tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
 Most of them (except `"log10_pretty"`) use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
-By default, the `"pretty"` style is used (Figure \@ref(fig:discrete-methods):A).
+By default, the `"pretty"` style is used (@fig-discrete-methods A).
 This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
 
 ```{r}
@@ -461,7 +459,7 @@ tm_shape(worldvector) +
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
 While not every `n` is possible depending on the input values, **tmap** will try to create a number of classes as close to possible to the preferred one.
 
-The next approach is to manually select the limits of each break with the `breaks` function (Figure \@ref(fig:discrete-methods):B).
+The next approach is to manually select the limits of each break with the `breaks` function (@fig-discrete-methods B).
 This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the `labels` argument.
@@ -490,7 +488,7 @@ This method has an advantage or not having any empty classes or classes with too
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
 
 To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
-The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (Figure \@ref(fig:discrete-methods):C).
+The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (@fig-discrete-methods C).
 
 <!-- how about adding ggplot2 histograms?? -->
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
@@ -513,7 +511,7 @@ It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and
 Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including `"headtails"` and `"log10_pretty"`.
 The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
-The `"log10_pretty"` style uses a logarithmic base-10 transformation (Figure \@ref(fig:discrete-methods):D).
+The `"log10_pretty"` style uses a logarithmic base-10 transformation (@fig-discrete-methods D).
 In this style, each class starts with a value ten times larger than the beginning of the previous class.
 In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
@@ -530,7 +528,7 @@ tm_shape(worldvector) +
 
 <!-- discrete -->
 ```{r}
-#| label: discrete-methods
+#| label: fig-discrete-methods
 #| warning: false
 #| message: false
 #| echo: false
@@ -559,13 +557,13 @@ tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
 
 \index{Continuous maps}
-Continuous maps also represent continuous numerical variables, but without any discrete class intervals (Figure \@ref(fig:cont-methods)).
+Continuous maps also represent continuous numerical variables, but without any discrete class intervals (@fig-cont-methods).
 Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
 Values change increasingly in all of them, but they differ in the relations between values and colors.
 
 The `cont` style creates a smooth, linear gradient.
 In other words, the change in values is proportionally related to the change in colors.
-We can see that in Figure \@ref(fig:cont-methods):A, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
+We can see that in @fig-cont-methods A, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
 The `cont` style is similar to the `pretty` one, where the values also change linearly.
 The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
 The `cont` style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
@@ -578,7 +576,7 @@ tm_shape(worldvector) +
 ```
 
 However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
-The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (Figure \@ref(fig:cont-methods):B).
+The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (@fig-cont-methods B).
 <!--JN: Martijn please check the next sentence -->
 It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
 
@@ -589,7 +587,7 @@ tm_shape(worldvector) +
               style = "order")
 ```
 
-Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (Figure \@ref(fig:cont-methods):C).
+Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (@fig-cont-methods C).
 
 ```{r}
 #| eval: false
@@ -599,7 +597,7 @@ tm_shape(worldvector) +
 ```
 
 ```{r}
-#| label: cont-methods
+#| label: fig-cont-methods
 #| warning: false
 #| message: false
 #| echo: false
@@ -623,7 +621,7 @@ tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
 ```
 
 The `tm_polygons()` also offer a third way of specifying the fill color.
-When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (Figure \@ref(fig:colorscalesmc)).
+When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (@fig-colorscalesmc).
 
 ```{r}
 #| eval: false
@@ -634,7 +632,7 @@ tm_shape(worldvector) +
 In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
 
 ```{r}
-#| label: colorscalesmc
+#| label: fig-colorscalesmc
 #| warning: false
 #| echo: false
 #| fig-cap: Example of a map with adjacent polygons having different colors.
@@ -680,7 +678,7 @@ Large sizes can be also used to attract viewers' attention.
 
 By default, **t**maps present points, lines, or text objects of the same size. 
 For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
-We can change the sizes of all objects using the `size` argument (Figure \@ref(fig:tmsizes):A).
+We can change the sizes of all objects using the `size` argument (@fig-tmsizes A).
 
 ```{r}
 #| eval: false
@@ -689,7 +687,7 @@ tm_shape(volcanos) +
 ```
 
 On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
-Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (Figure \@ref(fig:tmsizes):B).
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (@fig-tmsizes B).
 
 ```{r}
 #| eval: false
@@ -704,7 +702,7 @@ tm_shape(volcanos) +
 <!-- sizes.legend.labels	 -->
 
 <!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
-We can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (Figure \@ref(fig:tmsizes):C).
+We can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (@fig-tmsizes C).
 However, this only modifies the legend, not the related objects.
 
 ```{r}
@@ -719,7 +717,7 @@ tm_shape(volcanos) +
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
 
 ```{r}
-#| label: tmsizes
+#| label: fig-tmsizes
 #| echo: false
 #| message: false
 #| fig-cap: 'Examples of three approaches for changing sizes of symbols: (A) all symbols
@@ -743,10 +741,10 @@ tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 3)
 ```
 
 Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
-The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (Figure \@ref(fig:tmlwd)).
+The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (@fig-tmlwd).
 
 ```{r}
-#| label: tmlwd
+#| label: fig-tmlwd
 #| fig-asp: 0.66
 #| fig-cap: Example of a map where lines' widths represent values of the corresponding
 #|   lines.
@@ -783,11 +781,11 @@ tm_shape(rivers) +
 Text labels have a role to name features on a map or just to highlight some of them.
 Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
 However, text labels can be also used to represent the values of some numerical variables.
-Figure \@ref(fig:tmtextsize) shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
+@fig-tmtextsize shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
 <!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
 
 ```{r}
-#| label: tmtextsize
+#| label: fig-tmtextsize
 #| fig-asp: 0.25
 #| fig-cap: Example of a map where text sizes represent elevations of the volcanos.
 tm_shape(volcanos) +
@@ -878,7 +876,7 @@ my_icons = tmap_icons(c("images/icon1.png",
 
 ```
 
-Now, we can use the prepared icons in the `shapes` argument (Figure \@ref(fig:tmsymshape):D).
+Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape D).
 <!-- border.col = NULL -->
 
 ```{r}
@@ -890,7 +888,7 @@ tm_shape(ei_points) +
 ```
 
 ```{r}
-#| label: tmsymshape
+#| label: fig-tmsymshape
 #| echo: false
 #| fig-asp: 1.32
 #| fig-cap: 'Examples of two maps with different symbols: (A) default symbols, (B) user-defined
@@ -938,7 +936,7 @@ When we use symbols, then we are able to use colors for one qualitative or quant
 Therefore, it is possible to mix some visual variables for symbols and lines.
 This section shows only some possible examples of mixing visual variables.
 
-Figure \@ref(fig:mixsymb):A shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
+@fig-mixsymb A shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
 This can be set with the `size` and `col` arguments.
 
 ```{r}
@@ -948,7 +946,7 @@ tm_shape(ei_points) +
 ```
 
 We can also modify all of the visual variables using the additional arguments explained in the previous sections.
-For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (Figure \@ref(fig:mixsymb):B).
+For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (@fig-mixsymb B).
 
 ```{r}
 #| eval: false
@@ -961,7 +959,7 @@ When we use plot polygons, there is only one visual variable we can use - color.
 Therefore, changing of map legend's title in functions like `tm_polygons()` or `tm_fill()` is done with the `title` argument.
 However, what to do when we have two or more visual variables in, for example, `tm_symbols()`?
 In these cases, we need to specify a corresponding suffix for each `title` argument. 
-The color title is set with `title.col`, size title with `title.size`, and shape title with `title.size` (Figure \@ref(fig:mixsymb):C).
+The color title is set with `title.col`, size title with `title.size`, and shape title with `title.size` (@fig-mixsymb C).
 
 ```{r}
 #| eval: false
@@ -971,7 +969,7 @@ tm_shape(ei_points) +
 ```
 
 ```{r}
-#| label: mixsymb
+#| label: fig-mixsymb
 #| echo: false
 #| fig-asp: 1
 #| fig-cap: 'Examples of maps using two visual variables at the same time: (A) size and
@@ -990,10 +988,10 @@ tm_mvv3 = tm_shape(ei_points) +
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
 
-For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (Figure \@ref(fig:mixline)).
+For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (@fig-mixline).
 
 ```{r}
-#| label: mixline
+#| label: fig-mixline
 #| echo: false
 #| fig-asp: 0.66
 #| fig-cap: A map using two visual variables, color and size (line width), at the same

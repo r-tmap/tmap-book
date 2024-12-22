@@ -11,7 +11,7 @@ source("code/before_script.R")
 The decision about the used fonts is often neglected when creating programmable plots and maps.
 Most often, the default fonts are used in these kinds of graphs.
 This, however, could be a missed opportunity.
-A lot of map information is expressed by text, including text labels (section \@ref(text)), legend labels, text in attribute layers (section \@ref(attributes-layers)), or the map title (section \@ref(layout-elements)).
+A lot of map information is expressed by text, including text labels (@sec-text), legend labels, text in attribute layers (@sec-attributes-layers), or the map title (@sec-layout-elements).
 The used fonts impact the tone of the map [@guidero_typography_2017], and their customization allows for a map to stand out from maps using default options.
 
 <!-- role of font faces and font families: -->
@@ -60,13 +60,13 @@ tm_ff = tm_shape(World) +
 ```
 
 ```{r}
-#| label: fonts
+#| label: fig-fonts
 #| echo: false
 #| fig-cap: Basic (A) font families, and (B) font faces implemented in the tmap package.
 tmap_arrange(tm_ff + tm_layout(title = "A. Font families"), tm_bf + tm_layout(title = "B. Font faces"), nrow = 1)
 ```
 
-In **tmap**, fonts are represented by a font family (Figure \@ref(fig:fonts):A) and a font face (Figure \@ref(fig:fonts):B).
+In **tmap**, fonts are represented by a font family (@fig-fonts A) and a font face (@fig-fonts B).
 A font family is a collection of closely related lettering designs.
 Examples of font families include *Times*, *Helvetica*, *Courier*, *Palatino*, etc.
 On the other hand, font faces, such as *italic* or *bold*, influence the orientation or width of the fonts.
@@ -74,7 +74,7 @@ A *font* is, thus, a combination of a selected font family and font face.
 
 There are a few general font families, such as serifs, sans serifs, and monospaced fonts.
 Fonts from the serif family have small lines (known as *a serif*) attached to the end of some letters. 
-Notice, for example, short horizontal lines on the bottom of letters *r*, *i*, and *f* or vertical lines at the ends of the letter *s* in the top row of Figure \@ref(fig:fonts):A.
+Notice, for example, short horizontal lines on the bottom of letters *r*, *i*, and *f* or vertical lines at the ends of the letter *s* in the top row of @fig-fonts A.
 The fonts in this family are often viewed as more formal.
 On the other hand, the sans serif family do not have serifs and is considered more informal and modern.
 The last font family, monospaced fonts, is often used in computer programming (IDEs, software text editors), but less often on maps. 
@@ -117,9 +117,9 @@ The **tmap** package has two mechanism to select a font family.
 The first one is by specifying on of three general font families - `serif`, `sans`, or `monospace`.
 It tries to match selected general font family with a font family existing on the operating system. 
 <!-- https://github.com/r-lib/systemfonts#system-defaults -->
-For example, `serif` could the `Times` font family, `sans` - `Helvetica` or `Arial`, and `monospace` - `Courier` (Figure \@ref(fig:fonts):A).
+For example, `serif` could the `Times` font family, `sans` - `Helvetica` or `Arial`, and `monospace` - `Courier` (@fig-fonts A).
 The second mechanism allows to select a font family based on its name (e.g., `Times` or `Palatino`).
-Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (Figure \@ref(fig:fonts):B).
+Next, a member of the selected font families can be selected with one of the font faces: `plain`, `italic`, `bold`, and `bold.italic` (@fig-fonts B).
 
 <!-- build-in fonts only -->
 As mentioned before, available fonts depend on the computer setup (including operating system) and used graphic device. 
@@ -160,9 +160,9 @@ volcanos = subset(ei_points, type == "volcano")
 ```
 
 <!-- explain defaults -->
-By default, **tmap** uses the `sans` font family with the `plain` font face (Figure \@ref(fig:tmtext)). 
+By default, **tmap** uses the `sans` font family with the `plain` font face (@fig-fonts). 
 There are, however, three ways to customize the used fonts.
-The first one is to change all of the fonts and font faces for the whole map at once (Figure \@ref(fig:mfonts):A).
+The first one is to change all of the fonts and font faces for the whole map at once (@fig-mfonts A).
 This can be done with the `fontfamily` and `fontface` arguments of `tm_layout()`.
 
 ```{r}
@@ -178,7 +178,7 @@ tm_shape(ei_borders) +
             fontfamily = "serif")
 ```
 
-The second way is to specify just some text elements independently (Figure \@ref(fig:mfonts):B).
+The second way is to specify just some text elements independently (@fig-mfonts B).
 Many **tmap** functions, such as `tm_text()` or `tm_credits()`, have their own `fontfamily` and `fontface` arguments that can be adjusted.
 Additionally, `tm_layout()` allows to customize fonts for other map elements using prefixed arguments, such as, `main.title.fontface` or `legend.title.fontfamily`.
 
@@ -196,7 +196,7 @@ tm_shape(ei_borders) +
 ```
 
 ```{r}
-#| label: mfonts
+#| label: fig-mfonts
 #| echo: false
 #| fig-cap: Examples of (A) one font (font family and font face) used for all of the
 #|   map elements (title, text labels, legend, and text annotation), and (B) different
@@ -242,7 +242,7 @@ attr_layers_df = tibble::tribble(
   ~Function, ~Description,
   "tm_grid()", "draws coordinate grid lines of the coordinate system of the main shape object",
   "tm_graticules()", "draws latitude and longitude graticules", 
-  "tm_scale_bar()", "adds a scale bar", 
+  "tm_scalebar()", "adds a scale bar", 
   "tm_compass()", "adds a compass rose", 
   "tm_credits()", "adds a text annotation", 
   "tm_logo()", "adds a logo",
@@ -253,10 +253,10 @@ attr_layers_df = tibble::tribble(
 ```
 
 <!-- intro about attribute layers -->
-\@ref(tab:attr-layers-table)
+@tbl-attr-layers-table
 
 ```{r}
-#| label: attr-layers-table
+#| label: tbl-attr-layers-table
 #| echo: false
 #| warning: false
 library(magrittr)
@@ -285,7 +285,7 @@ tm
 
 The **tmap** package offers two ways to draws coordinate lines - `tm_grid()` and `tm_graticules()`.
 The role of `tm_grid()` is to represent the input data’s coordinates.
-For example, the `ei_borders` object's CRS is UTM zone 12S with the units in meters (figure \@ref(fig:grids):A).
+For example, the `ei_borders` object's CRS is UTM zone 12S with the units in meters (@fig-grids A).
 
 ```{r}
 #| label: grid1
@@ -296,7 +296,7 @@ tm_shape(ei_borders) +
 ```
 
 `tm_graticules()` shows longitude lines (meridians) and latitude lines (parallels), with degrees as units.
-This can be seen with the degree signs in the labels (figure \@ref(fig:grids):B).
+This can be seen with the degree signs in the labels (@fig-grids B).
 
 ```{r}
 #| label: grid2
@@ -308,7 +308,7 @@ tm_shape(ei_borders) +
 
 Both, `tm_grid()` and `tm_graticules()` can be placed above or below the map layers as their position on the map depends on their place in the code.
 When `tm_grid()` or `tm_graticules()` is placed after the map layer (e.g., `tm_polygons()`), the grid lines are plotted on the top of the map. 
-On the other hand, when `tm_grid()` or `tm_graticules()` is placed before the map layer code, the grid lines are plotted behind the spatial data (figure \@ref(fig:grids):C).
+On the other hand, when `tm_grid()` or `tm_graticules()` is placed before the map layer code, the grid lines are plotted behind the spatial data (@fig-grids C).
 
 ```{r}
 #| label: grid3
@@ -322,7 +322,7 @@ Grids and graticules can also be easily customized using several arguments, such
 It is also possible to customize their appearance, for example, by changing the colors of the lines (`col`), width (`lwd`) or labels' sizes (`labels.size`).
 
 ```{r}
-#| label: grids
+#| label: fig-grids
 #| echo: false
 #| fig-cap: (A) Map grid, (B) graticules, and (C) graticules put behind the map layer.
 #| fig-asp: 0.33
@@ -343,23 +343,23 @@ Scale bar is a graphic indicator of the relation between a distance on a map and
 Nowadays, it is more often used than a traditional representative fraction (e.g., 1:10000).
 Compared to the representative fraction, scale bars work correctly on variable screen sizes or different print sizes, as their sizes change together with the rest of the map. 
 
-The `tm_scale_bar()` function adds a scale bar. 
+The `tm_scalebar()` function adds a scale bar. 
 By default, it tries to create a scale bar with the width of 1/4 of the whole map, and fills it with several breaks.
-It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument (figure \@ref(fig:scalebar)).
+It is possible, however, to manually update the values of scale bar's breaks with the `breaks` argument and its size with the `text.size` argument (@fig-scalebar).
 
 ```{r}
-#| label: scalebar
+#| label: fig-scalebar
 #| fig-cap: A map with a customized scale bar.
 tm +
   tm_scalebar() 
   # tm_scalebar(breaks = c(0, 1, 2), text.size = 1)
 ```
 
-The `tm_scale_bar()` also has several additional arguments, allowing to modify its colors, and position (subsection \@ref(north-arrow)).
+The `tm_scalebar()` also has several additional arguments, allowing to modify its colors, and position (@sec-north-arrow).
 
-Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (subsection \@ref(types-of-map-projections)) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
+Importantly, the scale bar is accurate, depending on a map projection, at standard points or lines only (@sec-proj-types) - it is never completely correct across the whole map. <!--toDo we need to add an explanation what are standard points and lines in the second chapter!!-->
 The scale bar distortion increases with the true size of the area we are mapping - it is less visible on local maps, and very prominent on global maps.
-For example, try to add a scale bar to a world map seen in the section \@ref(shapes-and-layers).
+For example, try to add a scale bar to a world map seen in the @sec-shapes-and-layers.
 The created scale bar will be accurate for the equator, but less and less correct going to the north and south poles.
 
 ```{r}
@@ -370,23 +370,23 @@ library(tmap)
 worldelevation = read_stars("data/worldelevation.tif")
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
-  tm_scale_bar()
+  tm_scalebar()
 ```
 
 ### North arrow {#sec-north-arrow}
 
-North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north^[Orientation may also be shown by graticule or grid lines (subsection \@ref(grid-lines)).].
+North arrow, also known as a map compass or a compass rose, is a prominent orientation indicator pointing to which way is north^[Orientation may also be shown by graticule or grid lines (@sec-grid-lines).].
 The decision on whether to use north arrows or not usually requires some critical thinking.
 While, it can be added to every map, north arrows are not always necessary - especially on maps of large areas (e.g., continents), where the cardinal directions are obvious for most people.
 The North arrow is, however, necessary when the north on the map is offset (rotated) and recommended when we want to help orient the map readers. 
 
 We can use the `tm_compass()` function to add the north arrow. 
 By default, its "north" is oriented toward the top of the map (the `north` argument of `0`), and the north arrow is represented by an actual arrow (the `type` argument of `"arrow"`).
-**tmap** offers also a few other north arrow types, including `"4star"` (figure \@ref(fig:northarrow)), `"8star"`, `"radar"`, and `"rose"`.
-The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (figure \@ref(fig:northarrow)).
+**tmap** offers also a few other north arrow types, including `"4star"` (@fig-northarrow), `"8star"`, `"radar"`, and `"rose"`.
+The north arrow can be also further customized with the `size`, `show.labels` and `cardinal.directions` arguments, and its colors may be modified (`text.color`, `color.dark`, `color.light`) (@fig-northarrow).
 
 ```{r}
-#| label: northarrow
+#| label: fig-northarrow
 #| fig-cap: A map with customized north arrow.
 tm +
   tm_compass(type = "4star", size = 2, position = c("left", "top"))
@@ -398,7 +398,7 @@ The x coordinate can be set with `"left"`, `"LEFT"`, `"center"`, `"right"`, or `
 The arguments with all letters uppercase result in a position closer to the map frame (without margins).
 Alternatively, `position` can be specified with numeric values between 0 and 1 representing the x and y value of the left bottom corner of the north arrow.
 
-The `position` argument also works in the same way in other functions, such as `tm_scale_bar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
+The `position` argument also works in the same way in other functions, such as `tm_scalebar()`, `tm_credits()`, `tm_logo()`, and in some of the `tm_layout()` arguments - `legend.position`, `title.position`, or `attr.position`.
 
 ### Text annotation {#sec-text-annotation}
 
@@ -406,10 +406,10 @@ The `position` argument also works in the same way in other functions, such as `
 Text annotations, also known as map credits, are used to store additional information about the created map.
 They can include the source of data, the name of the author, the date of map creation, or information about the map projection.
 
-Text annotations are created with the `tm_credits()` function, which can be used more than one time (figure \@ref(fig:credits)).
+Text annotations are created with the `tm_credits()` function, which can be used more than one time (@fig-credits).
 
 ```{r}
-#| label: credits
+#| label: fig-credits
 #| fig-cap: A map with placeholders for text annotations.
 tm +
   tm_credits("Data source: ", fontface = "italic") +
@@ -417,19 +417,19 @@ tm +
 ```
 
 The first argument of `tm_credits()` is the text, which can be spread over multiple lines with the line break symbol `\n`.
-When the created map has several facets (section \@ref(multiples)), it is also possible to provide each facet a different text.
+When the created map has several facets (@sec-multiples), it is also possible to provide each facet a different text.
 In that case, a vector of characters is expected, where you can use `""` to omit the credits for specific facets.
-Text annotations can also be further customized, by changing their sizes (`size`), colors (`color`), positions, and fonts (section \@ref(fonts-on-maps)).
+Text annotations can also be further customized, by changing their sizes (`size`), colors (`color`), positions, and fonts (@sec-fonts-on-maps).
 
 ### Logo {#sec-logo}
 
 Logos on maps can serve a similar purpose as text annotation or accompany them.
 They can represent your affiliation, funding institution, data sources logos, etc.
 
-The `tm_logo()` function adds png images, either from a file or url, to the map (figure \@ref(fig:logos)).
+The `tm_logo()` function adds png images, either from a file or url, to the map (@fig-logos).
 
 ```{r}
-#| label: logos
+#| label: fig-logos
 #| fig-cap: A map with an array of R logos.
 tm +
   tm_logo("https://www.r-project.org/logo/Rlogo.png",

@@ -804,7 +804,7 @@ Also today, the Web Mercator is the de facto standard for interactive maps and n
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
 We will discuss this in the next section.
 
-### Types of map projections {#sec-crs-types}
+### Types of map projections {#sec-proj-types}
 
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
@@ -1044,7 +1044,7 @@ Alternatively, cylindrical and conic map projection types can be used for areas 
 Another alternative is to use a UTM projection.
 However, this is only recommended when the target area spans less than 6 degrees longitude.<!--and do not cross the UTM zone lines-->
 
-### CRS in R {#sec-crs-r}
+### CRS in R {#sec-crs-in-r}
 
 \index{coordinate reference system (CRS)}
 \index{PROJ}
