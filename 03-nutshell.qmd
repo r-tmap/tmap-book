@@ -118,15 +118,15 @@ Look at the following example and try to guess how many *groups* it has, and how
 #| fig-asp: 0.73
 #| fig-cap: "Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer."
 tm_shape(ei_elev) +
-  tm_raster(col.scale = tm_scale_continuous(values = "-rd_yl_gn"),
+  tm_raster(col.scale = tm_scale_continuous(values = "geyser"),
             col.legend = tm_legend(title = "Elevation (m asl)")) +
   tm_shape(ei_borders) + 
   tm_borders() +
-  tm_shape(ei_roads) + 
+  tm_shape(ei_roads) +
   tm_lines(lwd = "strokelwd", lwd.legend = tm_legend_hide()) +
   tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
-             size.legend(title = "Volcanoes (m asl)")) +
+             size.legend = tm_legend(title = "Volcanoes (m asl)")) +
   tm_title("Easter Island") +
   tm_layout(bg.color = "lightblue")
 ```
@@ -155,22 +155,22 @@ It includes simple legends, such as the `"Roads"` legend below that is only repr
 ```{r}
 #| warning: false
 my_map = tm_shape(ei_elev) +
-  tm_raster(style = "cont", palette = "-RdYlGn",
-            title = "Elevation (m asl)") +
+  tm_raster(col.scale = tm_scale_continuous(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)")) +
   tm_shape(ei_borders) + 
   tm_borders() +
-  tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
+  tm_shape(ei_roads) +
+  tm_lines(lwd = "strokelwd", lwd.legend = tm_legend_hide()) +
   tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
-             title.size = "Volcanoes (m asl)") +
+             size.legend = tm_legend(title = "Volcanoes (m asl)")) +
   tm_graticules() +
   tm_compass(position = c("right", "top")) +
   tm_scalebar() +
   tm_credits("Author, 2021") +
   # tm_add_legend(type = "line", col = "black", title = "Roads") +
-  tm_layout(main.title = "Easter Island",
-            bg.color = "lightblue")
+  tm_title("Easter Island") +
+  tm_layout(bg.color = "lightblue")
 ```
 
 Maps created with **tmap** can be saved as an R object.
