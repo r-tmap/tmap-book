@@ -1139,12 +1139,12 @@ ctp1 = tm_shape(World, projection = 4326) +
   tm_shape(waterfalls_sf) +
     tm_markers(text = "name") +
   tm_grid() +
-  tm_layout(title = "A")
+  tm_title("A")
 ctp2 = tm_shape(World, projection = 8857) +
     tm_polygons() +
   tm_shape(waterfalls_sf_trans) +
     tm_markers(text = "name") +
   tm_grid() +
-  tm_layout(title = "B")
+  tm_title("B")
 tmap_arrange(ctp1, ctp2, ncol = 1)
 ```

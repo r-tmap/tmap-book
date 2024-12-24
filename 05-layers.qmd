@@ -47,12 +47,12 @@ options(kableExtra.html.bsTable = TRUE)
 knitr::kable(layers_df, 
              caption = "Map layers.",
              caption.short = "Map layers.",
-             booktabs = TRUE) %>%
+             booktabs = TRUE) |>
   kableExtra::kable_styling("striped",
                             latex_options = "striped", 
-                            full_width = FALSE) %>% 
-  kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) %>% 
-  kableExtra::pack_rows("Basic functions", 1, 7) %>%
+                            full_width = FALSE) |> 
+  kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) |> 
+  kableExtra::pack_rows("Basic functions", 1, 7) |>
   kableExtra::pack_rows("Derived functions", 8, 15)
 ```
 
@@ -125,16 +125,43 @@ This is necessary to distinguish between the setting of the fillings color and t
 #| fig-cap: "Example of a map created with: (A) `tm_polygons()`, (B) `tm_fill()`, (C) `tm_borders()`."
 #| fig-asp: 0.4
 tmpa0 = tm_shape(ei_borders) +
-  tm_polygons(col = "lightblue", 
-              border.col = "black", lwd = 0.5, lty = "dashed") +
-  tm_layout(title = "A")
+  tm_polygons(fill = "lightblue", 
+              col = "black", lwd = 0.5, lty = "dashed") +
+  tm_title("A")
 tmpa1 = tm_shape(ei_borders) +
-  tm_fill(col = "lightblue") +
-  tm_layout(title = "B")
+  tm_fill(fill = "lightblue") +
+  tm_title("B")
 tmpa2 = tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed") +
-  tm_layout(title = "C")
+  tm_title("C")
 tmap_arrange(tmpa0, tmpa1, tmpa2, nrow = 1)
+```
+
+
+```{r}
+#| label: fig-tmpolygonsder2
+#| warning: false
+#| echo: false
+#| fig-cap: "Example of a map created with:"
+#| fig-subcap: 
+#|   - "(A) tm_polygons()"
+#|   - "(B) tm_fill()"
+#|   - "(C) tm_borders()"
+#| fig-asp: 0.4
+#| layout-nrow: 1
+tmpa0 = tm_shape(ei_borders) +
+  tm_polygons(col = "lightblue", 
+              border.col = "black", lwd = 0.5, lty = "dashed") +
+  tm_title("A")
+tmpa1 = tm_shape(ei_borders) +
+  tm_fill(col = "lightblue") +
+  tm_title("B")
+tmpa2 = tm_shape(ei_borders) +
+  tm_borders(col = "black", lwd = 0.5, lty = "dashed") +
+  tm_title("C")
+tmpa0
+tmpa1
+tmpa2
 ```
 
 More information on colors, and how they can be applied and modified is explained in detail in @sec-colors.
@@ -216,16 +243,16 @@ tm_shape(volcanos) +
 #| fig-asp: 0.69
 tm_ma1 = tm_shape(volcanos) +
   tm_squares() +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_ma2 = tm_shape(volcanos) +
   tm_bubbles() +
-  tm_layout(title = "B")
+  tm_title("B")
 tm_ma3 = tm_shape(volcanos) +
   tm_dots() +
-  tm_layout(title = "C")
+  tm_title("C")
 tm_ma4 = tm_shape(volcanos) +
   tm_markers() +
-  tm_layout(title = "D")
+  tm_title("D")
 tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
 ```
 
@@ -253,7 +280,6 @@ Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (@fig-tmtext).
 
-
 ```{r}
 #| label: fig-tmtext
 #| fig-cap: "Example of a map created with tm_text()."
@@ -262,12 +288,14 @@ tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
   tm_layout(legend.outside = TRUE)
 ```
+
 ```{r}
 #| echo: false
 #| eval: false
 tm_shape(ei_roads) + 
   tm_lines(lwd = "strokelwd") +
-  tm_text("name", remove.overlap = TRUE, along.lines = TRUE)
+  tm_text("name", 
+          options = opt_tm_text(remove_overlap = TRUE, along_lines = TRUE))
 ```
 
 We can adjust colors (`col`) and sizes (`size`; @sec-sizes) of labels either by providing a single value or a name of a data variable.
@@ -285,9 +313,9 @@ Where should the labels be placed for lines or polygons - in the center of a lin
 ```{r}
 #| echo: false
 #| eval: false
-metro3 = metro2 %>% 
-  dplyr::mutate(g = rep(1:5, 6)) %>% 
-  dplyr::group_by(g) %>% 
+metro3 = metro2 |>
+  dplyr::mutate(g = rep(1:5, 6)) |> 
+  dplyr::group_by(g) |> 
   dplyr::summarize()
 tm_shape(metro3) +
   tm_text(text = "g", size = "g") +
@@ -297,8 +325,8 @@ tm_shape(metro3) +
 
 ```{r}
 #| warning: false
-# x2 = x %>% 
-#   dplyr::group_by(region_un) %>% 
+# x2 = x |> 
+#   dplyr::group_by(region_un) |> 
 #   dplyr::summarise()
 # tm_shape(x2) +
 #   tm_polygons() +
@@ -319,24 +347,26 @@ Isopleths can be created with the `tm_iso()` function.
 ```{r}
 # to improve
 library(stars)
+library(terra)
 ei_elev = read_stars("data/easter_island/ei_elev.tif")
-ei_elev_raster = as(ei_elev, "Raster")
-elev_isopleths = raster::rasterToContour(ei_elev_raster)
-elev_isopleths = st_as_sf(elev_isopleths)
+ei_elev_raster = rast(ei_elev)
+elev_isopleths = as.contour(ei_elev_raster)
 tm_shape(elev_isopleths) +
   tm_iso(col = "black", text = "level")
 ```
 
 ```{r}
-hs = raster::hillShade(slope = raster::terrain(ei_elev_raster, "slope"), 
-                       aspect = raster::terrain(ei_elev_raster, "aspect"))
+ei_terrain = terra::terrain(ei_elev_raster, c("slope", "aspect"), unit = "radians")
+hs = terra::shade(ei_terrain[[1]]*3, ei_terrain[[2]])
 
 tm_shape(hs) +
 	tm_grid() +
-	tm_raster(palette = gray(0:100 / 100), n = 100, legend.show = FALSE) +
+	tm_raster(col.scale = tm_scale(values = gray(0:100 / 100), n = 100),
+            col.legend = tm_legend_hide()) +
 	tm_shape(ei_elev) +
-	tm_raster(alpha = 0.5, palette = terrain.colors(25),
-	          legend.show = FALSE) +
+	tm_raster(col_alpha = 0.25,
+            col.scale = tm_scale(values = terrain.colors(25)),
+            col.legend = tm_legend_hide()) +
 	tm_shape(elev_isopleths) +
 	tm_lines(col = "white") +
 	tm_text("level", col = "white")
@@ -386,11 +416,12 @@ tm_shape(ei_geomorphons) +
 #| echo: false
 #| fig-cap: Examples of (A) continuous raster maps, and (B) categorical raster maps.
 tmrt1 = tm_shape(ei_elev) +
-  tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis") +
-  tm_layout(title = "A")
+  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
+            col.legend = tm_legend(title = "Elevation (m asl):")) +
+  tm_title("A")
 tmrt2 = tm_shape(ei_geomorphons) +
-  tm_raster(title = "Geomorphons:", style = "cat") +
-  tm_layout(title = "B")
+  tm_raster(col.legend = tm_legend(title = "Geomorphons:")) +
+  tm_title("B")
 tmap_arrange(tmrt1, tmrt2)
 ```
 
@@ -465,11 +496,11 @@ tm_shape(landsat) +
 # tmrgb1 = tm_shape(landsat) +
 #   tm_rgb(r = 3, g = 2, b = 1,
 #          max.value = 32000) +
-#   tm_layout(title = "A")
+#   tm_title("A")
 # tmrgb2 = tm_shape(landsat) +
 #   tm_rgb(r = 4, g = 3, b = 2,
 #          max.value = 32000) +
-#   tm_layout(title = "B")
+#   tm_title("B")
 # tmap_arrange(tmrgb1, tmrgb2, asp = NA)
 ```
 
@@ -569,6 +600,7 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 ```{r}
 #| message: false
 #| cache: false
+#| eval: false
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, provider = "CartoDB.VoyagerNoLabels", zoom = 12, crop = TRUE)
 ```
@@ -586,6 +618,7 @@ The code below plots the `"CartoDB.VoyagerNoLabels"` tiles in the background, ad
 #| echo: false
 #| cache: false
 #| message: false
+#| eval: false
 library(tmap)
 library(sf)
 ei_borders = read_sf("data/easter_island/ei_border.gpkg")
@@ -594,6 +627,7 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ```{r}
 #| label: fig-stiles
 #| cache: false
+#| eval: false
 #| fig-cap: 'Example of a static map using a downloaded `"CartoDB.VoyagerNoLabels"` tile layer.'
 tmap_mode("plot")
 tm_shape(ei_tiles) + 

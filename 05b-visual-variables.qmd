@@ -262,16 +262,16 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 #| fig-cap: "Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes."
 tm_pal1 = tm_shape(worldvector) +
   tm_polygons("life_expectancy") +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_pal2 = tm_shape(worldvector) +
   tm_polygons("life_expectancy", palette = c("yellow", "darkgreen")) +
-  tm_layout(title = "B")
+  tm_title("B")
 tm_pal3 = tm_shape(worldvector) +
   tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl"))) +
-  tm_layout(title = "C")
+  tm_title("C")
 tm_pal4 = tm_shape(worldvector) +
   tm_polygons("life_expectancy", palette = "YlGn") +
-  tm_layout(title = "D")
+  tm_title("D")
 tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
              ncol = 2)
 ```
@@ -302,10 +302,10 @@ tm_shape(worldvector) +
 # mean(x$lifeExp, na.rm = TRUE)
 tm_mp1 = tm_shape(worldvector) +
   tm_polygons(col = "life_expectancy") +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_mp2 = tm_shape(worldvector) +
   tm_polygons(col = "life_expectancy", midpoint = 71) +
-  tm_layout(title = "B")
+  tm_title("B")
 tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
 ```
 
@@ -536,20 +536,20 @@ tm_shape(worldvector) +
 #| fig-cap: (ref:discrete-methods)
 tm_pre = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap") +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_fix = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap", 
               breaks = c(0, 10000, 30000, 111000),
               labels = c("low", "medium", "high")) +
-  tm_layout(title = "B")
+  tm_title("B")
 tm_jen = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap", 
               style = "jenks") +
-  tm_layout(title = "C")
+  tm_title("C")
 tm_lop = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap", 
               style = "log10_pretty") +
-  tm_layout(title = "D")
+  tm_title("D")
 tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
              outer.margins = 0)
 ```
@@ -607,15 +607,15 @@ tm_shape(worldvector) +
 tm_con = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap",
               style = "cont") +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_ord = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap",
               style = "order") +
-  tm_layout(title = "B")
+  tm_title("B")
 tm_log = tm_shape(worldvector) +
   tm_polygons(col = "gdp_per_cap",
               style = "log10") +
-  tm_layout(title = "C")
+  tm_title("C")
 tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
              outer.margins = 0)
 ```
@@ -727,16 +727,16 @@ For example in the above code, we just show examples of how symbols with populat
 library(tmap)
 tmsize1 = tm_shape(volcanos) +
  tm_symbols(size = 0.5)  +
-  tm_layout(title = "A")
+  tm_title("A")
 tmsize2 = tm_shape(volcanos) +
  tm_symbols(size = "elevation") +
-  tm_layout(title = "B")
+  tm_title("B")
 tmsize3 = tm_shape(volcanos) +
  tm_symbols(size = "elevation",
             title.size = "Elevation",
             sizes.legend = c(100, 600),
             sizes.legend.labels = c("low", "high")) +
-  tm_layout(title = "C")
+  tm_title("C")
 tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 3)
 ```
 
@@ -897,21 +897,21 @@ tmsymshape1 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
              title.shape = "Type:",
              shapes.labels = c("Cave entrance", "Peak", "Volcano")) +
-  tm_layout(title = "A")
+  tm_title("A")
 tmsymshape2 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
              shapes = c(0, 2, 5))  +
-  tm_layout(title = "B")
+  tm_title("B")
 tmsymshape3 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
              shapes = list(p4, p4, p4),
              border.col = NULL) +
-  tm_layout(title = "C")
+  tm_title("C")
 # tmsymshape4 = tm_shape(ei_points) +
 #   tm_symbols(shape = "type",
 #              shapes = my_icons,
 #              border.col = NULL) +
-#   tm_layout(title = "D")
+#   tm_title("D")
 tmap_arrange(tmsymshape1, tmsymshape2,
              tmsymshape3, 
              # tmsymshape4,
@@ -976,15 +976,15 @@ tm_shape(ei_points) +
 #|   color, (B) color and shape, (C) size and shape.'
 tm_mvv1 = tm_shape(ei_points) +
  tm_symbols(size = "sv", col = "elevation") +
-  tm_layout(title = "A")
+  tm_title("A")
 tm_mvv2 = tm_shape(ei_points) +
   tm_symbols(col = "elevation", style = "cont", palette = "Greens",
              shape = "type", shapes = c(23, 24, 25)) +
-  tm_layout(title = "B")
+  tm_title("B")
 tm_mvv3 = tm_shape(ei_points) +
  tm_symbols(size = "elevation", title.size = "Elevation:",
             shape = "type", title.shape = "Type:") +
-  tm_layout(title = "C")
+  tm_title("C")
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
 

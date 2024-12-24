@@ -52,16 +52,16 @@ For example, we can change the shapes of the points in `volcanoes`, make their s
 
 ```{r}
 #| eval: false
-qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes")
+qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes")
 ```
 
 ```{r}
 #| label: fig-qtm
 #| echo: false
 #| fig-cap: Example of a quick map created with the `qtm()` function. A) A map with geometries only. B) A map with geometries and attributes.
-tmq1 = qtm(volcanoes) + tm_layout(title = "A")
-tmq2 = qtm(volcanoes, symbols.shape = 24, symbols.size = "elevation", title = "Volcanoes") +
-   tm_layout(title = "B   Volcanoes")
+tmq1 = qtm(volcanoes) + tm_title("A")
+tmq2 = qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes") +
+   tm_title("BVolcanoes")
 tmap_arrange(tmq1, tmq2)
 ```
 
@@ -83,7 +83,7 @@ The last example in @sec-quick-maps can be reproduced with the regular map appro
 #| eval: false
 tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation") +
-  tm_layout(title = "volcanoes")
+  tm_title("Volcanoes")
 ```
 
 Here, we specify the input data (our shape object) with `tm_shape()`, aesthetics (also known as *visual variables*) of map layers with `tm_symbols()`, and the map title with `tm_layout()`.
@@ -118,17 +118,17 @@ Look at the following example and try to guess how many *groups* it has, and how
 #| fig-asp: 0.73
 #| fig-cap: "Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer."
 tm_shape(ei_elev) +
-  tm_raster(style = "cont", palette = "-RdYlGn",
-            title = "Elevation (m asl)") +
+  tm_raster(col.scale = tm_scale_continuous(values = "-rd_yl_gn"),
+            col.legend = tm_legend(title = "Elevation (m asl)")) +
   tm_shape(ei_borders) + 
   tm_borders() +
   tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd", legend.lwd.show = FALSE) +
+  tm_lines(lwd = "strokelwd", lwd.legend = tm_legend_hide()) +
   tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
-             title.size = "Volcanoes (m asl)") +
-  tm_layout(main.title = "Easter Island",
-            bg.color = "lightblue")
+             size.legend(title = "Volcanoes (m asl)")) +
+  tm_title("Easter Island") +
+  tm_layout(bg.color = "lightblue")
 ```
 
 The correct answer is four groups, all with just one layer.

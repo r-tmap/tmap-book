@@ -63,7 +63,7 @@ tm_ff = tm_shape(World) +
 #| label: fig-fonts
 #| echo: false
 #| fig-cap: Basic (A) font families, and (B) font faces implemented in the tmap package.
-tmap_arrange(tm_ff + tm_layout(title = "A. Font families"), tm_bf + tm_layout(title = "B. Font faces"), nrow = 1)
+tmap_arrange(tm_ff + tm_title("A. Font families"), tm_bf + tm_title("B. Font faces"), nrow = 1)
 ```
 
 In **tmap**, fonts are represented by a font family (@fig-fonts A) and a font face (@fig-fonts B).
@@ -328,11 +328,11 @@ It is also possible to customize their appearance, for example, by changing the 
 #| fig-asp: 0.33
 tmap_arrange(
     <<grid1>>
-      + tm_layout(title = "A"),
+      + tm_title("A"),
     <<grid2>>
-      + tm_layout(title = "B"),
+      + tm_title("B"),
     <<grid3>>
-      + tm_layout(title = "C"),
+      + tm_title("C"),
     nrow = 1
 )
 ```

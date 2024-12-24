@@ -134,10 +134,10 @@ tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
 #|   = TRUE, (B) created using raster.warp = FALSE.'
 tmp1 = tm_shape(worldelevation, projection = 8857) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
-  tm_layout(title = "A")
+  tm_title("A")
 tmp2 = tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
   tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
-  tm_layout(title = "B")
+  tm_title("B")
 tmap_arrange(tmp1, tmp2)
 ```
 
@@ -263,16 +263,16 @@ tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) 
 #| fig-cap: "A map of world's countries based on: (A) original data, (B) simplified data with 5% of vertices kept, (C) simplified data with 5% of vertices, and all features kept, (D) simplified data with 5% of vertices, all features, and all polygons kept."
 tms1 = tm_shape(worldvector) +
   tm_polygons() +
-  tm_layout(title = "A")
+  tm_title("A")
 tms2 = tm_shape(worldvector, simplify = 0.05) +
   tm_polygons() +
-  tm_layout(title = "B")
+  tm_title("B")
 tms3 = tm_shape(worldvector, simplify = 0.05, keep.units = TRUE) +
   tm_polygons() +
-  tm_layout(title = "C")
+  tm_title("C")
 tms4 = tm_shape(worldvector, simplify = 0.05, keep.units = TRUE, keep.subunits = TRUE) +
   tm_polygons() +
-  tm_layout(title = "D")
+  tm_title("D")
 tmap_arrange(tms1, tms2, tms3, tms4)
 ```
 
@@ -315,10 +315,10 @@ tm_shape(worldelevation, raster.downsample = FALSE) +
 # tmap_options(max.raster = c(plot = 5000, view = 2000))
 tmr1 = tm_shape(worldelevation) +
   tm_raster("worldelevation.tif") +
-  tm_layout(title = "A")
+  tm_title("A")
 tmr2 = tm_shape(worldelevation, raster.downsample = FALSE) +
   tm_raster("worldelevation.tif") +
-  tm_layout(title = "B")
+  tm_title("B")
 tmap_arrange(tmr1, tmr2)
 ```
 
