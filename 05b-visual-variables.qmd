@@ -228,7 +228,8 @@ Importantly, the length of the provided vector does not need to be equal to the 
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = c("yellow", "darkgreen"))
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = c("yellow", "darkgreen")))
 ```
 
 Another approach is to provide the output of a palette function (@fig-tmpals).
@@ -239,7 +240,8 @@ Thus, we also used the `rev()` function here.
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl")))
+  tm_polygons("life_expectancy", 
+              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl"))))
 ```
 
 The last approach is to use one of the names of color palettes build-in in **tmap** (@fig-tmpals).
@@ -248,7 +250,8 @@ In this example, we used the `"YlGn"` palette that goes from yellow to green.
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = "YlGn")
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = "YlGn"))
 ```
 
 You can find all of the named color palettes using an interactive app with `tmaptools::palette_explorer()`. 
@@ -264,16 +267,18 @@ tm_pal1 = tm_shape(worldvector) +
   tm_polygons("life_expectancy") +
   tm_title("A")
 tm_pal2 = tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = c("yellow", "darkgreen")) +
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = c("yellow", "darkgreen"))) +
   tm_title("B")
 tm_pal3 = tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = rev(hcl.colors(7, "ag_GrnYl"))) +
+  tm_polygons("life_expectancy", 
+              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl")))) +
   tm_title("C")
 tm_pal4 = tm_shape(worldvector) +
-  tm_polygons("life_expectancy", palette = "YlGn") +
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = "YlGn")) +
   tm_title("D")
-tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4,
-             ncol = 2)
+tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4, ncol = 2)
 ```
 <!-- state that the above example of setting colors works for most of palettes -->
 
@@ -289,7 +294,8 @@ To do that, we just need to set the `midpoint` argument to this value (@fig-tmmi
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy", midpoint = 73)
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(midpoint = 73))
 ```
 
 ```{r}
@@ -301,10 +307,11 @@ tm_shape(worldvector) +
 #| fig-height: 2
 # mean(x$lifeExp, na.rm = TRUE)
 tm_mp1 = tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy") +
+  tm_polygons(fill = "life_expectancy") +
   tm_title("A")
 tm_mp2 = tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy", midpoint = 71) +
+  tm_polygons(fill = "life_expectancy",, 
+              fill.scale = tm_scale(midpoint = 73)) +
   tm_title("B")
 tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
 ```
@@ -329,7 +336,7 @@ Each category in this variable (e.g., `"Africa"`) has a new, connected to it col
 #| fig-height: 2
 tm_shape(worldvector) + 
   tm_polygons("wb_region", 
-    palette = c(
+    fill.scale = tm_scale(values = c(
       "Latin America & Caribbean" = "#11467b",
       "Europe & Central Asia" = "#ffd14d", 
       "Middle East & North Africa" = "#86909a", 
@@ -337,20 +344,23 @@ tm_shape(worldvector) +
       "East Asia & Pacific" = "#7fbee9",
       "South Asia" = "#df5454",
       "North America" = "#7b1072")
-    )
+    ))
 ```
 
 ```{r}
 #| echo: false
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy")
+  tm_polygons(fill = "life_expectancy")
 tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy", alpha = 0.5) 
+  tm_polygons(fill = "life_expectancy", fill_alpha = 0.5) 
 tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy", colorNA = "purple", textNA = "I do not know!") 
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(value.na = "purple",
+                                    label.na = "I do not know!")) 
 tm_shape(worldvector) +
-  tm_polygons(col = "life_expectancy", contrast = c(0.4, 1)) 
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(values.range = c(0.4, 1))) 
 ```
 
 \index{color palettes!transparency}
@@ -382,7 +392,7 @@ This happens when we provide a single color value, either as a color name or its
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "lightblue")
+  tm_polygons(fill = "lightblue")
 ```
 
 ```{r}
@@ -392,7 +402,7 @@ tm_shape(worldvector) +
 #| fig-cap: Example of a map with all polygons filled with the same color.
 #| fig-height: 2
 tm_one = tm_shape(worldvector) +
-  tm_polygons(col = "lightblue")
+  tm_polygons(fill = "lightblue")
 tm_one
 ```
 
@@ -412,7 +422,7 @@ We created it by providing a character variable's name, `"wb_region"`, in the `c
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "wb_region")
+  tm_polygons(fill = "wb_region")
 ```
 <!-- categorical -->
 ```{r}
@@ -424,7 +434,7 @@ tm_shape(worldvector) +
 #| fig-cap: Example of a map in which polygons are colored based on the values of a categorical
 #|   variable.
 tm_cat = tm_shape(worldvector) +
-  tm_polygons(col = "wb_region")
+  tm_polygons(fill = "wb_region")
 tm_cat
 ```
 
@@ -436,7 +446,8 @@ As mentioned in the @sec-color-palettes, we can also change the used color palet
 #| eval: false
 #| echo: false
 tm_shape(worldvector) +
-  tm_polygons(col = "wb_region", labels = as.character(1:7))
+  tm_polygons(fill = "wb_region",
+              fill.scale = tm_scale(labels = as.character(1:7)))
 ```
 
 <!-- optimal number of classes? 3-7 -->
@@ -453,7 +464,7 @@ This style creates breaks that are whole numbers and spaces them evenly ^[For mo
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap")
+  tm_polygons(fill = "gdp_per_cap")
 ```
 
 It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
@@ -467,9 +478,9 @@ Additionally, we can add a label to each break with the `labels` argument.
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              breaks = c(0, 10000, 30000, 111000),
-              labels = c("low", "medium", "high"))
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(breaks = c(0, 10000, 30000, 111000),
+                                    labels = c("low", "medium", "high")))
 ```
 
 <!-- interval.closure	 -->
@@ -496,8 +507,8 @@ The most common optimization method used in cartography is the Jenks optimizatio
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              style = "jenks")
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(style = "jenks"))
 ```
 
 The Fisher method (`style = "fisher"`) has a similar role, which creates groups with maximized homogeneity [@fisher_grouping_1958].
@@ -520,8 +531,8 @@ However, maps with logarithmically transformed variables are usually less intuit
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              style = "log10_pretty")
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(style = "log10_pretty"))
 ```
 
 (ref:discrete-methods) Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.
@@ -535,20 +546,20 @@ tm_shape(worldvector) +
 #| fig-height: 3.46
 #| fig-cap: (ref:discrete-methods)
 tm_pre = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap") +
+  tm_polygons(fill = "gdp_per_cap") +
   tm_title("A")
 tm_fix = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              breaks = c(0, 10000, 30000, 111000),
-              labels = c("low", "medium", "high")) +
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(breaks = c(0, 10000, 30000, 111000),
+                                    labels = c("low", "medium", "high"))) +
   tm_title("B")
 tm_jen = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              style = "jenks") +
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(style = "jenks")) +
   tm_title("C")
 tm_lop = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap", 
-              style = "log10_pretty") +
+  tm_polygons(fill = "gdp_per_cap", 
+              fill.scale = tm_scale(style = "log10_pretty")) +
   tm_title("D")
 tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
              outer.margins = 0)
@@ -571,8 +582,8 @@ The `cont` style works well in situations where there is a large number of objec
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "cont")
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_continuous())
 ```
 
 However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
@@ -583,8 +594,8 @@ It is fairly analogous to the `quantile` style, with the values on a color scale
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "order")
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_rank())
 ```
 
 Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (@fig-cont-methods C).
@@ -592,8 +603,8 @@ Finally, the `log10` style is the continuous equivalent of the `log10_pretty` st
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "log10")
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_continuous_log())
 ```
 
 ```{r}
@@ -605,16 +616,16 @@ tm_shape(worldvector) +
 #| fig-cap: 'Examples of three methods of creating continuous maps: (A) the ‘cont’ method,
 #|   (B) the ‘order’ method, and (C) the ‘log10’ method.'
 tm_con = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "cont") +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_continuous()) +
   tm_title("A")
 tm_ord = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "order") +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_rank()) +
   tm_title("B")
 tm_log = tm_shape(worldvector) +
-  tm_polygons(col = "gdp_per_cap",
-              style = "log10") +
+  tm_polygons(fill = "gdp_per_cap",
+              fill.scale = tm_scale_continuous_log()) +
   tm_title("C")
 tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
              outer.margins = 0)
@@ -626,7 +637,7 @@ When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored i
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
-  tm_polygons(col = "MAP_COLORS")
+  tm_polygons(fill = "MAP_COLORS")
 ```
 
 In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
@@ -638,7 +649,7 @@ In this case, it is also possible to change the default colors with the `palette
 #| fig-cap: Example of a map with adjacent polygons having different colors.
 #| fig-height: 2
 tm_uni = tm_shape(worldvector) +
-  tm_polygons(col = "MAP_COLORS")
+  tm_polygons(fill = "MAP_COLORS")
 tm_uni
 ```
 
@@ -656,11 +667,11 @@ data("metro", package = "tmap")
 data("rivers", package = "tmap")
 data("land", package = "tmap")
 tm_shape(metro) +
- tm_symbols(col = "pop2030", style = "cont") 
+ tm_symbols(fill = "pop2030", fill.scale = tm_scale_continuous()) 
 tm_shape(rivers) +
- tm_lines(col = "strokelwd", style = "cont") 
+ tm_lines(col = "strokelwd", col.scale = tm_scale_continuous()) 
 tm_shape(land) +
- tm_raster(col = "elevation", style = "cont") 
+ tm_raster(col = "elevation", col.scale = tm_scale_continuous()) 
 ```
 
 <!-- title?? -->
@@ -709,9 +720,9 @@ However, this only modifies the legend, not the related objects.
 #| eval: false
 tm_shape(volcanos) +
  tm_symbols(size = "elevation",
-            title.size = "Elevation",
-            sizes.legend = c(100, 600),
-            sizes.legend.labels = c("low", "high")) 
+            size.scale = tm_scale(ticks = c(100, 600),
+                                  labels = c("low", "high")),
+            size.legend = tm_legend(title = "Elevation"))
 ```
 
 For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
@@ -733,9 +744,9 @@ tmsize2 = tm_shape(volcanos) +
   tm_title("B")
 tmsize3 = tm_shape(volcanos) +
  tm_symbols(size = "elevation",
-            title.size = "Elevation",
-            sizes.legend = c(100, 600),
-            sizes.legend.labels = c("low", "high")) +
+            size.scale = tm_scale(ticks = c(100, 600),
+                                  labels = c("low", "high")),
+            size.legend = tm_legend(title = "Elevation")) +
   tm_title("C")
 tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 3)
 ```
@@ -765,17 +776,16 @@ Also, similarly to the last example of the `tm_symbols` above, it is possible to
 tm_shape(rivers) + 
   tm_lines(lwd = "strokelwd")
 tm_shape(rivers) + 
-  tm_lines(lwd = "strokelwd", 
-           scale = 2)
+  tm_lines(lwd = "strokelwd", lwd.scale = tm_scale(values.scale = 2))
 tm_shape(rivers) + 
   tm_lines(lwd = "strokelwd", 
-           scale = 2, n = 6)
+           lwd.scale = tm_scale(values.scale = 2, n = 12))
 tm_shape(rivers) + 
   tm_lines(lwd = "strokelwd",
-           scale = 2,
-           title.lwd = "Line legend",
-           lwd.legend = c(1, 2, 3, 5, 10, 15),
-           lwd.legend.labels = LETTERS[1:6])
+           lwd.scale = tm_scale(values.scale = 2,
+                                ticks = c(1, 2, 3, 5, 10, 15)),
+           lwd.legend = tm_legend(title = "Line legend",
+                                  labels = LETTERS[1:6]))
 ```
 
 Text labels have a role to name features on a map or just to highlight some of them.
@@ -815,8 +825,8 @@ It expects the name of the categorical variable.
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             title.shape = "Type:",
-             shapes.labels = c("Cave entrance", "Peak", "Volcano"))
+             shape.legend = tm_legend(title = "Type:",
+                                      labels = c("Cave entrance", "Peak", "Volcano")))
 ```
 
 By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
@@ -832,7 +842,7 @@ A complete list of available symbols and their corresponding numbers is in the `
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = c(0, 2, 5))
+             shape.scale = tm_scale(values = c(0, 2, 5)))
 ```
 
 Second option is to use a *grob* object.
@@ -854,8 +864,7 @@ p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() +
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = list(p4, p4, p4),
-             border.col = NULL)
+             shape.scale = tm_scale(values = list(p4, p4, p4)))
 ```
 
 <!-- explain what's a grob -->
@@ -872,8 +881,6 @@ In our example, we have three distinct groups, therefore we need to create new i
 my_icons = tmap_icons(c("images/icon1.png", 
                         "images/icon2.png", 
                         "images/icon3.png"))
-
-
 ```
 
 Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape D).
@@ -883,8 +890,7 @@ Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape D).
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = my_icons,
-             border.col = NULL)
+             shape.scale = tm_scale(values = my_icons))
 ```
 
 ```{r}
@@ -895,17 +901,16 @@ tm_shape(ei_points) +
 #|   symbols, (C) grob objects, and (D) icons.'
 tmsymshape1 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             title.shape = "Type:",
-             shapes.labels = c("Cave entrance", "Peak", "Volcano")) +
+             shape.legend = tm_legend(title = "Type:",
+                                      labels = c("Cave entrance", "Peak", "Volcano"))) +
   tm_title("A")
 tmsymshape2 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = c(0, 2, 5))  +
+             shape.scale = tm_scale(values = c(0, 2, 5)))  +
   tm_title("B")
 tmsymshape3 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
-             shapes = list(p4, p4, p4),
-             border.col = NULL) +
+             shape.scale = tm_scale(values = list(p4, p4, p4))) +
   tm_title("C")
 # tmsymshape4 = tm_shape(ei_points) +
 #   tm_symbols(shape = "type",
@@ -942,7 +947,7 @@ This can be set with the `size` and `col` arguments.
 ```{r}
 #| eval: false
 tm_shape(ei_points) +
-  tm_symbols(size = "sv", col = "elevation")
+  tm_symbols(size = "sv", fill = "elevation")
 ```
 
 We can also modify all of the visual variables using the additional arguments explained in the previous sections.
@@ -951,8 +956,10 @@ For example, we can set the color style (`style`), color palette (`palette`), or
 ```{r}
 #| eval: false
 tm_shape(ei_points) +
-  tm_symbols(col = "elevation", style = "cont", palette = "Greens",
-             shape = "type", shapes = c(23, 24, 25))
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale_continuous(values = "Greens"),
+             shape = "type",
+             shape.scale = tm_scale(values = c(23, 24, 25)))
 ```
 
 When we use plot polygons, there is only one visual variable we can use - color. 
@@ -964,8 +971,8 @@ The color title is set with `title.col`, size title with `title.size`, and shape
 ```{r}
 #| eval: false
 tm_shape(ei_points) +
- tm_symbols(size = "elevation", title.size = "Elevation:",
-            shape = "type", title.shape = "Type:")
+ tm_symbols(size = "elevation", size.legend = tm_legend(title = "Elevation:"),
+            shape = "type", shape.legend = tm_legend(title = "Type:"))
 ```
 
 ```{r}
@@ -975,15 +982,17 @@ tm_shape(ei_points) +
 #| fig-cap: 'Examples of maps using two visual variables at the same time: (A) size and
 #|   color, (B) color and shape, (C) size and shape.'
 tm_mvv1 = tm_shape(ei_points) +
- tm_symbols(size = "sv", col = "elevation") +
+  tm_symbols(size = "sv", fill = "elevation") +
   tm_title("A")
 tm_mvv2 = tm_shape(ei_points) +
-  tm_symbols(col = "elevation", style = "cont", palette = "Greens",
-             shape = "type", shapes = c(23, 24, 25)) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale_continuous(values = "Greens"),
+             shape = "type",
+             shape.scale = tm_scale(values = c(23, 24, 25))) +
   tm_title("B")
 tm_mvv3 = tm_shape(ei_points) +
- tm_symbols(size = "elevation", title.size = "Elevation:",
-            shape = "type", title.shape = "Type:") +
+  tm_symbols(size = "elevation", size.legend = tm_legend(title = "Elevation:"),
+            shape = "type", shape.legend = tm_legend(title = "Type:"))+
   tm_title("C")
 tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
 ```
@@ -997,6 +1006,7 @@ For line data, we can present its qualitative and quantitative variables using c
 #| fig-cap: A map using two visual variables, color and size (line width), at the same
 #|   time.
 tm_shape(ei_roads) +
-  tm_lines(col = "type", lwd = "strokelwd", palette = "Set1")
+  tm_lines(col = "type", lwd = "strokelwd", 
+           col.scale = tm_scale(values = "Set1"))
 ```
 
