@@ -93,8 +93,7 @@ Both, colors of areas (polygons' fillings) and colors of borders can be modified
 ```{r}
 #| eval: false
 tm_shape(ei_borders) +
-  tm_polygons(col = "lightblue", 
-              border.col = "black", lwd = 0.5, lty = "dashed")
+  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
 ```
 
 In fact, `tm_polygons()` is a combination of two separate functions - `tm_fill()` and `tm_borders()`.
@@ -103,7 +102,7 @@ The `tm_fill()` function fills polygons with a fixed color or a color palette re
 ```{r}
 #| eval: false
 tm_shape(ei_borders) +
-  tm_fill(col = "lightblue")
+  tm_fill(fill = "lightblue")
 ```
 
 The `tm_borders()` function draws the borders of the polygons only (@fig-tmpolygonsder C).
@@ -125,8 +124,7 @@ This is necessary to distinguish between the setting of the fillings color and t
 #| fig-cap: "Example of a map created with: (A) `tm_polygons()`, (B) `tm_fill()`, (C) `tm_borders()`."
 #| fig-asp: 0.4
 tmpa0 = tm_shape(ei_borders) +
-  tm_polygons(fill = "lightblue", 
-              col = "black", lwd = 0.5, lty = "dashed") +
+  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed") +
   tm_title("A")
 tmpa1 = tm_shape(ei_borders) +
   tm_fill(fill = "lightblue") +
@@ -471,8 +469,8 @@ The result is a true color composite, with green colors representing forests and
 ```{r}
 #| eval: false
 tm_shape(landsat) +
-  tm_rgb(r = 3, g = 2, b = 1,
-         max.value = 31961)
+  tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE))
 ```
 
 True color images are straightforward to interpret and understand, but they make subtle differences in features challenging to recognize.
@@ -484,8 +482,8 @@ Various band combinations emphasize some spatial characteristics, such as water,
 ```{r}
 #| eval: false
 tm_shape(landsat) +
-  tm_rgb(r = 4, g = 3, b = 2,
-         max.value = 31961)
+  tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE))
 ```
 
 ```{r}
@@ -493,17 +491,16 @@ tm_shape(landsat) +
 #| message: false
 #| echo: false
 #| fig-cap: 'Two color composite images: (A) true color composite, (B) false color composite.'
-# tmrgb1 = tm_shape(landsat) +
-#   tm_rgb(r = 3, g = 2, b = 1,
-#          max.value = 32000) +
-#   tm_title("A")
-# tmrgb2 = tm_shape(landsat) +
-#   tm_rgb(r = 4, g = 3, b = 2,
-#          max.value = 32000) +
-#   tm_title("B")
-# tmap_arrange(tmrgb1, tmrgb2, asp = NA)
+tmrgb1 = tm_shape(landsat) +
+  tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE)) +
+  tm_title("A")
+tmrgb2 = tm_shape(landsat) +
+  tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE)) +
+  tm_title("B")
+tmap_arrange(tmrgb1, tmrgb2, asp = NA)
 ```
-
 
 <!-- raster.warp -->
 <!-- raster margins -->
@@ -521,8 +518,7 @@ However, we can change the basemaps with a vector with the names of the tile lay
 ```{r}
 #| eval: false
 tmap_mode("view")
-tm_basemap(c(StreetMap = "OpenStreetMap",
-             TopoMap = "OpenTopoMap")) +
+tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
   tm_shape(volcanos, is.main = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
@@ -537,8 +533,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 #|   volcanos on Easter Island.
 library(tmap)
 tmap_mode("view")
-tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
-             TopoMap = "OpenTopoMap")) +
+tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
   tm_shape(volcanos, is.main = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
 view_map(tmbasemap1, "tmbasemap1")
@@ -554,13 +549,12 @@ A complete list of available basemaps is in the `leaflet::providers` object and 
 The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
 
 The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as overlay layer) of the previous `tm_` layer.
-In the next example, we put the vector `"CartoDB.VoyagerNoLabelsHybrid"` tiles on top of the previously set basemaps, but below the dots layer (@fig-tmtiles1).
+In the next example, we put the vector `"CartoDB.PositronOnlyLabels"` tiles on top of the previously set basemaps, but below the dots layer (@fig-tmtiles1).
 
 ```{r}
 #| eval: false
-tm_basemap(c(StreetMap = "OpenStreetMap",
-             TopoMap = "OpenTopoMap")) +
-  tm_tiles(c(TonerHybrid = "CartoDB.VoyagerNoLabelsHybrid")) +
+tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_tiles(c(CartoDB = "CartoDB.PositronOnlyLabels")) +
   tm_shape(volcanos, is.main = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
@@ -573,9 +567,8 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 #| message: false
 #| fig-cap: OpenStreetMap tile layer used as a base map with dashed lines representing
 #|   island coastline and the red dots representing volcanos on Easter Island.
-tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
-             TopoMap = "OpenTopoMap")) +
-  tm_tiles(c(TonerHybrid = "CartoDB.VoyagerNoLabelsHybrid")) +
+tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_tiles(c(CartoDB = "CartoDB.PositronOnlyLabels")) +
   tm_shape(volcanos, is.main = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
 view_map(tmtiles1, "tmtiles1")
@@ -602,7 +595,8 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 #| cache: false
 #| eval: false
 library(maptiles)
-ei_tiles = get_tiles(ei_borders, provider = "CartoDB.VoyagerNoLabels", zoom = 12, crop = TRUE)
+ei_tiles = get_tiles(ei_borders, provider = "CartoDB.VoyagerNoLabels",
+                     zoom = 12, crop = TRUE)
 ```
 
 In the above example, we downloaded the data for the area of `ei_borders` from the `"CartoDB.VoyagerNoLabels"` provider using the zoom of level 12, and we cropped the tile to the extent of the island area.
