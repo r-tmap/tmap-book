@@ -80,7 +80,7 @@ point_data = st_sf(
     geom = st_sfc(
       st_multipoint(rbind(c(1, 2))),
       st_multipoint(rbind(c(1.4, 1.2), c(2, 1.5))),
-      crs = 4326)
+      crs = "EPSG:4326")
   )
 ```
 
@@ -95,7 +95,7 @@ lines_data = st_sf(
   geom = st_sfc(linestring_sfg1, 
                 linestring_sfg2,
                 linestring_sfg3,
-                crs = 4326)
+                crs = "EPSG:4326")
   )
 lines_data_p = st_cast(lines_data, "MULTIPOINT")
 ```
@@ -125,7 +125,7 @@ polygon_data = st_sf(
   type = c("a", "b"),
   geom = st_sfc(polygon_sfg1, 
                 polygon_sfg2,
-                crs = 4326)
+                crs = "EPSG:4326")
   )
 
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
@@ -214,18 +214,19 @@ sta_sf$A1.2[is.na(sta_sf$A1.1)] = "NA"
 tm_raster1 = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "1. Cell IDs")
+  tm_title("1. Cell IDs") +
+  tm_layout(frame = FALSE)
 
 tm_raster2 = tm_shape(sta_sf) +
   tm_polygons("A1.1") +
   tm_text("A1.2") +
-  tm_layout(frame = FALSE, legend.show = FALSE,
-            main.title = "2. Cell values")
+  tm_title("2. Cell values") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
 
 tm_raster3 = tm_shape(sta) +
   tm_raster("A1.1") +
-  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02,
-            main.title = "3. Raster map")
+  tm_title("3. Raster map") +
+  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02)
 
 tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
@@ -252,7 +253,8 @@ In the last type of raster data grids, curvilinear grids, cells are cuboids of d
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Regular")
+  tm_title("Regular") +
+  tm_layout(frame = FALSE)
 # rotated grids 
 sta_rotated = sta
 attr(attr(sta_rotated, "dimensions"), "raster")$affine = c(0.1, 0.1)
@@ -260,7 +262,8 @@ sta_rotated_sf = st_as_sf(sta_rotated)
 tm_sta_rotated = tm_shape(sta_rotated_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Rotated")
+  tm_title("Rotated") +
+  tm_layout(frame = FALSE)
 # sheared grids
 sta_sheared = sta
 attr(attr(sta_sheared, "dimensions"), "raster")$affine = c(0.1, 0.2)
@@ -268,7 +271,8 @@ sta_sheared_sf = st_as_sf(sta_sheared)
 tm_sta_sheared = tm_shape(sta_sheared_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Sheared")
+  tm_title("Sheared") +
+  tm_layout(frame = FALSE)
 # rectilinear grids
 x = c(0, 0.5, 1.5, 2.1, 3, 5)
 y = rev(c(0.1, 1, 1.5, 2, 4))
@@ -278,7 +282,8 @@ sta_rectilinear_sf = st_as_sf(sta_rectilinear)
 tm_sta_rectilinear = tm_shape(sta_rectilinear_sf) +
   tm_polygons() +
   tm_text("m") +
-  tm_layout(frame = FALSE, main.title = "Rectilinear")
+  tm_title("Rectilinear") +
+  tm_layout(frame = FALSE)
 # curvilinear grids
 sta_curvilinear = sta
 X1 = matrix(rep(1:5, times = 4), nrow = 5, ncol = 4)
@@ -299,7 +304,8 @@ tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
   tm_polygons() +
   tm_text("A1") +
   # tm_grid() +
-  tm_layout(frame = FALSE, main.title = "Curvilinear")
+  tm_title("Curvilinear") +
+  tm_layout(frame = FALSE)
 # all
 tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
                           tm_sta_rectilinear, tm_sta_curvilinear, nrow = 1)
@@ -325,19 +331,23 @@ Additional information about multi-layer rasters can be also found in @sec-spati
 #| fig-cap: 'Example of three satellite imagery bands: red, green, blue, and the composite
 #|   image with true colors created using these three bands.'
 # we can/should change this example later
-landsat234 = raster::stack(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
-tmrgb1 = tm_shape(raster::brick(landsat234[[3]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Red")
-tmrgb2 = tm_shape(raster::brick(landsat234[[2]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Green")
-tmrgb3 = tm_shape(raster::brick(landsat234[[1]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Blue")
+landsat234 = terra::rast(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
+tmrgb1 = tm_shape(landsat234[[3]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  tm_title("Red") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+tmrgb2 = tm_shape(landsat234[[2]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  tm_title("Green") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+tmrgb3 = tm_shape(landsat234[[1]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  tm_title("Blue") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
 tmrgb4 = tm_shape(landsat234) +
-  tm_rgb(r = 3, g = 2, b = 1, max.value = 25780) + 
-  tm_layout(frame = FALSE, main.title = "Composite")
+  tm_rgb(tm_vars(names(landsat234)[3:1], multivariate = TRUE)) + 
+  tm_title("Composite") +
+  tm_layout(frame = FALSE)
 tmap_arrange(tmrgb1, tmrgb2, tmrgb3, tmrgb4, nrow = 1)
 ```
 
@@ -483,7 +493,7 @@ The **tmap** package accepts spatial vector data objects from both **sf** and **
 In case of having vector objects in a different representation, they should be converted into `sf` objects first, before making maps.
 The **sf** package has the `st_as_sf()` function that translates objects of many classes, including `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
 The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
-For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
+For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = "EPSG:4326")`.
 
 If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace2019geocomputation].
 <!-- - vector simplification? -->
@@ -592,7 +602,6 @@ clr_land = "grey85"
 clr_grat = "grey50"
 clr_border = "grey30"
 
-
 #source("code/crs_examples.R", local = knitr::knit_global()) # something strange going on: when saving this R script, the content isn't updated in the envir, or there is a cashing problem. Therefore, I had to add source(... ) to every chunk below.
 ```
 
@@ -642,7 +651,7 @@ goode = map_goode()
 tm_shape(goode$bg) +
 	tm_polygons(clr_peel) +
 tm_shape(goode$land) +
-	tm_polygons(clr_orange_land, border.col = clr_border, lwd = 1) +
+	tm_polygons(clr_orange_land, col = clr_border, lwd = 1) +
 tm_shape(goode$grat) +
   tm_lines(col = clr_grat, lwd = 1) +
 tm_layout(frame = FALSE)
@@ -850,14 +859,16 @@ Almost all commonly used standard World map projections are (pseudo-)cylindrical
 #| fig-asp: 0.45
 #| fig-cap: The Robinson projection, which is pseudo-cylindrical.
 data(World)
-tm_shape(World, projection = "+proj=robin") +
-    tm_polygons(clr_land, border.col = clr_border) +
-  tm_layout(earth.boundary = TRUE,
-            earth.boundary.color = clr_grat,
+tm_shape(World, crs = "+proj=robin") +
+    tm_polygons(clr_land, col = clr_border) +
+  tm_layout(earth_boundary = TRUE,
+            earth_boundary.color = clr_grat,
             bg.color = clr_bg,
             space.color = "white",
             frame = FALSE) +
-  tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.cardinal = FALSE, ticks = FALSE, labels.show = FALSE)
+  tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                col = clr_grat, labels.cardinal = FALSE, 
+                ticks = FALSE, labels.show = FALSE)
 ```
 
 \index{conic map projections}
@@ -893,21 +904,23 @@ m3035 = map_3035()
 
 tmap_arrange({
 tm_shape(meqdc$bg) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
 tm_shape(meqdc$land) +
     tm_polygons(clr_land) +
 tm_shape(meqdc$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-tm_layout(title="(a) World Equidistant Conic projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))},
+    tm_title("(A) World Equidistant Conic projection", size = 0.9, color = "#777777", position = c("center", "bottom")) +
+    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))},
 {tm_shape(m3035$bg) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
 tm_shape(m3035$land) +
     tm_polygons(clr_land) +
 tm_shape(m3035$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-tm_layout(title="(b) Lambert Azimuthal Equal-Area projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))
+    tm_title("(B) Lambert Azimuthal Equal-Area projection", size = 0.9, color = "#777777", position = c("center", "bottom")) +
+    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
 })
 ```
 
@@ -963,9 +976,9 @@ knitr::kable(tb2,
              col.names = NULL,
            caption = "Map projection properties.",
            caption.short = "Map projection properties.",
-           booktabs = TRUE) %>% 
-  kableExtra::kable_styling(font_size = 12) %>% 
-  column_spec(1, width = "14em", bold = TRUE) %>% 
+           booktabs = TRUE) |> 
+  kableExtra::kable_styling(font_size = 12) |> 
+  column_spec(1, width = "14em", bold = TRUE) |> 
   column_spec(c(3,5), width = "14em") 
 ```
 
@@ -992,8 +1005,22 @@ The perception of World population is different in these maps; in (a) the vast l
 #| fig-cap: The Robinson projection, which is pseudo-cylindrical.
 library(grid)
 World = World[World$iso_a3 != "ATA", ]
-tm1 = tm_shape(World, projection = 3857) + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
-tm2 = tm_shape(World, projection = "+proj=eck4") + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
+tm1 = tm_shape(World, crs = "EPSG:3857") + 
+  tm_polygons("pop_est_dens", 
+              fill.scale = tm_scale_continuous_log10(),
+              fill.legend = tm_legend(expression("Population per " * km^2), 
+                                      orientation = "landscape")) +
+  tm_layout(frame = FALSE, legend.frame = TRUE, 
+            inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
+            scale = 0.7, asp = 1)
+tm2 = tm_shape(World, crs = "+proj=eck4") + 
+  tm_polygons("pop_est_dens",
+              fill.scale = tm_scale_continuous_log10(),
+              fill.legend = tm_legend(expression("Population per " * km^2), 
+                                      orientation = "landscape")) +
+  tm_layout(frame = FALSE, legend.frame = TRUE, 
+            inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
+            scale = 0.7, asp = 1)
 tmap_arrange(tm1, tm2)
 grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
 grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
@@ -1028,8 +1055,8 @@ knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
                     `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal")),
              caption = "Recommended projections.",
              caption.short = "Recommended projections.",
-             booktabs = TRUE) %>% 
-  kableExtra::kable_styling(font_size = 12) %>% 
+             booktabs = TRUE) |> 
+  kableExtra::kable_styling(font_size = 12) |> 
   kableExtra::column_spec(1, width = "10em")
 ```
 
@@ -1104,7 +1131,7 @@ We can also confirmed that our operation was successful also using `st_crs()`.
 
 ```{r}
 # specify crs
-st_crs(waterfalls_sf) = 4326
+st_crs(waterfalls_sf) = "EPSG:4326"
 # extract crs
 st_crs(waterfalls_sf)
 ```
@@ -1112,7 +1139,7 @@ st_crs(waterfalls_sf)
 Alternatively, it is possible to set the CRS when creating a new `sf` object, as you can see below.
 
 ```{r}
-waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
+waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = "EPSG:4326")
 ```
 
 The `st_transform()` function is used to convert the existing spatial object's coordinates into another projection.
@@ -1121,7 +1148,7 @@ For example, let's transform our `waterfalls_sf` object to the Equal Earth proje
 ```{r}
 #| label: crs-trans
 #| warning: false
-waterfalls_sf_trans = st_transform(waterfalls_sf, 8857)
+waterfalls_sf_trans = st_transform(waterfalls_sf, "EPSG:8857")
 waterfalls_sf_trans
 ```
 
@@ -1134,17 +1161,17 @@ You can see here that the decision of the projection used has an impact not only
 #| warning: false
 #| fig-cap: 'Comparison between the same dataset of three waterfalls using: (A) the WGS84
 #|   coordinate system, (B) the Equal Earth projection.'
-ctp1 = tm_shape(World, projection = 4326) +
+ctp1 = tm_shape(World, crs = "EPSG:4326") +
     tm_polygons() +
   tm_shape(waterfalls_sf) +
     tm_markers(text = "name") +
   tm_grid() +
-  tm_title("A")
-ctp2 = tm_shape(World, projection = 8857) +
+  tm_title_in("A")
+ctp2 = tm_shape(World, crs = "EPSG:8857") +
     tm_polygons() +
   tm_shape(waterfalls_sf_trans) +
     tm_markers(text = "name") +
   tm_grid() +
-  tm_title("B")
+  tm_title_in("B")
 tmap_arrange(ctp1, ctp2, ncol = 1)
 ```

@@ -30,7 +30,7 @@ library(tmap)
 data("World")
 bf = c("plain", "italic", "bold", "bold.italic")
 tm_bf = tm_shape(World) +
-  tm_borders(alpha = 0) +
+  tm_borders(col_alpha = 0) +
   tm_credits("plain", fontface = "plain", position = c("center", "center"),
              size = 2) +
   tm_credits("italic", fontface = "italic", position = c("center", "center"),
@@ -49,7 +49,7 @@ data("World")
 # ff = c("Times", "Helvetica", "Courier")
 ff = c("serif", "sans", "monospace")
 tm_ff = tm_shape(World) +
-  tm_borders(alpha = 0) +
+  tm_borders(col_alpha = 0) +
   tm_credits("serif", fontfamily = "serif", position = c("center", "center"),
              size = 2) +
   tm_credits("sans", fontfamily = "sans", position = c("center", "center"),
@@ -63,7 +63,8 @@ tm_ff = tm_shape(World) +
 #| label: fig-fonts
 #| echo: false
 #| fig-cap: Basic (A) font families, and (B) font faces implemented in the tmap package.
-tmap_arrange(tm_ff + tm_title("A. Font families"), tm_bf + tm_title("B. Font faces"), nrow = 1)
+tmap_arrange(tm_ff + tm_title("A. Font families"),
+             tm_bf + tm_title("B. Font faces"), nrow = 1)
 ```
 
 In **tmap**, fonts are represented by a font family (@fig-fonts A) and a font face (@fig-fonts B).
@@ -172,9 +173,9 @@ tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
-  tm_credits("Data source: OSM") + 
-  tm_layout(main.title = "Volcanos of Easter Island",
-            fontface = "italic",
+  tm_credits("Data source: OSM") +
+  tm_title("Volcanos of Easter Island") +
+  tm_layout(fontface = "italic",
             fontfamily = "serif")
 ```
 
@@ -190,8 +191,8 @@ tm_shape(ei_borders) +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation", fontfamily = "sans") +
   tm_credits("Data source: OSM", fontface = "bold") +
-  tm_layout(main.title = "Volcanos of Easter Island",
-            main.title.fontface = "bold.italic", 
+  tm_title("Volcanos of Easter Island") +
+  tm_layout(title.fontface = "bold.italic", 
             legend.title.fontfamily = "monospace")
 ```
 
@@ -206,21 +207,21 @@ tmt1 = tm_shape(ei_borders) +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation") +
   tm_credits("Data source: OSM") + 
-  tm_layout(main.title = "Volcanos of Easter Island",
-            fontface = "italic",
+  tm_title("Volcanos of Easter Island") +
+  tm_title_in("A") +
+  tm_layout(fontface = "italic",
             fontfamily = "serif",
             title.fontface = "plain",
-            title.fontfamily = "sans",
-            title = "A")
+            title.fontfamily = "sans")
 tmt2 = tm_shape(ei_borders) +
   tm_polygons() +
   tm_shape(volcanos) +
   tm_text(text = "name", size = "elevation", fontfamily = "sans") +
   tm_credits("Data source: OSM", fontface = "bold") +
-  tm_layout(main.title = "Volcanos of Easter Island",
-            main.title.fontface = "bold.italic", 
-            legend.title.fontfamily = "monospace",
-            title = "B")
+  tm_title("Volcanos of Easter Island") +
+  tm_title_in("B") +
+  tm_layout(title.fontface = "bold.italic", 
+            legend.title.fontfamily = "monospace")
 tmap_arrange(tmt1, tmt2, nrow = 1)
 ```
 
@@ -265,10 +266,10 @@ options(kableExtra.html.bsTable = TRUE)
 knitr::kable(attr_layers_df, 
              caption = "Attribute layers.",
              caption.short = "Attribute layers.",
-             booktabs = TRUE) %>%
+             booktabs = TRUE) |>
   kableExtra::kable_styling("striped",
                             latex_options = "striped", 
-                            full_width = FALSE) %>% 
+                            full_width = FALSE) |> 
   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
@@ -369,7 +370,8 @@ library(stars)
 library(tmap)
 worldelevation = read_stars("data/worldelevation.tif")
 tm_shape(worldelevation) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
   tm_scalebar()
 ```
 

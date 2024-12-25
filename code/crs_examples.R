@@ -13,7 +13,7 @@ map_orange_world = function() {
     
     png("images/orange_world.png", width = 1213, height = 1213)
     
-    orange = png::readPNG("images/orange.png") %>% 
+    orange = png::readPNG("images/orange.png") |> 
       rasterGrob(interpolate=TRUE)
     
     grid.newpage()
@@ -21,7 +21,7 @@ map_orange_world = function() {
     vp = grid::viewport(width = .84, height = .84, x = .48)
     print(tm_shape(World_ortho, bbox = ortho_bbx) +
             # 	tm_borders("grey30", lwd = 2) +
-            tm_polygons("red", border.col = "grey30", lwd = 4, alpha = .25) +
+            tm_polygons(fill = "red", col = "grey30", lwd = 4, fill_alpha = .25) +
             tm_graticules(x = seq(-180, 150, by = 30), y = seq(-90, 90, by = 30),
                           labels.show = FALSE, lwd = 2) +
             tm_layout(frame = FALSE, bg.color = NA), vp = vp)
@@ -58,11 +58,11 @@ map_goode = function() {
     180 # close
   )
 
-  bg <- list(cbind(longs, lats)) %>%
-    st_polygon() %>%
+  bg <- list(cbind(longs, lats)) |>
+    st_polygon() |>
     st_sfc(
       crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-    ) %>%
+    ) |>
     st_transform(crs = crs_goode)
 
   land = st_intersection(land, bg)
@@ -77,8 +77,8 @@ map_goode = function() {
   #
   #
 
-  grat = sf::st_graticule(lon = seq(-180, 150, by = 30), lat = seq(-90, 90, by = 30)) %>%
-    st_transform(crs = crs_goode) %>%
+  grat = sf::st_graticule(lon = seq(-180, 150, by = 30), lat = seq(-90, 90, by = 30)) |>
+    st_transform(crs = crs_goode) |>
     st_intersection(bg)
 
   list(bg = bg, land = land, grat = grat)
@@ -97,9 +97,9 @@ map_4326 = function() {
 map_3857 = function() {
   data(World, package = "tmap")
   bbx = sf::st_bbox(c(xmin=-180,ymin=-85, xmax=180, ymax=85), crs = 4326)
-  land = World %>% 
-    sf::st_transform(4326) %>% 
-    st_crop(tmaptools::bb_earth(bbx = bbx)) %>% 
+  land = World |> 
+    sf::st_transform(4326) |> 
+    st_crop(tmaptools::bb_earth(bbx = bbx)) |> 
     sf::st_transform(3857)
   grat = sf::st_graticule(x = bbx, lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30))
   bg = tmaptools::bb_earth(projection = 3857, bbx = bbx)
@@ -129,9 +129,9 @@ map_4326_cyl = function() {
                                      c(lon_center - 90, -90)))), crs = 4326)
   
 
-  World_cyl = World %>% 
-    st_transform(crs = 4326) %>% 
-    st_intersection(crp) %>% 
+  World_cyl = World |> 
+    st_transform(crs = 4326) |> 
+    st_intersection(crp) |> 
     st_cast("MULTIPOLYGON")
 
   # ugly manual edits:
@@ -195,10 +195,10 @@ world_surface = function(datum = 4326, step = 2, nx = 360/step, ny = 180/step, p
 map_3035 = function() {
   data(World, package = "tmap")
   land = sf::st_transform(World, 3035)
-  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) %>% st_transform(3035)
+  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) |> st_transform(3035)
   
   # background approximation using many graticules
-  grat2 = sf::st_graticule(lon = seq(-180, 180, by = 1), lat = seq(-90, 90, by = 1)) %>% st_transform(3035)
+  grat2 = sf::st_graticule(lon = seq(-180, 180, by = 1), lat = seq(-90, 90, by = 1)) |> st_transform(3035)
   co = st_coordinates(grat2)
   xrange = range(co[,1])
   yrange = range(co[,2])
@@ -221,10 +221,10 @@ map_eqdc = function() {
   crs = "+proj=eqdc +lat_0=0 +lon_0=0 +lat_1=60 +lat_2=60 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs"
   data(World, package = "tmap")
   
-  land = World %>% filter(iso_a3 != "ATA") %>% sf::st_transform(crs)
+  land = World |> filter(iso_a3 != "ATA") |> sf::st_transform(crs)
   bg = tmaptools::bb_earth(crs)
   
-  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) %>% st_transform(crs)
+  grat = sf::st_graticule(lon = seq(-180, 180, by = 30), lat = seq(-90, 90, by = 30)) |> st_transform(crs)
   list(bg = bg, land = land, grat = grat)
   
 }
@@ -259,8 +259,8 @@ map_3857_cyl = function() {
                                      c(lon_center + 20037508/2, -20037508),
                                      c(lon_center - 20037508/2, -20037508)))), crs = 3857)
   
-  World_cyl = m3857$land %>% 
-    st_intersection(crp) %>% 
+  World_cyl = m3857$land |> 
+    st_intersection(crp) |> 
     st_cast("MULTIPOLYGON")
   
   # ugly manual edits:
