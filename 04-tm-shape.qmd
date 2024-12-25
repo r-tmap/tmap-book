@@ -38,7 +38,8 @@ This is illustrated in the following example (@fig:tmshape1).
 #| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
 #|   using four layers.
 tm_shape(worldelevation) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
 tm_shape(worldvector) +
   tm_borders() +
 tm_shape(worldcities) +
@@ -64,7 +65,7 @@ The order of the `tm_shape()` functions' calls is crucial.
 The first `tm_shape()`, known as the main shape, is not only shown below the following *shapes*, but also sets the projection and extent of the whole map.
 In @fig-tmshape1, the `worldelevation` object was used as the first *shape*, and thus the whole map has the projection and extent of this object.
 
-However, we can quickly change the main *shape* with the `is.master` argument.
+However, we can quickly change the main *shape* with the `is.main` argument.
 <!--change to is.main later-->
 In the following example, we set the `worldcities` object as the main *shape*, which limits the output map to the point locations in `worldcities` (@fig-tmshape2)^[We will show how to adjust margins and text locations later in the book].
 
@@ -74,10 +75,11 @@ In the following example, we set the `worldcities` object as the main *shape*, w
 #| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
 #|   using four layers and zoomed into the locations in the worldcities object.
 tm_shape(worldelevation) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
 tm_shape(worldvector) +
   tm_borders() +
-tm_shape(worldcities, is.master = TRUE) +
+tm_shape(worldcities, is.main = TRUE) +
   tm_dots() +
   tm_text("name")
 ```
@@ -109,8 +111,9 @@ Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor re
 ```{r}
 #| warning: false
 #| eval: false
-tm_shape(worldelevation, projection = 8857) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) 
+tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) 
 ```
 
 The second approach (`raster.warp = FALSE`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
@@ -122,8 +125,9 @@ However, creation of the B map takes about ten times longer than the A map.
 ```{r}
 #| warning: false
 #| eval: false
-tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8))
+tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
 ```{r}
@@ -133,10 +137,12 @@ tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
 #| fig-cap: 'Two elevation maps in the Equal Earth projection: (A) created using raster.warp
 #|   = TRUE, (B) created using raster.warp = FALSE.'
 tmp1 = tm_shape(worldelevation, projection = 8857) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
   tm_title("A")
 tmp2 = tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
   tm_title("B")
 tmap_arrange(tmp1, tmp2)
 ```
@@ -175,7 +181,8 @@ In the following example, we limit our map extent to the rectangular area betwee
 #| fig-cap: Global elevation data limited to the extent of the specified minimum and
 #|   maximum coordinates.
 tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8))
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
 The second approach allows setting the map extent based on a search query.
@@ -187,7 +194,8 @@ This approach uses the OpenStreetMap tool called Nominatim to automatically gene
 #| warning: false
 #| fig-cap: Global elevation data limited to the extent specified with the 'Europe' query.
 tm_shape(worldelevation, bbox = "Europe") +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8))
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
 In the last approach, the map extent is based on another existing spatial object.
@@ -199,7 +207,8 @@ In the last approach, the map extent is based on another existing spatial object
 #| fig-asp: 0.35
 #| fig-cap: Global elevation data limited to the extent of the other spatial object.
 tm_shape(worldelevation, bbox = worldcities) +
-  tm_raster("worldelevation.tif", palette = terrain.colors(8))
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
 <!-- mention that legend related to the complete object -->
@@ -293,7 +302,7 @@ This values can be adjusted with the `max.raster` argument of `tmap_options()`, 
 
 ```{r}
 #| eval: false
-# tmap_options(max.raster = c(plot = 5000, view = 2000))
+tmap_options(raster.max_cells = c(plot = 5000, view = 2000))
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif")
 ```
@@ -312,7 +321,7 @@ tm_shape(worldelevation, raster.downsample = FALSE) +
 #| message: false
 #| fig-cap: (A) A raster map with the decreased resolution, (B) a raster map in the original
 #|   resolution.
-# tmap_options(max.raster = c(plot = 5000, view = 2000))
+tmap_options(raster.max_cells = c(plot = 5000, view = 2000))
 tmr1 = tm_shape(worldelevation) +
   tm_raster("worldelevation.tif") +
   tm_title("A")

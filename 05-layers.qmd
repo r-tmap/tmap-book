@@ -523,7 +523,7 @@ However, we can change the basemaps with a vector with the names of the tile lay
 tmap_mode("view")
 tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
-  tm_shape(volcanos, is.master = TRUE) + 
+  tm_shape(volcanos, is.main = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
@@ -539,7 +539,7 @@ library(tmap)
 tmap_mode("view")
 tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
-  tm_shape(volcanos, is.master = TRUE) +
+  tm_shape(volcanos, is.main = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
 view_map(tmbasemap1, "tmbasemap1")
 ```
@@ -561,7 +561,7 @@ In the next example, we put the vector `"CartoDB.VoyagerNoLabelsHybrid"` tiles o
 tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
   tm_tiles(c(TonerHybrid = "CartoDB.VoyagerNoLabelsHybrid")) +
-  tm_shape(volcanos, is.master = TRUE) + 
+  tm_shape(volcanos, is.main = TRUE) + 
   tm_dots(col = "red", group = "Volcanos")
 ```
 
@@ -576,7 +576,7 @@ tm_basemap(c(StreetMap = "OpenStreetMap",
 tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap",
              TopoMap = "OpenTopoMap")) +
   tm_tiles(c(TonerHybrid = "CartoDB.VoyagerNoLabelsHybrid")) +
-  tm_shape(volcanos, is.master = TRUE) +
+  tm_shape(volcanos, is.main = TRUE) +
   tm_dots(col = "red", group = "Volcanos")
 view_map(tmtiles1, "tmtiles1")
 ```
