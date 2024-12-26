@@ -128,7 +128,7 @@ map_4326_cyl = function() {
                                      c(lon_center + 90, -90),
                                      c(lon_center - 90, -90)))), crs = 4326)
   
-
+  sf::sf_use_s2(FALSE)
   World_cyl = World |> 
     st_transform(crs = 4326) |> 
     st_intersection(crp) |> 
@@ -141,7 +141,6 @@ map_4326_cyl = function() {
   zaf = World_cyl$geometry[World_cyl$iso_a3 == "ZAF"]
   zaf[[1]][[1]] = zaf[[1]][[1]][1] # remove island of South-Africa, which caused problems.
   World_cyl$geometry[World_cyl$iso_a3 == "ZAF"] = zaf
-  
   
   World_cyl$geometry = st_sfc(lapply(World_cyl$geometry, function(g) {
     st_multipolygon(lapply(g, function(gi) {
@@ -162,6 +161,8 @@ map_4326_cyl = function() {
   grat$geometry = st_sfc(lapply(grat$geometry, function(g) {
     st_linestring(get_cylinder(g, lon_center = lon_center))
   }), crs = 4326)
+  
+  sf::sf_use_s2(TRUE)
   
   list(bg_front = bg_front, bg_back = bg_back, land = World_cyl, grat = grat)
 }

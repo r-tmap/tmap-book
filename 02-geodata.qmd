@@ -135,6 +135,7 @@ polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 #| label: fig-vector-data-model
 #| echo: false
 #| message: false
+#| warning: false
 #| fig-width: 5
 #| fig-asp: 1
 #| fig-cap: 'Instances of spatial vector data model: POINTS, LINES, and POLYGONS.'
@@ -388,7 +389,7 @@ It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Nethe
 #| fig-asp: 0.60606
 #| fig-cap: Vector data cube.
 source("code/data_model_figures.R")
-# draw_vector_cubes()
+draw_vector_cubes()
 ```
 
 \index{spatial raster data cubes}
@@ -720,9 +721,7 @@ EPSG is an institute that maintains a database of standard map projections.
 #| results: hide
 #| warning: false
 #| message: false
-#| fig.cap: The WGS84 coordinate system (EPSG4326)
-#| eval: false
-#| fig-cap: Latitude longitude coordinates (EPSG 4326)
+#| fig-cap: "Latitude longitude coordinates (EPSG 4326)"
 source("code/crs_examples.R")
 
 m4326 = map_4326()
@@ -731,7 +730,7 @@ tmap_arrange({
   tm_shape(m4326_cyl$bg_back) +
     tm_polygons(clr_bg2) +
     tm_shape(m4326_cyl$bg_front) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
     tm_shape(m4326_cyl$land) +
     tm_polygons(clr_land) +
     tm_shape(m4326_cyl$grat) +
@@ -778,18 +777,18 @@ The cylinder and plain map that uses this projection are shown in @fig-crs-05.
 #| results: hide
 #| warning: false
 #| message: false
-#| eval: false
-#| fig-cap: Web Mercator projection (EPSG3857)
+#| fig-cap: "Web Mercator projection (EPSG 3857)"
+sf::sf_use_s2(FALSE)
 source("code/crs_examples.R")
-
 m3857 = map_3857()
 m3857_cyl = map_3857_cyl()
+sf::sf_use_s2(TRUE)
 
 tmap_arrange({
   tm_shape(m3857_cyl$bg_back) +
     tm_polygons(clr_bg2) +
     tm_shape(m3857_cyl$bg_front) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
     tm_shape(m3857_cyl$land) +
     tm_polygons(clr_land) +
     tm_shape(m3857_cyl$grat) +

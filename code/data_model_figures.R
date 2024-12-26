@@ -190,7 +190,7 @@ draw_vector_data = function(scale = 1) {
   
   print({
     tm_shape(sf_pnts, bbox = c(0, 0, 12.931, 10)) +
-      tm_dots(size = 0.2, fill = "cols") +
+      tm_dots(size = 0.5, fill = "cols") +
       tm_text("ID", xmod = .5, ymod = .5) +
       tm_layout(scale = scale, inner.margins = 0, outer.margins = 0, 
                 bg.color = "white")
@@ -201,7 +201,7 @@ draw_vector_data = function(scale = 1) {
       tm_lines(lwd = 2, col = "cols") +
       tm_text("ID", xmod = .5, ymod = .5) +
       tm_shape(sf_lns_pnts) + 
-      tm_dots(size = 0.2, col = "cols") +
+      tm_dots(size = 0.2, fill = "cols") +
       tm_layout(scale = scale, inner.margins = 0, outer.margins = 0, 
                 bg.color = "white")
   }, vp = viewport(layout.pos.row = 5:6, layout.pos.col = 2))
@@ -288,7 +288,7 @@ draw_vector_cubes = function() {
               x2 = sum(x2))
   
   lu1 = lu |> 
-    pivot_wider(id = name, names_from = landuse2, values_from = x1) |> 
+    pivot_wider(id_cols = name, names_from = landuse2, values_from = x1) |> 
     replace_na(list(Water = 0)) |> 
     mutate(Urban = 100 - Crops - Forest - Water) |> 
     arrange(match(name, NLD_prov$name)) |> 
@@ -298,7 +298,7 @@ draw_vector_cubes = function() {
     as.matrix()
     
   lu2 = lu |> 
-    pivot_wider(id = name, names_from = landuse2, values_from = x2) |> 
+    pivot_wider(id_cols = name, names_from = landuse2, values_from = x2) |> 
     replace_na(list(Water = 0)) |> 
     mutate(Urban = 100 - Crops - Forest - Water) |> 
     arrange(match(name, NLD_prov$name)) |> 
