@@ -168,7 +168,7 @@ my_map = tm_shape(ei_elev) +
   tm_compass(position = c("right", "top")) +
   tm_scalebar() +
   tm_credits("Author, 2021") +
-  # tm_add_legend(type = "line", col = "black", title = "Roads") +
+  # tm_add_legend(type = "lines", col = "black", title = "Roads") +
   tm_title("Easter Island") +
   tm_layout(bg.color = "lightblue")
 ```

@@ -350,7 +350,7 @@ ei_elev = read_stars("data/easter_island/ei_elev.tif")
 ei_elev_raster = rast(ei_elev)
 elev_isopleths = as.contour(ei_elev_raster)
 tm_shape(elev_isopleths) +
-  tm_iso(col = "black", text = "level")
+  tm_iso()
 ```
 
 ```{r}
