@@ -17,6 +17,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Render
         run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_github("r-tmap/tmap", dependencies = TRUE, force = TRUE)'
           quarto render
           ls docs
       - name: Deploy
