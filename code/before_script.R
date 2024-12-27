@@ -37,8 +37,10 @@ view_map = function(x, name){
     tmap_save(x, tf)
     webshot2::webshot(tf, file = paste0("widgets/", name, ".png"))
     knitr::include_graphics(paste0("widgets/", name, ".png"))
-  } else if (knitr::is_html_output()){
+  } else {
     widgetframe::frameWidget(tmap::tmap_leaflet(x))
+    # tmap::tmap_leaflet(x)
   }
 }
 
+# Sys.setenv(CHROMOTE_CHROME = "/usr/bin/vivaldi")

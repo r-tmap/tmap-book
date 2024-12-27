@@ -29,7 +29,7 @@ worldcities = read_sf("data/worldcities.gpkg")
 
 In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
 When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
-This is illustrated in the following example (@fig:tmshape1).
+This is illustrated in the following example (@fig-tmshape1).
 
 ```{r}
 #| label: fig-tmshape1
@@ -71,9 +71,9 @@ In the following example, we set the `worldcities` object as the main *shape*, w
 
 ```{r}
 #| label: fig-tmshape2
+#| message: false
 #| fig-asp: 0.35
-#| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
-#|   using four layers and zoomed into the locations in the worldcities object.
+#| fig-cap: "A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object."
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", 
             col.scale = tm_scale(values = terrain.colors(8))) +

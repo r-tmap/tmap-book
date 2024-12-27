@@ -796,6 +796,7 @@ However, text labels can be also used to represent the values of some numerical 
 
 ```{r}
 #| label: fig-tmtextsize
+#| message: false
 #| fig-asp: 0.25
 #| fig-cap: Example of a map where text sizes represent elevations of the volcanos.
 tm_shape(volcanos) +
@@ -978,6 +979,7 @@ tm_shape(ei_points) +
 ```{r}
 #| label: fig-mixsymb
 #| echo: false
+#| message: false
 #| fig-asp: 1
 #| fig-cap: 'Examples of maps using two visual variables at the same time: (A) size and
 #|   color, (B) color and shape, (C) size and shape.'
@@ -1002,6 +1004,7 @@ For line data, we can present its qualitative and quantitative variables using c
 ```{r}
 #| label: fig-mixline
 #| echo: false
+#| message: false
 #| fig-asp: 0.66
 #| fig-cap: A map using two visual variables, color and size (line width), at the same
 #|   time.

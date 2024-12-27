@@ -412,6 +412,7 @@ tm_shape(ei_geomorphons) +
 ```{r}
 #| label: fig-rastertype
 #| echo: false
+#| message: false
 #| fig-cap: Examples of (A) continuous raster maps, and (B) categorical raster maps.
 tmrt1 = tm_shape(ei_elev) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),

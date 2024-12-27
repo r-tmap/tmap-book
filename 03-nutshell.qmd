@@ -178,6 +178,7 @@ This is a useful feature, which allows to use one map in a few places in a code,
 
 ```{r}
 #| label: fig-rmap2
+#| message: false
 #| fig-height: 9
 #| fig-asp: 0.73
 #| fig-cap: Example of a map with four groups of map layers and additional map elements, such as graticule lines, north arrow, scale bar, and text annotation. It also has a manually added legend.
@@ -236,6 +237,7 @@ To go back to the `"plot"` mode, we need to use the `tmap_mode()` function again
 
 ```{r}
 #| fig-show: hide
+#| message: false
 tmap_mode("plot")
 my_map
 ```

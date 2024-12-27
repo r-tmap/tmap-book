@@ -61,6 +61,7 @@ tm_ff = tm_shape(World) +
 
 ```{r}
 #| label: fig-fonts
+#| message: false
 #| echo: false
 #| fig-cap: Basic (A) font families, and (B) font faces implemented in the tmap package.
 tmap_arrange(tm_ff + tm_title("A. Font families"),
