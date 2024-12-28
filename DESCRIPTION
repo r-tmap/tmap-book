@@ -10,14 +10,12 @@ Imports:
   spData,
   dplyr,
   tidyr,
-  rgdal,
   rmapshaper,
   kableExtra,
   curl,
   maptiles,
   webshot
 Remotes: 
-  rstudio/bookdown,
-  mtennekes/tmaptools,
-  mtennekes/tmap,
+  r-tmap/tmaptools,
+  r-tmap/tmap,
   Nowosad/spDataLarge

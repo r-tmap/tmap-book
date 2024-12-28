@@ -80,7 +80,7 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 
 The main function to visualize polygons is `tm_polygons()`.
 By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
-<!-- https://github.com/mtennekes/tmap/blob/master/R/tmap_options.R -->
+<!-- https://github.com/r-tmap/tmap/blob/master/R/tmap_options.R -->
 
 ```{r}
 #| eval: false
@@ -594,7 +594,6 @@ In some cases, also the `crop` argument set to `TRUE` can be useful - it returns
 ```{r}
 #| message: false
 #| cache: false
-#| eval: false
 library(maptiles)
 ei_tiles = get_tiles(ei_borders, provider = "CartoDB.VoyagerNoLabels",
                      zoom = 12, crop = TRUE)
@@ -622,7 +621,6 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ```{r}
 #| label: fig-stiles
 #| cache: false
-#| eval: false
 #| fig-cap: 'Example of a static map using a downloaded `"CartoDB.VoyagerNoLabels"` tile layer.'
 tmap_mode("plot")
 tm_shape(ei_tiles) + 

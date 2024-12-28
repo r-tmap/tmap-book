@@ -33,7 +33,6 @@ Since whole books have been written about it already, we will keep this brief an
 Obviously, it is not possible to cover the remaining aspect, domain knowledge.
 However, the example datasets do not require much specific domain knowledge.
 
-
 ## What is **tmap**?
 
 The short answer is that **tmap** is an R package for visualization spatial data. 

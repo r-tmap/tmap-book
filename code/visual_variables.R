@@ -2,7 +2,7 @@ visual_variables = function() {
   library(tmap)
   library(grid)
   
-  data(World, rivers, metro, land)
+  data(World, World_rivers, metro, land)
   
   # adds heading and trailing spaces to make legend labels wider
   make_wider = function(x, n = 5) paste0(paste(rep(" ", n), collapse = ""), x, paste(rep(" ", n), collapse = ""))
@@ -20,8 +20,8 @@ visual_variables = function() {
   World$x = runif(nrow(World), 0, num_max)
   World$y = rep(categories, length.out = nrow(World))
   
-  rivers$x = runif(nrow(rivers), 0, num_max)
-  rivers$y = rep(categories, length.out = nrow(rivers))
+  World_rivers$x = runif(nrow(World_rivers), 0, num_max)
+  World_rivers$y = rep(categories, length.out = nrow(World_rivers))
   
   metro$x = runif(nrow(metro), 0, num_max)
   metro$y = rep(categories, length.out = nrow(metro))
@@ -35,10 +35,10 @@ visual_variables = function() {
   x13 = tm_shape(metro) + tm_symbols(size = "x", scale = 1.5, sizes.legend = sizes_legend, sizes.legend.labels = make_wider(sizes_legend, 2),  title.size = "", legend.size.is.portrait = FALSE, legend.format = lf) + tml
   x14 = tm_shape(metro) + tm_symbols(shape = "y", size = tmap_data_size, title.shape = "", legend.shape.is.portrait = FALSE, legend.format = lf) + tml
 
-  x21 = tm_shape(rivers) + tm_lines(col = "y", lwd = tmap_data_lwd, palette = cat_palette, title.col = "", legend.col.is.portrait = FALSE, legend.format = lf) + tml
-  x22 = tm_shape(rivers) + tm_lines(col = "x", lwd = tmap_data_lwd, style = "pretty", title.col = "", legend.col.is.portrait = FALSE, legend.format = lf) + tml
+  x21 = tm_shape(World_rivers) + tm_lines(col = "y", lwd = tmap_data_lwd, palette = cat_palette, title.col = "", legend.col.is.portrait = FALSE, legend.format = lf) + tml
+  x22 = tm_shape(World_rivers) + tm_lines(col = "x", lwd = tmap_data_lwd, style = "pretty", title.col = "", legend.col.is.portrait = FALSE, legend.format = lf) + tml
   
-  x23 = tm_shape(rivers) + tm_lines(lwd = "x", scale = tmap_data_lwd * 1.5, lwd.legend = sizes_legend, lwd.legend.labels = make_wider(sizes_legend, 2), title.lwd = "", legend.lwd.is.portrait = FALSE, legend.format = lf) + tml
+  x23 = tm_shape(World_rivers) + tm_lines(lwd = "x", scale = tmap_data_lwd * 1.5, lwd.legend = sizes_legend, lwd.legend.labels = make_wider(sizes_legend, 2), title.lwd = "", legend.lwd.is.portrait = FALSE, legend.format = lf) + tml
   
   x31 = tm_shape(World) + tm_polygons("y", palette = cat_palette, title = "", legend.is.portrait = FALSE, legend.format = lf) + tml
   x32 = tm_shape(World) + tm_polygons("x", style = "pretty", title = "", legend.is.portrait = FALSE, legend.format = lf) + tml

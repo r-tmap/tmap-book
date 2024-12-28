@@ -128,16 +128,15 @@ map_4326_cyl = function() {
                                      c(lon_center + 90, -90),
                                      c(lon_center - 90, -90)))), crs = 4326)
   
-  sf::sf_use_s2(FALSE)
   World_cyl = World |> 
     st_transform(crs = 4326) |> 
     st_intersection(crp) |> 
     st_cast("MULTIPOLYGON")
 
   # ugly manual edits:
-  ant = World_cyl$geometry[World_cyl$name == "Antarctica"]
-  ant[[1]][[4]][[1]] = rbind(ant[[1]][[4]][[1]][1:262,], cbind(seq(101,-79, length.out = 30), rep(-90, 30)), ant[[1]][[4]][[1]][265:307,]) # add intermediate points to make the bottom curve (otherwise it would be a straight line)
-  World_cyl$geometry[World_cyl$name == "Antarctica"] = ant
+  # ant = World_cyl$geometry[World_cyl$name == "Antarctica"]
+  # ant[[1]][[4]][[1]] = rbind(ant[[1]][[4]][[1]][1:262,], cbind(seq(101,-79, length.out = 30), rep(-90, 30)), ant[[1]][[4]][[1]][265:307,]) # add intermediate points to make the bottom curve (otherwise it would be a straight line)
+  # World_cyl$geometry[World_cyl$name == "Antarctica"] = ant
   zaf = World_cyl$geometry[World_cyl$iso_a3 == "ZAF"]
   zaf[[1]][[1]] = zaf[[1]][[1]][1] # remove island of South-Africa, which caused problems.
   World_cyl$geometry[World_cyl$iso_a3 == "ZAF"] = zaf
@@ -161,8 +160,6 @@ map_4326_cyl = function() {
   grat$geometry = st_sfc(lapply(grat$geometry, function(g) {
     st_linestring(get_cylinder(g, lon_center = lon_center))
   }), crs = 4326)
-  
-  sf::sf_use_s2(TRUE)
   
   list(bg_front = bg_front, bg_back = bg_back, land = World_cyl, grat = grat)
 }
@@ -265,9 +262,9 @@ map_3857_cyl = function() {
     st_cast("MULTIPOLYGON")
   
   # ugly manual edits:
-  ant = World_cyl$geometry[World_cyl$name == "Antarctica"]
-  ant[[1]][[4]][[1]] = rbind(ant[[1]][[4]][[1]][1:262,], cbind(seq(11243268.38,-8794239.62, length.out = 30), rep(-20037508, 30)), ant[[1]][[4]][[1]][265:307,]) # add intermediate points to make the bottom curve (otherwise it would be a straight line)
-  World_cyl$geometry[World_cyl$name == "Antarctica"] = ant
+  # ant = World_cyl$geometry[World_cyl$name == "Antarctica"]
+  # ant[[1]][[4]][[1]] = rbind(ant[[1]][[4]][[1]][1:262,], cbind(seq(11243268.38,-8794239.62, length.out = 30), rep(-20037508, 30)), ant[[1]][[4]][[1]][265:307,]) # add intermediate points to make the bottom curve (otherwise it would be a straight line)
+  # World_cyl$geometry[World_cyl$name == "Antarctica"] = ant
   # zaf = World_cyl$geometry[World_cyl$iso_a3 == "ZAF"]
   # zaf[[1]][[1]] = zaf[[1]][[1]][1] # remove island of South-Africa, which caused problems.
   # World_cyl$geometry[World_cyl$iso_a3 == "ZAF"] = zaf

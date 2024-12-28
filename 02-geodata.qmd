@@ -88,7 +88,7 @@ point_data = st_sf(
 #| echo: false
 linestring_sfg1 = st_linestring(rbind(c(0.9, 1.9), c(1.6, 1.9), c(1.8, 1.8)))
 linestring_sfg2 = st_linestring(rbind(c(0.8, 1.6), c(1.4, 1.5), c(2, 1.6)))
-linestring_sfg3 = st_linestring(rbind(c(1.1, 1), c(1.6, 1.2), c(1.9, 1.2)))
+linestring_sfg3 = st_linestring(rbind(c(1.1, 1),   c(1.6, 1.2), c(1.9, 1.2)))
 lines_data = st_sf(
   id = as.factor(1:3),
   type = c("a", "b", "c"),
@@ -140,7 +140,7 @@ polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 #| fig-asp: 1
 #| fig-cap: 'Instances of spatial vector data model: POINTS, LINES, and POLYGONS.'
 source("code/data_model_figures.R")
-draw_vector_data(scale = .75)
+draw_vector_data(scale = 0.75)
 ```
 
 \index{simple feature}
@@ -722,10 +722,12 @@ EPSG is an institute that maintains a database of standard map projections.
 #| warning: false
 #| message: false
 #| fig-cap: "Latitude longitude coordinates (EPSG 4326)"
+sf::sf_use_s2(FALSE)
 source("code/crs_examples.R")
-
 m4326 = map_4326()
 m4326_cyl = map_4326_cyl()
+sf::sf_use_s2(TRUE)
+
 tmap_arrange({
   tm_shape(m4326_cyl$bg_back) +
     tm_polygons(clr_bg2) +
@@ -742,7 +744,8 @@ tmap_arrange({
       tm_polygons(clr_land) +
       #tm_shape(m4326$grat) +
       #tm_lines(col = clr_grat, lwd = 1) +
-      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
+      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                    col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
       tm_layout(frame = TRUE, inner.margins = 0)
   }, widths = c(.3, .7), asp = NULL)
 
@@ -800,7 +803,8 @@ tmap_arrange({
       tm_polygons(clr_land) +
       #tm_shape(m3857$grat) +
       #tm_lines(col = clr_grat, lwd = 1) +
-      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
+      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                    col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
       tm_layout(frame = TRUE, inner.margins = 0)
   }, widths = c(.3, .7), asp = NULL)
 
@@ -909,7 +913,8 @@ tm_shape(meqdc$land) +
 tm_shape(meqdc$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-    tm_title("(A) World Equidistant Conic projection", size = 0.9, color = "#777777", position = c("center", "bottom")) +
+    tm_title("(A) World Equidistant Conic projection", size = 0.9, 
+             color = "#777777", position = c("center", "bottom")) +
     tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))},
 {tm_shape(m3035$bg) +
     tm_polygons(clr_bg, col = clr_border) +
@@ -918,7 +923,8 @@ tm_shape(m3035$land) +
 tm_shape(m3035$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-    tm_title("(B) Lambert Azimuthal Equal-Area projection", size = 0.9, color = "#777777", position = c("center", "bottom")) +
+    tm_title("(B) Lambert Azimuthal Equal-Area projection", size = 0.9,
+             color = "#777777", position = c("center", "bottom")) +
     tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
 })
 ```
@@ -965,7 +971,10 @@ crs_prop_conic = c("Lambert conformal conic", "Albers conic", "Equidistant conic
 crs_prop_planar = c("Stereographic", "Lambert azimuthal equal-area", "Azimuthal equidistant", "Stereographic, Lambert azimuthal equal-area")
 crs_prop_interrupted = c("Myriahedral", "Goode homolosine, Myriahedral", "none", "none")
 
-tb = tibble(Property = crs_prop_name, Preserves = crs_prop_attr, Applications = crs_prop_appl,  `Examples (cyclindrical)` = crs_prop_cyl, `Examples (conic)`=crs_prop_conic, `Examples (planar)`=crs_prop_planar, `Examples (interrupted)`=crs_prop_interrupted)
+tb = tibble(Property = crs_prop_name, Preserves = crs_prop_attr, 
+            Applications = crs_prop_appl, `Examples (cyclindrical)` = crs_prop_cyl,
+            `Examples (conic)` = crs_prop_conic, `Examples (planar)` = crs_prop_planar,
+            `Examples (interrupted)` = crs_prop_interrupted)
 
 tb2 = as.data.frame(t(rbind(names(tb), as.matrix(tb, dimnames = NULL))))
 tb2 = tb2[, -1]
@@ -1021,8 +1030,10 @@ tm2 = tm_shape(World, crs = "+proj=eck4") +
             inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
             scale = 0.7, asp = 1)
 tmap_arrange(tm1, tm2)
-grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
-grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
+grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, 
+          gp = gpar(cex = 0.8, col = "#777777"))
+grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, 
+          gp = gpar(cex = 0.8, col = "#777777"))
 ```
 
 \index{equidistant map projections}
@@ -1086,7 +1097,7 @@ In the following example, a `crs` object is created from an EPSG code, in this c
 #| label: crs-new
 library(sf)
 # CRS Lambert Azimuthal Equal-Area projection
-st_crs(3035)
+st_crs("EPSG:3035")
 ```
 
 \index{crs objects}

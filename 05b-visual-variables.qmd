@@ -209,7 +209,7 @@ library(sf)
 worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-<!-- https://github.com/mtennekes/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
+<!-- https://github.com/r-tmap/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
 By default, the **tmap** package attempts to identify the type of the used variable.
 Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"` (@fig-tmpals).
 <!-- info about tm_layout or reference to a section about it -->
@@ -664,11 +664,11 @@ The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_line
 #| echo: false
 #| eval: false
 data("metro", package = "tmap")
-data("rivers", package = "tmap")
+data("World_rivers", package = "tmap")
 data("land", package = "tmap")
 tm_shape(metro) +
  tm_symbols(fill = "pop2030", fill.scale = tm_scale_continuous()) 
-tm_shape(rivers) +
+tm_shape(World_rivers) +
  tm_lines(col = "strokelwd", col.scale = tm_scale_continuous()) 
 tm_shape(land) +
  tm_raster(col = "elevation", col.scale = tm_scale_continuous()) 
@@ -773,14 +773,14 @@ Also, similarly to the last example of the `tm_symbols` above, it is possible to
 ```{r}
 #| echo: false
 #| eval: false
-tm_shape(rivers) + 
+tm_shape(World_rivers) + 
   tm_lines(lwd = "strokelwd")
-tm_shape(rivers) + 
+tm_shape(World_rivers) + 
   tm_lines(lwd = "strokelwd", lwd.scale = tm_scale(values.scale = 2))
-tm_shape(rivers) + 
+tm_shape(World_rivers) + 
   tm_lines(lwd = "strokelwd", 
            lwd.scale = tm_scale(values.scale = 2, n = 12))
-tm_shape(rivers) + 
+tm_shape(World_rivers) + 
   tm_lines(lwd = "strokelwd",
            lwd.scale = tm_scale(values.scale = 2,
                                 ticks = c(1, 2, 3, 5, 10, 15)),
@@ -930,7 +930,7 @@ tmap_arrange(tmsymshape1, tmsymshape2,
 #| eval: false
 #| fig-asp: 0.33
 #| fig-cap: ''
-tm_shape(rivers) + 
+tm_shape(World_rivers) + 
   tm_lines(lty = 2)
 ```
 
