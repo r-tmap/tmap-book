@@ -27,16 +27,16 @@ jobs:
           # ls docs
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
-      - name: Publish to GitHub Pages (and render)
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
+      # - name: Publish to GitHub Pages (and render)
+      #   uses: quarto-dev/quarto-actions/publish@v2
       #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./docs
-      #     publish_branch: gh-pages
-      #     commit_message: 'Deploy commit: ${{ github.event.head_commit.message }}'
+      #     target: gh-pages
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          commit_message: 'Deploy commit: ${{ github.event.head_commit.message }}'
