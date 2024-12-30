@@ -18,10 +18,12 @@ jobs:
       - name: Render
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_cran(c("kableExtra", "viridis"))'
+          # Rscript -e 'remotes::install_cran(c("kableExtra", "viridis"))'
           Rscript -e 'remotes::install_github("r-tmap/tmap", dependencies = TRUE, force = TRUE)'
           quarto render
-          ls docs
+          # ls docs
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
