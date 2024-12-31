@@ -148,8 +148,8 @@ tmap_arrange(tmpa0, tmpa1, tmpa2, nrow = 1)
 #| fig-asp: 0.4
 #| layout-nrow: 1
 tmpa0 = tm_shape(ei_borders) +
-  tm_polygons(col = "lightblue", 
-              border.col = "black", lwd = 0.5, lty = "dashed") +
+  tm_polygons(fill = "lightblue", 
+              col = "black", lwd = 0.5, lty = "dashed") +
   tm_title("A")
 tmpa1 = tm_shape(ei_borders) +
   tm_fill(col = "lightblue") +
@@ -397,7 +397,8 @@ However, the `"cont"` style often better represent phenomena that progressively 
 ```{r}
 #| eval: false
 tm_shape(ei_elev) +
-  tm_raster(title = "Elevation (m asl):", style = "cont", palette = "viridis")
+  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
+            col.legend = tm_legend(title = "Elevation (m asl):"))
 ```
 
 On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (@fig-rasterdown A).
@@ -406,7 +407,7 @@ We can also adjust the legend title, used colors, and many more, in a similar fa
 ```{r}
 #| eval: false
 tm_shape(ei_geomorphons) +
-  tm_raster(title = "Geomorphons:")
+  tm_raster(col.legend = tm_legend(title = "Geomorphons:"))
 ```
 
 ```{r}

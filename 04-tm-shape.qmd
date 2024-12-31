@@ -136,11 +136,11 @@ tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
 #| warning: false
 #| fig-cap: 'Two elevation maps in the Equal Earth projection: (A) created using raster.warp
 #|   = TRUE, (B) created using raster.warp = FALSE.'
-tmp1 = tm_shape(worldelevation, projection = 8857) +
+tmp1 = tm_shape(worldelevation, crs = "EPSG:8857") +
   tm_raster("worldelevation.tif", 
             col.scale = tm_scale(values = terrain.colors(8))) +
   tm_title("A")
-tmp2 = tm_shape(worldelevation, projection = 8857, raster.warp = FALSE) +
+tmp2 = tm_shape(worldelevation, projection = "EPSG:8857", raster.warp = FALSE) +
   tm_raster("worldelevation.tif", 
             col.scale = tm_scale(values = terrain.colors(8))) +
   tm_title("B")
