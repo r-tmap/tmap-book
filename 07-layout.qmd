@@ -165,7 +165,7 @@ volcanos = subset(ei_points, type == "volcano")
 By default, **tmap** uses the `sans` font family with the `plain` font face (@fig-fonts). 
 There are, however, three ways to customize the used fonts.
 The first one is to change all of the fonts and font faces for the whole map at once (@fig-mfonts A).
-This can be done with the `fontfamily` and `fontface` arguments of `tm_layout()`.
+This can be done with the `text.fontfamily` and `text.fontface` arguments of `tm_layout()`.
 
 ```{r}
 #| label: font1
@@ -176,8 +176,8 @@ tm_shape(ei_borders) +
   tm_text(text = "name", size = "elevation") +
   tm_credits("Data source: OSM") +
   tm_title("Volcanos of Easter Island") +
-  tm_layout(fontface = "italic",
-            fontfamily = "serif")
+  tm_layout(text.fontface = "italic",
+            text.fontfamily = "serif")
 ```
 
 The second way is to specify just some text elements independently (@fig-mfonts B).
@@ -210,8 +210,8 @@ tmt1 = tm_shape(ei_borders) +
   tm_credits("Data source: OSM") + 
   tm_title("Volcanos of Easter Island") +
   tm_title_in("A") +
-  tm_layout(fontface = "italic",
-            fontfamily = "serif",
+  tm_layout(text.fontface = "italic",
+            text.fontfamily = "serif",
             title.fontface = "plain",
             title.fontfamily = "sans")
 tmt2 = tm_shape(ei_borders) +
@@ -353,8 +353,7 @@ It is possible, however, to manually update the values of scale bar's breaks wit
 #| label: fig-scalebar
 #| fig-cap: A map with a customized scale bar.
 tm +
-  tm_scalebar() 
-  # tm_scalebar(breaks = c(0, 1, 2), text.size = 1)
+  tm_scalebar(breaks = c(0, 1, 2), text.size = 1)
 ```
 
 The `tm_scalebar()` also has several additional arguments, allowing to modify its colors, and position (@sec-north-arrow).
