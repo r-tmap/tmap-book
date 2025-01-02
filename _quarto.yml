@@ -21,20 +21,28 @@ book:
   # favicon: favicon-32x32.png
   chapters:
     - "index.qmd"
-    - "01-intro.qmd"
-    - "02-geodata.qmd" 
-    - "03-nutshell.qmd" 
-    - "04-tm-shape.qmd" 
-    - "05-layers.qmd" 
-    - "05b-visual-variables.qmd" 
-    - "06-other-types.qmd"
-    - "07-layout.qmd" 
-    - "08-interactive.qmd" 
-    - "09-small-multiples.qmd" 
-    - "10-options.qmd" 
-    - "11-save.qmd" 
-    - "12-animations.qmd"
-    - "13-shiny.qmd" 
+    - part: "Basics"
+      chapters: 
+      - "01-intro.qmd"
+      - "02-geodata.qmd" 
+      - "03-nutshell.qmd" 
+      - "11-save.qmd" 
+    - part: "Building blocks"
+      chapters: 
+      - "04-tm-shape.qmd" 
+      - "05-layers.qmd" 
+      - "05b-visual-variables.qmd" 
+      - "06-other-types.qmd"
+      - "07-layout.qmd" 
+      - "08-interactive.qmd" 
+    - part: "Expanding the toolbox"
+      chapters: 
+        - "09-small-multiples.qmd" 
+        - "12-animations.qmd"
+        - "13-shiny.qmd"
+    - part: "Advanced topics"
+      chapters:
+      - "10-options.qmd" 
     - "14-good-maps.qmd"
     - "references.qmd"
 
