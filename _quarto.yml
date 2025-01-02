@@ -10,14 +10,14 @@ book:
   description: | 
     This book teaches how to make elegant and informative maps with the R package tmap.
   # cover-image: https://geocompx.org/static/img/book_cover_py.png
-  # site-url: https://py.geocompx.org
-  # repo-url: https://github.com/geocompx/geocompy/
+  site-url: https://tmap.geocompx.org/
+  repo-url: https://github.com/geocompx/tap/
   date: now
   date-format: iso
   repo-branch: main
   repo-actions: [edit]
   # sharing: [twitter, facebook, linkedin]
-  # google-analytics: G-ZEMGTY4VV3
+  google-analytics: G-ER2GMPEJNF
   # favicon: favicon-32x32.png
   chapters:
     - "index.qmd"
