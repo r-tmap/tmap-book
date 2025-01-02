@@ -1,7 +1,10 @@
 project:
   type: book
   output-dir: docs
-  
+
+execute:
+  cache: true
+
 book:
   title: "Elegant and informative maps with **tmap**"
   page-footer: "Elegant and informative maps with **tmap** by Martijn Tennekes and Jakub Nowosad."
