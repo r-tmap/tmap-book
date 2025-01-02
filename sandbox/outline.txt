@@ -27,7 +27,7 @@ Basics of tmap
 - plot and view mode
 
 Specifying the data with tm_shape
-- projection (CRS, is.master)
+- projection (CRS, is.main)
 - bounding box
 - simplification?
 - raster: downsample etc

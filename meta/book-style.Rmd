@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - `"text"` - double quotes for character values
 - `for (i in 1:9) {print(i)}` - use space separation for curly brackets. Also use space after `for`.
 - When indenting your code, use two spaces (tab in RStudio)
-- When using pipes, pipe the first object (`x %>% fun() %>% ...` not `fun(x) %>% ...`)
+- When using pipes, pipe the first object (`x |> fun() |> ...` not `fun(x) |> ...`)
 
 # Comments
 
