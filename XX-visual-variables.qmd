@@ -897,6 +897,7 @@ tm_shape(ei_points) +
 ```{r}
 #| label: fig-tmsymshape
 #| echo: false
+#| message: false
 #| fig-asp: 1.32
 #| fig-cap: 'Examples of two maps with different symbols: (A) default symbols, (B) user-defined
 #|   symbols, (C) grob objects, and (D) icons.'
@@ -913,14 +914,13 @@ tmsymshape3 = tm_shape(ei_points) +
   tm_symbols(shape = "type",
              shape.scale = tm_scale(values = list(p4, p4, p4))) +
   tm_title("C")
-# tmsymshape4 = tm_shape(ei_points) +
-#   tm_symbols(shape = "type",
-#              shapes = my_icons,
-#              border.col = NULL) +
-#   tm_title("D")
+tmsymshape4 = tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = my_icons)) +
+  tm_title("D")
 tmap_arrange(tmsymshape1, tmsymshape2,
              tmsymshape3, 
-             # tmsymshape4,
+             tmsymshape4,
              ncol = 1)
 ```
 
