@@ -34,10 +34,10 @@ Main raster graphic file formats include PNG, JPEG, BMP, and TIFF.
 <!-- jn: should we describe each in one sentence? -->
 One of the major parameters of the raster graphic images is DPI (*Dots Per Inch*, in this context, a more proper name probably should be PPI, *Pixels Per Inch*) - is a number of pixels per inch of the output image.
 For example, if the width and height of our image are 10 inches, then DPI of 300 would mean that our final image would have 3000 by 3000 pixels, and DPI of 72 would result in an image of 720 by 720 pixels.
-Therefore, an image with the same width and height, but larger value of DPI would occupy more space of the hard drive, but also have better quality.
+Therefore, an image with the same width and height but a larger value of DPI would occupy more space on the hard drive but also have better quality.
 
 Saving **tmap** objects to a file can be done with the `tmap_save()`.
-It usually accepts two arguments^[In fact, one argument is enough - if you just provide a **tmap** object, then it will be saved to a `tmap01` file with some default format.] - the first one, `tm`, is our map object, and the second one, `filename`, is the path to the created file.
+It usually accepts two arguments^[In fact, one argument is enough -- if you just provide a **tmap** object, then it will be saved to a `tmap01` file with some default format.] -- the first one, `tm`, is our map object, and the second one, `filename`, is the path to the created file.
 
 ```{r}
 tmap_save(tm, "my_map.png")
@@ -50,13 +50,12 @@ These parameters can be, however, changed with the `dpi`, `width`, and `height` 
 tmap_save(tm, "my_map.png", width = 1000, height = 750, dpi = 300)
 ```
 
-The units of `width` or `height` depend on the value you set. 
-They are pixels (`"px"`) when the value is greater than 50, and inches (`"in"`) otherwise.
+The units of `width` or `height` depend on the value you set: they are pixels (`"px"`) when the value is greater than 50, and inches (`"in"`) otherwise.
 Units can also be changed with the `units` argument.
 
 This function also has several additional arguments, including `outer.margins`, `scale` and `asp`.
 All of them override the arguments' values set in `tm_layout()` (@sec-layout).
-Additionally, when set to `0`, the' asp' argument has a side effect: it moves the map frame to the edges of the output image.
+Additionally, when set to `0`, the `asp` argument has a side effect: it moves the map frame to the edges of the output image.
 
 By default, **tmap** uses graphic devices^[Short discussion about graphic devices can be found in section @sec-fonts-tmap.] incorporated in R.
 However, it is also possible to use other, external devices with the `device` argument.
@@ -81,9 +80,9 @@ Vector graphics are quite distant relatives of spatial vectors, with vector grap
 Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (@sec-vector-data-model), but also using curves.
 This makes it possible to create polygons, circles, ellipses, and others.
 They also allow storing of text and other objects.
-Common vector graphic file formats are SVG, EPS, PDF.
+Common vector graphic file formats are SVG, EPS, and PDF.
 
-To save a map to a vector graphic format, we still can use `tmap_save()` but either with a proper extension or by using the `device` argument, for example `device = svglite::svglite`.
+To save a map to a vector graphic format, we still can use `tmap_save()` but either with a suitable file extension or by using the `device` argument, for example `device = svglite::svglite`.
 
 ```{r}
 tmap_save(tm, "my_map.svg")
@@ -96,7 +95,8 @@ tmap_save(tm, "my_map00.svg", width = 10)
 tmap_save(tm, "my_map01.svg", width = 1)
 ```
 
-While a level of zoom does not impact vector graphics' quality, the `width`, `height`, and `scale` arguments still can impact the output file.
+Zooming in and out of vector graphics does not affect their quality.
+At the same time, the `width`, `height`, and `scale` arguments still can impact the output file.
 For example, a vector graphic file saved with a narrower width value will have thicker lines and larger fonts compared to the one with a larger width value.
 You can check this effect by saving the `tm` object with `width = 1` and then with `width = 10`.
 
@@ -118,7 +118,7 @@ tmap_save(tm, "my_map.html")
 The `tmap_save()` function also has several additional arguments reserved for the interactive format, including `selfcontained` and `in.iframe`.
 The `selfcontained` argument with `TRUE` by default saves our map together with additional resources (e.g., JavaScript libraries) into one HTML file. 
 Otherwise, additional resources will be saved in an adjacent directory.
-The `in.iframe` argument (`FALSE` by default) allows saving an interactive map as an iframe - when `TRUE` it creates two HTML files - a small HTML file with the iframe container and a large one with the actual map.
+The `in.iframe` argument (`FALSE` by default) allows saving an interactive map as an iframe -- when `TRUE` it creates two HTML files - a small HTML file with the iframe container and a large one with the actual map.
 <!-- when `in.iframe = TRUE` is useful?? -->
 <!-- arguments passed on to device functions or to saveWidget or saveWidgetframe -->
 
