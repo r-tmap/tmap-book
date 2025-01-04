@@ -51,8 +51,8 @@ book:
 
 format:
   html: 
-    theme: flatly
-    linkcolor: "#73A7A8"
+    theme: [brand, flatly]
+    # linkcolor: "#73A7A8"
     code-link: true
     template-partials: [helpers/toc.html, helpers/title-block.html]
     toc-title: "On this page"
