@@ -69,7 +69,7 @@ In the following example, we set the `worldcities` object as the main *shape*, w
 ```{r}
 #| label: fig-tmshape2
 #| message: false
-#| fig-asp: 0.35
+#| #fig-asp: 0.35
 #| fig-cap: "A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object."
 tm_shape(worldelevation) +
   tm_raster("worldelevation.tif", 
@@ -192,17 +192,17 @@ tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
 #| label: fig-tm-map-proj
 #| echo: false
 #| warning: false
-#| fig-cap: 'Two elevation maps in the Equal Earth projection: (A) created using raster.warp
-#|   = TRUE, (B) created using raster.warp = FALSE.'
-tmp1 = tm_shape(worldelevation, crs = "EPSG:8857") +
+#| layout-nrow: 2
+#| fig-cap: Two elevation maps in the Equal Earth projection
+#| fig-subcap: 
+#|   - created using raster.warp = TRUE
+#|   - created using raster.warp = FALSE
+tm_shape(worldelevation, crs = "EPSG:8857") +
   tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8))) +
-  tm_title("A")
-tmp2 = tm_shape(worldelevation, projection = "EPSG:8857", raster.warp = FALSE) +
+            col.scale = tm_scale(values = terrain.colors(8)))
+tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
   tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8))) +
-  tm_title("B")
-tmap_arrange(tmp1, tmp2)
+            col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
 ```{r}
@@ -215,99 +215,4 @@ bench::mark(print(tmp1), print(tmp2), check = FALSE)
 <!-- add our recommendations -->
 <!-- about reprojecting first vs later - why and how -->
 
-## Data simplification {#sec-data-simplification}
-
-<!-- this content should be (split?) and moved to other chapters -->
-
-Geometries in spatial vector data consists of sets of coordinates (@sec-vector-data-model).
-Spatial vector objects grow larger with more features to present and more details to show, and this also has an impact on time to render a map.
-<!-- also to consider - the level of generalization -->
-@fig-vectordown-1 shows a map of countries from the `worldvector` object.
-
-```{r}
-#| eval: false
-tm_shape(worldvector) +
-  tm_polygons()
-```
-
-This level of detail can be good for some maps, but sometimes the number of details can make reading the map harder.
-To create a simplified (smoother) version of vector data, we can use the `ms_simplify` function of the **rmapshaper** package.
-<!--add two citations: to mapshaper and rmapshaper-->.
-It expects a numeric value from 0 to 1 -- a proportion of vertices in the data to retain.
-In the example below, we set `keep` to 0.05, which keeps 5% of vertices (@fig-vectordown-2).
-
-```{r}
-#| eval: false
-library(rmapshaper)
-worldvector_s1 = ms_simplify(worldvector, keep = 0.05)
-tm_shape(worldvector_s1) +
-  tm_polygons()
-```
-
-The process of simplification can also be more controlled.
-By default, the underlining algorithm (called the Visvalingam method, learn more at https://bost.ocks.org/mike/simplify/), removes small features, such as islands in our case.
-This could have far-reaching consequences - in the process of simplification, we could remove some countries!
-To prevent the deletion of small features, we also need to set `keep_shapes` to `TRUE`.
-In the case of one country consisting of many small polygons, only one is sure to be retained.
-For example, look at New Zealand, which is now only represented by Te Waipounamu (the South Island).
-To keep all of the spatial geometries (even the smallest of islands), we should also specify `explode` to `TRUE`.
-
-```{r}
-#| eval: false
-worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
-                             keep_shapes = TRUE, explode = TRUE)
-tm_shape(worldvector_s1) +
-  tm_polygons()
-```
-
-@fig-vectordown-3 contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
-
-```{r}
-#| label: fig-vectordown
-#| echo: false
-#| message: false
-#| layout-ncol: 3
-#| fig-cap: "A map of world's countries based on:"
-#| fig-subcap: 
-#|   - original data
-#|   - simplified data with 5% of vertices kept
-#|   - simplified data with 5% of vertices, all features, and all polygons kept
-tm_shape(worldvector) +
-  tm_polygons()
-library(rmapshaper)
-worldvector_s1 = ms_simplify(worldvector, keep = 0.05)
-tm_shape(worldvector_s1) +
-  tm_polygons()
-worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
-                             keep_shapes = TRUE, explode = TRUE)
-tm_shape(worldvector_s1) +
-  tm_polygons()
-```
-
-<!-- 2/resolution -->
-Raster data is represented by a grid of cells (@sec-raster-data-model), and the number of cells impacts the time to render a map.
-Rasters with hundreds of cells will be plotted quickly, while rasters with hundreds of millions or billions of cells will take a lot of time (and RAM) to be shown.
-<!-- ... some info about screen resolution -->
-Therefore, the **tmap** package downsamples large rasters by default to be below 10,000,000 cells in the plot mode and 1,000,000 cells in the view mode.
-<!-- c(plot = 1e7, view = 1e6) -->
-This values can be adjusted with the `raster.max_cells` argument of `tmap_options()`, which expects a named vector with two elements - `plot` and `view` (@fig-rasterdown).
-<!-- btw - downsampling cont vs cat -->
-<!-- when and why -->
-
-```{r}
-#| label: fig-rasterdown
-#| message: false
-#| fig-cap: A raster map with the decreased resolution
-tmap_options(raster.max_cells = c(plot = 5000, view = 2000))
-tm_shape(worldelevation) +
-  tm_raster("worldelevation.tif")
-```
-
-Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (We explain `tmap_options()` in details in @sec-options).
-
-```{r}
-#| message: false
-tmap_options_reset()
-```
-
-<!-- is there anything important about tm_shape arguments that still is missing for the above text?? -->
+<!-- explain st_crs! -->
