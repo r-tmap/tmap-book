@@ -79,7 +79,7 @@ ei_borders = read_sf("data/easter_island/ei_border.gpkg")
 ```
 
 The main function to visualize polygons is `tm_polygons()`.
-By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray40`).
+By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray25`).
 <!-- https://github.com/r-tmap/tmap/blob/master/R/tmap_options.R -->
 
 ```{r}
@@ -88,7 +88,7 @@ tm_shape(ei_borders) +
   tm_polygons()
 ```
 
-Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `col` and `border.col` arguments (@fig-tmpolygonsder A).
+Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `fill` and `col` arguments (@fig-tmpolygonsder-1).
 
 ```{r}
 #| eval: false
@@ -96,8 +96,8 @@ tm_shape(ei_borders) +
   tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
 ```
 
-In fact, `tm_polygons()` is a combination of two separate functions - `tm_fill()` and `tm_borders()`.
-The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (@fig-tmpolygonsder B).
+In fact, `tm_polygons()` is a combination of two separate functions: `tm_fill()` and `tm_borders()`.
+The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (@fig-tmpolygonsder-2).
 
 ```{r}
 #| eval: false
@@ -105,7 +105,7 @@ tm_shape(ei_borders) +
   tm_fill(fill = "lightblue")
 ```
 
-The `tm_borders()` function draws the borders of the polygons only (@fig-tmpolygonsder C).
+The `tm_borders()` function draws the borders of the polygons only (@fig-tmpolygonsder-3).
 It allows to change the colors of borders, their widths, or the lines type.
 
 ```{r}
@@ -114,52 +114,23 @@ tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed")
 ```
 
-Notice that we have used the `col` argument in `tm_borders()`, but `border.col` in `tm_polygons()`.
-This is necessary to distinguish between the setting of the fillings color and the borders' color.
-
 ```{r}
 #| label: fig-tmpolygonsder
 #| warning: false
 #| echo: false
-#| fig-cap: "Example of a map created with: (A) `tm_polygons()`, (B) `tm_fill()`, (C) `tm_borders()`."
-#| fig-asp: 0.4
-tmpa0 = tm_shape(ei_borders) +
-  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed") +
-  tm_title("A")
-tmpa1 = tm_shape(ei_borders) +
-  tm_fill(fill = "lightblue") +
-  tm_title("B")
-tmpa2 = tm_shape(ei_borders) +
-  tm_borders(col = "black", lwd = 0.5, lty = "dashed") +
-  tm_title("C")
-tmap_arrange(tmpa0, tmpa1, tmpa2, nrow = 1)
-```
-
-
-```{r}
-#| label: fig-tmpolygonsder2
-#| warning: false
-#| echo: false
-#| fig-cap: "Example of a map created with:"
-#| fig-subcap: 
-#|   - "(A) tm_polygons()"
-#|   - "(B) tm_fill()"
-#|   - "(C) tm_borders()"
-#| fig-asp: 0.4
 #| layout-nrow: 1
-tmpa0 = tm_shape(ei_borders) +
-  tm_polygons(fill = "lightblue", 
-              col = "black", lwd = 0.5, lty = "dashed") +
-  tm_title("A")
-tmpa1 = tm_shape(ei_borders) +
-  tm_fill(col = "lightblue") +
-  tm_title("B")
-tmpa2 = tm_shape(ei_borders) +
-  tm_borders(col = "black", lwd = 0.5, lty = "dashed") +
-  tm_title("C")
-tmpa0
-tmpa1
-tmpa2
+#| fig-cap: "Example of a map created using:"
+#| fig-subcap:
+#|   - "tm_polygons()"
+#|   - "tm_fill()"
+#|   - "tm_borders()"
+#| fig-asp: 0.4
+tm_shape(ei_borders) +
+  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
+tm_shape(ei_borders) +
+  tm_fill(fill = "lightblue")
+tm_shape(ei_borders) +
+  tm_borders(col = "black", lwd = 0.5, lty = "dashed")
 ```
 
 More information on colors, and how they can be applied and modified is explained in detail in @sec-colors.
@@ -174,7 +145,7 @@ volcanos = subset(ei_points, type == "volcano")
 Symbols are a very flexible layer type. 
 They are usually used to represent point data, but can be also used for lines and polygons.
 In the latter cases, they are located in centroid coordinates of each feature.
-Their flexibility is also related to the ways symbols can be visualized - it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in @sec-visual-variables).
+Their flexibility is also related to the ways symbols can be visualized -- it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in @sec-visual-variables).
 
 The `tm_symbols()` is the main function in **tmap** allowing to use and modify symbol elements (@fig-tmsymbols1).
 By default, this function draws a gray circle symbol with a black border for each element of an input feature.
@@ -197,7 +168,7 @@ While this allows adjusting its results to almost any need, it also makes this f
 Therefore, four additional layers are implemented in **tmap**: `tm_squares()`, `tm_bubbles()`, `tm_dots()`, `tm_markers()`.
 All of them use `tm_symbols()`, but with different default values.
 
-`tm_squares()` uses square symbols (`shape = 22`) instead of circles (`shapes = 21`) (@fig-tmsymbols2 A).
+`tm_squares()` uses square symbols (`shape = 22`) instead of circles (`shapes = 21`) (@fig-tmsymbols2-1).
 <!--scale is 4/3 instead of 1-->
 
 ```{r}
@@ -207,7 +178,7 @@ tm_shape(volcanos) +
 ```
 
 <!-- JN: what is the main difference between symbols and bubbles?? -->
-(@fig-tmsymbols2 B)
+(@fig-tmsymbols2-2)
 <!--scale is 4/3 instead of 1-->
 
 ```{r}
@@ -217,7 +188,7 @@ tm_shape(volcanos) +
 ```
 
 The main role of `tm_dots()` is to present many locations at the same time.
-To do this, this layer has a small size value (`0.02`) at the default (@fig-tmsymbols2 C).
+To do this, this layer has a small size value (`0.02`) at the default (@fig-tmsymbols2-3).
 
 ```{r}
 #| eval: false
@@ -225,7 +196,7 @@ tm_shape(volcanos) +
   tm_dots()
 ```
 
-The last additional layer is `tm_markers()`, which uses a marker icon by default (@fig-tmsymbols2 D).
+The last additional layer is `tm_markers()`, which uses a marker icon by default (@fig-tmsymbols2-4).
 
 ```{r}
 #| eval: false
@@ -237,21 +208,22 @@ tm_shape(volcanos) +
 #| label: fig-tmsymbols2
 #| warning: false
 #| echo: false
-#| fig-cap: "Maps showing default visualizations using: (A) tm_squares(), (B) tm_bubbles(), (C) tm_dots(), (D) tm_markers()."
+#| layout-nrow: 2
+#| fig-cap: "Maps showing default visualizations using:"
+#| fig-subcap:
+#|   - "tm_squares()"
+#|   - "tm_bubbles()"
+#|   - "tm_dots()"
+#|   - "tm_markers()"
 #| fig-asp: 0.69
-tm_ma1 = tm_shape(volcanos) +
-  tm_squares() +
-  tm_title("A")
-tm_ma2 = tm_shape(volcanos) +
-  tm_bubbles() +
-  tm_title("B")
-tm_ma3 = tm_shape(volcanos) +
-  tm_dots() +
-  tm_title("C")
-tm_ma4 = tm_shape(volcanos) +
-  tm_markers() +
-  tm_title("D")
-tmap_arrange(tm_ma1, tm_ma2, tm_ma3, tm_ma4, ncol = 2)
+tm_shape(volcanos) +
+  tm_squares()
+tm_shape(volcanos) +
+  tm_bubbles()
+tm_shape(volcanos) +
+  tm_dots()
+tm_shape(volcanos) +
+  tm_markers()
 ```
 
 ## Lines {#sec-lines}
@@ -274,6 +246,8 @@ This allows to show a hierarchy (for example, increased line widths for higher c
 
 ## Text {#sec-text}
 
+<!-- tm_labels? -->
+
 Text labels are often an integral part of many maps.
 They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
 The main function to create text labels is `tm_text()`, which adds a label to each spatial feature (@fig-tmtext).
@@ -287,19 +261,20 @@ tm_shape(volcanos) +
   tm_layout(legend.outside = TRUE)
 ```
 
-```{r}
-#| echo: false
-#| eval: false
-tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd") +
-  tm_text("name", 
-          options = opt_tm_text(remove_overlap = TRUE, along_lines = TRUE))
-```
-
-We can adjust colors (`col`) and sizes (`size`; @sec-sizes) of labels either by providing a single value or a name of a data variable.
-Text labels can be modified with a set of unique arguments, including `case` (`"upper"` or `"lower"`), `shadow` (`TRUE` or `FALSE`), `fontface` and `fontfamily`.
+We can adjust sizes (`size`; @sec-sizes), colors (`col`), font faces (`fontface`), and background colors (`bgcol`)  of labels either by providing a single value or a name of a data variable.
+Text labels can be further modified with the `opt_tm_text()` function provided to the `options` argument.
+It includes a set of arguments that allow to adjust the text labels' appearance, such as `remove_overlap`, `along_lines`, and `shadow`.
 <!-- ref to the text section?? -->
 
+```{r}
+#| echo: false
+tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd") +
+  tm_text("name", size = "strokelwd", col = "red", 
+          options = opt_tm_text(remove_overlap = TRUE, shadow = TRUE))
+```
+
+<!-- to update -->
 Text labels can be added to spatial (multi-)points, (multi-)lines, and (multi-)polygons, and each of the cases is quite different. 
 The simplest case is for POINT data, for which each text label will be located precisely in coordinates of the given points (@fig-tmtext).
 However, how to add text labels to multipoints, lines, multilines, polygons, or multipolygons?
@@ -339,7 +314,7 @@ tm_shape(metro3) +
 <!-- ask MT -->
 
 Text labels are also often presented together with lines (@sec-lines).
-One example is an isopleth - a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
+One example is an isopleth -- a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
 Isopleths can be created with the `tm_iso()` function.
 
 ```{r}
@@ -389,10 +364,9 @@ ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
 
 <!-- Raster data intro -->
 Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
-<!-- continuous or categorical -->
 @fig-rasterdown shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
-This function attempts to recognize the type of a given raster - when the input raster is continuous then the pretty style is used.
-However, the `"cont"` style often better represent phenomena that progressively vary in space (@fig-rasterdown A).
+This function attempts to recognize the type of a given raster -- when the input raster is continuous then the pretty style is used.
+However, the continuous style (`"tm_scale_continuous"`) often better represent phenomena that progressively vary in space (@fig-rasterdown-1).
 
 ```{r}
 #| eval: false
@@ -401,7 +375,7 @@ tm_shape(ei_elev) +
             col.legend = tm_legend(title = "Elevation (m asl):"))
 ```
 
-On the other hand, when the given raster is categorical, then `tm_raster` uses `style = "cat"` (@fig-rasterdown A).
+On the other hand, when the given raster is categorical, then `tm_raster` uses `tm_scale_categorical` automatically (@fig-rasterdown-2).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 ```{r}
@@ -414,15 +388,16 @@ tm_shape(ei_geomorphons) +
 #| label: fig-rastertype
 #| echo: false
 #| message: false
-#| fig-cap: Examples of (A) continuous raster maps, and (B) categorical raster maps.
-tmrt1 = tm_shape(ei_elev) +
+#| layout-nrow: 1
+#| fig-cap: Examples of raster maps
+#| fig-subcap:
+#|   - "Continuous raster map"
+#|   - "Categorical raster map"
+tm_shape(ei_elev) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
-            col.legend = tm_legend(title = "Elevation (m asl):")) +
-  tm_title("A")
-tmrt2 = tm_shape(ei_geomorphons) +
-  tm_raster(col.legend = tm_legend(title = "Geomorphons:")) +
-  tm_title("B")
-tmap_arrange(tmrt1, tmrt2)
+            col.legend = tm_legend(title = "Elevation (m asl):"))
+tm_shape(ei_geomorphons) +
+  tm_raster(col.legend = tm_legend(title = "Geomorphons:")) 
 ```
 
 The above examples used a raster with one layer only.
@@ -450,7 +425,7 @@ tm_shape(raster2) +
   tm_layout(panel.labels = c("Elevation", "Geomorphons"))
 ```
 
-If you want to learn more - we focus on how to specify and modify facets (also known as small multiples) in @sec-multiples and how to modify map layout in @sec-layout.
+If you want to learn more -- we focus on how to specify and modify facets (also known as small multiples) in @sec-multiples and how to modify map layout in @sec-layout.
 
 ```{r}
 #to replace later
@@ -463,10 +438,11 @@ We can plot all of the bands independently or as a combination of three bands.
 This combination is known as a color composite image, and we can create such images with the `tm_rgb()` function (@fig-tmrgbs).
 
 Standard composite image (true color composite) uses the visible red, green, and blue bands to represent the data in natural colors.
-We can specify which band in `landsat` relates to red (third band), green (second band), and blue (first band) color in `tm_rgb`.
-Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961. 
-Therefore, to create a map, we can set `max.value` to our dataset's maximum value.
-The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (@fig-tmrgbs A).
+We can specify which band in `landsat` relates to red (third band), green (second band), and blue (first band) color in `tm_rgb()`.
+<!-- to update -->
+<!-- Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961.  -->
+<!-- Therefore, to create a map, we can set `max.value` to our dataset's maximum value. -->
+<!-- The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (@fig-tmrgbs-1). -->
 
 ```{r}
 #| eval: false
@@ -479,7 +455,7 @@ True color images are straightforward to interpret and understand, but they make
 However, nothing stops us from using the above tools to integrate different bands to create so called false color composites.
 Various band combinations emphasize some spatial characteristics, such as water, agriculture, etc., and allows us to visualize wavelengths that our eyes can not see.
 <!-- add some reference?? -->
-@fig-tmrgbs B shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.
+@fig-tmrgbs-2 shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.
 
 ```{r}
 #| eval: false
@@ -492,16 +468,17 @@ tm_shape(landsat) +
 #| label: fig-tmrgbs
 #| message: false
 #| echo: false
-#| fig-cap: 'Two color composite images: (A) true color composite, (B) false color composite.'
-tmrgb1 = tm_shape(landsat) +
+#| layout-nrow: 1
+#| fig-cap: 'Two color composite images'
+#| fig-subcap:
+#|   - 'True color composite image'
+#|   - 'False color composite image'
+tm_shape(landsat) +
   tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
-         col.scale = tm_scale_rgb(stretch = TRUE)) +
-  tm_title("A")
-tmrgb2 = tm_shape(landsat) +
+         col.scale = tm_scale_rgb(stretch = TRUE))
+tm_shape(landsat) +
   tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
-         col.scale = tm_scale_rgb(stretch = TRUE)) +
-  tm_title("B")
-tmap_arrange(tmrgb1, tmrgb2, asp = NA)
+         col.scale = tm_scale_rgb(stretch = TRUE))
 ```
 
 <!-- raster.warp -->
@@ -541,7 +518,7 @@ tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap"))
 view_map(tmbasemap1, "tmbasemap1")
 ```
 
-In the above code, we made two basemaps available - `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
+In the above code, we made two basemaps available: `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
 A complete list of available basemaps is in the `leaflet::providers` object and on the https://leaflet-extras.github.io/leaflet-providers/preview/ website^[Additional details can be found in the `leaflet::providers.details` object].
 <!-- explain why some providers do not work -->
 <!-- ?do we need to register somewhere?: -->
@@ -578,56 +555,24 @@ view_map(tmtiles1, "tmtiles1")
 
 Tile layers are usually created to be used interactively.
 We can see it, for example, by their number of details varying depending on the zoom level we set.
-That being said, many people find them useful also for static maps, and several packages and functions were created to allow downloading tile layers and using them for static maps.
-It includes packages, such as **ceramic**, **mapmisc**, or **maptiles**.
-<!-- add refs -->
-<!-- https://github.com/riatelab/maptiles -->
-<!-- mention read_osm()? -->
+That being said, many people find them useful also for static maps, and **tmap** allows to use them in this way.
+It uses the **maptiles** package to download the tiles and then plot them as a raster layer.
 
-Here, we focus on **maptiles**.
-This package has one main function called `get_tiles()` that expects a spatial object with our area of interest and downloads a spatial data representing our tiles.
-<!-- ... -->
-The `get_tiles()` function also allows us to select one of many map tiles providers and decide on the zoom level we want to use from 0 to 20.
-A complete list of available providers and some [information about zoom levels](https://wiki.openstreetmap.org/wiki/Zoom_levels) are in the help file of this function - `?get_tiles()`.
+A complete list of available providers and some [information about zoom levels](https://wiki.openstreetmap.org/wiki/Zoom_levels) are in the help file of the `?maptiles::get_tiles()` function.
 Different map tiles providers offer unique map styles, while zoom levels relate to different levels of detail -- the larger level, the more details we will get.
-In some cases, also the `crop` argument set to `TRUE` can be useful - it returns a tile cropped to the area of interest.
-
-```{r}
-#| message: false
-#| cache: false
-library(maptiles)
-ei_tiles = get_tiles(ei_borders, provider = "CartoDB.VoyagerNoLabels",
-                     zoom = 12, crop = TRUE)
-```
-
-In the above example, we downloaded the data for the area of `ei_borders` from the `"CartoDB.VoyagerNoLabels"` provider using the zoom of level 12, and we cropped the tile to the extent of the island area.
-The result is a spatial object <!--mention terra?--> with four layers, in which three first layers represent the visible red, green, and blue bands (@sec-raster-layer).
-This object's structure allows us to create a **tmap** map with the `tm_rgb()` function.
-
 When using map tiles, we should also consider adding their attribution to the map.
-Attribution for each provider can be obtained using the `get_credit()` function by specifying the provider name, for example `get_credit("CartoDB.VoyagerNoLabels")`.
+Attribution for each provider can be obtained using the `maptiles::get_credit()` function by specifying the provider name, for example `get_credit("CartoDB.VoyagerNoLabels")`.
 
 The code below plots the `"CartoDB.VoyagerNoLabels"` tiles in the background, adds the island outline in light blue color, and puts attribution text in the bottom right corner of the map (@fig-stiles)).
-
-```{r}
-#| echo: false
-#| cache: false
-#| message: false
-#| eval: false
-library(tmap)
-library(sf)
-ei_borders = read_sf("data/easter_island/ei_border.gpkg")
-```
 
 ```{r}
 #| label: fig-stiles
 #| cache: false
 #| fig-cap: 'Example of a static map using a downloaded `"CartoDB.VoyagerNoLabels"` tile layer.'
 tmap_mode("plot")
-tm_shape(ei_tiles) + 
-  tm_rgb() + 
+tm_basemap("CartoDB.VoyagerNoLabels") + 
   tm_shape(ei_borders) +
   tm_borders(lwd = 5, col = "lightblue") +
-  tm_credits(get_credit("CartoDB.VoyagerNoLabels"),
+  tm_credits(maptiles::get_credit("CartoDB.VoyagerNoLabels"),
              bg.color = "white")
 ```
