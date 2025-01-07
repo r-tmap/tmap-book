@@ -149,10 +149,32 @@ We can do this in three ways.
 The first way to use a different projection on a map is to reproject the main data before plotting, as shown in @sec-crs-in-r.
 The second way is to specify the map projection using the `crs` argument of `tm_shape()`.
 This argument expects either some `crs` object or a CRS code.
-In the next example, we set `crs` to `EPSG:8857`.
+The third way is to use a `tm_crs()` function.
+
+The next code chunks shows all of the three ways, in which we transform the CRS of the `worldvector` object to `"EPSG:8857"`.
 This represents a projection called [Equal Earth](http://equal-earth.com/index.html) [@savric_equal_2019].
 The Equal Earth projection is an equal-area pseudocylindrical projection for world maps similar to the non-equal-area Robinson projection (@fig-crs-robin).
-The third way is to use a `tm_crs()` function.
+
+```{r}
+#| eval: false
+#1
+worldvector8857 = st_transform(worldvector, crs = "EPSG:8857")
+tm_shape(worldvector8857) +
+  tm_polygons()
+#2
+tm_shape(worldvector, crs = "EPSG:8857") +
+  tm_polygons() 
+#3
+tm_shape(worldvector) +
+  tm_polygons() +
+  tm_crs("EPSG:8857")
+```
+
+The first way requires understanding various R packages, as different spatial objects have different functions for changing the projection.
+The second way is the most straightforward, but it is important to remember that the `crs` argument can be only set in the main layer (@sec-shapes-hierarchy).
+The third way is the most flexible, as it allows changing the projection for the whole map.
+Additionally, the `tm_crs()` function can automatically determine the projection based on the expected property of the map, e.g., equal area (`"area"`), equidistant (`"distance"`), or conformal (`"shape"`).
+For example, `tm_crs("auto")` will choose the projection that best preserves the area of the map (*Lambert Azimuthal Equal Area*), while `tm_crs("auto", property = "shape")` will choose the projection that best preserves the shape of the map (*Stereographic*).
 
 Reprojections of vector data are usually straightforward because each spatial coordinate is reprojected individually.
 <!-- mention invalid geometries? -->
@@ -224,4 +246,3 @@ bench::mark(print(tmp1), print(tmp2), check = FALSE)
 <!-- add our recommendations -->
 <!-- about reprojecting first vs later - why and how -->
 
-<!-- explain st_crs! -->
