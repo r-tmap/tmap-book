@@ -35,7 +35,6 @@ book:
       - "XX-tm-shape.qmd" 
       - "XX-layers.qmd" 
       - "XX-visual-variables.qmd" 
-      - "XX-other-types.qmd"
       - "XX-layout.qmd" 
       - "XX-interactive.qmd" 
     - part: "Expanding the toolbox"
@@ -43,6 +42,7 @@ book:
         - "XX-small-multiples.qmd" 
         - "XX-animations.qmd"
         - "XX-shiny.qmd"
+        - "XX-other-types.qmd"
     - part: "Advanced topics"
       chapters:
       - "XX-options.qmd" 

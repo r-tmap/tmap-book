@@ -5,8 +5,6 @@ source("code/before_script.R")
 
 # Visual variables {#sec-visual-variables}
 
-<!-- JN: idea - add text section -->
-
 Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
 Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
 All of them can influence our perception and understanding of the presented information, therefore it is worth to understand when and how they can be used.
