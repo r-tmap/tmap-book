@@ -162,9 +162,9 @@ The first approach applies raster warping, which is a name for two separate spat
 This is the default option in **tmap**, however, it has some limitations and it is not always possible to use it.
 
 <!-- to fix the rest of the section! -->
-@fig-tm-map-proj A shows the world elevation raster reprojected to Equal Earth.
+@fig-tm-map-proj-1 shows the world elevation raster reprojected to Equal Earth.
 Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
-Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only - while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
+Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only -- while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
 
 ```{r}
 #| warning: false
@@ -174,18 +174,19 @@ tm_shape(worldelevation, crs = "EPSG:8857") +
             col.scale = tm_scale(values = terrain.colors(8))) 
 ```
 
-The second approach (`raster.warp = FALSE`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
+The second approach (`tm_options(raster.warp = FALSE)`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
 This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach see `?stars::st_warp()` and of the second approach see `?stars::st_transform()`.].
 
-@fig-tm-map-proj B shows an example of the second approach, which gave a better result in this case without any spurious lands.
-However, creation of the B map takes about ten times longer than the A map.
+@fig-tm-map-proj-2 shows an example of the second approach, which gave a better result in this case without any spurious lands.
+However, creation of the (b) map takes about ten times longer than the (a) map.
 
 ```{r}
 #| warning: false
 #| eval: false
-tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
+tm_shape(worldelevation, crs = "EPSG:8857") +
   tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8)))
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_options(raster.warp = FALSE)
 ```
 
 ```{r}
@@ -200,14 +201,22 @@ tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
 tm_shape(worldelevation, crs = "EPSG:8857") +
   tm_raster("worldelevation.tif", 
             col.scale = tm_scale(values = terrain.colors(8)))
-tm_shape(worldelevation, crs = "EPSG:8857", raster.warp = FALSE) +
+tm_shape(worldelevation, crs = "EPSG:8857") +
   tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8)))
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_options(raster.warp = FALSE)
 ```
 
 ```{r}
 #| echo: false
 #| eval: false
+tmp1 = tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
+tmp2 = tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_options(raster.warp = FALSE)
 bench::mark(print(tmp1), print(tmp2), check = FALSE)
 # 2.28s vs 24.52s
 ```
