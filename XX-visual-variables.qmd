@@ -17,7 +17,6 @@ All of them can influence our perception and understanding of the presented info
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-asp: 0.5
 #| fig-cap: Basic visual variables and their representations on maps
 source("code/visual_variables.R")
 visual_variables()
@@ -106,7 +105,6 @@ There are several types of color blindness, with the red-green color blindness (
 It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind [@birch_worldwide_2012;@sharpe_opsin_1999].
 <!-- tools in R for checking for colorblindness -->
 
-
 <!-- Simultaneous contrast. --><!-- background -->
 The relation between the selected color palette and other map elements or the map background should be also taken into a consideration.
 For example, using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
@@ -122,17 +120,25 @@ For example, using a bright or dark background color on a map has an impact on h
 \index{color palettes}
 Generally, color palettes can be divided into three main types (@fig-palette-types):
 
-- **Categorical** (also known as Qualitative) - used for presenting categorical information, for example, categories or groups. 
+- **Categorical** (also known as Qualitative): used for presenting categorical information, for example, categories or groups. 
 Every color in this type of palettes should receive the same perceptual weight, and the order of colors is meaningless.
 Categorical color palettes are usually limited to dozen or so different colors, as our eyes have problems with distinguishing a large number of different hues. 
 Their use includes, for example, regions of the world or land cover categories.
-- **Sequential** - used for presenting continuous variables, in which order matters.
+- **Sequential**: used for presenting continuous variables, in which order matters.
 Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
 Sequential palettes can be found in maps of GDP, population density, elevation, and many others.
-- **Diverging** - used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+- **Diverging**: used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
 Therefore, in sense, they consist of two sequential palettes that meet in the midpoint value.
 Examples of diverging palettes include maps where a certain temperature or median value of household income is use as the midpoint.
 It can also be used on maps to represent difference or change as well. 
+
+```{r}
+#| echo: false
+#| eval: false
+to = tmap_options()
+to$values.var$fill
+```
+
 
 <!-- idea: replace one diverging palette with the dark in the middle -->
 <!-- do it, if (when) tmap has hcl.colors build-in -->
@@ -144,13 +150,13 @@ It can also be used on maps to represent difference or change as well.
 #| fig-asp: 0.5
 # y - a named list of palettes
 source("code/palette_figures.R")
-p_cat = hcl.colors(7, "Set3")
-p_seq = rev(hcl.colors(7, "YlOrBr"))
-p_div = hcl.colors(7, "RdYlGn")
+p_cat = cols4all::c4a("cols4all.area7", n = 7)
+p_seq = cols4all::c4a("-hcl.blues3", n = 7)
+p_div = cols4all::c4a("pu_gn_div", n = 7)
 
-p_cat2 = tmaptools::get_brewer_pal("Set2", n = 7, plot = FALSE)
-p_seq2 = rev(hcl.colors(7, "viridis"))
-p_div2 = hcl.colors(7, "BrBG")
+p_cat2 = cols4all::c4a("brewer.set2", n = 7)
+p_seq2 = cols4all::c4a("viridis", n = 7)
+p_div2 = cols4all::c4a("brewer.br_bg", n = 7)
 
 y = list(Categorical = list(Set3 = p_cat, Set2 = p_cat2),
          Sequential = list(YlOrBr = p_seq, viridis = p_seq2),
@@ -158,6 +164,8 @@ y = list(Categorical = list(Set3 = p_cat, Set2 = p_cat2),
 plot_palette_types(y)
 ```
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+
+<!-- add ord, cyc, biv -->
 
 \index{color palettes}
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
