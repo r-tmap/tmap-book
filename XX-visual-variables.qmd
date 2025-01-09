@@ -199,10 +199,10 @@ Each color palette shown `cols4all::c4a_gui()` can be used in **tmap**.
 
 \index{color palettes!rainbow}
 One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
-It was inspired by colors of rainbows - a set of seven colors going from red to violet.
+It was inspired by colors of a rainbow -- a set of seven colors going from red to violet.
 However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies [@borland_rainbow_2007;@stauffer_somewhere_2015;@quinan_examining_2019]. 
-Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential `"viridis"` and `"ag_Sunset"` or diverging `"Purple-Green"` and `"Fall"`.
-All of them can be created with the `grDevices::hcl.colors()` function.
+Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential `"viridis"` and `"ag_sunset"` or diverging `"pu_gn"` and `"geyser"`.
+All of them can be specified in **tmap**.^[You can also derive them using `cols4all::c4a()` function.]
 More examples showing alternatives to the "rainbow" palette are in the documentation of the **colorspace** package at 
 https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
 
@@ -215,9 +215,15 @@ library(sf)
 worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-<!-- https://github.com/r-tmap/tmap/blob/d3b8575fa19d704cff69cdac6746fedc5b8db758/R/tmap_options.R -->
-By default, the **tmap** package attempts to identify the type of the used variable.
-Based on the result, it selects one of the build-in palettes: categorical `"Set3"`, sequential `"YlOrBr"`, or diverging `"RdYlGn"` (@fig-tmpals).
+```{r}
+#| echo: false
+#| eval: false
+to = tmap_options()
+to$values.var$fill
+```
+
+By default, the **tmap** package attempts to identify the type of the used variable. 
+For example, it uses `"area7"` for a categorical (unordered) variable, `"blues3"` for a sequential variable, and "`pu_gn`" for a diverging one (@fig-tmpals).
 <!-- info about tm_layout or reference to a section about it -->
 
 ```{r}
@@ -226,7 +232,9 @@ tm_shape(worldvector) +
   tm_polygons("life_expectancy")
 ```
 
-It also offers three main ways to specify color palettes using the `palette` argument: (1) a vector of colors, (2) a palette function, or (3) one of the build-in names (@fig-tmpals).
+There are three main ways to specify color palettes as an `values` argument of the `tm_scale()` family of functions.
+<!-- add ref to the section -->
+This argument accepts (1) a vector of colors, (2) a palette function, or (3) one of the build-in palette names (@fig-tmpals).
 A vector of colors can be specified using color names or hexadecimal representations (@fig-tmpals).
 Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
 **tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
@@ -251,16 +259,15 @@ tm_shape(worldvector) +
 ```
 
 The last approach is to use one of the names of color palettes build-in in **tmap** (@fig-tmpals).
-In this example, we used the `"YlGn"` palette that goes from yellow to green.
+In this example, we used the `"brewer.yl_gn"` palette that goes from yellow to green.
 
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = "YlGn"))
+              fill.scale = tm_scale(values = "brewer.yl_gn"))
 ```
 
-You can find all of the named color palettes using an interactive app with `tmaptools::palette_explorer()`. 
 It is also possible to reverse the order of any named color palette by using the `-` prefix.
 Therefore, `"-YlGn"` will return a palette going from green to yellow.
 
@@ -268,23 +275,24 @@ Therefore, `"-YlGn"` will return a palette going from green to yellow.
 #| label: fig-tmpals
 #| warning: false
 #| echo: false
-#| fig-cap: "Examples of four ways of specifying color palettes: (A) default sequential color palette, (B) palette created based on provided vector of colors, (C) palette created using the `hcl.colors()` function, and (D) one of the build-in palettes."
-tm_pal1 = tm_shape(worldvector) +
-  tm_polygons("life_expectancy") +
-  tm_title("A")
-tm_pal2 = tm_shape(worldvector) +
+#| layout-ncol: 2
+#| fig-cap: "Examples of four ways of specifying color palettes"
+#| fig-subcap: 
+#|   - default sequential color palette
+#|   - palette created based on provided vector of colors
+#|   - palette created using the `hcl.colors()` function
+#|   - one of the build-in palettes
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy")
+tm_shape(worldvector) +
   tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = c("yellow", "darkgreen"))) +
-  tm_title("B")
-tm_pal3 = tm_shape(worldvector) +
+              fill.scale = tm_scale(values = c("yellow", "darkgreen"))) 
+tm_shape(worldvector) +
   tm_polygons("life_expectancy", 
-              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl")))) +
-  tm_title("C")
-tm_pal4 = tm_shape(worldvector) +
+              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl"))))
+tm_shape(worldvector) +
   tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = "YlGn")) +
-  tm_title("D")
-tmap_arrange(tm_pal1, tm_pal2, tm_pal3, tm_pal4, ncol = 2)
+              fill.scale = tm_scale(values = "YlGn"))
 ```
 <!-- state that the above example of setting colors works for most of palettes -->
 
