@@ -139,9 +139,8 @@ to = tmap_options()
 to$values.var$fill
 ```
 
-
 <!-- idea: replace one diverging palette with the dark in the middle -->
-<!-- do it, if (when) tmap has hcl.colors build-in -->
+
 ```{r}
 #| label: fig-palette-types
 #| echo: false
@@ -158,14 +157,11 @@ p_cat2 = cols4all::c4a("brewer.set2", n = 7)
 p_seq2 = cols4all::c4a("viridis", n = 7)
 p_div2 = cols4all::c4a("brewer.br_bg", n = 7)
 
-y = list(Categorical = list(Set3 = p_cat, Set2 = p_cat2),
-         Sequential = list(YlOrBr = p_seq, viridis = p_seq2),
-         Diverging = list(RdYlGn = p_div, BrBG = p_div2))
+y = list(Categorical = list(area7 = p_cat, set2 = p_cat2),
+         Sequential = list(blues3 = p_seq, viridis = p_seq2),
+         Diverging = list(pu_gn = p_div, br_bg = p_div2))
 plot_palette_types(y)
 ```
-<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
-
-<!-- add ord, cyc, biv -->
 
 \index{color palettes}
 Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
@@ -196,6 +192,10 @@ You can find the available names of the palettes for this function using `palett
 grDevices::hcl.colors(7, "Oslo")
 grDevices::palette.colors(7, "Okabe-Ito")
 ```
+
+The **cols4all** package <!--ref--> is a set of tools for selecting color palettes; it also includes all of the groups of color palettes mentioned above and more.
+Its main function is `cols4all::c4a_gui()` that starts an interactive application allowing to see and examine hundreds of color palettes.
+Each color palette shown `cols4all::c4a_gui()` can be used in **tmap**.
 
 \index{color palettes!rainbow}
 One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
@@ -375,6 +375,9 @@ It includes setting the `alpha` argument that represents the transparency of the
 By default, the colors are not transparent at all as the value of `alpha` is 1.
 However, we can decrease this value to 0 - total transparency.
 The `alpha` argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.
+
+<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+<!-- add ord, cyc, biv -->
 
 <!-- alpha figure? -->
 <!-- color to highlight?? -->
@@ -903,6 +906,7 @@ tm_shape(ei_points) +
 ```{r}
 #| label: fig-tmsymshape
 #| echo: false
+#| eval: false
 #| message: false
 #| fig-asp: 1.32
 #| fig-cap: 'Examples of two maps with different symbols: (A) default symbols, (B) user-defined
