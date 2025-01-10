@@ -37,10 +37,6 @@ Values of polygons usually cannot be represented by either shapes or sizes, as t
 
 <!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 
-## Scales {#sec-scales}
-
-
-
 ## Colors {#sec-colors}
 
 \index{colors}
@@ -308,7 +304,6 @@ It has a value of 0 as the default, however, it is possible to change it to any 
 For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
 To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint-2).
 
-
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
@@ -399,6 +394,322 @@ The `col_alpha`/ `fill_alpha` argument is useful in two ways: one -- it allows u
 <!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
 <!-- add some references about colors theory, color blindness, etc. -->
 <!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
+
+## Sizes {#sec-sizes}
+
+```{r}
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+
+Differences in sizes between objects are relatively easy to recognize on maps. 
+Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
+Large sizes can be also used to attract viewers' attention.
+
+By default, **t**maps present points, lines, or text objects of the same size. 
+For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
+We can change the sizes of all objects using the `size` argument (@fig-tmsizes-1).
+
+```{r}
+#| eval: false
+tm_shape(volcanos) +
+ tm_symbols(size = 0.5) 
+```
+
+On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (@fig-tmsizes-2).
+
+```{r}
+#| eval: false
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation") 
+```
+
+<!-- numeric only -->
+<!-- size.max	 -->
+<!-- size.lim	 -->
+<!-- sizes.legend	 -->
+<!-- sizes.legend.labels	 -->
+
+We can adjust size legend breaks with `ticks` and the corresponding labels with `labels` (@fig-tmsizes C) as arguments of the `tm_scale` function provided to the `size.scale` argument.
+
+```{r}
+#| eval: false
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation",
+            size.scale = tm_scale(ticks = c(100, 600),
+                                  labels = c("low", "high")))
+```
+
+For example in the above code, we just show examples of how symbols with elevation of 100 and 600 meters about see level like on the map.
+
+```{r}
+#| label: fig-tmsizes
+#| echo: false
+#| message: false
+#| layout-ncol: 3
+#| fig-cap: 'Examples of three approaches for changing sizes of symbols'
+#| fig-subcap:
+#|   - all symbols have a consistent size of 0.5
+#|   - sizes of symbols depends on the values of the elevation variabl
+#|   - sizes of symbols have a manually created legend
+#| fig-asp: 0.42
+library(tmap)
+tm_shape(volcanos) +
+ tm_symbols(size = 0.5) 
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation") 
+tm_shape(volcanos) +
+ tm_symbols(size = "elevation",
+            size.scale = tm_scale(ticks = c(100, 600),
+                                  labels = c("low", "high")))
+```
+
+Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
+The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (@fig-tmlwd).
+
+```{r}
+#| label: fig-tmlwd
+#| fig-asp: 0.66
+#| fig-cap: Example of a map where lines' widths represent values of the corresponding
+#|   lines.
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
+tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd")
+```
+
+In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
+Lines' thickness can be change using the `values.scale` argument of `tm_scale()`, where the value of 1 is the default, and increasing this values increases lines' thickness.
+<!-- Also, similarly to the last example of the `tm_symbols` above, it is possible to modify the lines width legend, by changing its title (`title.lwd`), categories (`lwd.legend`), and their names (`lwd.legend.labels`). -->
+
+<!-- how about trying some transportation examples here (and expanding them)? -->
+
+```{r}
+#| echo: false
+#| eval: false
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd")
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd", lwd.scale = tm_scale(values.scale = 2))
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd", 
+           lwd.scale = tm_scale(values.scale = 2, n = 12))
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd",
+           lwd.scale = tm_scale(values.scale = 2,
+                                ticks = c(1, 2, 3, 5, 10, 15)),
+           lwd.legend = tm_legend(title = "Line legend",
+                                  labels = LETTERS[1:6]))
+```
+
+Text labels have a role to name features on a map or just to highlight some of them.
+Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
+However, text labels can be also used to represent the values of some numerical variables.
+@fig-tmtextsize shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
+<!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
+
+```{r}
+#| label: fig-tmtextsize
+#| message: false
+#| fig-asp: 0.25
+#| fig-cap: Example of a map where text sizes represent elevations of the volcanos.
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation") +
+  tm_layout(legend.outside = TRUE)
+```
+
+<!-- sizes.legend -->
+<!-- sizes.legend.labels -->
+<!-- sizes.legend.text -->
+
+<!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
+
+## Shapes {#sec-shapes}
+<!-- ??and markers -->
+
+<!-- potential tmap improvement: do not allow to use shape for numerical vars -->
+
+Shapes allow representing different categories of point data.
+They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
+For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
+
+To use different shapes, we should use the `shape` argument in the `tm_symbols()` function.
+It expects the name of the categorical variable.
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.legend = tm_legend(title = "Type:",
+                                      labels = c("Cave entrance", "Peak", "Volcano")))
+```
+
+<!-- tmap::tmap_options()$values.var$shape -->
+By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
+However, it is also possible to customize used symbols, their title, and labels.
+Legend title related to shapes their labels is modified with the `shape.legend` argument.
+
+Shapes can be specified with the `shapes` argument, that allows using one of three options.
+The first one is a numeric value that specifies the plotting character of the symbol.
+A complete list of available symbols and their corresponding numbers is in the `?pch` function's documentation.
+<!--JN: or should we add a figure with them here??-->
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = c(0, 2, 5)))
+```
+
+Second option is to use a *grob* object.
+<!-- add intro what are grobs -->
+<!-- add reference to some section explaining tmap_grob (chapter 10??) -->
+
+```{r}
+# library(grid)
+# library(ggplotify)
+library(ggplot2)
+
+# p1 = as.grob(~barplot(1:10))
+# p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
+# p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
+p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() + theme_void())
+```
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = list(p4, p4, p4)))
+```
+
+<!-- explain what's a grob -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
+
+<!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
+
+The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
+The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
+In our example, we have three distinct groups, therefore we need to create new icons based on three images -- `icon1.png`, `icon2.png`, and `icon3.png` in this case.
+
+```{r}
+my_icons = tmap_icons(c("images/icon1.png", 
+                        "images/icon2.png", 
+                        "images/icon3.png"))
+```
+
+Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape-4).
+<!-- border.col = NULL -->
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = my_icons))
+```
+
+```{r}
+#| label: fig-tmsymshape
+#| echo: false
+#| message: false
+#| layout-row: 4
+#| fig-asp: 1.32
+#| fig-cap: 'Examples of maps with different symbols'
+#| fig-subcap:
+#|   - default symbols
+#|   - user-defined symbols
+#|   - grob objects
+#|   - icons
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.legend = tm_legend(title = "Type:",
+                                      labels = c("Cave entrance", "Peak", "Volcano")))
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = c(0, 2, 5)))
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = list(p4, p4, p4)))
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = my_icons))
+```
+
+```{r}
+#| label: tmlinlty
+#| echo: false
+#| eval: false
+#| fig-asp: 0.33
+#| fig-cap: ''
+tm_shape(World_rivers) + 
+  tm_lines(lty = 2)
+```
+
+## Mixing visual variables {#sec-mixing-visual-variables}
+
+The values of a given variable can be expressed by different categorical or sequential colors in polygons.
+Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
+When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
+Therefore, it is possible to mix some visual variables for symbols and lines.
+This section shows only some possible examples of mixing visual variables.
+
+@fig-mixsymb-1 shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
+This can be set with the `size` and `fill` arguments.
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(size = "sv",
+             fill = "elevation")
+```
+
+We can also modify all of the visual variables using the additional arguments explained in the next sections.<!--update-->
+For example, we can set the color style, color palette, or specify shapes (@fig-mixsymb-2).
+
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale_continuous(values = "Greens"),
+             shape = "type",
+             shape.scale = tm_scale(values = c(23, 24, 25)))
+```
+
+```{r}
+#| label: fig-mixsymb
+#| echo: false
+#| message: false
+#| layout-nrow: 2
+#| fig-asp: 1
+#| fig-cap: 'Examples of maps using two visual variables at the same time'
+#| fig-subcap: 
+#|   - size and fill
+#|   - fill and shape
+tm_shape(ei_points) +
+  tm_symbols(size = "sv", fill = "elevation")
+tm_shape(ei_points) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale_continuous(values = "Greens"),
+             shape = "type",
+             shape.scale = tm_scale(values = c(23, 24, 25)))
+```
+
+For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (@fig-mixline).
+
+```{r}
+#| label: fig-mixline
+#| echo: false
+#| message: false
+#| fig-asp: 0.66
+#| fig-cap: A map using two visual variables, color and size (line width), at the same time.
+tm_shape(ei_roads) +
+  tm_lines(col = "type", 
+           lwd = "strokelwd")
+```
+
+## Scales {#sec-scales}
+
 
 ### Color scale styles {#sec-color-scale-styles}
 
@@ -696,342 +1007,3 @@ tm_shape(land) +
 ```
 
 <!-- title?? -->
-
-## Sizes {#sec-sizes}
-
-```{r}
-ei_points = read_sf("data/easter_island/ei_points.gpkg")
-volcanos = subset(ei_points, type == "volcano")
-```
-
-Differences in sizes between objects are relatively easy to recognize on maps. 
-Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
-Large sizes can be also used to attract viewers' attention.
-
-By default, **t**maps present points, lines, or text objects of the same size. 
-For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
-We can change the sizes of all objects using the `size` argument (@fig-tmsizes A).
-
-```{r}
-#| eval: false
-tm_shape(volcanos) +
- tm_symbols(size = 0.5) 
-```
-
-On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
-Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (@fig-tmsizes B).
-
-```{r}
-#| eval: false
-tm_shape(volcanos) +
- tm_symbols(size = "elevation") 
-```
-
-<!-- numeric only -->
-<!-- size.max	 -->
-<!-- size.lim	 -->
-<!-- sizes.legend	 -->
-<!-- sizes.legend.labels	 -->
-
-<!-- potential tmap improvement: use of size.legend instead of sizes.legend -->
-We can adjust size legend breaks with `sizes.legend` and the corresponding labels with `sizes.legend.labels` (@fig-tmsizes C).
-However, this only modifies the legend, not the related objects.
-
-```{r}
-#| eval: false
-tm_shape(volcanos) +
- tm_symbols(size = "elevation",
-            size.scale = tm_scale(ticks = c(100, 600),
-                                  labels = c("low", "high")),
-            size.legend = tm_legend(title = "Elevation"))
-```
-
-For example in the above code, we just show examples of how symbols with population of one million and 10 million looks like on the map.
-
-```{r}
-#| label: fig-tmsizes
-#| echo: false
-#| message: false
-#| fig-cap: 'Examples of three approaches for changing sizes of symbols: (A) all symbols
-#|   have a consistent size of 0.5, (B) sizes of symbols depends on the values of the
-#|   elevation variable, (C) sizes of symbols have a manually created legend.'
-#| fig-asp: 0.42
-library(tmap)
-tmsize1 = tm_shape(volcanos) +
- tm_symbols(size = 0.5)  +
-  tm_title("A")
-tmsize2 = tm_shape(volcanos) +
- tm_symbols(size = "elevation") +
-  tm_title("B")
-tmsize3 = tm_shape(volcanos) +
- tm_symbols(size = "elevation",
-            size.scale = tm_scale(ticks = c(100, 600),
-                                  labels = c("low", "high")),
-            size.legend = tm_legend(title = "Elevation")) +
-  tm_title("C")
-tmap_arrange(tmsize1, tmsize2, tmsize3, ncol = 3)
-```
-
-Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
-The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (@fig-tmlwd).
-
-```{r}
-#| label: fig-tmlwd
-#| fig-asp: 0.66
-#| fig-cap: Example of a map where lines' widths represent values of the corresponding
-#|   lines.
-ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
-tm_shape(ei_roads) + 
-  tm_lines(lwd = "strokelwd")
-```
-
-In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
-Lines' thickness can be change using the `scale` argument, where the value of 1 is the default, and increasing this values increases lines' thickness.
-Also, similarly to the last example of the `tm_symbols` above, it is possible to modify the lines width legend, by changing its title (`title.lwd`), categories (`lwd.legend`), and their names (`lwd.legend.labels`).
-
-<!-- how about trying some transportation examples here (and expanding them)? -->
-
-```{r}
-#| echo: false
-#| eval: false
-tm_shape(World_rivers) + 
-  tm_lines(lwd = "strokelwd")
-tm_shape(World_rivers) + 
-  tm_lines(lwd = "strokelwd", lwd.scale = tm_scale(values.scale = 2))
-tm_shape(World_rivers) + 
-  tm_lines(lwd = "strokelwd", 
-           lwd.scale = tm_scale(values.scale = 2, n = 12))
-tm_shape(World_rivers) + 
-  tm_lines(lwd = "strokelwd",
-           lwd.scale = tm_scale(values.scale = 2,
-                                ticks = c(1, 2, 3, 5, 10, 15)),
-           lwd.legend = tm_legend(title = "Line legend",
-                                  labels = LETTERS[1:6]))
-```
-
-Text labels have a role to name features on a map or just to highlight some of them.
-Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
-However, text labels can be also used to represent the values of some numerical variables.
-@fig-tmtextsize shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
-<!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
-
-```{r}
-#| label: fig-tmtextsize
-#| message: false
-#| fig-asp: 0.25
-#| fig-cap: Example of a map where text sizes represent elevations of the volcanos.
-tm_shape(volcanos) +
-  tm_text(text = "name", size = "elevation") +
-  tm_layout(legend.outside = TRUE)
-```
-
-<!-- sizes.legend -->
-<!-- sizes.legend.labels -->
-<!-- sizes.legend.text -->
-
-<!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
-
-## Shapes {#sec-shapes}
-<!-- ??and markers -->
-
-<!-- potential tmap improvement: do not allow to use shape for numerical vars -->
-
-Shapes allow representing different categories of point data.
-They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
-For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
-
-To use different shapes, we should use the `shape` argument in the `tm_symbols()` function.
-It expects the name of the categorical variable.
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.legend = tm_legend(title = "Type:",
-                                      labels = c("Cave entrance", "Peak", "Volcano")))
-```
-
-By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
-However, it is also possible to customize used symbols, their title, and labels.
-Legend title related to shapes is modified with the `title.shape` argument, while their labels use the `shapes.lables` argument.
-
-Shapes can be specified with the `shapes` argument, that allows using one of three options.
-The first one is a numeric value that specifies the plotting character of the symbol^[However, this is not supported for the "view" mode.].
-A complete list of available symbols and their corresponding numbers is in the `?pch` function's documentation.
-<!--JN: or should we add a figure with them here??-->
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = c(0, 2, 5)))
-```
-
-Second option is to use a *grob* object.
-<!-- add intro what are grobs -->
-<!-- add reference to some section explaining tmap_grob (chapter 10??) -->
-
-```{r}
-# library(grid)
-# library(ggplotify)
-library(ggplot2)
-
-# p1 = as.grob(~barplot(1:10))
-# p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
-# p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
-p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() + theme_void())
-```
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = list(p4, p4, p4)))
-```
-
-<!-- explain what's a grob -->
-<!-- try different codes (including the view mode) -->
-<!-- add new example -->
-
-<!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
-
-The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
-The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
-In our example, we have three distinct groups, therefore we need to create new icons based on three images - `icon1.png`, `icon2.png`, and `icon3.png` in this case.
-
-```{r}
-my_icons = tmap_icons(c("images/icon1.png", 
-                        "images/icon2.png", 
-                        "images/icon3.png"))
-```
-
-Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape D).
-<!-- border.col = NULL -->
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = my_icons))
-```
-
-```{r}
-#| label: fig-tmsymshape
-#| echo: false
-#| eval: false
-#| message: false
-#| fig-asp: 1.32
-#| fig-cap: 'Examples of two maps with different symbols: (A) default symbols, (B) user-defined
-#|   symbols, (C) grob objects, and (D) icons.'
-tmsymshape1 = tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.legend = tm_legend(title = "Type:",
-                                      labels = c("Cave entrance", "Peak", "Volcano"))) +
-  tm_title("A")
-tmsymshape2 = tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = c(0, 2, 5)))  +
-  tm_title("B")
-tmsymshape3 = tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = list(p4, p4, p4))) +
-  tm_title("C")
-tmsymshape4 = tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = my_icons)) +
-  tm_title("D")
-tmap_arrange(tmsymshape1, tmsymshape2,
-             tmsymshape3, 
-             tmsymshape4,
-             ncol = 1)
-```
-
-```{r}
-#| label: tmlinlty
-#| echo: false
-#| eval: false
-#| fig-asp: 0.33
-#| fig-cap: ''
-tm_shape(World_rivers) + 
-  tm_lines(lty = 2)
-```
-
-## Mixing visual variables {#sec-mixing-visual-variables}
-
-The values of a given variable can be expressed by different categorical or sequential colors in polygons.
-Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
-When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
-Therefore, it is possible to mix some visual variables for symbols and lines.
-This section shows only some possible examples of mixing visual variables.
-
-@fig-mixsymb A shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
-This can be set with the `size` and `col` arguments.
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(size = "sv", fill = "elevation")
-```
-
-We can also modify all of the visual variables using the additional arguments explained in the previous sections.
-For example, we can set the color style (`style`), color palette (`palette`), or specify shapes (`shapes`) (@fig-mixsymb B).
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
-  tm_symbols(fill = "elevation",
-             fill.scale = tm_scale_continuous(values = "Greens"),
-             shape = "type",
-             shape.scale = tm_scale(values = c(23, 24, 25)))
-```
-
-When we use plot polygons, there is only one visual variable we can use - color. 
-Therefore, changing of map legend's title in functions like `tm_polygons()` or `tm_fill()` is done with the `title` argument.
-However, what to do when we have two or more visual variables in, for example, `tm_symbols()`?
-In these cases, we need to specify a corresponding suffix for each `title` argument. 
-The color title is set with `title.col`, size title with `title.size`, and shape title with `title.size` (@fig-mixsymb C).
-
-```{r}
-#| eval: false
-tm_shape(ei_points) +
- tm_symbols(size = "elevation", size.legend = tm_legend(title = "Elevation:"),
-            shape = "type", shape.legend = tm_legend(title = "Type:"))
-```
-
-```{r}
-#| label: fig-mixsymb
-#| echo: false
-#| message: false
-#| fig-asp: 1
-#| fig-cap: 'Examples of maps using two visual variables at the same time: (A) size and
-#|   color, (B) color and shape, (C) size and shape.'
-tm_mvv1 = tm_shape(ei_points) +
-  tm_symbols(size = "sv", fill = "elevation") +
-  tm_title("A")
-tm_mvv2 = tm_shape(ei_points) +
-  tm_symbols(fill = "elevation",
-             fill.scale = tm_scale_continuous(values = "Greens"),
-             shape = "type",
-             shape.scale = tm_scale(values = c(23, 24, 25))) +
-  tm_title("B")
-tm_mvv3 = tm_shape(ei_points) +
-  tm_symbols(size = "elevation", size.legend = tm_legend(title = "Elevation:"),
-            shape = "type", shape.legend = tm_legend(title = "Type:"))+
-  tm_title("C")
-tmap_arrange(tm_mvv1, tm_mvv2, tm_mvv3, ncol = 1)
-```
-
-For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (@fig-mixline).
-
-```{r}
-#| label: fig-mixline
-#| echo: false
-#| message: false
-#| fig-asp: 0.66
-#| fig-cap: A map using two visual variables, color and size (line width), at the same
-#|   time.
-tm_shape(ei_roads) +
-  tm_lines(col = "type", lwd = "strokelwd", 
-           col.scale = tm_scale(values = "Set1"))
-```
-
