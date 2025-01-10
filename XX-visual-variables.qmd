@@ -37,6 +37,10 @@ Values of polygons usually cannot be represented by either shapes or sizes, as t
 
 <!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 
+## Scales {#sec-scales}
+
+
+
 ## Colors {#sec-colors}
 
 \index{colors}
@@ -269,7 +273,7 @@ tm_shape(worldvector) +
 ```
 
 It is also possible to reverse the order of any named color palette by using the `-` prefix.
-Therefore, `"-YlGn"` will return a palette going from green to yellow.
+Therefore, `"-yl_gn"` will return a palette going from green to yellow.
 
 ```{r}
 #| label: fig-tmpals
@@ -292,18 +296,18 @@ tm_shape(worldvector) +
               fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl"))))
 tm_shape(worldvector) +
   tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = "YlGn"))
+              fill.scale = tm_scale(values = "brewer.yl_gn"))
 ```
 <!-- state that the above example of setting colors works for most of palettes -->
 
 <!-- midpoint argument -->
-The default color palette for positive numerical variables is `"YlOrBr"` as seen in @fig-tmmidpoint A.
-On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"RdYlGn"` color palette, with red colors below the midpoint value, yellow color around the midpoint value, and green colors above the midpoint value.
+The default color palette for positive numerical variables is `"blues3"` as seen in @fig-tmmidpoint-1.
+On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"pu_gn"` color palette, with purple colors below the midpoint value, light gray color around the midpoint value, and green colors above the midpoint value.
 The use of diverging color palettes can be adjusted using the `midpoint` argument. 
 It has a value of 0 as the default, however, it is possible to change it to any other value.
 For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
-To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint B).
-<!-- , style = "cont" -->
+To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint-2).
+
 
 ```{r}
 #| eval: false
@@ -316,31 +320,31 @@ tm_shape(worldvector) +
 #| label: fig-tmmidpoint
 #| warning: false
 #| echo: false
-#| fig-cap: Examples of (A) a map with the default sequential color palette and (B) a
-#|   map with the diverging color palette around the midpoint value of 73.
+#| layout-ncol: 2
+#| fig-cap: Examples of maps with different midpoints used
+#| fig-subcap:
+#|   - the default sequential color palette
+#|   - the diverging color palette around the midpoint value of 73
 #| fig-height: 2
 # mean(x$lifeExp, na.rm = TRUE)
-tm_mp1 = tm_shape(worldvector) +
-  tm_polygons(fill = "life_expectancy") +
-  tm_title("A")
-tm_mp2 = tm_shape(worldvector) +
-  tm_polygons(fill = "life_expectancy",, 
-              fill.scale = tm_scale(midpoint = 73)) +
-  tm_title("B")
-tmap_arrange(tm_mp1, tm_mp2, ncol = 2)
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy")
+ tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy",
+              fill.scale = tm_scale(midpoint = 73))
 ```
 
-Now the countries with low life expectancy are presented with red colors, yellow areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
+Now the countries with low life expectancy are presented with purple colors, light gray areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
 
 The above examples all contain several polygons with missing values of a given variable.
 Objects with missing values are, by default, represented by gray color and a related legend label *Missing*.
-However, it is possible to change this color with the `colorNA` argument and its label with `textNA`.
+However, it is possible to change this color with the `value.na` argument and its label with `label.na`.
 
 **tmap** has a special way to set colors for categorical maps manually.
-It works by providing a named vector to the `palette` argument.
+It works by providing a named vector to the `values` argument.
 In this vector, names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
-You can see it in the example below, where we plot the `"region_un"` categorical variable (@fig-tmcatpals).
-Each category in this variable (e.g., `"Africa"`) has a new, connected to it color (e.g., `"#11467b"`).
+You can see it in the example below, where we plot the `"wb_region"` categorical variable (@fig-tmcatpals).
+Each category in this variable (e.g., `"South Asia"`) has a new, connected to it color (e.g., `"#df5454"`).
 <!--improve colors-->
 <!-- also - improve example - maybe use less colors/categories -->
 ```{r}
@@ -379,10 +383,10 @@ tm_shape(worldvector) +
 
 \index{color palettes!transparency}
 Finally, visualized colors can be additionally modified.
-It includes setting the `alpha` argument that represents the transparency of the used colors.
-By default, the colors are not transparent at all as the value of `alpha` is 1.
-However, we can decrease this value to 0 - total transparency.
-The `alpha` argument is useful in two ways: one - it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second - it makes colors more subtle.
+It includes setting the `col_alpha` and `fill_alpha` arguments that represents the transparency of the used colors.
+By default, the colors are not transparent at all as the value of `col_alpha` and `fill_alpha` is 1.
+However, we can decrease this value to 0 -- a total transparency.
+The `col_alpha`/ `fill_alpha` argument is useful in two ways: one -- it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second -- it makes colors more subtle.
 
 <!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
 <!-- add ord, cyc, biv -->
