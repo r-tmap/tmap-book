@@ -1,13 +1,13 @@
 # Scales {#sec-scales}
 
 Sections @sec-colors, @sec-sizes, and @sec-shapes showed how to set colors, sizes, and shapes for different types of spatial objects.
-In them, we often used the `tm_scale()` function to modify the appearance of the map, such as changing the color palette, sizes, or shapes.
+In them, we often used the `tm_scale()` function to modify the appearance of the map, such as changing the color palette (`col.scale` and `fill.scale`), sizes (`size.scale`), or shapes (`shape.scale`).
 The `tm_scale()` function automatically sets the scale for the given visual variable and the data type (factor, numeric, and integer).
 Thus, for example, when we provide a character variable's name to the `fill` argument, then the `tm_scale()` function automatically sets the color scale for a categorical variable, and when we provide a numeric variable's name to the `size` argument, then the `tm_scale()` function automatically sets the size scale for a continuous variable.
 
 The `tm_scale()` function has a set of related functions that can be used to modify the used scale.
 Table @tbl-scale-table presents all available scale functions in **tmap**.
-Let's see how to use them in the following sections.
+Let's see how to use them in the following sections -- we will mostly focus on using scales for the `fill.scale` argument, but the same principles apply to the `col.scale`, `size.scale`, and `shape.scale` arguments.
 
 <!-- table -->
 <!-- tmap_options()$scales.var -->
@@ -53,16 +53,14 @@ library(sf)
 worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-
-### Color scale styles {#sec-color-scale-styles}
-
 <!-- intro about setting colors -->
 <!-- info that generalized to points, lines, polygons, and rasters... -->
 
 \index{Color scale styles}
-`tm_polygons()` accepts three ways of specifying the fill color with the `col` argument^[To see and compare examples of every color scale style from **tmap** visit https://geocompr.github.io/post/2019/tmap-color-scales/.].
+`tm_polygons()` accepts three ways of specifying the fill color with the `fill` argument.
 The first one is to fill all polygons with the same color.
 This happens when we provide a single color value, either as a color name or its hexadecimal form (@sec-color-palettes) (@fig-colorscales1).
+<!-- what is the default tm_scale_ here? -->
 
 ```{r}
 #| eval: false
@@ -86,13 +84,10 @@ tm_one
 \index{Discrete maps}
 \index{Continuous maps}
 The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
-**tmap** behaves differently depending on the input variable type, but always automatically adds a map legend.
-In general, a categorical map is created when the provided variable contains characters, factors, or is of the logical type.
-However, when the provided variable is numerical, then it is possible to create either a discrete or a continuous map.
-
+<!-- better connection -->
 \index{Categorical maps}
 An example of a categorical map can be seen in @fig-colorscales2.
-We created it by providing a character variable's name, `"wb_region"`, in the `col` argument^[The `tm_polygons(col = "region_un", style = "cat")` code is run automatically in this case.]. 
+We created it by providing a character variable's name, `"wb_region"`, in the `col` argument. 
 
 ```{r}
 #| eval: false
@@ -113,9 +108,11 @@ tm_cat = tm_shape(worldvector) +
 tm_cat
 ```
 
-It is possible to change the names of legend labels with the `labels` argument.
-However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.<!--should we explain how to do it?-->
-As mentioned in the @sec-color-palettes, we can also change the used color palette with the `palette` argument.
+The `tm_polygons(fill = "region_un", fill.scale = tm_scale_categorical())` code is run automatically in this case.
+It is possible to change the names of legend labels with the `labels` argument of the `tm_scale()` function.
+<!-- However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.-->
+<!--should we explain how to do it? -->
+As mentioned in the @sec-color-palettes, we can also change the used color palette with the `values` argument.
 
 ```{r}
 #| eval: false
@@ -130,10 +127,10 @@ tm_shape(worldvector) +
 Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
 In other words, values are divided into several groups based on their properties.
 Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
-**tmap** has 14 different methods to create discrete maps<!--list??--> that can be specified with the `style` argument.
-Most of them (except `"log10_pretty"`) use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
+**tmap** has several different methods to create discrete maps<!--list??--> that can be specified with by the one of the functions from the `tm_scale_` family.
+Most of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
-By default, the `"pretty"` style is used (@fig-discrete-methods A).
+By default, the `"tm_scale_discrete"` function is used in the background (@fig-discrete-methods-1).
 This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
 
 ```{r}
@@ -142,10 +139,10 @@ tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap")
 ```
 
-It is also possible to indicate the desired number of classes using the `n` argument, when the `"pretty"` style is used.
+It is also possible to indicate the desired number of classes using the `n` argument of the `tm_scale()` function provided to the `fill.scale` argument.
 While not every `n` is possible depending on the input values, **tmap** will try to create a number of classes as close to possible to the preferred one.
 
-The next approach is to manually select the limits of each break with the `breaks` function (@fig-discrete-methods B).
+The next approach is to manually select the limits of each break with the `breaks` argument of `tm_scale()` (@fig-discrete-methods-2).
 This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the `labels` argument.
@@ -158,9 +155,7 @@ tm_shape(worldvector) +
                                     labels = c("low", "medium", "high")))
 ```
 
-<!-- interval.closure	 -->
-
-Another approach is to create breaks automatically using one of many existing classification methods. 
+Another approach is to create breaks automatically using one of many existing classification methods with the `style` argument of the `tm_scale()` function.
 Three basic methods are `"equal"`, `"sd"`, and `"quantile"` styles.
 Let's consider a variable with 100 observations ranging from 0 to 10.
 The `"equal"` style divides the range of values into *n* equal-sized intervals.
@@ -174,7 +169,7 @@ This method has an advantage or not having any empty classes or classes with too
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
 
 To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
-The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (@fig-discrete-methods C).
+The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (@fig-discrete-methods-3).
 
 <!-- how about adding ggplot2 histograms?? -->
 <!-- should we add that these methods usually do not allow to compare between datasets? -->
@@ -197,7 +192,7 @@ It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and
 Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including `"headtails"` and `"log10_pretty"`.
 The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
-The `"log10_pretty"` style uses a logarithmic base-10 transformation (@fig-discrete-methods D).
+The `"log10_pretty"` style uses a logarithmic base-10 transformation (@fig-discrete-methods-4).
 In this style, each class starts with a value ten times larger than the beginning of the previous class.
 In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
@@ -210,49 +205,45 @@ tm_shape(worldvector) +
               fill.scale = tm_scale(style = "log10_pretty"))
 ```
 
-(ref:discrete-methods) Examples of four methods of creating discrete maps: (A) default method ('pretty'), (B) the 'fixed' method with manually set breaks, (C) the 'jenks' method, and (D) the 'log10_pretty' method.
-
 <!-- discrete -->
 ```{r}
 #| label: fig-discrete-methods
 #| warning: false
 #| message: false
 #| echo: false
-#| fig-height: 3.46
-#| fig-cap: (ref:discrete-methods)
-tm_pre = tm_shape(worldvector) +
-  tm_polygons(fill = "gdp_per_cap") +
-  tm_title("A")
-tm_fix = tm_shape(worldvector) +
+#| layout-ncol: 2
+#| fig-cap: Examples of four methods of creating discrete maps
+#| fig-subcap:
+#|   - The "pretty" method
+#|   - The "fixed" method
+#|   - The "jenks" method
+#|   - The "log10_pretty" method
+tm_shape(worldvector) +
+  tm_polygons(fill = "gdp_per_cap") 
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
               fill.scale = tm_scale(breaks = c(0, 10000, 30000, 111000),
-                                    labels = c("low", "medium", "high"))) +
-  tm_title("B")
-tm_jen = tm_shape(worldvector) +
+                                    labels = c("low", "medium", "high"))) 
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
-              fill.scale = tm_scale(style = "jenks")) +
-  tm_title("C")
-tm_lop = tm_shape(worldvector) +
+              fill.scale = tm_scale(style = "jenks"))
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
-              fill.scale = tm_scale(style = "log10_pretty")) +
-  tm_title("D")
-tmap_arrange(tm_pre, tm_fix, tm_jen, tm_lop, ncol = 2, asp = NA,
-             outer.margins = 0)
+              fill.scale = tm_scale(style = "log10_pretty"))
 ```
 
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
 
 \index{Continuous maps}
 Continuous maps also represent continuous numerical variables, but without any discrete class intervals (@fig-cont-methods).
-Three continuous methods exist in **tmap**: `cont`, `order`, and `log10`.
-Values change increasingly in all of them, but they differ in the relations between values and colors.
+A few continuous methods exist in **tmap**, including `tm_scale_continuous()`, `tm_scale_rank()`, and `tm_scale_continuous_log10()`.
 
-The `cont` style creates a smooth, linear gradient.
+The `tm_scale_continuous` function creates a smooth, linear gradient.
 In other words, the change in values is proportionally related to the change in colors.
-We can see that in @fig-cont-methods A, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
-The `cont` style is similar to the `pretty` one, where the values also change linearly.
-The main difference between these styles is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
-The `cont` style works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
+We can see that in @fig-cont-methods-1, where the value change from 20,000 to 40,000 has a similar impact on the color scale as the value change from 40,000 to 60,000.
+The continuous scale is similar to the pretty style, where the values also change linearly.
+The main difference between them is that we can see differences between, for example, values of 45,000 and 55,000 in the former, while both values have exactly the same color in the later one.
+The continuous scale works well in situations where there is a large number of objects in vectors or a large number of cells in rasters, and where the values change continuously (do not have many outliers). 
 
 ```{r}
 #| eval: false
@@ -261,10 +252,10 @@ tm_shape(worldvector) +
               fill.scale = tm_scale_continuous())
 ```
 
-However, when the presented variable is skewed or have some outliers, we can use either `order` or `log10` style.
-The `order` style also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (@fig-cont-methods B).
+However, when the presented variable is skewed or have some outliers, we can use either `tm_scale_rank()` or `tm_scale_continuous_log10()`.
+The `tm_scale_rank()` scale also uses a smooth gradient with a large number of colors, but the values on the legend do not change linearly (@fig-cont-methods-2).
 <!--JN: Martijn please check the next sentence -->
-It is fairly analogous to the `quantile` style, with the values on a color scale that divides a dataset into several equal-sized groups.
+It is fairly analogous to the `"quantile"` style, with the values on a color scale that divides a dataset into several equal-sized groups.
 
 ```{r}
 #| eval: false
@@ -273,13 +264,13 @@ tm_shape(worldvector) +
               fill.scale = tm_scale_rank())
 ```
 
-Finally, the `log10` style is the continuous equivalent of the `log10_pretty` style (@fig-cont-methods C).
+Finally, the `tm_scale_continuous_log10` scale is the continuous equivalent of the `"log10_pretty"` style (@fig-cont-methods-3).
 
 ```{r}
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap",
-              fill.scale = tm_scale_continuous_log())
+              fill.scale = tm_scale_continuous_log10())
 ```
 
 ```{r}
@@ -288,26 +279,25 @@ tm_shape(worldvector) +
 #| message: false
 #| echo: false
 #| fig-height: 3.46
-#| fig-cap: 'Examples of three methods of creating continuous maps: (A) the ‘cont’ method,
-#|   (B) the ‘order’ method, and (C) the ‘log10’ method.'
-tm_con = tm_shape(worldvector) +
+#| layout-ncol: 3
+#| fig-cap: "Examples of three methods of creating continuous maps"
+#| fig-subcap:
+#|   - The "continuous" method
+#|   - The "rank" method
+#|   - The "log10" method
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap",
-              fill.scale = tm_scale_continuous()) +
-  tm_title("A")
-tm_ord = tm_shape(worldvector) +
+              fill.scale = tm_scale_continuous())
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap",
-              fill.scale = tm_scale_rank()) +
-  tm_title("B")
-tm_log = tm_shape(worldvector) +
+              fill.scale = tm_scale_rank())
+tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap",
-              fill.scale = tm_scale_continuous_log()) +
-  tm_title("C")
-tmap_arrange(tm_con, tm_ord, tm_log, ncol = 2, asp = NA,
-             outer.margins = 0)
+              fill.scale = tm_scale_continuous_log10())
 ```
 
 The `tm_polygons()` also offer a third way of specifying the fill color.
-When the `col` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (@fig-colorscalesmc).
+When the `fill` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (@fig-colorscalesmc).
 
 ```{r}
 #| eval: false
@@ -315,7 +305,9 @@ tm_shape(worldvector) +
   tm_polygons(fill = "MAP_COLORS")
 ```
 
-In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`.
+
+<!-- ??? -->
+<!-- In this case, it is also possible to change the default colors with the `palette` argument, but also to activate the internal algorithm to search for a minimal number of colors for visualization by setting `minimize = TRUE`. -->
 
 ```{r}
 #| label: fig-colorscalesmc
@@ -328,12 +320,9 @@ tm_uni = tm_shape(worldvector) +
 tm_uni
 ```
 
-All of the color scale styles mentioned above work not only for `tm_polygons()` - they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
-The `col` argument colors symbols' fillings in `tm_symbols()`, lines in `tm_lines()`, and cells in `tm_rasters()`.
-<!-- important - mention how to change raster categorical colors (for e.g. data subsets!) -->
+All of the scales and styles mentioned above work not only for `tm_polygons()` -- they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
+<!-- add  -->
 
-<!-- one color only: -->
-<!-- - tm_borders  -->
 
 ```{r}
 #| echo: false
@@ -350,3 +339,4 @@ tm_shape(land) +
 ```
 
 <!-- title?? -->
+<!-- legends?? -->
