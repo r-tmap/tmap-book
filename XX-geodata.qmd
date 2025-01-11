@@ -496,7 +496,7 @@ The **sf** package has the `st_as_sf()` function that translates objects of many
 The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
 For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = "EPSG:4326")`.
 
-If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace2019geocomputation].
+If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at <https://r-spatial.github.io/sf/> and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace_geocomputation_2025].
 <!-- - vector simplification? -->
 
 ### The stars package {#sec-the-stars-package}

@@ -179,7 +179,7 @@ For example, `tm_crs("auto")` will choose the projection that best preserves the
 Reprojections of vector data are usually straightforward because each spatial coordinate is reprojected individually.
 <!-- mention invalid geometries? -->
 Reprojecting of raster data, on the other hand, is more complex and requires using one of two approaches.
-The first approach applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 6 of @lovelace2019geocomputation).
+The first approach applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 7 of @lovelace_geocomputation_2025).
 <!-- update ref -->
 This is the default option in **tmap**, however, it has some limitations and it is not always possible to use it.
 
