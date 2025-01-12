@@ -42,8 +42,8 @@ layers_df = rbind(layers_basic_df,
 #| warning: false
 #| message: false
 tinytable::tt(layers_df, caption = "Map layers.") |>
-  group_tt(i = list("Basic functions" = 1, "Derived functions" = 8)) |>
-  style_tt(i = c(1, 9), align = "c", color = "white", background = "gray", bold = TRUE)
+  tinytable::group_tt(i = list("Basic functions" = 1, "Derived functions" = 8)) |>
+  tinytable::style_tt(i = c(1, 9), align = "c", color = "white", background = "gray", bold = TRUE)
 # library(magrittr)
 # library(kableExtra)
 # options(kableExtra.html.bsTable = TRUE)
