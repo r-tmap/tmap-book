@@ -264,17 +264,18 @@ attr_layers_df = tibble::tribble(
 #| label: tbl-attr-layers-table
 #| echo: false
 #| warning: false
-library(magrittr)
-library(kableExtra)
-options(kableExtra.html.bsTable = TRUE)
-knitr::kable(attr_layers_df, 
-             caption = "Attribute layers.",
-             caption.short = "Attribute layers.",
-             booktabs = TRUE) |>
-  kableExtra::kable_styling("striped",
-                            latex_options = "striped", 
-                            full_width = FALSE) |> 
-  kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
+tinytable::tt(attr_layers_df, caption = "Attribute layers.")
+# library(magrittr)
+# library(kableExtra)
+# options(kableExtra.html.bsTable = TRUE)
+# knitr::kable(attr_layers_df, 
+#              caption = "Attribute layers.",
+#              caption.short = "Attribute layers.",
+#              booktabs = TRUE) |>
+#   kableExtra::kable_styling("striped",
+#                             latex_options = "striped", 
+#                             full_width = FALSE) |> 
+#   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE)
 ```
 
 For the examples in this section, we will use a simple map of the Easter Island polygon (not shown).

@@ -41,19 +41,22 @@ layers_df = rbind(layers_basic_df,
 #| echo: false
 #| warning: false
 #| message: false
-library(magrittr)
-library(kableExtra)
-options(kableExtra.html.bsTable = TRUE)
-knitr::kable(layers_df, 
-             caption = "Map layers.",
-             caption.short = "Map layers.",
-             booktabs = TRUE) |>
-  kableExtra::kable_styling("striped",
-                            latex_options = "striped", 
-                            full_width = FALSE) |> 
-  kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) |> 
-  kableExtra::pack_rows("Basic functions", 1, 7) |>
-  kableExtra::pack_rows("Derived functions", 8, 15)
+tinytable::tt(layers_df, caption = "Map layers.") |>
+  group_tt(i = list("Basic functions" = 1, "Derived functions" = 8)) |>
+  style_tt(i = c(1, 9), align = "c", color = "white", background = "gray", bold = TRUE)
+# library(magrittr)
+# library(kableExtra)
+# options(kableExtra.html.bsTable = TRUE)
+# knitr::kable(layers_df, 
+#              caption = "Map layers.",
+#              caption.short = "Map layers.",
+#              booktabs = TRUE) |>
+#   kableExtra::kable_styling("striped",
+#                             latex_options = "striped", 
+#                             full_width = FALSE) |> 
+#   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) |> 
+#   kableExtra::pack_rows("Basic functions", 1, 7) |>
+#   kableExtra::pack_rows("Derived functions", 8, 15)
 ```
 
 <!--JN: Idea - add available aesthetics to the above table-->

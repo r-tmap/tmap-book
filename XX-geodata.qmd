@@ -602,7 +602,7 @@ library(sf)
 library(tmap)
 library(grid)
 library(dplyr)
-library(kableExtra)
+#library(kableExtra)
 data(World)
 clr_peel = "#FD8A04"
 clr_orange_land = "#FB6801"
@@ -981,23 +981,25 @@ crs_prop_conic = c("Lambert conformal conic", "Albers conic", "Equidistant conic
 crs_prop_planar = c("Stereographic", "Lambert azimuthal equal-area", "Azimuthal equidistant", "Stereographic, Lambert azimuthal equal-area")
 crs_prop_interrupted = c("Myriahedral", "Goode homolosine, Myriahedral", "none", "none")
 
-tb = tibble(Property = crs_prop_name, Preserves = crs_prop_attr, 
+tb = tibble::tibble(Property = crs_prop_name, Preserves = crs_prop_attr, 
             Applications = crs_prop_appl, `Examples (cyclindrical)` = crs_prop_cyl,
             `Examples (conic)` = crs_prop_conic, `Examples (planar)` = crs_prop_planar,
             `Examples (interrupted)` = crs_prop_interrupted)
 
 tb2 = as.data.frame(t(rbind(names(tb), as.matrix(tb, dimnames = NULL))))
 tb2 = tb2[, -1]
+colnames(tb2) = NULL
+tinytable::tt(tb2, caption = "Map projection properties.", rownames = TRUE)
 
-knitr::kable(tb2, 
-             row.names = TRUE,
-             col.names = NULL,
-           caption = "Map projection properties.",
-           caption.short = "Map projection properties.",
-           booktabs = TRUE) |> 
-  kableExtra::kable_styling(font_size = 12) |> 
-  column_spec(1, width = "14em", bold = TRUE) |> 
-  column_spec(c(3,5), width = "14em") 
+# knitr::kable(tb2, 
+#              row.names = TRUE,
+#              col.names = NULL,
+#            caption = "Map projection properties.",
+#            caption.short = "Map projection properties.",
+#            booktabs = TRUE) |> 
+#   kableExtra::kable_styling(font_size = 12) |> 
+#   column_spec(1, width = "14em", bold = TRUE) |> 
+#   column_spec(c(3,5), width = "14em") 
 ```
 
 \index{conformal map projections}
@@ -1071,17 +1073,19 @@ In general, the larger the area, the more concessions have to be made, since the
 The following table provides recommendations of map projection types based on the area size and on the latitude of the area.
 
 ```{r}
-#| label: crs-recommendations
+#| label: tbl-crs-recommendations
 #| echo: false
-knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
+tabcrsrec = tibble::tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
                     `Low latitude (equator)` = c("Pseudo-cylindrical", "Azimuthal", "Cylindrical or azimuthal"),
                     `Mid latitude`= c("Pseudo-cylindrical", "Azimuthal", "Conic or azimuthal"),
-                    `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal")),
-             caption = "Recommended projections.",
-             caption.short = "Recommended projections.",
-             booktabs = TRUE) |> 
-  kableExtra::kable_styling(font_size = 12) |> 
-  kableExtra::column_spec(1, width = "10em")
+                    `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal"))
+# tinytable::tt(tabcrsrec, caption = "Recommended projections.")
+# knitr::kable(,
+#              caption = ,
+#              caption.short = "Recommended projections.",
+#              booktabs = TRUE) |> 
+#   kableExtra::kable_styling(font_size = 12) |> 
+#   kableExtra::column_spec(1, width = "10em")
 ```
 
 For World maps, pseudo-cylindrical map projections, such as the Robinson projection (@fig-crs-robin) and the Eckert IV projection (@fig-crs-bias-2) are very popular because they have less distortion other map projections. 
