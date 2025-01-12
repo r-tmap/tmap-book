@@ -91,6 +91,7 @@ tm_shape(ei_borders) +
 Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `fill` and `col` arguments (@fig-tmpolygonsder-1).
 
 ```{r}
+#| label: tmpolygonsder1
 #| eval: false
 tm_shape(ei_borders) +
   tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
@@ -100,6 +101,7 @@ In fact, `tm_polygons()` is a combination of two separate functions: `tm_fill()`
 The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (@fig-tmpolygonsder-2).
 
 ```{r}
+#| label: tmpolygonsder2
 #| eval: false
 tm_shape(ei_borders) +
   tm_fill(fill = "lightblue")
@@ -109,6 +111,7 @@ The `tm_borders()` function draws the borders of the polygons only (@fig-tmpolyg
 It allows to change the colors of borders, their widths, or the lines type.
 
 ```{r}
+#| label: tmpolygonsder3
 #| eval: false
 tm_shape(ei_borders) +
   tm_borders(col = "black", lwd = 0.5, lty = "dashed")
@@ -124,13 +127,10 @@ tm_shape(ei_borders) +
 #|   - "tm_polygons()"
 #|   - "tm_fill()"
 #|   - "tm_borders()"
-#| fig-asp: 0.4
-tm_shape(ei_borders) +
-  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
-tm_shape(ei_borders) +
-  tm_fill(fill = "lightblue")
-tm_shape(ei_borders) +
-  tm_borders(col = "black", lwd = 0.5, lty = "dashed")
+#| #fig-asp: 0.4
+<<tmpolygonsder1>>
+<<tmpolygonsder2>>
+<<tmpolygonsder3>>
 ```
 
 More information on colors, and how they can be applied and modified is explained in detail in @sec-colors.
@@ -172,6 +172,7 @@ All of them use `tm_symbols()`, but with different default values.
 <!--scale is 4/3 instead of 1-->
 
 ```{r}
+#| label: tmsymbols21
 #| eval: false
 tm_shape(volcanos) +
   tm_squares()
@@ -182,6 +183,7 @@ tm_shape(volcanos) +
 <!--scale is 4/3 instead of 1-->
 
 ```{r}
+#| label: tmsymbols22
 #| eval: false
 tm_shape(volcanos) +
   tm_bubbles()
@@ -191,6 +193,7 @@ The main role of `tm_dots()` is to present many locations at the same time.
 To do this, this layer has a small size value (`0.02`) at the default (@fig-tmsymbols2-3).
 
 ```{r}
+#| label: tmsymbols23
 #| eval: false
 tm_shape(volcanos) +
   tm_dots()
@@ -199,6 +202,7 @@ tm_shape(volcanos) +
 The last additional layer is `tm_markers()`, which uses a marker icon by default (@fig-tmsymbols2-4).
 
 ```{r}
+#| label: tmsymbols24
 #| eval: false
 tm_shape(volcanos) +
   tm_markers()
@@ -215,15 +219,11 @@ tm_shape(volcanos) +
 #|   - "tm_bubbles()"
 #|   - "tm_dots()"
 #|   - "tm_markers()"
-#| fig-asp: 0.69
-tm_shape(volcanos) +
-  tm_squares()
-tm_shape(volcanos) +
-  tm_bubbles()
-tm_shape(volcanos) +
-  tm_dots()
-tm_shape(volcanos) +
-  tm_markers()
+#| #fig-asp: 0.69
+<<tmsymbols21>>
+<<tmsymbols22>>
+<<tmsymbols23>>
+<<tmsymbols24>>
 ```
 
 ## Lines {#sec-lines}
@@ -369,6 +369,7 @@ This function attempts to recognize the type of a given raster -- when the input
 However, the continuous style (`"tm_scale_continuous"`) often better represent phenomena that progressively vary in space (@fig-rasterdown-1).
 
 ```{r}
+#| label: rastertype1
 #| eval: false
 tm_shape(ei_elev) +
   tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
@@ -379,6 +380,7 @@ On the other hand, when the given raster is categorical, then `tm_raster` uses `
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 ```{r}
+#| label: rastertype2
 #| eval: false
 tm_shape(ei_geomorphons) +
   tm_raster(col.legend = tm_legend(title = "Geomorphons:"))
@@ -393,11 +395,8 @@ tm_shape(ei_geomorphons) +
 #| fig-subcap:
 #|   - "Continuous raster map"
 #|   - "Categorical raster map"
-tm_shape(ei_elev) +
-  tm_raster(col.scale = tm_scale_continuous(values = "viridis"),
-            col.legend = tm_legend(title = "Elevation (m asl):"))
-tm_shape(ei_geomorphons) +
-  tm_raster(col.legend = tm_legend(title = "Geomorphons:")) 
+<<rastertype1>>
+<<rastertype2>>
 ```
 
 The above examples used a raster with one layer only.
@@ -445,6 +444,7 @@ We can specify which band in `landsat` relates to red (third band), green (secon
 <!-- The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (@fig-tmrgbs-1). -->
 
 ```{r}
+#| label: tmrgbs1
 #| eval: false
 tm_shape(landsat) +
   tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
@@ -458,6 +458,7 @@ Various band combinations emphasize some spatial characteristics, such as water,
 @fig-tmrgbs-2 shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.
 
 ```{r}
+#| label: tmrgbs2
 #| eval: false
 tm_shape(landsat) +
   tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
@@ -473,12 +474,8 @@ tm_shape(landsat) +
 #| fig-subcap:
 #|   - 'True color composite image'
 #|   - 'False color composite image'
-tm_shape(landsat) +
-  tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
-         col.scale = tm_scale_rgb(stretch = TRUE))
-tm_shape(landsat) +
-  tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
-         col.scale = tm_scale_rgb(stretch = TRUE))
+<<tmrgbs1>>
+<<tmrgbs2>>
 ```
 
 <!-- raster.warp -->

@@ -227,6 +227,7 @@ For example, it uses `"area7"` for a categorical (unordered) variable, `"blues3"
 <!-- info about tm_layout or reference to a section about it -->
 
 ```{r}
+#| label: tmpals1
 #| eval: false
 tm_shape(worldvector) + 
   tm_polygons("life_expectancy")
@@ -240,6 +241,7 @@ Importantly, the length of the provided vector does not need to be equal to the 
 **tmap** automatically interpolates new colors in the case when a smaller number of colors is provided.
 
 ```{r}
+#| label: tmpals2
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons("life_expectancy",
@@ -252,6 +254,7 @@ This palette goes from green colors to yellow ones, however, we wanted to revers
 Thus, we also used the `rev()` function here. 
 
 ```{r}
+#| label: tmpals3
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons("life_expectancy", 
@@ -262,6 +265,7 @@ The last approach is to use one of the names of color palettes build-in in **tma
 In this example, we used the `"brewer.yl_gn"` palette that goes from yellow to green.
 
 ```{r}
+#| label: tmpals4
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons("life_expectancy",
@@ -282,17 +286,10 @@ Therefore, `"-yl_gn"` will return a palette going from green to yellow.
 #|   - palette created based on provided vector of colors
 #|   - palette created using the `hcl.colors()` function
 #|   - one of the build-in palettes
-tm_shape(worldvector) +
-  tm_polygons("life_expectancy")
-tm_shape(worldvector) +
-  tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = c("yellow", "darkgreen"))) 
-tm_shape(worldvector) +
-  tm_polygons("life_expectancy", 
-              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl"))))
-tm_shape(worldvector) +
-  tm_polygons("life_expectancy",
-              fill.scale = tm_scale(values = "brewer.yl_gn"))
+<<tmpals1>>
+<<tmpals2>>
+<<tmpals3>>
+<<tmpals4>>
 ```
 <!-- state that the above example of setting colors works for most of palettes -->
 
@@ -305,7 +302,9 @@ For example, we want to create a map that shows countries with life expectancy b
 To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint-2).
 
 ```{r}
+#| label: tmmidpoint2
 #| eval: false
+# mean(x$lifeExp, na.rm = TRUE)
 tm_shape(worldvector) +
   tm_polygons(fill = "life_expectancy", 
               fill.scale = tm_scale(midpoint = 73))
@@ -321,12 +320,8 @@ tm_shape(worldvector) +
 #|   - the default sequential color palette
 #|   - the diverging color palette around the midpoint value of 73
 #| fig-height: 2
-# mean(x$lifeExp, na.rm = TRUE)
-tm_shape(worldvector) +
-  tm_polygons(fill = "life_expectancy")
- tm_shape(worldvector) +
-  tm_polygons(fill = "life_expectancy",
-              fill.scale = tm_scale(midpoint = 73))
+<<tmpals1>>
+<<tmmidpoint2>>
 ```
 
 Now the countries with low life expectancy are presented with purple colors, light gray areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
@@ -411,18 +406,20 @@ For example, `tm_symbols()` returns a map where each object is a circle with a c
 We can change the sizes of all objects using the `size` argument (@fig-tmsizes-1).
 
 ```{r}
+#| label: tmsizes1
 #| eval: false
 tm_shape(volcanos) +
- tm_symbols(size = 0.5) 
+  tm_symbols(size = 0.5) 
 ```
 
 On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
 Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (@fig-tmsizes-2).
 
 ```{r}
+#| label: tmsizes2
 #| eval: false
 tm_shape(volcanos) +
- tm_symbols(size = "elevation") 
+  tm_symbols(size = "elevation") 
 ```
 
 <!-- numeric only -->
@@ -434,9 +431,10 @@ tm_shape(volcanos) +
 We can adjust size legend breaks with `ticks` and the corresponding labels with `labels` (@fig-tmsizes C) as arguments of the `tm_scale` function provided to the `size.scale` argument.
 
 ```{r}
+#| label: tmsizes3
 #| eval: false
 tm_shape(volcanos) +
- tm_symbols(size = "elevation",
+  tm_symbols(size = "elevation",
             size.scale = tm_scale(ticks = c(100, 600),
                                   labels = c("low", "high")))
 ```
@@ -453,16 +451,10 @@ For example in the above code, we just show examples of how symbols with elevati
 #|   - all symbols have a consistent size of 0.5
 #|   - sizes of symbols depends on the values of the elevation variabl
 #|   - sizes of symbols have a manually created legend
-#| fig-asp: 0.42
-library(tmap)
-tm_shape(volcanos) +
- tm_symbols(size = 0.5) 
-tm_shape(volcanos) +
- tm_symbols(size = "elevation") 
-tm_shape(volcanos) +
- tm_symbols(size = "elevation",
-            size.scale = tm_scale(ticks = c(100, 600),
-                                  labels = c("low", "high")))
+#| #fig-asp: 0.42
+<<tmsizes1>>
+<<tmsizes2>>
+<<tmsizes3>>
 ```
 
 Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
@@ -537,6 +529,7 @@ To use different shapes, we should use the `shape` argument in the `tm_symbols()
 It expects the name of the categorical variable.
 
 ```{r}
+#| label: tmsymshape1
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
@@ -555,6 +548,7 @@ A complete list of available symbols and their corresponding numbers is in the `
 <!--JN: or should we add a figure with them here??-->
 
 ```{r}
+#| label: tmsymshape2
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
@@ -577,6 +571,7 @@ p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() +
 ```
 
 ```{r}
+#| label: tmsymshape3
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
@@ -603,6 +598,7 @@ Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape-4).
 <!-- border.col = NULL -->
 
 ```{r}
+#| label: tmsymshape4
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(shape = "type",
@@ -621,19 +617,10 @@ tm_shape(ei_points) +
 #|   - user-defined symbols
 #|   - grob objects
 #|   - icons
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.legend = tm_legend(title = "Type:",
-                                      labels = c("Cave entrance", "Peak", "Volcano")))
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = c(0, 2, 5)))
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = list(p4, p4, p4)))
-tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.scale = tm_scale(values = my_icons))
+<<tmsymshape1>>
+<<tmsymshape2>>
+<<tmsymshape3>>
+<<tmsymshape4>>
 ```
 
 ```{r}
@@ -658,6 +645,7 @@ This section shows only some possible examples of mixing visual variables.
 This can be set with the `size` and `fill` arguments.
 
 ```{r}
+#| label: mixsymb1
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(size = "sv",
@@ -668,6 +656,7 @@ We can also modify all of the visual variables using the additional arguments ex
 For example, we can set the color style, color palette, or specify shapes (@fig-mixsymb-2).
 
 ```{r}
+#| label: mixsymb2
 #| eval: false
 tm_shape(ei_points) +
   tm_symbols(fill = "elevation",
@@ -686,13 +675,8 @@ tm_shape(ei_points) +
 #| fig-subcap: 
 #|   - size and fill
 #|   - fill and shape
-tm_shape(ei_points) +
-  tm_symbols(size = "sv", fill = "elevation")
-tm_shape(ei_points) +
-  tm_symbols(fill = "elevation",
-             fill.scale = tm_scale(values = "Greens"),
-             shape = "type",
-             shape.scale = tm_scale(values = c(23, 24, 25)))
+<<mixsymb1>>
+<<mixsymb2>>
 ```
 
 For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (@fig-mixline).

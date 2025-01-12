@@ -24,6 +24,7 @@ Spatial vector objects grow larger with more features to present and more detail
 @fig-vectordown-1 shows a map of countries from the `worldvector` object.
 
 ```{r}
+#| label: vectordown1
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons()
@@ -36,6 +37,7 @@ It expects a numeric value from 0 to 1 -- a proportion of vertices in the data t
 In the example below, we set `keep` to 0.05, which keeps 5% of vertices (@fig-vectordown-2).
 
 ```{r}
+#| label: vectordown2
 #| eval: false
 library(rmapshaper)
 worldvector_s1 = ms_simplify(worldvector, keep = 0.05)
@@ -52,6 +54,7 @@ For example, look at New Zealand, which is now only represented by Te Waipounamu
 To keep all of the spatial geometries (even the smallest of islands), we should also specify `explode` to `TRUE`.
 
 ```{r}
+#| label: vectordown3
 #| eval: false
 worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
                              keep_shapes = TRUE, explode = TRUE)
@@ -71,16 +74,9 @@ tm_shape(worldvector_s1) +
 #|   - original data
 #|   - simplified data with 5% of vertices kept
 #|   - simplified data with 5% of vertices, all features, and all polygons kept
-tm_shape(worldvector) +
-  tm_polygons()
-library(rmapshaper)
-worldvector_s1 = ms_simplify(worldvector, keep = 0.05)
-tm_shape(worldvector_s1) +
-  tm_polygons()
-worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
-                             keep_shapes = TRUE, explode = TRUE)
-tm_shape(worldvector_s1) +
-  tm_polygons()
+<<vectordown1>>
+<<vectordown2>>
+<<vectordown3>>
 ```
 
 <!-- 2/resolution -->

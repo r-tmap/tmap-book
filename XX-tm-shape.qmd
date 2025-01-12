@@ -189,6 +189,7 @@ Some of you can quickly noticed that certain areas, such as parts of Antarctica,
 Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only -- while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
 
 ```{r}
+#| label: tm-map-proj1
 #| warning: false
 #| eval: false
 tm_shape(worldelevation, crs = "EPSG:8857") +
@@ -203,6 +204,7 @@ This calculation could deform the shapes of original grid cells, and usually cur
 However, creation of the (b) map takes about ten times longer than the (a) map.
 
 ```{r}
+#| label: tm-map-proj2
 #| warning: false
 #| eval: false
 tm_shape(worldelevation, crs = "EPSG:8857") +
@@ -220,13 +222,8 @@ tm_shape(worldelevation, crs = "EPSG:8857") +
 #| fig-subcap: 
 #|   - created using raster.warp = TRUE
 #|   - created using raster.warp = FALSE
-tm_shape(worldelevation, crs = "EPSG:8857") +
-  tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8)))
-tm_shape(worldelevation, crs = "EPSG:8857") +
-  tm_raster("worldelevation.tif", 
-            col.scale = tm_scale(values = terrain.colors(8))) +
-  tm_options(raster.warp = FALSE)
+<<tm-map-proj1>>
+<<tm-map-proj2>>
 ```
 
 ```{r}

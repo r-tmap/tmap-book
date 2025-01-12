@@ -192,9 +192,13 @@ For example, data for this part of the area was not collected, or these location
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-asp: 0.4
-#| fig-cap: 'Basic representation of the raster data model: (1) Cell IDs, (2) Cell values,
-#|   and (3) A raster map'
+#| #fig-asp: 0.4
+#| layout-ncol:3
+#| fig-cap: 'Basic representations of the raster data model'
+#| fig-subcap:
+#|   - Cell IDs
+#|   - Cell values
+#|   - A raster map
 #replace example later
 library(tmap)
 library(spData)
@@ -212,24 +216,19 @@ sta_sf = st_as_sf(sta)
 sta_sf$A1.2 = as.character(as.factor(sta_sf$A1.1))
 sta_sf$A1.2[is.na(sta_sf$A1.1)] = "NA"
 
-tm_raster1 = tm_shape(sta_sf) +
+tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_title("1. Cell IDs") +
   tm_layout(frame = FALSE)
 
-tm_raster2 = tm_shape(sta_sf) +
+tm_shape(sta_sf) +
   tm_polygons("A1.1") +
   tm_text("A1.2") +
-  tm_title("2. Cell values") +
   tm_layout(frame = FALSE, legend.show = FALSE)
 
-tm_raster3 = tm_shape(sta) +
+tm_shape(sta) +
   tm_raster("A1.1") +
-  tm_title("3. Raster map") +
   tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02)
-
-tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
 ```
 
 \index{raster data grid types}
@@ -247,14 +246,20 @@ In the last type of raster data grids, curvilinear grids, cells are cuboids of d
 #| label: fig-grid-types
 #| echo: false
 #| warning: false
-#| fig-asp: 0.4
-#| fig-cap: 'Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared,
-#|   (4) Rectilinear, and (5) Curvilinear'
+#| #fig-asp: 0.4
+#| layout-ncol: 5
+#| fig-cap: 'Main types of raster data grids'
+#| fig-subcap:
+#|   - Regular
+#|   - Rotated
+#|   - Sheared
+#|   - Rectilinear
+#|   - Curvilinear
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_title("Regular") +
+  # tm_title("Regular") +
   tm_layout(frame = FALSE)
 # rotated grids 
 sta_rotated = sta
@@ -263,7 +268,7 @@ sta_rotated_sf = st_as_sf(sta_rotated)
 tm_sta_rotated = tm_shape(sta_rotated_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_title("Rotated") +
+  # tm_title("Rotated") +
   tm_layout(frame = FALSE)
 # sheared grids
 sta_sheared = sta
@@ -272,7 +277,7 @@ sta_sheared_sf = st_as_sf(sta_sheared)
 tm_sta_sheared = tm_shape(sta_sheared_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_title("Sheared") +
+  # tm_title("Sheared") +
   tm_layout(frame = FALSE)
 # rectilinear grids
 x = c(0, 0.5, 1.5, 2.1, 3, 5)
@@ -283,7 +288,7 @@ sta_rectilinear_sf = st_as_sf(sta_rectilinear)
 tm_sta_rectilinear = tm_shape(sta_rectilinear_sf) +
   tm_polygons() +
   tm_text("m") +
-  tm_title("Rectilinear") +
+  # tm_title("Rectilinear") +
   tm_layout(frame = FALSE)
 # curvilinear grids
 sta_curvilinear = sta
@@ -305,12 +310,14 @@ tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
   tm_polygons() +
   tm_text("A1") +
   # tm_grid() +
-  tm_title("Curvilinear") +
+  # tm_title("Curvilinear") +
   tm_layout(frame = FALSE)
 # all
-tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
-                          tm_sta_rectilinear, tm_sta_curvilinear, nrow = 1)
-tm_sta_all
+tm_sta_regular
+tm_sta_rotated
+tm_sta_sheared
+tm_sta_rectilinear
+tm_sta_curvilinear
 ```
 
 Contrary to spatial vector data, a basic raster data stores just one attribute.
@@ -328,28 +335,33 @@ Additional information about multi-layer rasters can be also found in @sec-spati
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-asp: 0.4
+#| #fig-asp: 0.4
+#| layout-ncol: 4
 #| fig-cap: 'Example of three satellite imagery bands: red, green, blue, and the composite
 #|   image with true colors created using these three bands.'
+#| fig-subcap:
+#|   - Red
+#|   - Green
+#|   - Blue
+#|   - Composite
 # we can/should change this example later
 landsat234 = terra::rast(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
-tmrgb1 = tm_shape(landsat234[[3]]) +
+tm_shape(landsat234[[3]]) +
   tm_raster(col.scale = tm_scale(values = "Greys")) + 
-  tm_title("Red") +
+  # tm_title("Red") +
   tm_layout(frame = FALSE, legend.show = FALSE)
-tmrgb2 = tm_shape(landsat234[[2]]) +
+tm_shape(landsat234[[2]]) +
   tm_raster(col.scale = tm_scale(values = "Greys")) + 
-  tm_title("Green") +
+  # tm_title("Green") +
   tm_layout(frame = FALSE, legend.show = FALSE)
-tmrgb3 = tm_shape(landsat234[[1]]) +
+tm_shape(landsat234[[1]]) +
   tm_raster(col.scale = tm_scale(values = "Greys")) + 
-  tm_title("Blue") +
+  # tm_title("Blue") +
   tm_layout(frame = FALSE, legend.show = FALSE)
-tmrgb4 = tm_shape(landsat234) +
+tm_shape(landsat234) +
   tm_rgb(tm_vars(names(landsat234)[3:1], multivariate = TRUE)) + 
-  tm_title("Composite") +
+  # tm_title("Composite") +
   tm_layout(frame = FALSE)
-tmap_arrange(tmrgb1, tmrgb2, tmrgb3, tmrgb4, nrow = 1)
 ```
 
 \index{spatial file formats}
@@ -875,7 +887,7 @@ tm_shape(World, crs = "+proj=robin") +
 ```
 
 \index{conic map projections}
-An example of a conic map projection is shown in @fig-crs-conic-planar(a).
+An example of a conic map projection is shown in @fig-crs-conic-planar-1.
 As a result of unfolding a cone on a flat surface, a gap is created.
 The size (angle) of this gap depends on the width of the cone.
 There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
@@ -889,7 +901,7 @@ It can be placed inside the globe, at the surface of the globe opposite to the d
 The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.
 
 Planar map projections are often used for a specific country or continent.
-An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in @fig-crs-conic-planar(b), which is optimized for Europe.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in @fig-crs-conic-planar-2, which is optimized for Europe.
 It can be classified as a stereographic projection, although the light beams are not straight but curved.
 Another example of a planar map projection is the orange shown in @fig-orange.
 This is an orthogonal projection.
@@ -900,12 +912,15 @@ This is an orthogonal projection.
 #| results: hide
 #| warning: false
 #| message: false
-#| fig-cap: Examples of a conic (a) and a planar (b) projection.
+#| layout-ncol: 2
+#| fig-cap: Examples of a conic and a planar projection.
+#| fig-subcap:
+#|   - "World Equidistant Conic projection"
+#|   - "Lambert Azimuthal Equal-Area projection"
 source("code/crs_examples.R")
 meqdc = map_eqdc()
 m3035 = map_3035()
 
-tmap_arrange({
 tm_shape(meqdc$bg) +
     tm_polygons(clr_bg, col = clr_border) +
 tm_shape(meqdc$land) +
@@ -913,20 +928,15 @@ tm_shape(meqdc$land) +
 tm_shape(meqdc$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-    tm_title("(A) World Equidistant Conic projection", size = 0.9, 
-             color = "#777777", position = c("center", "bottom")) +
-    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))},
-{tm_shape(m3035$bg) +
+    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
+tm_shape(m3035$bg) +
     tm_polygons(clr_bg, col = clr_border) +
 tm_shape(m3035$land) +
     tm_polygons(clr_land) +
 tm_shape(m3035$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-    tm_title("(B) Lambert Azimuthal Equal-Area projection", size = 0.9,
-             color = "#777777", position = c("center", "bottom")) +
     tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
-})
 ```
 
 \index{interrupted map projections}
@@ -947,7 +957,7 @@ Is the whole World visualized or only a part, and in the latter case, which part
 In this section, guidelines are provided to choose a proper projection based on those two aspects.
 
 Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar (b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar-2.
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.
 
@@ -1009,11 +1019,15 @@ The perception of World population is different in these maps; in (a) the vast l
 #| echo: false
 #| message: false
 #| out-width: 100%
-#| fig-asp: 0.45
-#| fig-cap: The Robinson projection, which is pseudo-cylindrical.
-library(grid)
+#| #fig-asp: 0.45
+#| layout-ncol: 2
+#| fig-cap: Comparison of Web Mercator and Eckert IV projections.
+#| fig-subcap:
+#|   - "Web Mercator is not equal-area"
+#|   - "Eckert IV is equal-area"
+# library(grid)
 World = World[World$iso_a3 != "ATA", ]
-tm1 = tm_shape(World, crs = "EPSG:3857") + 
+tm_shape(World, crs = "EPSG:3857") + 
   tm_polygons("pop_est_dens", 
               fill.scale = tm_scale_continuous_log10(),
               fill.legend = tm_legend(expression("Population per " * km^2), 
@@ -1021,7 +1035,7 @@ tm1 = tm_shape(World, crs = "EPSG:3857") +
   tm_layout(frame = FALSE, legend.frame = TRUE, 
             inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
             scale = 0.7, asp = 1)
-tm2 = tm_shape(World, crs = "+proj=eck4") + 
+tm_shape(World, crs = "+proj=eck4") + 
   tm_polygons("pop_est_dens",
               fill.scale = tm_scale_continuous_log10(),
               fill.legend = tm_legend(expression("Population per " * km^2), 
@@ -1029,11 +1043,11 @@ tm2 = tm_shape(World, crs = "+proj=eck4") +
   tm_layout(frame = FALSE, legend.frame = TRUE, 
             inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
             scale = 0.7, asp = 1)
-tmap_arrange(tm1, tm2)
-grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, 
-          gp = gpar(cex = 0.8, col = "#777777"))
-grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, 
-          gp = gpar(cex = 0.8, col = "#777777"))
+# tmap_arrange(tm1, tm2)
+# grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, 
+#           gp = gpar(cex = 0.8, col = "#777777"))
+# grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, 
+#           gp = gpar(cex = 0.8, col = "#777777"))
 ```
 
 \index{equidistant map projections}
@@ -1070,10 +1084,10 @@ knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
   kableExtra::column_spec(1, width = "10em")
 ```
 
-For World maps, pseudo-cylindrical map projections, such as the Robinson projection (@fig-crs-robin) and the Eckert IV projection (@fig-crs-bias(b)) are very popular because they have less distortion other map projections. 
+For World maps, pseudo-cylindrical map projections, such as the Robinson projection (@fig-crs-robin) and the Eckert IV projection (@fig-crs-bias-2) are very popular because they have less distortion other map projections. 
 For areas that cover a half of the sphere, i.e. a hemisphere, azimuthal map projections are recommended. 
 There are four hemispheres that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemisphere, which includes the other continents. 
-However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar(b).
+However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar-2.
 
 For areas with the size of a continent or country, the azimuthal map projection type can be used when centered on the area of interest.
 In particular, the Lambert Azimuthal Equal-Area projection when equal area is required, and the Azimuthal Equidistant projection when preserving distances is important.
@@ -1169,19 +1183,19 @@ You can see here that the decision of the projection used has an impact not only
 #| label: fig-crs-trans-plot
 #| echo: false
 #| warning: false
-#| fig-cap: 'Comparison between the same dataset of three waterfalls using: (A) the WGS84
-#|   coordinate system, (B) the Equal Earth projection.'
-ctp1 = tm_shape(World, crs = "EPSG:4326") +
+#| layout-nrow: 2
+#| fig-cap: 'Comparison between the same dataset of three waterfalls'
+#| fig-subcap:
+#|   - 'WGS84 coordinate system'
+#|   - 'Equal Earth projection'
+tm_shape(World, crs = "EPSG:4326") +
     tm_polygons() +
   tm_shape(waterfalls_sf) +
     tm_markers(text = "name") +
-  tm_grid() +
-  tm_title_in("A")
-ctp2 = tm_shape(World, crs = "EPSG:8857") +
+  tm_grid()
+tm_shape(World, crs = "EPSG:8857") +
     tm_polygons() +
   tm_shape(waterfalls_sf_trans) +
     tm_markers(text = "name") +
-  tm_grid() +
-  tm_title_in("B")
-tmap_arrange(ctp1, ctp2, ncol = 1)
+  tm_grid()
 ```

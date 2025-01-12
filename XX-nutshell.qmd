@@ -44,6 +44,7 @@ It works even if we just provide any *shape object* -- in that case, only the ge
 @fig-qtm-1 shows a visualization of the geometries from the `volcanoes`.
 
 ```{r}
+#| label: qtm1
 #| eval: false
 qtm(volcanoes)
 ```
@@ -52,6 +53,7 @@ The `qtm()` function allows to customize many map elements for the provided *sha
 For example, we can change the shapes of the points in `volcanoes`, make their sizes related to the the `"elevation"` argument, and add a title (@fig-qtm-2).
 
 ```{r}
+#| label: qtm2
 #| eval: false
 qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes")
 ```
@@ -64,8 +66,8 @@ qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes")
 #| fig-subcap: 
 #|   - A map with geometries only.
 #|   - A map with geometries and attributes.
-qtm(volcanoes)
-qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes")
+<<qtm1>>
+<<qtm2>>
 ```
 
 <!-- The `qtm()` function offers similar flexibility to the regular map approach.  -->
