@@ -193,7 +193,7 @@ For example, data for this part of the area was not collected, or these location
 #| warning: false
 #| message: false
 #| #fig-asp: 0.4
-#| layout-ncol:3
+#| layout-ncol: 3
 #| fig-cap: 'Basic representations of the raster data model'
 #| fig-subcap:
 #|   - Cell IDs
