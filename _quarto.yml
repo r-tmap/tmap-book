@@ -36,6 +36,7 @@ book:
       - "XX-layers.qmd" 
       - "XX-visual-variables.qmd" 
       - "XX-scales.qmd"
+      - "XX-attr-layers.qmd"
       - "XX-layout.qmd" 
       - "XX-interactive.qmd" 
     - part: "Expanding the toolbox"

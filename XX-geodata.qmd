@@ -989,7 +989,8 @@ tb = tibble::tibble(Property = crs_prop_name, Preserves = crs_prop_attr,
 tb2 = as.data.frame(t(rbind(names(tb), as.matrix(tb, dimnames = NULL))))
 tb2 = tb2[, -1]
 colnames(tb2) = NULL
-tinytable::tt(tb2, caption = "Map projection properties.", rownames = TRUE)
+tinytable::tt(tb2, caption = "Map projection properties.", rownames = TRUE) |>
+  tinytable::style_tt(j = 1, bold = TRUE)
 
 # knitr::kable(tb2, 
 #              row.names = TRUE,

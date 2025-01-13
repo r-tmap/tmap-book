@@ -1,3 +1,8 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
 # Scales {#sec-scales}
 
 Sections @sec-colors, @sec-sizes, and @sec-shapes showed how to set colors, sizes, and shapes for different types of spatial objects.
@@ -42,7 +47,8 @@ scales_df = tibble::tribble(
 #                             latex_options = "striped", 
 #                             full_width = FALSE) |> 
 #   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) 
-tinytable::tt(scales_df, caption = "Map scales")
+tinytable::tt(scales_df, caption = "Map scales") |>
+  tinytable::style_tt(j = 1, monospace = TRUE)
 ```
 
 ```{r}
