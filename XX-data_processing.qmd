@@ -56,7 +56,7 @@ To keep all of the spatial geometries (even the smallest of islands), we should 
 #| eval: false
 worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
                              keep_shapes = TRUE, explode = TRUE)
-tm_shape(worldvector_s1) +
+tm_shape(worldvector_s2) +
   tm_polygons()
 ```
 
