@@ -216,7 +216,7 @@ The above line of code just changes the mode -- it does not return anything exce
 Now, if we want to use this mode, we need to either write a new **tmap** code or provide some existing **tmap** object, such as `my_map`.
 
 ```{r}
-#| eval: false
+#| # eval: false
 my_map
 ```
 
