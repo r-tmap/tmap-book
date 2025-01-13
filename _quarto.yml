@@ -50,9 +50,9 @@ book:
       - "XX-options.qmd" 
     - "XX-good-maps.qmd"
     - part: "Appendices"
-      appendices:
-      - "XX-data_processing.qmd"
     - "references.qmd"
+  appendices:
+    - "XX-data_processing.qmd"
 
 format:
   html: 
