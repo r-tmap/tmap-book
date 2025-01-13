@@ -49,6 +49,7 @@ book:
       chapters:
       - "XX-options.qmd" 
     - "XX-good-maps.qmd"
+    - part: "Appendices"
       appendices:
       - "XX-data_processing.qmd"
     - "references.qmd"
