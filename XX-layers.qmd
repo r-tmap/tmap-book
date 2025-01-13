@@ -43,7 +43,9 @@ layers_df = rbind(layers_basic_df,
 #| message: false
 tinytable::tt(layers_df, caption = "Map layers.") |>
   tinytable::group_tt(i = list("Basic functions" = 1, "Derived functions" = 8)) |>
-  tinytable::style_tt(i = c(1, 9), align = "c", color = "white", background = "gray", bold = TRUE)
+  tinytable::style_tt(i = c(1, 9), color = "white", background = "gray", bold = TRUE) |>
+  tinytable::style_tt(j = 1, monospace = TRUE)
+
 # library(magrittr)
 # library(kableExtra)
 # options(kableExtra.html.bsTable = TRUE)
@@ -369,7 +371,7 @@ ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
 Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
 @fig-rasterdown shows two simple example of continuous and categorical raster visualization created with `tm_raster()`.
 This function attempts to recognize the type of a given raster -- when the input raster is continuous then the pretty style is used.
-However, the continuous style (`"tm_scale_continuous"`) often better represent phenomena that progressively vary in space (@fig-rasterdown-1).
+However, the continuous style (`"tm_scale_continuous"`) often better represent phenomena that progressively vary in space (@fig-rastertype-1).
 
 ```{r}
 #| label: rastertype1
@@ -379,7 +381,7 @@ tm_shape(ei_elev) +
             col.legend = tm_legend(title = "Elevation (m asl):"))
 ```
 
-On the other hand, when the given raster is categorical, then `tm_raster` uses `tm_scale_categorical` automatically (@fig-rasterdown-2).
+On the other hand, when the given raster is categorical, then `tm_raster` uses `tm_scale_categorical` automatically (@fig-rastertype-2).
 We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
 
 ```{r}
