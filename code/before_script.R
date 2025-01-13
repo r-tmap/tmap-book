@@ -38,8 +38,8 @@ view_map = function(x, name){
     webshot2::webshot(tf, file = paste0("widgets/", name, ".png"))
     knitr::include_graphics(paste0("widgets/", name, ".png"))
   } else {
-    widgetframe::frameWidget(tmap::tmap_leaflet(x))
-    # tmap::tmap_leaflet(x)
+    # widgetframe::frameWidget(tmap::tmap_leaflet(x))
+    tmap::tmap_leaflet(x)
   }
 }
 
