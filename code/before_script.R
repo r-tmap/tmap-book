@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold",
-  out.width = "100%",
+  out.width = "100%", #70%
   dev.args = list(png = list(type = "cairo-png")),
   optipng = "-o1 -quiet",
   widgetframe_widgets_dir = "widgets",
