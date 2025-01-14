@@ -1,9 +1,8 @@
 Package: tmapbook
 Type: Book
 Title: Elegant and informative maps with tmap
-Version: 0.0.2
+Version: 0.0.3
 Imports: 
-  bookdown,
   tmaptools,
   tmap,
   spDataLarge,
@@ -11,9 +10,8 @@ Imports:
   dplyr,
   tidyr,
   rmapshaper,
-  kableExtra,
+  tinytable,
   curl,
-  maptiles,
   webshot
 Remotes: 
   r-tmap/tmaptools,
