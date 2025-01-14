@@ -543,7 +543,6 @@ tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
 ```{r}
 #| label: fig-tmtiles1
 #| cache: false
-#| eval: true
 #| echo: false
 #| message: false
 #| fig-cap: OpenStreetMap tile layer used as a base map with dashed lines representing

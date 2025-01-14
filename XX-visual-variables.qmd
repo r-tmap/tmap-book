@@ -25,7 +25,7 @@ visual_variables()
 The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
 @fig-visual-variables shows examples of different visual variables.
 Color is the most universal visual variable.
-It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings (@sec-color-palettes and @sec-color-scale-styles).
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings.
 Sizes, on the other hand, should focus on quantitative variables.
 Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
 Quantitative values of line data can be shown with the widths of the lines (@sec-sizes).
@@ -37,16 +37,54 @@ Values of polygons usually cannot be represented by either shapes or sizes, as t
 
 <!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+
+## Automatic scales {#sec-auto-scales}
+
+The **tmap** package has many defaults that automatically specifies colors, sizes, and shapes used on the maps. 
+Thus, for example, when we provide a character variable's name to the `fill` argument, then the color scale for a categorical variable is set, and when we provide a numeric variable's name to the `size` argument, then the size scale for a continuous variable is used.
+However, **tmap** also allows us to change them with a few additional functions, including `tm_scale()` and `tm_legend()`.
+In this and the following sections, we will show how to use the `tm_scale()` function to modify the appearance of the visual variables.
+<!--add refs-->
+
+The most basic use of the `tm_scale()` function is to modify the appearance of the map, such as changing the color palette (`col.scale` and `fill.scale`), sizes (`size.scale`), or shapes (`shape.scale`).
+This is done with the `values` argument, which can be one of many things, depending on the visual variable.
+For example, for colors, it can be a vector of colors, a palette function, or a name of a build-in palette; for sizes, it can be a numerical variable; and for shapes, it can be a custom icon or a numerical variable.
+<!-- ref to the figure below -->
+
+```{r}
+#| layout-ncol: 2
+tm_shape(volcanos) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale(values = "greens"))
+tm_shape(volcanos) +
+  tm_symbols(col = "elevation",
+             col.scale = tm_scale(values = "greens"))
+tm_shape(volcanos) +
+  tm_symbols(size = "elevation",
+             size.scale = tm_scale(values = 1:5))
+tm_shape(volcanos) + 
+  tm_symbols(shape = "elevation", 
+             shape.scale = tm_scale(values = 1:6))
+```
+
+The following sections @sec-colors, @sec-sizes, and @sec-shapes explain the basic visual variables.
+Next, they show how to set colors, sizes, and shapes for different types of spatial objects.
+
 ## Colors {#sec-colors}
 
 \index{colors}
 Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
 Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
 On the other hand, poor decisions about colors can lead to misinterpretation of the map.
-@sec-color-palettes explains how colors are represented in R, how to decide which colors to use, and how to set different colors on maps.
-@sec-color-scale-styles focuses on how to specify color breaks and which types of scales styles are appropriate in different cases.
-
-### Color palettes {#sec-color-palettes}
 
 \index{color palettes}
 <!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
@@ -168,7 +206,7 @@ Gladly, a lot of work has been put on creating color palettes that are grounded 
 Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
 ) contain hundreds of color palettes. 
 The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
-**RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at https://colorbrewer2.org.
+**RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at <https://colorbrewer2.org>.
 The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
 The **viridis** package has five color palettes are perceptually-uniform and suitable for people with color blindness.
 Four palettes is this package ("viridis", "magma", "plasma", and "inferno") are derived from the work on the color palettes for [the matplotlib Python library](http://bids.github.io/colormap/).
@@ -180,7 +218,7 @@ viridis::viridis(7)
 ```
 
 \index{color palettes}
-In the last few years, the **grDevices** package that is an internal part of R, have received several improvements over color palette handling.^[Learn more about them at https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/ and https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html.]
+In the last few years, the **grDevices** package that is an internal part of R, have received several improvements over color palette handling.^[Learn more about them at <https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/> and <https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html>.]
 It includes creation of `hcl.colors()` and `palette.colors()`.
 The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@carto_cartocolors_2019;@R-rcartocolor], and **scico** [@crameri_geodynamic_2018;@R-scico].
 You can get the list of available palette names for `hcl.colors()` using the `hcl.pals()` function and visualize all of the palettes with `colorspace::hcl_palettes(plot = TRUE)`.
@@ -532,9 +570,7 @@ It expects the name of the categorical variable.
 #| label: tmsymshape1
 #| eval: false
 tm_shape(ei_points) +
-  tm_symbols(shape = "type",
-             shape.legend = tm_legend(title = "Type:",
-                                      labels = c("Cave entrance", "Peak", "Volcano")))
+  tm_symbols(shape = "type")
 ```
 
 <!-- tmap::tmap_options()$values.var$shape -->
