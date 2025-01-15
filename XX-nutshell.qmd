@@ -6,10 +6,10 @@ source("code/before_script.R")
 # **tmap** in a nutshell {#sec-nutshell}
 
 The **tmap** package allows the creation of thematic maps with great flexibility.
-It accepts spatial data in various formats shape objects (@sec-shape-objects)
+It accepts spatial data in various formats -- shape objects (@sec-shape-objects)
 Next, the data can be used to create simple, quick maps (@sec-quick-maps) and more complex and expandable maps (@sec-regular-maps).
 These maps can be presented in two modes: as a static map and an interactive one.
-Additionally, **tmap** makes it possible to create small multiples map (@sec-sm-section) and map animations (@sec-ani-section).
+Additionally, **tmap** makes it possible to create small multiples maps (@sec-sm-section) and map animations (@sec-ani-section).
 The goal of this chapter is to provide a brief overview of the main **tmap** features.
 
 ## Shape objects {#sec-shape-objects}
@@ -77,12 +77,12 @@ qtm(volcanoes, shape = 24, size = "elevation", title = "Volcanoes")
 
 Therefore, for most applications, we recommend using the regular mapping approach.
 This approach operates on many functions that start with `tm_`. 
-The first element always is `tm_shape()`, which specified the input shape object.
+The first element always^[Almost always...] is `tm_shape()`, which specifies the input shape object.
 Next, map layers, additional map elements, and overall layout options can be customized.
 <!-- update terminology later -->
 <!-- references -->
 
-The last example in @sec-quick-maps can be reproduced with the regular map approach using the following code:
+The last example in @sec-quick-maps can be reproduced with the regular map approach using the following code.
 
 ```{r}
 #| eval: false
@@ -123,12 +123,13 @@ Look at the following example and try to guess how many *groups* it has, and how
 #| fig-asp: 0.73
 #| fig-cap: "Example of a map with four groups of map layers: an elevation layer, island borders layer, roads layer, and volcanoes layer."
 tm_shape(ei_elev) +
-  tm_raster(col.scale = tm_scale_continuous(values = "geyser"),
+  tm_raster(col.scale = tm_scale(values = "geyser"),
             col.legend = tm_legend(title = "Elevation (m asl)")) +
   tm_shape(ei_borders) + 
   tm_borders() +
   tm_shape(ei_roads) +
-  tm_lines(lwd = "strokelwd", lwd.legend = tm_legend_hide()) +
+  tm_lines(lwd = "strokelwd", 
+           lwd.legend = tm_legend(show = FALSE)) +
   tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
              size.legend = tm_legend(title = "Volcanoes (m asl)")) +
@@ -137,15 +138,16 @@ tm_shape(ei_elev) +
 ```
 
 The correct answer is four groups, all with just one layer.
-Each *group* is put on the top of the previous one - the **tmap** uses a layered approach.
+Each *group* is put on top of the previous one -- **tmap** uses a layered approach.
 The first *group* represents elevation data with a continuous color scale style, a color palette called `"geyser"`, and a legend title.
 The second *group* shows the borders of Easter Island with the default aesthetics, while the third *group* presents the road network (the `ei_roads` object), with each line's width based on the values from the `"strokelwd"` column, but with a legend hidden.
 The last *group* is similar to our previous example with fixed symbol shapes and sizes related to the `"elevation"` attribute, but also with the legend title instead of the map title.
-Additionally, we use the `tm_layout()` function to add a map title.
+Additionally, we use the `tm_title()` function to add a map title and `tm_layout` to modify the general apperance of the map.
+You can also notice that we can control scales of various visual variables, such as color, size, or width, with the `tm_scale_*()` function and customize legends with the `tm_legend()` function.
 <!-- ref to other parts of the book -->
 
 Often, maps also have additional map elements, such as graticule lines, north arrow, scale bar, or map credits (@fig-rmap2). 
-They help map readers to understand location or extend of the input data, and provide some ancillary information.
+They help map readers understand the location or extent of the input data and provide some ancillary information.
 The **tmap** package offers a set of functions for additional map elements.
 The `tm_graticules()` function draws latitude and longitude graticules and adds their labels.
 It also uses the layered approach, and thus, the lines will be drawn either below or above the shape objects, depending on the position of this function in the code.
@@ -160,12 +162,13 @@ It includes simple legends below, such as the `"Roads"` legend element, that is 
 ```{r}
 #| warning: false
 my_map = tm_shape(ei_elev) +
-  tm_raster(col.scale = tm_scale_continuous(values = "geyser"),
+  tm_raster(col.scale = tm_scale(values = "geyser"),
             col.legend = tm_legend(title = "Elevation (m asl)")) +
   tm_shape(ei_borders) + 
   tm_borders() +
   tm_shape(ei_roads) +
-  tm_lines(lwd = "strokelwd", lwd.legend = tm_legend_hide()) +
+  tm_lines(lwd = "strokelwd", 
+           lwd.legend = tm_legend(show = FALSE)) +
   tm_shape(volcanoes) +
   tm_symbols(shape = 24, size = "elevation",
              size.legend = tm_legend(title = "Volcanoes (m asl)")) +
@@ -179,7 +182,7 @@ my_map = tm_shape(ei_elev) +
 ```
 
 Maps created with **tmap** can be saved as an R object.
-This is a useful feature, which allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects to files.
+This is a useful feature that allows to use one map in a few places in a code, modify existing **tmap** objects, or save these objects to files.
 
 ```{r}
 #| label: fig-rmap2
@@ -199,9 +202,8 @@ Each map created with **tmap** can be viewed in one of two modes: `"plot"` and `
 The `"plot"` mode is used by default and creates static maps similar to those shown before in this chapter.
 This mode supports almost all of **tmap**'s features, and it is recommended, for example, for scientific publications or printing.
 
-The second mode, `"view"`, allows creating interactive maps.
+The second mode, `"view"`, allows the creation of interactive maps.
 They can be zoomed in and out or panned, allow for changing background tiles (*basemaps*), or click on map objects to get some additional information.
-<!-- check if the below statement is still true in tmap4 -->
 This mode has, however, some constraints and limitations comparing to `"plot"`, for example, the legend cannot be fully customized, and some additional map elements are not supported.
 
 Both modes can be used on the same **tmap** code.
@@ -222,7 +224,7 @@ my_map
 
 Our main result is the interactive map (@fig-imap1).
 <!-- improve -->
-It shows our spatial data using similar aesthetics to @fig-rmap2, but allows us to zoom in and out or move the map.
+It shows our spatial data using aesthetics similar to @fig-rmap2 but allows us to zoom in and out or move the map.
 We also can select a basemap or click on any line and point to get some information.
 
 ```{r}
