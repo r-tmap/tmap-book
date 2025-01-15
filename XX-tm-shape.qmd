@@ -5,7 +5,7 @@ source("code/before_script.R")
 
 # Specifying spatial data {#sec-tmshape}
 
-In order to plot spatial data, at least two aspects need to be specified: the spatial data object itself, and the plotting method(s). 
+At least two aspects need to be specified in order to plot spatial data: the spatial data object itself and the plotting method(s). 
 We will cover the former in this chapter. 
 The latter will be discussed in the next chapters.
 
@@ -47,7 +47,7 @@ tm_shape(worldelevation) +
   tm_text("name")
 ```
 
-In this example, we use three shapes: `worldelevation` which is a `stars` object containing an attribute called `"worldelevation.tif"`, `worldvector` which is an `sf` object with country borders, and `worldcities`, which is an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
+In this example, we use three shapes: `worldelevation` which is a `stars` object containing an attribute called `"worldelevation.tif"`, `worldvector` which is an `sf` object with country borders, and `worldcities` -- an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
 
 Each `tm_shape()` function call is succeeded by one or more layer functions.
 In the above example, these are `tm_raster()`, `tm_borders()`, `tm_dots()` and `tm_text()`.
@@ -97,7 +97,6 @@ The second route is to specify the map extent in **tmap**.
 The first one is to specify minimum and maximum coordinates in the x and y directions that we want to represent.
 This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates need to be specified in the input data units^[This can also be done with the object of class `st_bbox` or a 2 by 2 matrix.]
 In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (@fig-tbbox1).
-<!-- mention tm_grid? -->
 
 ```{r}
 #| label: fig-tbbox1
@@ -109,7 +108,7 @@ tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
             col.scale = tm_scale(values = terrain.colors(8)))
 ```
 
-The second approach allows setting the map extent based on a search query.
+The second approach allows for the map to be set to an extent based on a search query.
 In the code below, we limit the map extent to the area of `"Europe"` (@fig-tbbox2).
 This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.
 <!-- add refs/links -->
@@ -144,7 +143,7 @@ tm_shape(worldelevation, bbox = worldcities) +
 \index{map projection}
 
 As we mentioned in the previous section, created maps use the projection from the main *shape*.
-However, we often want to create a map with a different projection, for example to preserve a specific map property (@sec-crs).
+However, we often want to create a map with a different projection, for example, to preserve a specific map property (@sec-crs).
 We can do this in three ways.
 The first way to use a different projection on a map is to reproject the main data before plotting, as shown in @sec-crs-in-r.
 The second way is to specify the map projection using the `crs` argument of `tm_shape()`.
@@ -171,7 +170,7 @@ tm_shape(worldvector) +
 ```
 
 The first way requires understanding various R packages, as different spatial objects have different functions for changing the projection.
-The second way is the most straightforward, but it is important to remember that the `crs` argument can be only set in the main layer (@sec-shapes-hierarchy).
+The second way is the most straightforward, but it is important to remember that the `crs` argument can only be set in the main layer (@sec-shapes-hierarchy).
 The third way is the most flexible, as it allows changing the projection for the whole map.
 Additionally, the `tm_crs()` function can automatically determine the projection based on the expected property of the map, e.g., equal area (`"area"`), equidistant (`"distance"`), or conformal (`"shape"`).
 For example, `tm_crs("auto")` will choose the projection that best preserves the area of the map (*Lambert Azimuthal Equal Area*), while `tm_crs("auto", property = "shape")` will choose the projection that best preserves the shape of the map (*Stereographic*).
@@ -180,12 +179,11 @@ Reprojections of vector data are usually straightforward because each spatial co
 <!-- mention invalid geometries? -->
 Reprojecting of raster data, on the other hand, is more complex and requires using one of two approaches.
 The first approach applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 7 of @lovelace_geocomputation_2025).
-<!-- update ref -->
 This is the default option in **tmap**, however, it has some limitations and it is not always possible to use it.
 
 <!-- to fix the rest of the section! -->
 @fig-tm-map-proj-1 shows the world elevation raster reprojected to Equal Earth.
-Some of you can quickly noticed that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice: with one version being largely distorted.
+Some of you can quickly notice that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice, with one version being largely distorted.
 Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only -- while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
 
 ```{r}
@@ -198,10 +196,10 @@ tm_shape(worldelevation, crs = "EPSG:8857") +
 ```
 
 The second approach (`tm_options(raster.warp = FALSE)`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
-This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach see `?stars::st_warp()` and of the second approach see `?stars::st_transform()`.].
+This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach, see `?stars::st_warp()` and of the second approach, see `?stars::st_transform()`.].
 
 @fig-tm-map-proj-2 shows an example of the second approach, which gave a better result in this case without any spurious lands.
-However, creation of the (b) map takes about ten times longer than the (a) map.
+However, the creation of the (b) map takes about ten times longer than the (a) map.
 
 ```{r}
 #| label: tm-map-proj2
