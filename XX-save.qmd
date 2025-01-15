@@ -79,7 +79,7 @@ tmap_save(tm, "my_map_j2.jpg", quality = 100)
 Vector graphics are quite distant relatives of spatial vectors, with vector graphics consisting of sets of coordinates.
 Contrary to spatial vectors, however, their coordinates can be connected not only by straight lines (@sec-vector-data-model), but also using curves.
 This makes it possible to create polygons, circles, ellipses, and others.
-They also allow storing of text and other objects.
+They also allow text and other objects to be stored.
 Common vector graphic file formats are SVG, EPS, and PDF.
 
 To save a map to a vector graphic format, we still can use `tmap_save()` but either with a suitable file extension or by using the `device` argument, for example `device = svglite::svglite`.
@@ -96,12 +96,12 @@ tmap_save(tm, "my_map01.svg", width = 1)
 ```
 
 Zooming in and out of vector graphics does not affect their quality.
-At the same time, the `width`, `height`, and `scale` arguments still can impact the output file.
+At the same time, the `width,` `height,` and `scale` arguments can still impact the output file.
 For example, a vector graphic file saved with a narrower width value will have thicker lines and larger fonts compared to the one with a larger width value.
 You can check this effect by saving the `tm` object with `width = 1` and then with `width = 10`.
 
 Compared to raster graphics, vector graphics are not suitable for storing complex images or maps, and they are less supported by web browsers comparing to rasters.
-They, however, has also many advantages.
+They, however, also have many advantages.
 For example, they can be zoomed in and out without any decrease in quality.
 Vector graphics can also be easily edited in dedicated software (e.g., Inkscape or Adobe Illustrator), which allows to change the style of map elements and move them using a computer mouse outside of the R environment.
 This approach can be useful, for example, when you want to quickly adjust the position of map elements (e.g., labels) or collaborate with a graphic designer.
