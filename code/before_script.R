@@ -39,7 +39,8 @@ view_map = function(x, name){
     knitr::include_graphics(paste0("widgets/", name, ".png"))
   } else {
     # widgetframe::frameWidget(tmap::tmap_leaflet(x))
-    tmap::tmap_leaflet(x)
+    # tmap::tmap_leaflet(x)
+    x
   }
 }
 
