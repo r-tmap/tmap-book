@@ -5,12 +5,16 @@ source("code/before_script.R")
 
 # tmap options {#sec-options}
 
+<!-- tmap_options -->
+
 ```{r}
 #| message: false
 library(tmap)
 library(stars)
 worldelevation = read_stars("data/worldelevation.tif")
 ```
+
+## Raster resolution
 
 <!-- 2/resolution -->
 Raster data is represented by a grid of cells (@sec-raster-data-model), and the number of cells impacts the time to render a map.
@@ -31,11 +35,11 @@ tm_shape(worldelevation) +
   tm_raster("worldelevation.tif")
 ```
 
-Any **tmap** options can be reset (set to default) with `tmap_options_reset()` (We explain `tmap_options()` in details in @sec-options).
+## Resetting the options
+
+Any **tmap** options can be reset (set to default) with `tmap_options_reset()`.
 
 ```{r}
 #| message: false
 tmap_options_reset()
 ```
-
-<!-- is there anything important about tm_shape arguments that still is missing for the above text?? -->

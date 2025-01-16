@@ -5,7 +5,18 @@ source("code/before_script.R")
 
 # Layout {#sec-layout}
 
-## Typography {#sec-typography}
+<!-- tm_layout -->
+<!-- which features are the most important to explain? -->
+
+## Colors (#sec-lcolors)
+
+<!-- e.g. background colors -->
+
+## Frame (#sec-lframe)
+
+## Margins (#sec-lmargins)
+
+## Typography {#sec-ltypography}
 
 <!-- Font faces and font families -->
 The decision about the used fonts is often neglected when creating programmable plots and maps.
@@ -239,4 +250,4 @@ tmap_save(tmt2, "tmt2.png")
 tmap_save(tmt2, "tmt2.pdf")
 ```
 
-## Layout elements {#sec-layout-elements}
+## Legend {#sec-llegend}

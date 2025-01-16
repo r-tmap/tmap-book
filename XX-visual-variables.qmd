@@ -422,7 +422,7 @@ By default, the colors are not transparent at all as the value of `col_alpha` an
 However, we can decrease this value to 0 -- a total transparency.
 The `col_alpha`/ `fill_alpha` argument is useful in two ways: one -- it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second -- it makes colors more subtle.
 
-<!-- idea: add bivariate/trivariate schemes (if/when implemented in tmap) -->
+<!-- idea: add bivariate/trivariate scheme -->
 <!-- add ord, cyc, biv -->
 
 <!-- alpha figure? -->
@@ -734,4 +734,11 @@ tm_shape(ei_roads) +
            lwd = "strokelwd")
 ```
 
-<!-- more about the .free arguments -->
+```{r}
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(fill = "elevation",
+             col = "elevation",
+             col.scale = tm_scale(values = "reds"),
+             col.legend = tm_legend_combine("fill"))
+```
