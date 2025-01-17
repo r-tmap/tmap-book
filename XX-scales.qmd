@@ -10,7 +10,8 @@ In them, we often used the `tm_scale()` function to modify the appearance of the
 The `tm_scale()` function automatically sets the scale for the given visual variable and the data type (factor, numeric, and integer).
 Thus, for example, when we provide a character variable's name to the `fill` argument, then the `tm_scale()` function automatically sets the color scale for a categorical variable, and when we provide a numeric variable's name to the `size` argument, then the `tm_scale()` function automatically sets the size scale for a continuous variable.
 
-The `tm_scale()` function has a set of related functions that can be used to modify the used scale.
+However, we often want to have more control over how our spatial objects are presented on the map.
+For that purpose, the `tm_scale()` function has a set of related functions that can be used to modify and customize the used scale.
 Table @tbl-scale-table presents all available scale functions in **tmap**.
 Let's see how to use them in the following sections -- we will mostly focus on using scales for the `fill.scale` argument, but the same principles apply to the `col.scale`, `size.scale`, and `shape.scale` arguments.
 
@@ -20,16 +21,16 @@ Let's see how to use them in the following sections -- we will mostly focus on u
 #| echo: false
 scales_df = tibble::tribble(
   ~Function, ~Description,
+  "tm_scale_categorical()", "Categorical scale",
+  "tm_scale_ordinal()", "Ordinal scale",
   "tm_scale_intervals()", "Intervals scale",
   "tm_scale_discrete()", "Discrete scale",
-  "tm_scale_categorical()", "Categorical scale",
   "tm_scale_continuous()", "Continuous scale",
-  "tm_scale_ordinal()", "Ordinal scale",
   "tm_scale_rank()", "Rank scale",
+  "tm_scale_continuous_log(), tm_scale_continuous_log2(), tm_scale_continuous_log10(), tm_scale_continuous_log1p(), tm_scale_continuous_sqrt(), tm_scale_continuous_pseudo_log()", "Logarithmic scales",
   "tm_scale_rgb()", "RGB scale",
   "tm_scale_bivariate()", "Bivariate scale",
-  "tm_scale_asis()", "As-is scale",
-  "tm_scale_continuous_log(), tm_scale_continuous_log2(), tm_scale_continuous_log10(), tm_scale_continuous_log1p(), tm_scale_continuous_sqrt(), tm_scale_continuous_pseudo_log()", "Logarithmic scales"
+  "tm_scale_asis()", "As-is scale"
 )
 ```
 
@@ -60,88 +61,52 @@ library(sf)
 worldvector = read_sf("data/worldvector.gpkg")
 ```
 
-<!-- intro about setting colors -->
-<!-- info that generalized to points, lines, polygons, and rasters... -->
+## Categorical scales {#sec-categorical-scales}
 
-\index{Color scale styles}
-`tm_polygons()` accepts three ways of specifying the fill color with the `fill` argument.
-The first one is to fill all polygons with the same color.
-This happens when we provide a single color value, either as a color name or its hexadecimal form (@sec-color-palettes) (@fig-colorscales1).
-<!-- what is the default tm_scale_ here? -->
-
-```{r}
-#| eval: false
-tm_shape(worldvector) +
-  tm_polygons(fill = "lightblue")
-```
-
-```{r}
-#| label: fig-colorscales1
-#| warning: false
-#| echo: false
-#| fig-cap: Example of a map with all polygons filled with the same color.
-#| fig-height: 2
-tm_one = tm_shape(worldvector) +
-  tm_polygons(fill = "lightblue")
-tm_one
-```
-
-\index{Color scale styles}
-\index{Categorical maps}
-\index{Discrete maps}
-\index{Continuous maps}
-The second way of specifying the fill color is to provide a name of the column (variable) we want to visualize.
-<!-- better connection -->
 \index{Categorical maps}
 An example of a categorical map can be seen in @fig-colorscales2.
 We created it by providing a character variable's name, `"wb_region"`, in the `col` argument. 
 
 ```{r}
-#| eval: false
-tm_shape(worldvector) +
-  tm_polygons(fill = "wb_region")
-```
-<!-- categorical -->
-```{r}
 #| label: fig-colorscales2
 #| warning: false
 #| message: false
-#| echo: false
 #| fig-height: 2
 #| fig-cap: Example of a map in which polygons are colored based on the values of a categorical
 #|   variable.
-tm_cat = tm_shape(worldvector) +
+tm_shape(worldvector) +
   tm_polygons(fill = "wb_region")
-tm_cat
 ```
 
-The `tm_polygons(fill = "region_un", fill.scale = tm_scale_categorical())` code is run automatically in this case.
+The `tm_polygons(fill = "region_un", fill.scale = tm_scale_categorical())` code is run automatically in the background in this case.
 It is possible to change the names of legend labels with the `labels` argument of the `tm_scale()` function.
-<!-- However, to change the order of legend labels, we need to provide an ordered factor variable's name instead of a character one.-->
-<!--should we explain how to do it? -->
-As mentioned in the @sec-color-palettes, we can also change the used color palette with the `values` argument.
+As mentioned in the @sec-colors we can also change the used color palette with the `values` argument.
 
 ```{r}
 #| eval: false
 #| echo: false
 tm_shape(worldvector) +
   tm_polygons(fill = "wb_region",
-              fill.scale = tm_scale(labels = as.character(1:7)))
+              fill.scale = tm_scale_categorical(labels = as.character(1:7)))
 ```
 
+<!-- ordinal scales here -->
+
+## Intervals scales {#sec-intervals-scales}
+
 <!-- optimal number of classes? 3-7 -->
-\index{Discrete maps}
-Discrete maps, on the other hand, represent continuous numerical variables using discrete class intervals. 
+\index{Intervals maps}
+Intervals scales are used to represent continuous numerical variables using set of class intervals. 
 In other words, values are divided into several groups based on their properties.
-Several approaches can be used to convert continuous variables to discrete ones, and each of them could result in different groups of values. 
-**tmap** has several different methods to create discrete maps<!--list??--> that can be specified with by the one of the functions from the `tm_scale_` family.
+Several approaches can be used to convert continuous variables to intervals, and each of them could result in different groups of values. 
+<!-- **tmap** has several different methods that can be specified with by the one of the functions from the `tm_scale_` family. -->
 Most of them use the **classInt** package [@R-classInt] in the background, therefore some additional information can be found in the `?classIntervals` function's documentation.
 
-By default, the `"tm_scale_discrete"` function is used in the background (@fig-discrete-methods-1).
-This style creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
+By default, the `tm_scale_intervals()` function is used in the background (@fig-intervals-methods-1).
+It uses a style called "pretty", which creates breaks that are whole numbers and spaces them evenly ^[For more information visit the `?pretty()` function documentation].
 
 ```{r}
-#| label: discrete-methods1
+#| label: intervals-methods1
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap")
@@ -150,18 +115,18 @@ tm_shape(worldvector) +
 It is also possible to indicate the desired number of classes using the `n` argument of the `tm_scale()` function provided to the `fill.scale` argument.
 While not every `n` is possible depending on the input values, **tmap** will try to create a number of classes as close to possible to the preferred one.
 
-The next approach is to manually select the limits of each break with the `breaks` argument of `tm_scale()` (@fig-discrete-methods-2).
+The next approach is to manually select the limits of each break with the `breaks` argument of `tm_scale()` (@fig-intervals-methods-2).
 This can be useful when we have some pre-defined breaks, or when we want to compare values between several maps.
 It expects threshold values for each break, therefore, if we want to have three breaks, we need to provide four thresholds.
 Additionally, we can add a label to each break with the `labels` argument.
 
 ```{r}
-#| label: discrete-methods2
+#| label: intervals-methods2
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
-              fill.scale = tm_scale(breaks = c(0, 10000, 30000, 111000),
-                                    labels = c("low", "medium", "high")))
+              fill.scale = tm_scale_intervals(breaks = c(0, 10000, 30000, 111000),
+                                              labels = c("low", "medium", "high")))
 ```
 
 Another approach is to create breaks automatically using one of many existing classification methods with the `style` argument of the `tm_scale()` function.
@@ -178,17 +143,14 @@ This method has an advantage or not having any empty classes or classes with too
 However, the resulting intervals from the `"quantile"` style can often be misleading, with very different values located in the same class.
 
 To create classes that, on the one hand, contain similar values, and on the other hand, are different from the other classes, we can use some optimization method.
-The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (@fig-discrete-methods-3).
-
-<!-- how about adding ggplot2 histograms?? -->
-<!-- should we add that these methods usually do not allow to compare between datasets? -->
+The most common optimization method used in cartography is the Jenks optimization method implemented at the `"jenks"` style (@fig-intervals-methods-3).
 
 ```{r}
-#| label: discrete-methods3
+#| label: intervals-methods3
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
-              fill.scale = tm_scale(style = "jenks"))
+              fill.scale = tm_scale_intervals(style = "jenks"))
 ```
 
 The Fisher method (`style = "fisher"`) has a similar role, which creates groups with maximized homogeneity [@fisher_grouping_1958].
@@ -202,40 +164,44 @@ It includes k-means clustering (`"kmeans"`), bagged clustering (`"bclust"`), and
 Finally, there are a few methods created to work well for a variable with a heavy-tailed distribution, including `"headtails"` and `"log10_pretty"`.
 The `"headtails"` style is an implementation of the head/tail breaks method aimed at heavily right-skewed data.
 In it, values of the given variable are being divided around the mean into two parts, and the process continues iteratively for the values above the mean (the head) until the head part values are no longer heavy-tailed distributed [@jiang_head_2013].
-The `"log10_pretty"` style uses a logarithmic base-10 transformation (@fig-discrete-methods-4).
+The `"log10_pretty"` style uses a logarithmic base-10 transformation (@fig-intervals-methods-4).
 In this style, each class starts with a value ten times larger than the beginning of the previous class.
 In other words, each following class shows us the next order of magnitude.
 This style allows for a better distinction between low, medium, and high values.
 However, maps with logarithmically transformed variables are usually less intuitive for the readers and require more attention from them.
 
 ```{r}
-#| label: discrete-methods4
+#| label: intervals-methods4
 #| eval: false
 tm_shape(worldvector) +
   tm_polygons(fill = "gdp_per_cap", 
-              fill.scale = tm_scale(style = "log10_pretty"))
+              fill.scale = tm_scale_intervals(style = "log10_pretty"))
 ```
 
-<!-- discrete -->
+<!-- intervals -->
 ```{r}
-#| label: fig-discrete-methods
+#| label: fig-intervals-methods
 #| warning: false
 #| message: false
 #| echo: false
 #| layout-ncol: 2
-#| fig-cap: Examples of four methods of creating discrete maps
+#| fig-cap: Examples of four methods of creating intervals maps
 #| fig-subcap:
 #|   - The "pretty" method
 #|   - The "fixed" method
 #|   - The "jenks" method
 #|   - The "log10_pretty" method
-<<discrete-methods1>>
-<<discrete-methods2>>
-<<discrete-methods3>>
-<<discrete-methods4>>
+<<intervals-methods1>>
+<<intervals-methods2>>
+<<intervals-methods3>>
+<<intervals-methods4>>
 ```
 
 <!-- The numeric variable can be either regarded as a continuous variable or a count (integer) variable. See as.count. Only applicable if style is "pretty", "fixed", or "log10_pretty". -->
+
+## Discrete scales {#sec-discrete-scales}
+
+## Continuous scales {#sec-continuous-scales}
 
 \index{Continuous maps}
 Continuous maps also represent continuous numerical variables, but without any discrete class intervals (@fig-cont-methods).
@@ -269,7 +235,7 @@ tm_shape(worldvector) +
               fill.scale = tm_scale_rank())
 ```
 
-Finally, the `tm_scale_continuous_log10` scale is the continuous equivalent of the `"log10_pretty"` style (@fig-cont-methods-3).
+Finally, the `tm_scale_continuous_log10()` scale is the continuous equivalent of the `"log10_pretty"` style of `tm_scale_intervals()` (@fig-cont-methods-3).
 
 ```{r}
 #| label: cont-methods3
@@ -296,11 +262,20 @@ tm_shape(worldvector) +
 <<cont-methods3>>
 ```
 
-The `tm_polygons()` also offer a third way of specifying the fill color.
-When the `fill` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (@fig-colorscalesmc).
+## RGB scales {#sec-rgb-scales}
+
+## Bivariate scales {#sec-bivariate-scales}
+
+## As-is scales {#sec-asis-scales}
+
+<!-- OLDER STUFF: -->
+
+<!-- The `tm_polygons()` also offer a third way of specifying the fill color. -->
+<!-- When the `fill` argument is set to `"MAP_COLORS"` then polygons will be colored in such a way that adjacent polygons do not get the same color (@fig-colorscalesmc). -->
 
 ```{r}
 #| eval: false
+#| echo: false
 tm_shape(worldvector) +
   tm_polygons(fill = "MAP_COLORS")
 ```
@@ -313,6 +288,7 @@ tm_shape(worldvector) +
 #| label: fig-colorscalesmc
 #| warning: false
 #| echo: false
+#| eval: false
 #| fig-cap: Example of a map with adjacent polygons having different colors.
 #| fig-height: 2
 tm_uni = tm_shape(worldvector) +
@@ -320,7 +296,7 @@ tm_uni = tm_shape(worldvector) +
 tm_uni
 ```
 
-All of the scales and styles mentioned above work not only for `tm_polygons()` -- they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`.
+<!-- All of the scales and styles mentioned above work not only for `tm_polygons()` -- they can be also applied for `tm_symbols()` (and its derivatives - `tm_dots()`, `tm_bubbles()`, `tm_squares()`), `tm_lines()`, `tm_fill()`, and `tm_raster()`. -->
 <!-- add  -->
 
 
