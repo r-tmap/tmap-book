@@ -3,20 +3,24 @@
 source("code/before_script.R")
 ```
 
-# Layout {#sec-layout}
+# Map layout {#sec-map-layout}
 
 <!-- tm_layout -->
 <!-- which features are the most important to explain? -->
 
-## Colors (#sec-lcolors)
+## Positions {#sec-positions}
+
+## Layout {#sec-layout}
+
+### Colors {#sec-lcolors}
 
 <!-- e.g. background colors -->
 
-## Frame (#sec-lframe)
+### Frame {#sec-lframe}
 
-## Margins (#sec-lmargins)
+### Margins {#sec-lmargins}
 
-## Typography {#sec-ltypography}
+### Typography {#sec-ltypography}
 
 <!-- Font faces and font families -->
 The decision about the used fonts is often neglected when creating programmable plots and maps.
@@ -33,7 +37,7 @@ However, this could result in a confusing visual mix that would hinder our map i
 Therefore, the decision on the used fonts should be taken after considering the main map message, expected map audience, other related graph styles, etc.
 In the following three sections, we explain font families and font faces, and give some overall tips on font selections, show how to define used fonts, and how to customize fonts on maps.
 
-### Font families and faces {#sec-fonts}
+#### Font families and faces {#sec-fonts}
 
 ```{r}
 #| echo: false
@@ -119,7 +123,7 @@ We just need to remember about the readability of the fonts -- they should not b
 
 <!-- suggested fonts or references??? -->
 
-### Fonts available in **tmap** {#sec-fonts-tmap}
+#### Fonts available in **tmap** {#sec-fonts-tmap}
 
 Before we discuss how to set a font family and its face, it is important to highlight that a different set of fonts could exist for each operating system (and even each computer).
 Additionally, which fonts are available and how they are supported depends on the used *graphic device*.
@@ -164,7 +168,7 @@ The second option is to use the **showtext** package [@R-showtext], which conver
 Thirdly, the **extrafont** [@R-extrafont] package allows embedding the fonts in the PDF file, which makes PDFs properly displayed on computers that do not have the given font.
 <!-- ref to map_save!! -->
 
-### Fonts on maps {#sec-fonts-on-maps}
+#### Fonts on maps {#sec-fonts-on-maps}
 
 ```{r}
 #| message: false
@@ -250,4 +254,4 @@ tmap_save(tmt2, "tmt2.png")
 tmap_save(tmt2, "tmt2.pdf")
 ```
 
-## Legend {#sec-llegend}
+<!-- ## Legend {#sec-llegend} -->
