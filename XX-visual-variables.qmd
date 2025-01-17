@@ -45,9 +45,35 @@ library(sf)
 ei_points = read_sf("data/easter_island/ei_points.gpkg")
 volcanos = subset(ei_points, type == "volcano")
 ```
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+worldvector = read_sf("data/worldvector.gpkg")
+```
+
+## Constant visual values {#sec-const-visual-variables}
+
+Before we start using visual variables, it is worth reminding that we can set constant values for visual variables: fill, color, size, and shape for all objects on the map.
+For example, with `tm_polygons()` we can fill all polygons with the same color, and set borders to the same color, width, and type (@fig-colorscales1).
+
+```{r}
+#| label: fig-colorscales1
+#| warning: false
+#| fig-cap: Example of a map with all polygons filled with the same color.
+#| fig-height: 2
+tm_shape(worldvector) +
+  tm_polygons(fill = "lightblue", 
+              col = "black",
+              lwd = 0.5,
+              lty = "dashed")
+```
 
 ## Automatic scales {#sec-auto-scales}
 
+On the other hand, if we provide a name of the column (variable) we want to visualize, **tmap** will automatically set the visual variables.
 The **tmap** package has many defaults that automatically specify colors, sizes, and shapes used on the maps. 
 Thus, for example, when we provide a character variable's name to the `fill` argument, then the color scale for a categorical variable is set, and when we provide a numeric variable's name to the `size` argument, then the size scale for a continuous variable is used.
 However, **tmap** also allows us to change them with a few additional functions, including `tm_scale()` and `tm_legend()`.
@@ -736,6 +762,7 @@ tm_shape(ei_roads) +
 
 ```{r}
 #| eval: false
+#| echo: false
 tm_shape(ei_points) +
   tm_symbols(fill = "elevation",
              col = "elevation",
