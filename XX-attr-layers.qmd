@@ -231,7 +231,7 @@ tm +
   tm_ylab("Y")
 ```
 
-<!-- why this is useful? -->
+<!-- when this is useful? -->
 
 ## Minimap {#sec-minimap}
 
@@ -240,7 +240,6 @@ tmap_mode("view")
 ```
 
 ```{r}
-#| eval: false
 tm + 
   tm_minimap()
 ```
