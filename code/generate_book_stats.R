@@ -12,7 +12,7 @@ generate_book_stats = function(dir = ".") {
   chapters = lapply(rmd_files, readLines)
   chapters = lapply(chapters, function(x)
     tibble(line = 1:length(x), text = x))
-  # chapters[[1]] %>%
+  # chapters[[1]] |>
   #   unnest_tokens(words, text)
   n_words = sapply(chapters, function(x)
     nrow(unnest_tokens(x, words, text)))

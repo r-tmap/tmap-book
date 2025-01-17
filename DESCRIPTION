@@ -1,23 +1,19 @@
 Package: tmapbook
 Type: Book
 Title: Elegant and informative maps with tmap
-Version: 0.0.2
+Version: 0.0.3
 Imports: 
-  bookdown,
   tmaptools,
   tmap,
   spDataLarge,
   spData,
   dplyr,
   tidyr,
-  rgdal,
   rmapshaper,
-  kableExtra,
+  tinytable,
   curl,
-  maptiles,
   webshot
 Remotes: 
-  rstudio/bookdown,
-  mtennekes/tmaptools,
-  mtennekes/tmap,
+  r-tmap/tmaptools,
+  r-tmap/tmap,
   Nowosad/spDataLarge

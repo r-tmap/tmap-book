@@ -1,48 +1,48 @@
-# Spatial data in R {#geodata}
+# Spatial data in R {#sec-geodata}
 <!-- # Geographic data in R {#geodata} -->
 <!-- to discuss -->
 
 \index{spatial data}
 
-## Introduction {#intro-geodata}
+## Introduction {#sec-intro-geodata}
 
 Vector and raster data models are two basic models used to represent spatial data.
 These spatial data models are closely related to map making, with each model having its own pros and cons. 
 <!-- - few introduction sections -->
 <!-- - mention GDAL, PROJ, and GEOS -->
 <!-- - maybe also mention some data sources -->
-This chapter stars by describing several popular spatial data models (section \@ref(data-models)).
+This chapter stars by describing several popular spatial data models (@sec-data-models).
 Each data model is introduced, explained how it is built, and how it is stored using different file formats.
-Next, this chapter presents how these different data models are implemented in R (section \@ref(spatial-data-representations-in-r)).
+Next, this chapter presents how these different data models are implemented in R (@sec-spatial-data-representations-in-r).
 It includes showing how to read different spatial data formats, how to understand spatial R objects, and where to find more information about preprocessing spatial data.
-Finally, it focuses on the map projections (section \@ref(crs)).
+Finally, it focuses on the map projections (@sec-crs).
 This section gives a background on why do we need map projections and how to translate spatial data from an ellipsoid into a flat surface or computer screen.
 It also explains basic terms and gives an overview of map projections.
 <!-- - maybe also references to some books (either here or in the next section or both) -->
 <!-- geocompr, spatial data science, some crs book? -->
 <!-- explain that often there is a need to prepare spatial data before mapping -->
 
-## Data models
+## Data models {#sec-data-models}
 
 Traditionally, spatial data is described by two basic data models: 
-vector data model aimed at (section \@ref(vector-data-model)) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (section \@ref(raster-data-model)).
+vector data model aimed at (@sec-vector-data-model) representing the world using points, lines, and polygons, and raster data model focused on representing surfaces (@sec-raster-data-model).
 Additionally, now we have an abundance of available spatial data and a variety of ways to obtain it.
 It includes having many district variables and repeated measurements for the same area.
-Therefore, we also present the concept of spatial data cubes (section \@ref(spatial-data-cubes)).
+Therefore, we also present the concept of spatial data cubes (@sec-spatial-data-cubes).
 
-### Vector data model
+### Vector data model {#sec-vector-data-model}
 
 \index{vector data model}
 \index{spatial geometries}
 \index{spatial attributes}
-The vector data model represent the world as a set of spatial geometries with non-spatial attributes (Figure \@ref(fig:vector-data-model)). 
+The vector data model represent the world as a set of spatial geometries with non-spatial attributes (@fig-vector-data-model). 
 The role of geometry is to describe the location and shape of spatial objects.
 Attributes, on the other hand, are used to store the properties of the data.
 
 \index{spatial geometries}
-There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates (left part of Figure \@ref(fig:vector-data-model)).
+There are three basic types of geometries: points, lines, and polygons, all of them are made up of coordinates (left part of @fig-vector-data-model).
 A point is represented by a pair of coordinates, usually described as X and Y, allowing for locating this point in some space.
-X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section \@ref(crs)).
+X and Y could be unitless, in degrees, or in some measure units, such as meters  (extended discussion on coordinates and related topics is in section @sec-crs).
 Points can represent features on different spatial scales, from a GPS position, location of a bench in a park, to a city on a small scale map.
 They are also used to express abstract features, such as locations of map labels.
 Properties of points<!--,such as ...--> can be expressed on maps by different point sizes, colors, or shapes<!--(markers/images) -->.
@@ -65,11 +65,13 @@ For example, a lake with an island can be depicted as a polygon with a hole.
 The values of polygons' attributes can be represented by the areas (fill) colors.
 
 \index{spatial attributes}
-The second part of the vector data model relates to non-spatial attributes  (right part of Figure \@ref(fig:vector-data-model)). 
+The second part of the vector data model relates to non-spatial attributes (right part of @fig-vector-data-model). 
 Attributes are usually stored as a table, in which each column depicts some property, such as an identification number, a name of a feature, or a value of some characteristic.
 Each row, on the other hand, relates to a single spatial geometry. 
 
-```{r, echo=FALSE, message=FALSE}
+```{r}
+#| echo: false
+#| message: false
 library(sf)
 library(tmap)
 point_data = st_sf(
@@ -78,26 +80,28 @@ point_data = st_sf(
     geom = st_sfc(
       st_multipoint(rbind(c(1, 2))),
       st_multipoint(rbind(c(1.4, 1.2), c(2, 1.5))),
-      crs = 4326)
+      crs = "EPSG:4326")
   )
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 linestring_sfg1 = st_linestring(rbind(c(0.9, 1.9), c(1.6, 1.9), c(1.8, 1.8)))
 linestring_sfg2 = st_linestring(rbind(c(0.8, 1.6), c(1.4, 1.5), c(2, 1.6)))
-linestring_sfg3 = st_linestring(rbind(c(1.1, 1), c(1.6, 1.2), c(1.9, 1.2)))
+linestring_sfg3 = st_linestring(rbind(c(1.1, 1),   c(1.6, 1.2), c(1.9, 1.2)))
 lines_data = st_sf(
   id = as.factor(1:3),
   type = c("a", "b", "c"),
   geom = st_sfc(linestring_sfg1, 
                 linestring_sfg2,
                 linestring_sfg3,
-                crs = 4326)
+                crs = "EPSG:4326")
   )
 lines_data_p = st_cast(lines_data, "MULTIPOINT")
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 polygon_sfg1 = st_polygon(list(rbind(c(1.4, 1.6),
                                      c(1.6, 1.6), 
                                      c(1.6, 1.8),
@@ -121,15 +125,22 @@ polygon_data = st_sf(
   type = c("a", "b"),
   geom = st_sfc(polygon_sfg1, 
                 polygon_sfg2,
-                crs = 4326)
+                crs = "EPSG:4326")
   )
 
 polygon_data_p = st_cast(polygon_data, "MULTIPOINT")
 ```
 
-```{r vector-data-model, echo=FALSE, fig.width = 5, fig.asp = 1, fig.cap="Instances of spatial vector data model: POINTS, LINES, and POLYGONS.", message=FALSE}
+```{r}
+#| label: fig-vector-data-model
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 5
+#| fig-asp: 1
+#| fig-cap: 'Instances of spatial vector data model: POINTS, LINES, and POLYGONS.'
 source("code/data_model_figures.R")
-draw_vector_data(scale = .75)
+draw_vector_data(scale = 0.75)
 ```
 
 \index{simple feature}
@@ -142,7 +153,7 @@ We can have a POINT feature and a MULTIPOINT feature, and similarly LINESTRING a
 The main difference between single element features (such as POINT or POLYGON) and multi-element features (such as MULTIPOINT or MULTIPOLYGON) can be clearly seen by looking at attribute tables. 
 For example, six points stored as POINT features fill six separate rows, while six points stored as just one MULTIPOINT feature occupy just one row.
 <!-- redundancy -->
-Examples of single- and multi-element features can be seen in Figure \@ref(fig:vector-data-model). 
+Examples of single- and multi-element features can be seen in @fig-vector-data-model. 
 The top example shows point data represented as MULTIPOINT feature: although we have seven points (seven distinct pairs of coordinates), they are gathered into two groups, green and orange, which can be seen in the associated attribute table.
 The central example, on the other hand, uses single-element features, where each line geometry relates to one row in the attribute table.
 Finally, the bottom example again uses multi-element features, where the second feature (`Country B`) consist of two separate geometries.
@@ -156,7 +167,7 @@ Finally, GeometryCollection exists that contains all of the possible geometry ty
 A couple hundreds of file formats exist to store spatial vector data.
 One of the simplest ways to store spatial data is in the form of a text file (`.csv`) or as a spreadsheet (`.xls` or `.xlsx`). 
 While it makes storing point data simple, with two columns representing coordinates, it is not easy to store more complex objects in this way.
-Text files are also not suitable for storing information about the coordinate reference system used (section \@ref(crs)).
+Text files are also not suitable for storing information about the coordinate reference system used (@sec-crs).
 Historically, the shapefile format (`.shp`) developed by the ESRI company gained a lot of interest and become the most widely supported spatial vector file format. 
 Despite its popularity, this format has a number of shortcomings, including the need to store several files, attribute names limited to ten characters, the ability to store up to 255 attributes and files up to 2GB, and many more.
 A fairly recent file format, OGC GeoPackage (`.gpkg`), was developed as an alternative. 
@@ -165,18 +176,29 @@ Other popular spatial vector file formats include GeoJSON (`.geojson`), GPX (`.g
 <!-- FlatGeobuf?? -->
 <!-- - advantages/disadvantages -->
 
-### Raster data model
+### Raster data model {#sec-raster-data-model}
 
 \index{raster data model}
-The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (Figure \@ref(fig:raster-intro)).
+The raster data model represents the world using a continuous grid of cells<!--pixels-->, where each cell has a single associated value (@fig-raster-intro).
 Depending on the type of values, we can distinguish continuous and categorical rasters.
 In continuous rasters, such as elevation or precipitation, values vary progressively.
 Categorical rasters, on the other hand, uses integer values to represent classes.
 Their examples include land cover or soil types maps.
-Raster data can also contain cells for which we do not know the value (Figure \@ref(fig:raster-intro)).
+Raster data can also contain cells for which we do not know the value (@fig-raster-intro).
 For example, data for this part of the area was not collected, or these locations are outside of our area of interest.
 
-```{r raster-intro, echo=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Basic representation of the raster data model: (1) Cell IDs, (2) Cell values, and (3) A raster map", message=FALSE}
+```{r}
+#| label: fig-raster-intro
+#| echo: false
+#| warning: false
+#| message: false
+#| #fig-asp: 0.4
+#| layout-ncol: 3
+#| fig-cap: 'Basic representations of the raster data model'
+#| fig-subcap:
+#|   - Cell IDs
+#|   - Cell values
+#|   - A raster map
 #replace example later
 library(tmap)
 library(spData)
@@ -194,42 +216,51 @@ sta_sf = st_as_sf(sta)
 sta_sf$A1.2 = as.character(as.factor(sta_sf$A1.1))
 sta_sf$A1.2[is.na(sta_sf$A1.1)] = "NA"
 
-tm_raster1 = tm_shape(sta_sf) +
+tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "1. Cell IDs")
+  tm_layout(frame = FALSE)
 
-tm_raster2 = tm_shape(sta_sf) +
+tm_shape(sta_sf) +
   tm_polygons("A1.1") +
   tm_text("A1.2") +
-  tm_layout(frame = FALSE, legend.show = FALSE,
-            main.title = "2. Cell values")
+  tm_layout(frame = FALSE, legend.show = FALSE)
 
-tm_raster3 = tm_shape(sta) +
+tm_shape(sta) +
   tm_raster("A1.1") +
-  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02,
-            main.title = "3. Raster map")
-
-tmap_arrange(tm_raster1, tm_raster2, tm_raster3, nrow = 1)
+  tm_layout(frame = FALSE, legend.show = FALSE, inner.margins = 0.02)
 ```
 
 \index{raster data grid types}
-When we think about raster data, most of the time we are referring to regular grids (Figure \@ref(fig:grid-types)).
+When we think about raster data, most of the time we are referring to regular grids (@fig-grid-types).
 In regular grids, each cell has the same, constant size, and coordinates change from top to bottom and from left to right^[Regular grids can also have coordinated changing in different directions, e.g., from bottom to top.].
 <!-- I know it is a simplification-->
-Regular rasters can be transformed into rotated and sheared rasters (Figure \@ref(fig:grid-types)).
+Regular rasters can be transformed into rotated and sheared rasters (@fig-grid-types).
 Rotated grids are the result of transforming both coordinated, $x$ and $y$ using the same rotation coefficients.
 Sheared grids are created when the rotation coefficients are not equal.
-Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (Figure \@ref(fig:grid-types)).
-In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (Figure \@ref(fig:grid-types)).
+Rectilinear grids, on the other hand, have orthogonal axes, but consist of rectangular cells with different sizes and shapes (@fig-grid-types).
+In the last type of raster data grids, curvilinear grids, cells are cuboids of different sizes and shapes (@fig-grid-types).
 
 <!-- Q:should the counting in the below figure start from bottom left? -->
-```{r grid-types, echo=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Main types of raster data grids: (1) Regular, (2) Rotated, (3) Sheared, (4) Rectilinear, and (5) Curvilinear"}
+```{r}
+#| label: fig-grid-types
+#| echo: false
+#| warning: false
+#| #fig-asp: 0.4
+#| layout-ncol: 5
+#| fig-cap: 'Main types of raster data grids'
+#| fig-subcap:
+#|   - Regular
+#|   - Rotated
+#|   - Sheared
+#|   - Rectilinear
+#|   - Curvilinear
 # regular grid 
 tm_sta_regular = tm_shape(sta_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Regular")
+  # tm_title("Regular") +
+  tm_layout(frame = FALSE)
 # rotated grids 
 sta_rotated = sta
 attr(attr(sta_rotated, "dimensions"), "raster")$affine = c(0.1, 0.1)
@@ -237,7 +268,8 @@ sta_rotated_sf = st_as_sf(sta_rotated)
 tm_sta_rotated = tm_shape(sta_rotated_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Rotated")
+  # tm_title("Rotated") +
+  tm_layout(frame = FALSE)
 # sheared grids
 sta_sheared = sta
 attr(attr(sta_sheared, "dimensions"), "raster")$affine = c(0.1, 0.2)
@@ -245,7 +277,8 @@ sta_sheared_sf = st_as_sf(sta_sheared)
 tm_sta_sheared = tm_shape(sta_sheared_sf) +
   tm_polygons() +
   tm_text("A1") +
-  tm_layout(frame = FALSE, main.title = "Sheared")
+  # tm_title("Sheared") +
+  tm_layout(frame = FALSE)
 # rectilinear grids
 x = c(0, 0.5, 1.5, 2.1, 3, 5)
 y = rev(c(0.1, 1, 1.5, 2, 4))
@@ -255,7 +288,8 @@ sta_rectilinear_sf = st_as_sf(sta_rectilinear)
 tm_sta_rectilinear = tm_shape(sta_rectilinear_sf) +
   tm_polygons() +
   tm_text("m") +
-  tm_layout(frame = FALSE, main.title = "Rectilinear")
+  # tm_title("Rectilinear") +
+  tm_layout(frame = FALSE)
 # curvilinear grids
 sta_curvilinear = sta
 X1 = matrix(rep(1:5, times = 4), nrow = 5, ncol = 4)
@@ -276,11 +310,14 @@ tm_sta_curvilinear = tm_shape(sta_curvilinear_sf) +
   tm_polygons() +
   tm_text("A1") +
   # tm_grid() +
-  tm_layout(frame = FALSE, main.title = "Curvilinear")
+  # tm_title("Curvilinear") +
+  tm_layout(frame = FALSE)
 # all
-tm_sta_all = tmap_arrange(tm_sta_regular, tm_sta_rotated, tm_sta_sheared,
-                          tm_sta_rectilinear, tm_sta_curvilinear, nrow = 1)
-tm_sta_all
+tm_sta_regular
+tm_sta_rotated
+tm_sta_sheared
+tm_sta_rectilinear
+tm_sta_curvilinear
 ```
 
 Contrary to spatial vector data, a basic raster data stores just one attribute.
@@ -288,27 +325,43 @@ It is, however, possible to stack together many single rasters (also known as ra
 This allows us to store and operate on many rasters having the same dimensions at the same time.
 Examples of multi-layer rasters include satellite imageries or temporal rasters.
 Satellite imageries usually consist of many bands (layers) for different wavelengths.
-The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (Figure \@ref(fig:rgb-raster)).
+The most basic bands, representing the colors red, green, and blue, can be connected together to create one composite image with true colors (@fig-rgb-raster).
 Temporal rasters store one attribute, but for many moments in time.
 <!-- + comparing different attributes for the same area -->
-Additional information about multi-layer rasters can be also found in Section \@ref(spatial-data-cubes).
+Additional information about multi-layer rasters can be also found in @sec-spatial-data-cubes.
 
-```{r rgb-raster, echo=FALSE, message=FALSE, warning=FALSE, fig.asp = .4, fig.cap="Example of three satellite imagery bands: red, green, blue, and the composite image with true colors created using these three bands."}
+```{r}
+#| label: fig-rgb-raster
+#| echo: false
+#| message: false
+#| warning: false
+#| #fig-asp: 0.4
+#| layout-ncol: 4
+#| fig-cap: 'Example of three satellite imagery bands: red, green, blue, and the composite
+#|   image with true colors created using these three bands.'
+#| fig-subcap:
+#|   - Red
+#|   - Green
+#|   - Blue
+#|   - Composite
 # we can/should change this example later
-landsat234 = raster::stack(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
-tmrgb1 = tm_shape(raster::brick(landsat234[[3]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Red")
-tmrgb2 = tm_shape(raster::brick(landsat234[[2]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Green")
-tmrgb3 = tm_shape(raster::brick(landsat234[[1]])) +
-  tm_raster(palette = "Greys") + 
-  tm_layout(frame = FALSE, legend.show = FALSE, main.title = "Blue")
-tmrgb4 = tm_shape(landsat234) +
-  tm_rgb(r = 3, g = 2, b = 1, max.value = 25780) + 
-  tm_layout(frame = FALSE, main.title = "Composite")
-tmap_arrange(tmrgb1, tmrgb2, tmrgb3, tmrgb4, nrow = 1)
+landsat234 = terra::rast(system.file("raster/landsat.tif", package = "spDataLarge"))[[1:3]]
+tm_shape(landsat234[[3]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  # tm_title("Red") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+tm_shape(landsat234[[2]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  # tm_title("Green") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+tm_shape(landsat234[[1]]) +
+  tm_raster(col.scale = tm_scale(values = "Greys")) + 
+  # tm_title("Blue") +
+  tm_layout(frame = FALSE, legend.show = FALSE)
+tm_shape(landsat234) +
+  tm_rgb(tm_vars(names(landsat234)[3:1], multivariate = TRUE)) + 
+  # tm_title("Composite") +
+  tm_layout(frame = FALSE)
 ```
 
 \index{spatial file formats}
@@ -319,7 +372,7 @@ It is an extended image TIF format that stores spatial metadata (e.g., map proje
 Another popular spatial raster formats include Arc ASCII (`.asc`) and ERDAS Imagine (`.img`).
 <!-- ncdf??? -->
 
-### Spatial data cubes
+### Spatial data cubes {#sec-spatial-data-cubes}
 
 \index{spatial data cubes}
 Traditionally, spatial vector and raster data models refer to a unique set of locations.
@@ -330,33 +383,45 @@ It includes situations when we have many attributes, often for several moments i
 \index{spatial vector data cubes}
 Storing multiple attributes is not a problem for the vector data model, when an attribute table can have many columns.
 The question is how to extend the spatial vector data model to include measurements for many times.
-For example, let's consider a polygon data with many attributes representing shares of land-use types for several years (Figure \@ref(fig:vector-data-cubes)).
+For example, let's consider a polygon data with many attributes representing shares of land-use types for several years (@fig-vector-data-cubes).
 One approach would be to create a separate column for each variable in each year.<!--wide--><!--pros and cons-->
 Alternatively, we can have one column representing the year and one column for each attribute, however, this approach would require multiplying each geometry as many times as we have time stamps.
 <!--long--><!--pros and cons-->
 The third approach involves separating geometries from attributes, and where attributes for each moment are stored independently.
-The last idea is used in spatial vector data cubes (section \@ref(the-stars-package)).
-An example of the spatial vector data cubes idea can be seen in Figure \@ref(fig:vector-data-cubes).
+The last idea is used in spatial vector data cubes (@sec-the-stars-package).
+An example of the spatial vector data cubes idea can be seen in @fig-vector-data-cubes.
 It consists of two elements: a geometry (MULTIPOLYGON) of provinces of the Netherlands and an array connected to it that stores shares of land-use types for several years. 
 
-```{r vector-data-cubes, fig.width = 6, fig.asp=0.60606, message = FALSE, warning = FALSE, echo=FALSE, fig.cap="Vector data cube."}
+```{r}
+#| label: fig-vector-data-cubes
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-width: 6
+#| fig-asp: 0.60606
+#| fig-cap: Vector data cube.
 source("code/data_model_figures.R")
 draw_vector_cubes()
 ```
 
 \index{spatial raster data cubes}
 A single raster dataset can store just one variable for a given area.
-To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (section \@ref(raster-data-model)).
+To store several attributes, we can connect rasters representing different attributes for the same extent, creating multi-layer rasters (@sec-raster-data-model).
 Additionally, each of the aforementioned rasters can be collected for many moments in time, adding other layers to the data.
 <!--pros and cons-->
 The question here is how to efficiently store multi-layer raster data to understand what layers relate to which attribute and time.
-Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (section \@ref(the-stars-package)).
-Figure \@ref(fig:raster-data-cubes) gives an example of a raster data cube.
+Similarly to spatial vector data cubes, we can think of separating spatial dimensions from non-spatial attributes and create spatial raster data cubes (@sec-the-stars-package).
+@fig-raster-data-cubes gives an example of a raster data cube.
 It consists of several single-layer rasters with the same spatial properties, such as resolution, extent, and CRS.
 These rasters are organized to store four-dimensions of the data: latitude, longitude, time, and attributes.
 It has values of three attributes for five moments in time in total.
 
-```{r raster-data-cubes, fig.asp=0.25, message = FALSE, echo=FALSE, fig.cap="Raster data cube."}
+```{r}
+#| label: fig-raster-data-cubes
+#| message: false
+#| echo: false
+#| fig-asp: 0.25
+#| fig-cap: Raster data cube.
 source("code/data_model_figures.R")
 draw_data_cubes()
 ```
@@ -373,7 +438,7 @@ It includes formats such as NetCDF (`.nc`) and HDF (`.hdf`).
 
 <!-- converting between spatial vector data cube and spatial raster data cube -->
 
-## Spatial data representations in R
+## Spatial data representations in R {#sec-spatial-data-representations-in-r}
 
 \index{vector data model}
 R has several packages aimed to represent spatial vector data.
@@ -388,13 +453,13 @@ Several R packages can be used to represent spatial raster data, including **ras
 The **raster** package was used as a backbone of raster data visualization until **tmap** version 3.0.
 Nowadays, the **stars** package is used by **tmap** to operate on raster data and spatial data cubes.
 
-In the two next sections, we introduce the **sf** package (\@ref(the-sf-package)) and the **stars** package (section \@ref(the-stars-package)).
+In the two next sections, we introduce the **sf** package (@sec-the-sf-package) and the **stars** package (@sec-the-stars-package).
 
 <!-- spatial data cubes -->
 <!-- https://github.com/appelmar/gdalcubes_R -->
 <!-- https://ropensci.org/blog/2019/11/05/tidync/ -->
 
-### The sf package
+### The sf package {#sec-the-sf-package}
 
 \index{sf}
 \index{sf (package)|see {sf}}
@@ -406,7 +471,7 @@ It also has one additional column, most often named `geom` or `geometry`^[Howeve
 This column contains geometries in a form of well-known text (WKT), storing all of the coordinates.
 
 <!-- - how to read sf objects from files -->
-The **sf** package can read all of the spatial data formats mentioned in section \@ref(vector-data-model) using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
+The **sf** package can read all of the spatial data formats mentioned in @sec-vector-data-model using the `read_sf()` function^[It is also possible to read spatial vector data using the `st_read()` function, which differs from `read_sf()` by having different default arguments.].
 <!--improve example-->
 ```{r}
 library(sf)
@@ -428,7 +493,7 @@ Each polygon's vertices are represented by a pair of values (`dimension: XY`).
 Bounding box allows to quickly understand the spatial extension of the input data. 
 <!--...--> 
 Finally, it has `r ifelse(sf::st_crs(worldvector)$IsGeographic, "geographic", "projected")` CRS named `r sf::st_crs(worldvector)$Name`.
-You can learn more about Coordinate Reference Systems in section \@ref(crs).
+You can learn more about Coordinate Reference Systems in @sec-crs.
 <!-- ref to CRS section -->
 
 Spatial vector data of class `sf` can be also obtained using some of other R data packages.
@@ -441,12 +506,12 @@ The **tmap** package accepts spatial vector data objects from both **sf** and **
 In case of having vector objects in a different representation, they should be converted into `sf` objects first, before making maps.
 The **sf** package has the `st_as_sf()` function that translates objects of many classes, including `Spatial` (from the **sp** package), `ppp`, `psp`, and `lpp` (from the **spatstat** package), to the objects of class `sf`.
 The `st_as_sf()` function also allows to turn data frames into `sf` objects - the user needs to provide the input data frame, names of columns with coordinates, and additionally definition of the CRS of the data.
-For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = 4326)`.
+For example `my_sf = st_as_sf(my_df, coords = c("Xcolumn", "Ycolumn"), crs = "EPSG:4326")`.
 
-If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at https://r-spatial.github.io/sf/index.html and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace2019geocomputation].
+If you want to learn more about operating on `sf` objects, we recommend visiting the package website and vignettes at <https://r-spatial.github.io/sf/> and reading [the Geocomputation with R book](https://geocompr.github.io/) [@lovelace_geocomputation_2025].
 <!-- - vector simplification? -->
 
-### The stars package
+### The stars package {#sec-the-stars-package}
 
 \index{stars}
 \index{stars (package)|see {stars}}
@@ -520,18 +585,24 @@ The **stars** package also has support for vector data cubes, where each geometr
 More information on how the `stars` objects are organized and how to operate on them can be found in the **stars** package vignettes at https://r-spatial.github.io/stars. 
 <!-- - advice: sometimes/often it is better to prepare spatial object before the mapping, than trying to over-customize the map -->
 
-## Map projections (CRS) {#crs}
+## Map projections (CRS) {#sec-crs}
 
 <!-- intro -->
 
-### What are map projections?
+### What are map projections? {#sec-crs-intro}
 
-```{r crs-01, eval=TRUE, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+```{r}
+#| label: crs-01
+#| eval: true
+#| echo: false
+#| results: hide
+#| warning: false
+#| message: false
 library(sf)
 library(tmap)
 library(grid)
 library(dplyr)
-library(kableExtra)
+#library(kableExtra)
 data(World)
 clr_peel = "#FD8A04"
 clr_orange_land = "#FB6801"
@@ -543,7 +614,6 @@ clr_land = "grey85"
 
 clr_grat = "grey50"
 clr_border = "grey30"
-
 
 #source("code/crs_examples.R", local = knitr::knit_global()) # something strange going on: when saving this R script, the content isn't updated in the envir, or there is a cashing problem. Therefore, I had to add source(... ) to every chunk below.
 ```
@@ -557,12 +627,22 @@ The world is shown as an orange below, not just to stimulate your appetite for t
 A world map can be seen as an orange peel that is put flat on the table.
 The question is how to do this.
 
-```{r crs-02, echo=FALSE, results='hide', warning=FALSE, eval=FALSE}
+```{r}
+#| label: crs-02
+#| echo: false
+#| results: hide
+#| warning: false
+#| eval: false
 source("code/crs_examples.R")
 map_orange_world()
 ```
 
-```{r orange, echo=FALSE, message=FALSE, fig.cap="How to peel an orange?", fig.scap="How to peel an orange?"}
+```{r}
+#| label: fig-orange
+#| echo: false
+#| message: false
+#| fig-cap: How to peel an orange?
+#| fig-scap: How to peel an orange?
 knitr::include_graphics("images/orange_world.png")
 ```
 
@@ -572,13 +652,19 @@ The (interrupted) Goode homolosine projection, which is shown below, embodies th
 All continents and countries are preserved, except Antarctica and Greenland.
 There is also a version of the Goode homolosine projection that focuses on preserving the oceans.
 
-```{r crs-goode, echo=FALSE, results='hide', fig.asp=0.45, warning=FALSE, fig.cap="The (interrupted) Goode homolosine projection"}
+```{r}
+#| label: fig-crs-goode
+#| echo: false
+#| results: hide
+#| warning: false
+#| fig-asp: 0.45
+#| fig-cap: The (interrupted) Goode homolosine projection
 source("code/crs_examples.R")
 goode = map_goode()
 tm_shape(goode$bg) +
 	tm_polygons(clr_peel) +
 tm_shape(goode$land) +
-	tm_polygons(clr_orange_land, border.col = clr_border, lwd = 1) +
+	tm_polygons(clr_orange_land, col = clr_border, lwd = 1) +
 tm_shape(goode$grat) +
   tm_lines(col = clr_grat, lwd = 1) +
 tm_layout(frame = FALSE)
@@ -589,10 +675,10 @@ These properties are needed in order to make a non-interrupted map, as we will s
 
 \index{map projections}
 \index{coordinate reference system (CRS)}
-A method to flatten down the earth, for which the Goode homolosine projection shown Figure \@ref(fig:crs-goode) is an example, is called a *map projection*. 
+A method to flatten down the earth, for which the Goode homolosine projection shown in @fig-crs-goode is an example, is called a *map projection*. 
 Technically, it is also known as a *coordinate reference system* (*CRS*), which specifies the corresponding coordinate system, as well as the transformations to other map projections.
 
-### A model of the Earth
+### A model of the Earth {#sec-crs-earth}
 
 \index{ellipsoid}
 <!--we should use either "Earth" or "earth" (both are right now in the text)-->
@@ -622,7 +708,7 @@ The longitude specifies the east-west position in degrees, where by convention, 
 The Longitude range is -180$^\circ$ to 180$^\circ$, and since this is a full circle, -180$^\circ$ and $^\circ$ specify the same longitude.
 
 \index{graticule}
-When we see the earth in its three-dimensional form, as in Figure \@ref(fig:orange), the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth.
+When we see the earth in its three-dimensional form, as in @fig-orange, the latitude parallels are the horizontal lines around the earth, and the longitude meridians are the vertical lines around the earth.
 The set of longitude meridians and latitude parallels is also referred to as *graticule*.
 In all the figures in this section, latitude parallels are shown as gray lines for $-60^\circ$, $-30^\circ$, $0^\circ$, $30^\circ$ and $60^\circ$, and longitude meridians from $-180^\circ$ to $180^\circ$ at every $30^\circ$.
 
@@ -631,7 +717,7 @@ A datum is required.
 When people exchange latitude-longitude data, it is safe to assume that they implicitly have used the WGS84 datum.
 However, it is good practice to specify the datum explicitly.
 
-### Platte Carrée and Web Mercator
+### Platte Carrée and Web Mercator {#sec-crs-projections}
 
 \index{web mercator}
 \index{EPSG}
@@ -641,16 +727,24 @@ EPSG is an institute that maintains a database of standard map projections.
 
 <!--https://geographx.co.nz/map-projections/-->
 
-```{r crs-04, echo=FALSE, results='hide', warning=FALSE, fig.cap="Latitude longitude coordinates (EPSG 4326)", message=FALSE, fig.cap="The WGS84 coordinate system (EPSG4326)", eval=FALSE}
+```{r}
+#| label: fig-crs-04
+#| echo: false
+#| results: hide
+#| warning: false
+#| message: false
+#| fig-cap: "Latitude longitude coordinates (EPSG 4326)"
+sf::sf_use_s2(FALSE)
 source("code/crs_examples.R")
-
 m4326 = map_4326()
 m4326_cyl = map_4326_cyl()
+sf::sf_use_s2(TRUE)
+
 tmap_arrange({
   tm_shape(m4326_cyl$bg_back) +
     tm_polygons(clr_bg2) +
     tm_shape(m4326_cyl$bg_front) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
     tm_shape(m4326_cyl$land) +
     tm_polygons(clr_land) +
     tm_shape(m4326_cyl$grat) +
@@ -662,46 +756,54 @@ tmap_arrange({
       tm_polygons(clr_land) +
       #tm_shape(m4326$grat) +
       #tm_lines(col = clr_grat, lwd = 1) +
-      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
+      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                    col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
       tm_layout(frame = TRUE, inner.margins = 0)
   }, widths = c(.3, .7), asp = NULL)
 
 ```
 
-When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in Figure \@ref(fig:crs-04) (left).
+When we fictitiously make little holes in the orange peel at both poles, and stretch these open so wide that they have the same width as the equator, we obtain the cylinder depicted in @fig-crs-04 (left).
 Note that the longitude lines have become straight vertical lines.
 When we unroll this cylinder, we obtain a map where the $x$ and $y$ coordinates are the longitude and latitude respectively. 
-This CRS, which is known as EPSG4326, is shown in Figure \@ref(fig:crs-04) (right).
+This CRS, which is known as EPSG4326, is shown in Figure @fig-crs-04 (right).
 
 \index{coordinate reference system (CRS)}
 \index{unprojected coordinate reference system (CRS)}
 \index{projected coordinate reference system (CRS)}
 EPSG4326 is an *unprojected* CRS, since the longitude and latitude have not been transformed.
 With *projected* CRSs, the $x$ and $y$ coordinates refer to specific measurement units, usually meters.
-The projected variant of this CRS is called the *Platte Carrée* (EPSG4087), and is exactly the same map as shown in Figure \@ref(fig:crs-04) (right), but with other $x$ and $y$ value ranges.
+The projected variant of this CRS is called the *Platte Carrée* (EPSG4087), and is exactly the same map as shown in Figure @fig-crs-04 (right), but with other $x$ and $y$ value ranges.
 
 Observe since we stretched the poles open, the area near the poles have been stretched out as well.
 More specifically, the closer the land is to one of the poles, the more it has been stretched out.
 Since the stretching direction is only horizontally, the shapes of the areas have become wider.
-A good example is Greenland, which is normally a 'tall' area (as can be seen in Figure \@ref(fig:orange)).
+A good example is Greenland, which is normally a 'tall' area (as can be seen in @fig-orange).
 
 \index{web mercator}
 In order to fix these deformed areas, Gerardus Mercator, a Flemish geographer in the 16th century introduced a method to compensate for this by inflating the areas near the poles even more, but now only in a vertical direction.
 This projection is called the Mercator projection.
 For web applications, this projection has been slightly modified and renamed to the Web Mercator projection (EPSG3857).
-The cylinder and plain map that uses this projection are shown in Figure \@ref(fig:crs-05).
+The cylinder and plain map that uses this projection are shown in @fig-crs-05.
 
-```{r crs-05, echo=FALSE, results='hide', warning=FALSE, fig.cap="Web Mercator projection (EPSG3857)", message=FALSE, eval=FALSE}
+```{r}
+#| label: fig-crs-05
+#| echo: false
+#| results: hide
+#| warning: false
+#| message: false
+#| fig-cap: "Web Mercator projection (EPSG 3857)"
+sf::sf_use_s2(FALSE)
 source("code/crs_examples.R")
-
 m3857 = map_3857()
 m3857_cyl = map_3857_cyl()
+sf::sf_use_s2(TRUE)
 
 tmap_arrange({
   tm_shape(m3857_cyl$bg_back) +
     tm_polygons(clr_bg2) +
     tm_shape(m3857_cyl$bg_front) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
     tm_shape(m3857_cyl$land) +
     tm_polygons(clr_land) +
     tm_shape(m3857_cyl$grat) +
@@ -713,19 +815,20 @@ tmap_arrange({
       tm_polygons(clr_land) +
       #tm_shape(m3857$grat) +
       #tm_lines(col = clr_grat, lwd = 1) +
-      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
+      tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                    col = clr_grat, labels.size = .6, labels.cardinal = FALSE, lines = TRUE) + 
       tm_layout(frame = TRUE, inner.margins = 0)
   }, widths = c(.3, .7), asp = NULL)
 
 ```
 
-Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with Figure \@ref(fig:orange)).
+Although the areas near the poles have been inflated quite a lot, especially Antarctica and Greenland, the shape of the areas is more or less correct, in particular regarding small areas (which can be seen by comparing with @fig-orange.
 The Mercator projection is very useful for navigational purposes, and has therefore been embraced by sailors ever since.
 Also today, the Web Mercator is the de facto standard for interactive maps and navigation services.
 However, for maps that show data the (Web) Mercator projection should be used with great caution, because the hugely inflated areas will influence how we perceive spatial data.
 We will discuss this in the next section.
 
-### Types of map projections
+### Types of map projections {#sec-proj-types}
 
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections
 http://www.geog.uoregon.edu/shinker/geog311/Labs/lab02/properties.htm
@@ -739,9 +842,15 @@ https://books.google.nl/books?id=E0JZDwAAQBAJ&pg=PA244&lpg=PA244&dq=Equidistant+
 \index{map projections}
 Let us go back to the original question: how can we make a two-dimensional image of our three-dimensional earth? 
 Although there are many ways, four basic map projection types can be distinguished. 
-These are depicted in Figure \@ref(fig:crs-types).
+These are depicted in @fig-crs-types.
 
-```{r crs-types, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.35, fig.cap="Four types of map projections"}
+```{r}
+#| label: fig-crs-types
+#| echo: false
+#| message: false
+#| out-width: 100%
+#| fig-asp: 0.35
+#| fig-cap: Four types of map projections
 source("code/crs_examples.R")
 crs_types()
 ```
@@ -754,23 +863,31 @@ There are 60 positions in which this cylinder can be placed, where in each posit
 In other words the UTM is not a single projection, but a series of 60 projections.
 
 There are many projections which are pseudo-cylinders in the sense that the radius around the poles is smaller than around the equator.
-An example is the Robinson projection shown in Figure \@ref(fig:crs-robin).
+An example is the Robinson projection shown in @fig-crs-robin.
 Almost all commonly used standard World map projections are (pseudo-)cylindrical.
 
-```{r crs-robin, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.45, fig.cap="The Robinson projection, which is pseudo-cylindrical."}
+```{r}
+#| label: fig-crs-robin
+#| echo: false
+#| message: false
+#| out-width: 100%
+#| fig-asp: 0.45
+#| fig-cap: The Robinson projection, which is pseudo-cylindrical.
 data(World)
-tm_shape(World, projection = "+proj=robin") +
-    tm_polygons(clr_land, border.col = clr_border) +
-  tm_layout(earth.boundary = TRUE,
-            earth.boundary.color = clr_grat,
+tm_shape(World, crs = "+proj=robin") +
+    tm_polygons(clr_land, col = clr_border) +
+  tm_layout(earth_boundary = TRUE,
+            earth_boundary.color = clr_grat,
             bg.color = clr_bg,
             space.color = "white",
             frame = FALSE) +
-  tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), col = clr_grat, labels.cardinal = FALSE, ticks = FALSE, labels.show = FALSE)
+  tm_graticules(x = seq(-180, 180, by = 30), y = seq(-60, 60, by = 30), 
+                col = clr_grat, labels.cardinal = FALSE, 
+                ticks = FALSE, labels.show = FALSE)
 ```
 
 \index{conic map projections}
-An example of a conic map projection is shown in \@ref(fig:crs-conic-planar)(a).
+An example of a conic map projection is shown in @fig-crs-conic-planar-1.
 As a result of unfolding a cone on a flat surface, a gap is created.
 The size (angle) of this gap depends on the width of the cone.
 There are also pseudo-conic map projections in which some meridians (longitude lines) are curved.
@@ -784,43 +901,51 @@ It can be placed inside the globe, at the surface of the globe opposite to the d
 The corresponding families of projections are called gnomonic, stereographic, and orthogonal projections.
 
 Planar map projections are often used for a specific country or continent.
-An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in \@ref(fig:crs-conic-planar)(b), which is optimized for Europe.
+An example is the Lambert Azimuthal Equal-Area projection (EPSG3035), shown in @fig-crs-conic-planar-2, which is optimized for Europe.
 It can be classified as a stereographic projection, although the light beams are not straight but curved.
-Another example of a planar map projection is the orange shown in Figure \@ref(fig:orange).
+Another example of a planar map projection is the orange shown in @fig-orange.
 This is an orthogonal projection.
 
-```{r crs-conic-planar, echo=FALSE, results='hide', warning=FALSE, fig.cap="Examples of a conic (a) and a planar (b) projection.", message=FALSE}
+```{r}
+#| label: fig-crs-conic-planar
+#| echo: false
+#| results: hide
+#| warning: false
+#| message: false
+#| layout-ncol: 2
+#| fig-cap: Examples of a conic and a planar projection.
+#| fig-subcap:
+#|   - "World Equidistant Conic projection"
+#|   - "Lambert Azimuthal Equal-Area projection"
 source("code/crs_examples.R")
 meqdc = map_eqdc()
 m3035 = map_3035()
 
-tmap_arrange({
 tm_shape(meqdc$bg) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_polygons(clr_bg, col = clr_border) +
 tm_shape(meqdc$land) +
     tm_polygons(clr_land) +
 tm_shape(meqdc$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-tm_layout(title="(a) World Equidistant Conic projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))},
-{tm_shape(m3035$bg) +
-    tm_polygons(clr_bg, border.col = clr_border) +
+    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
+tm_shape(m3035$bg) +
+    tm_polygons(clr_bg, col = clr_border) +
 tm_shape(m3035$land) +
     tm_polygons(clr_land) +
 tm_shape(m3035$grat) +
     tm_lines(col = clr_grat, lwd = 1) +
     tm_layout(frame = FALSE) +
-tm_layout(title="(b) Lambert Azimuthal Equal-Area projection", title.position = c("center", "bottom"), title.size = 0.9, title.color = "#777777", inner.margins = c(.1, 0.02, 0.02, 0.02))
-})
+    tm_layout(inner.margins = c(.1, 0.02, 0.02, 0.02))
 ```
 
 \index{interrupted map projections}
-The (interrupted) Goode homolosine projection shown in Figure \@ref(fig:crs-goode) is an example of an interrupted projection.
+The (interrupted) Goode homolosine projection shown in @fig-crs-goode is an example of an interrupted projection.
 A special class of these projections are polyhedral projections, which consists of planar faces. 
-In Figure \@ref(fig:crs-types) a polyhedral of six faces is illustrated. 
+In @fig-crs-types a polyhedral of six faces is illustrated. 
 There is no limit of the number of faces, as the myriahedral projections (TODO reference Van Wijck paper) illustrate.
 
-### Which projection to choose?
+### Which projection to choose? {#sec-crs-choose}
 
 \index{map projections}
 Hopefully it is clear that there is no perfect projection, since each projection has its pros and cons.
@@ -832,7 +957,7 @@ Is the whole World visualized or only a part, and in the latter case, which part
 In this section, guidelines are provided to choose a proper projection based on those two aspects.
 
 Before we go deeper into selecting a projection, it is worth noting that for many countries and continents, government agencies already have chosen projections to be the standard for mapping spatial data.
-For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in Figure \@ref(fig:crs-conic-planar)(b).
+For instance, a standard for Europe, which is used by Eurostat (the statistical agency of the European Union), is the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar-2.
 If the area of interest has such a standard, it is recommended to use it, because it can be safely assumed that this standard is a proper projection, and moreover, it makes cooperation and communication with other parties easier.
 However, be aware of the limitations that this particular projection may have, and that there may be better alternatives out there.
 
@@ -845,7 +970,9 @@ Instead, we focus on four map projection properties.
 The key step is to find out which of these properties are useful or even required for the target application.
 The four properties are listed in the following table.
 
-```{r crs-properties, echo=FALSE}
+```{r}
+#| label: crs-properties
+#| echo: false
 crs_prop_name = c("Conformal", "Equal area", "Equidistant", "Azimuthal")
 crs_prop_attr = c("Local angle (shape)", "Area", "Distance", "Direction")
 crs_prop_appl = c("Navigation, climate", "Statistics", "Geology", "Geology")
@@ -854,20 +981,26 @@ crs_prop_conic = c("Lambert conformal conic", "Albers conic", "Equidistant conic
 crs_prop_planar = c("Stereographic", "Lambert azimuthal equal-area", "Azimuthal equidistant", "Stereographic, Lambert azimuthal equal-area")
 crs_prop_interrupted = c("Myriahedral", "Goode homolosine, Myriahedral", "none", "none")
 
-tb = tibble(Property = crs_prop_name, Preserves = crs_prop_attr, Applications = crs_prop_appl,  `Examples (cyclindrical)` = crs_prop_cyl, `Examples (conic)`=crs_prop_conic, `Examples (planar)`=crs_prop_planar, `Examples (interrupted)`=crs_prop_interrupted)
+tb = tibble::tibble(Property = crs_prop_name, Preserves = crs_prop_attr, 
+            Applications = crs_prop_appl, `Examples (cyclindrical)` = crs_prop_cyl,
+            `Examples (conic)` = crs_prop_conic, `Examples (planar)` = crs_prop_planar,
+            `Examples (interrupted)` = crs_prop_interrupted)
 
 tb2 = as.data.frame(t(rbind(names(tb), as.matrix(tb, dimnames = NULL))))
 tb2 = tb2[, -1]
+colnames(tb2) = NULL
+tinytable::tt(tb2, caption = "Map projection properties.", rownames = TRUE) |>
+  tinytable::style_tt(j = 1, bold = TRUE)
 
-knitr::kable(tb2, 
-             row.names = TRUE,
-             col.names = NULL,
-           caption = "Map projection properties.",
-           caption.short = "Map projection properties.",
-           booktabs = TRUE) %>% 
-  kableExtra::kable_styling(font_size = 12) %>% 
-  column_spec(1, width = "14em", bold = TRUE) %>% 
-  column_spec(c(3,5), width = "14em") 
+# knitr::kable(tb2, 
+#              row.names = TRUE,
+#              col.names = NULL,
+#            caption = "Map projection properties.",
+#            caption.short = "Map projection properties.",
+#            booktabs = TRUE) |> 
+#   kableExtra::kable_styling(font_size = 12) |> 
+#   column_spec(1, width = "14em", bold = TRUE) |> 
+#   column_spec(c(3,5), width = "14em") 
 ```
 
 \index{conformal map projections}
@@ -876,22 +1009,48 @@ In practice, that means that for instance a map of a crossroad preserves the ang
 Therefore, this property is required for navigational purposes.
 As a consequence that local angles are preserved, local shapes are also preserved. 
 That means that an small island will be drawn on a map in its true shape, as seen from the sky perpendicular above it.
-The Web Mercator shown in Figure \@ref(fig:crs-05) satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.
+The Web Mercator shown in @fig-crs-05 satisfies this property; the closer an area is to one of the poles, the more it is enlarged, but since this is done in both dimensions (latitude and longitude), local shapes are preserved.
 
 \index{equal-area map projections}
 A map projection is called *equal-area* if the areas are proportional to the true areas.
 This is strongly recommended for maps that show statistics in order to prevent perceptual bias.
-Figure \@ref(fig:crs-bias) shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
+@fig-crs-bias shows two World maps of population density per country, one in the Web Mercator projection and the other in Eckert IV projection.
 The perception of World population is different in these maps; in (a) the vast lands on low-populated areas seem to be Canada, Greenland, and Russia, whereas in (b) also North Africa and Australia emerge as vast low-populated areas.
 
-```{r crs-bias, echo=FALSE, message=FALSE, out.width="100%", fig.asp=0.45, fig.cap="The Robinson projection, which is pseudo-cylindrical."}
-library(grid)
+```{r}
+#| label: fig-crs-bias
+#| echo: false
+#| message: false
+#| out-width: 100%
+#| #fig-asp: 0.45
+#| layout-ncol: 2
+#| fig-cap: Comparison of Web Mercator and Eckert IV projections.
+#| fig-subcap:
+#|   - "Web Mercator is not equal-area"
+#|   - "Eckert IV is equal-area"
+# library(grid)
 World = World[World$iso_a3 != "ATA", ]
-tm1 = tm_shape(World, projection = 3857) + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
-tm2 = tm_shape(World, projection = "+proj=eck4") + tm_polygons("pop_est_dens", style ="log10", title = expression("Population per " * km^2), legend.is.portrait = F) + tm_layout(frame = FALSE, legend.frame = TRUE, inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), scale = 0.7, asp = 1)
-tmap_arrange(tm1, tm2)
-grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
-grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, gp=gpar(cex = 0.8, col = "#777777"))
+tm_shape(World, crs = "EPSG:3857") + 
+  tm_polygons("pop_est_dens", 
+              fill.scale = tm_scale_continuous_log10(),
+              fill.legend = tm_legend(expression("Population per " * km^2), 
+                                      orientation = "landscape")) +
+  tm_layout(frame = FALSE, legend.frame = TRUE, 
+            inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
+            scale = 0.7, asp = 1)
+tm_shape(World, crs = "+proj=eck4") + 
+  tm_polygons("pop_est_dens",
+              fill.scale = tm_scale_continuous_log10(),
+              fill.legend = tm_legend(expression("Population per " * km^2), 
+                                      orientation = "landscape")) +
+  tm_layout(frame = FALSE, legend.frame = TRUE, 
+            inner.margins = c(.1, .02, .02, .02), legend.position = c(.4, .1), 
+            scale = 0.7, asp = 1)
+# tmap_arrange(tm1, tm2)
+# grid.text("(a) Web Mercator is not equal-area", x = .25, y = .08, 
+#           gp = gpar(cex = 0.8, col = "#777777"))
+# grid.text("(b) Eckert IV is equal-area", x = .75, y = .08, 
+#           gp = gpar(cex = 0.8, col = "#777777"))
 ```
 
 \index{equidistant map projections}
@@ -904,7 +1063,7 @@ One example is a seismic map around the epicenter of a recent earthquake, where 
 \index{compromise map projections}
 A map projection can satisfy at most two of these properties. 
 Many map projection do not satisfy any property but are intended as a compromise.
-An example is the Robinson projection, shown in Figure \@ref(fig:crs-robin).
+An example is the Robinson projection, shown in @fig-crs-robin.
 
 **Area of interest**
 
@@ -914,22 +1073,26 @@ In general, the larger the area, the more concessions have to be made, since the
 
 The following table provides recommendations of map projection types based on the area size and on the latitude of the area.
 
-```{r crs-recommendations, echo=FALSE}
-knitr::kable(tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
+```{r}
+#| label: tbl-crs-recommendations
+#| echo: false
+tabcrsrec = tibble::tibble(`View` = c("World", "Hemisphere", "Continent or smaller"),
                     `Low latitude (equator)` = c("Pseudo-cylindrical", "Azimuthal", "Cylindrical or azimuthal"),
                     `Mid latitude`= c("Pseudo-cylindrical", "Azimuthal", "Conic or azimuthal"),
-                    `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal")),
-             caption = "Recommended projections.",
-             caption.short = "Recommended projections.",
-             booktabs = TRUE) %>% 
-  kableExtra::kable_styling(font_size = 12) %>% 
-  kableExtra::column_spec(1, width = "10em")
+                    `High latitude (poles)` = c("Pseudo-cylindrical", "Azimuthal", "Azimuthal"))
+# tinytable::tt(tabcrsrec, caption = "Recommended projections.")
+# knitr::kable(,
+#              caption = ,
+#              caption.short = "Recommended projections.",
+#              booktabs = TRUE) |> 
+#   kableExtra::kable_styling(font_size = 12) |> 
+#   kableExtra::column_spec(1, width = "10em")
 ```
 
-For World maps, pseudo-cylindrical map projections, such as the Robinson projection (Figure \@ref(fig:crs-robin)) and the Eckert IV projection (Figure \@ref(fig:crs-bias)(b)) are very popular because they have less distortion other map projections. 
+For World maps, pseudo-cylindrical map projections, such as the Robinson projection (@fig-crs-robin) and the Eckert IV projection (@fig-crs-bias-2) are very popular because they have less distortion other map projections. 
 For areas that cover a half of the sphere, i.e. a hemisphere, azimuthal map projections are recommended. 
 There are four hemispheres that are often used: the Northern and Southern Hemisphere, with respectively the North and South Pole as center, the Western Hemisphere consisting of the Americas, and the Eastern Hemisphere, which includes the other continents. 
-However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in Figure \@ref(fig:crs-conic-planar)(b).
+However, other hemispheres are often used implicitly, such as a hemisphere centered on Europe used in the Lambert Azimuthal Equal-Area projection shown in @fig-crs-conic-planar-2.
 
 For areas with the size of a continent or country, the azimuthal map projection type can be used when centered on the area of interest.
 In particular, the Lambert Azimuthal Equal-Area projection when equal area is required, and the Azimuthal Equidistant projection when preserving distances is important.
@@ -937,7 +1100,7 @@ Alternatively, cylindrical and conic map projection types can be used for areas 
 Another alternative is to use a UTM projection.
 However, this is only recommended when the target area spans less than 6 degrees longitude.<!--and do not cross the UTM zone lines-->
 
-### CRS in R
+### CRS in R {#sec-crs-in-r}
 
 \index{coordinate reference system (CRS)}
 \index{PROJ}
@@ -949,10 +1112,11 @@ The **sf** package integrates the **PROJ** functions into R.
 A CRS is represented in R by an object of class `crs`, which can be retrieved or set with the function `st_crs` (from the **sf** package).
 In the following example, a `crs` object is created from an EPSG code, in this case 3035, the Lambert Azimuthal Equal-Area projection for Europe.
 
-```{r crs-new}
+```{r}
+#| label: crs-new
 library(sf)
 # CRS Lambert Azimuthal Equal-Area projection
-st_crs(3035)
+st_crs("EPSG:3035")
 ```
 
 \index{crs objects}
@@ -979,7 +1143,8 @@ In the example below, we created a new object, `waterfalls`, with names and coor
 Next, we converted it into a spatial object of the `sf` class, `waterfalls_sf()` with `st_as_sf()`.
 We can see that our object's coordinate reference system is not defined with the `st_crs()` function.
 
-```{r crs-use}
+```{r}
+#| label: crs-use
 # create a data.frame of three famous waterfalls
 waterfalls = data.frame(name = c("Iguazu Falls", "Niagara Falls", "Victoria Falls"), 
                         lat = c(-25.686785, 43.092461, -17.931805), 
@@ -995,7 +1160,7 @@ We can also confirmed that our operation was successful also using `st_crs()`.
 
 ```{r}
 # specify crs
-st_crs(waterfalls_sf) = 4326
+st_crs(waterfalls_sf) = "EPSG:4326"
 # extract crs
 st_crs(waterfalls_sf)
 ```
@@ -1003,32 +1168,39 @@ st_crs(waterfalls_sf)
 Alternatively, it is possible to set the CRS when creating a new `sf` object, as you can see below.
 
 ```{r}
-waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = 4326)
+waterfalls_sf = st_as_sf(waterfalls, coords = c("lon", "lat"), crs = "EPSG:4326")
 ```
 
 The `st_transform()` function is used to convert the existing spatial object's coordinates into another projection.
 For example, let's transform our `waterfalls_sf` object to the Equal Earth projection (EPSG 8857).
 
-```{r crs-trans, warning=FALSE, warning=FALSE}
-waterfalls_sf_trans = st_transform(waterfalls_sf, 8857)
+```{r}
+#| label: crs-trans
+#| warning: false
+waterfalls_sf_trans = st_transform(waterfalls_sf, "EPSG:8857")
 waterfalls_sf_trans
 ```
 
-Figure \@ref(fig:crs-trans-plot) shows the data in the WGS84 coordinate system on the top and in the Equal Earth projection on the bottom.
+@fig-crs-trans-plot shows the data in the WGS84 coordinate system on the top and in the Equal Earth projection on the bottom.
 You can see here that the decision of the projection used has an impact not only on the coordinates (notice the grid values), but also the continents' shapes.
 
-```{r crs-trans-plot, echo=FALSE, warning=FALSE, fig.cap="Comparison between the same dataset of three waterfalls using: (A) the WGS84 coordinate system, (B) the Equal Earth projection."}
-ctp1 = tm_shape(World, projection = 4326) +
+```{r}
+#| label: fig-crs-trans-plot
+#| echo: false
+#| warning: false
+#| layout-nrow: 2
+#| fig-cap: 'Comparison between the same dataset of three waterfalls'
+#| fig-subcap:
+#|   - 'WGS84 coordinate system'
+#|   - 'Equal Earth projection'
+tm_shape(World, crs = "EPSG:4326") +
     tm_polygons() +
   tm_shape(waterfalls_sf) +
     tm_markers(text = "name") +
-  tm_grid() +
-  tm_layout(title = "A")
-ctp2 = tm_shape(World, projection = 8857) +
+  tm_grid()
+tm_shape(World, crs = "EPSG:8857") +
     tm_polygons() +
   tm_shape(waterfalls_sf_trans) +
     tm_markers(text = "name") +
-  tm_grid() +
-  tm_layout(title = "B")
-tmap_arrange(ctp1, ctp2, ncol = 1)
+  tm_grid()
 ```

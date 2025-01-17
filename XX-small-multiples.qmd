@@ -1,4 +1,9 @@
-# Small multiples {#multiples}
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Small multiples {#sec-multiples}
 
 ## Vector data
 

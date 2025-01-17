@@ -1,11 +1,11 @@
 library(methods)
 library(webshot)
-# knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+
 knitr::opts_chunk$set(
   background = "#FCFCFC", # code chunk color in latex
   comment = "#>",
   collapse = TRUE,
-  cache = TRUE, #https://github.com/rstudio/bookdown/issues/15#issuecomment-591478143
+  # cache = TRUE, #https://github.com/rstudio/bookdown/issues/15#issuecomment-591478143
   # fig.pos = "h", #"t"
   fig.path = "figures/",
   fig.align = "center",
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold",
-  out.width = "100%",
+  out.width = "100%", #70%
   dev.args = list(png = list(type = "cairo-png")),
   optipng = "-o1 -quiet",
   widgetframe_widgets_dir = "widgets",
@@ -37,8 +37,11 @@ view_map = function(x, name){
     tmap_save(x, tf)
     webshot2::webshot(tf, file = paste0("widgets/", name, ".png"))
     knitr::include_graphics(paste0("widgets/", name, ".png"))
-  } else if (knitr::is_html_output()){
-    widgetframe::frameWidget(tmap::tmap_leaflet(x))
+  } else {
+    # widgetframe::frameWidget(tmap::tmap_leaflet(x))
+    # tmap::tmap_leaflet(x)
+    x
   }
 }
 
+# Sys.setenv(CHROMOTE_CHROME = "/usr/bin/vivaldi")

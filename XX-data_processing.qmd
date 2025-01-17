@@ -1,0 +1,78 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Data preparation {#sec-data-prep}
+
+```{r}
+#| message: false
+library(tmap)
+library(sf)
+worldvector = read_sf("data/worldvector.gpkg")
+```
+
+## Data simplification {#sec-data-simplification}
+
+<!-- this content should be (split?) and moved to other chapters -->
+
+Geometries in spatial vector data consists of sets of coordinates (@sec-vector-data-model).
+Spatial vector objects grow larger with more features to present and more details to show, and this also has an impact on time to render a map.
+<!-- also to consider - the level of generalization -->
+@fig-vectordown-1 shows a map of countries from the `worldvector` object.
+
+```{r}
+#| label: vectordown1
+#| eval: false
+tm_shape(worldvector) +
+  tm_polygons()
+```
+
+This level of detail can be good for some maps, but sometimes the number of details can make reading the map harder.
+To create a simplified (smoother) version of vector data, we can use the `ms_simplify` function of the **rmapshaper** package.
+<!--add two citations: to mapshaper and rmapshaper-->.
+It expects a numeric value from 0 to 1 -- a proportion of vertices in the data to retain.
+In the example below, we set `keep` to 0.05, which keeps 5% of vertices (@fig-vectordown-2).
+
+```{r}
+#| label: vectordown2
+#| eval: false
+library(rmapshaper)
+worldvector_s1 = ms_simplify(worldvector, keep = 0.05)
+tm_shape(worldvector_s1) +
+  tm_polygons()
+```
+
+The process of simplification can also be more controlled.
+By default, the underlining algorithm (called the Visvalingam method, learn more at https://bost.ocks.org/mike/simplify/), removes small features, such as islands in our case.
+This could have far-reaching consequences - in the process of simplification, we could remove some countries!
+To prevent the deletion of small features, we also need to set `keep_shapes` to `TRUE`.
+In the case of one country consisting of many small polygons, only one is sure to be retained.
+For example, look at New Zealand, which is now only represented by Te Waipounamu (the South Island).
+To keep all of the spatial geometries (even the smallest of islands), we should also specify `explode` to `TRUE`.
+
+```{r}
+#| label: vectordown3
+#| eval: false
+worldvector_s2 = ms_simplify(worldvector, keep = 0.05,
+                             keep_shapes = TRUE, explode = TRUE)
+tm_shape(worldvector_s2) +
+  tm_polygons()
+```
+
+@fig-vectordown-3 contains a simplified map, where each spatial geometry of the original map still exists, but in a less detailed form.
+
+```{r}
+#| label: fig-vectordown
+#| echo: false
+#| message: false
+#| layout-ncol: 3
+#| fig-cap: "A map of world's countries based on:"
+#| fig-subcap: 
+#|   - original data
+#|   - simplified data with 5% of vertices kept
+#|   - simplified data with 5% of vertices, all features, and all polygons kept
+<<vectordown1>>
+<<vectordown2>>
+<<vectordown3>>
+```

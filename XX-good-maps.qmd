@@ -1,0 +1,7 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# How to make good maps? {#sec-good-maps}
+

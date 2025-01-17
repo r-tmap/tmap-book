@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      [main]
+name: Render
+permissions:
+  contents: write
+  pages: write
+jobs:
+  bookdown:
+    name: GH-Pages
+    runs-on: ubuntu-latest
+    container: ghcr.io/geocompx/docker:minimal
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Render
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_cran(c("tinytable", "viridis", "rmapshaper"))'
+          Rscript -e 'remotes::install_github("r-tmap/tmap", dependencies = TRUE, force = TRUE)'
+          # quarto render
+          # ls docs
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+      # - name: Publish to GitHub Pages (and render)
+      #   uses: quarto-dev/quarto-actions/publish@v2
+      #   with:
+      #     target: gh-pages
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          commit_message: 'Deploy commit: ${{ github.event.head_commit.message }}'

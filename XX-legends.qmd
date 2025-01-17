@@ -1,0 +1,59 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Legends {#sec-legends}
+
+```{r}
+library(sf)
+library(stars)
+library(tmap)
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)"))
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)",
+                                   reverse = TRUE))
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)",
+                                   position = tm_pos_in("right", "bottom")))
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)",
+                                   position = tm_pos_in("right", "bottom"),
+                                   bg.color = "gray", bg.alpha = 0.5))
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale_continuous(values = "geyser"),
+            col.legend = tm_legend(title = "Elevation (m asl)",
+                                   orientation = "landscape",
+                                   position = tm_pos_out("center", "top",
+                                                         "center")))
+```
+
+```{r}
+tm_shape(ei_elev) +
+  tm_raster(col.scale = tm_scale(values = "geyser"),
+            col.legend = tm_legend(show = FALSE))
+```
+
+<!-- tm_legend_bivariate -->
+<!-- tm_legend_combine -->

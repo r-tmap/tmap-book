@@ -1,0 +1,577 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Layers {#sec-layers}
+
+<!-- make the order of the table to be consistent with the rest of the chapter! -->
+
+```{r}
+#| echo: false
+layers_basic_df = tibble::tribble(
+  ~Function, ~Element, ~Geometry,
+  "tm_polygons()", "polygons (borders and fill)", "polygons",
+  "tm_symbols()", "symbols", "points, polygons, and lines", 
+  "tm_lines()", "lines", "lines", 
+  "tm_raster()", "raster", "raster",
+  "tm_text()", "text", "points, polygons, and lines",
+  "tm_basemap()", "tile" , "",
+  "tm_tiles()", "tile", ""
+)
+layers_extended_df = tibble::tribble(
+  ~Function, ~Element, ~Geometry,
+  "tm_borders()", "polygons (borders)", "polygons",
+  "tm_fill()", "polygons (fill)", "polygons",
+  "tm_bubbles()", "bubbles", "points, polygons, and lines",
+  "tm_dots()", "dots", "points, polygons, and lines",
+  "tm_markers()", "marker symbols", "points, polygons, and lines",
+  "tm_square()", "squares", "points, polygons, and lines",
+  "tm_iso()", "lines with text labels", "lines",
+  "tm_rgb()/tm_rgba()", "raster (RGB image)", "raster"
+)
+layers_df = rbind(layers_basic_df, 
+                  layers_extended_df)
+```
+
+@tbl-layers-table
+
+```{r}
+#| label: tbl-layers-table
+#| echo: false
+#| warning: false
+#| message: false
+tinytable::tt(layers_df, caption = "Map layers.") |>
+  tinytable::group_tt(i = list("Basic functions" = 1, "Derived functions" = 8)) |>
+  tinytable::style_tt(i = c(1, 9), color = "white", background = "gray", bold = TRUE) |>
+  tinytable::style_tt(j = 1, monospace = TRUE)
+
+# library(magrittr)
+# library(kableExtra)
+# options(kableExtra.html.bsTable = TRUE)
+# knitr::kable(layers_df, 
+#              caption = "Map layers.",
+#              caption.short = "Map layers.",
+#              booktabs = TRUE) |>
+#   kableExtra::kable_styling("striped",
+#                             latex_options = "striped", 
+#                             full_width = FALSE) |> 
+#   kableExtra::column_spec(1, bold = TRUE, monospace = TRUE) |> 
+#   kableExtra::pack_rows("Basic functions", 1, 7) |>
+#   kableExtra::pack_rows("Derived functions", 8, 15)
+```
+
+<!--JN: Idea - add available aesthetics to the above table-->
+
+<!--JN: Idea - also add a simple viz showing different kind of layers here (visual summary)-->
+
+In this chapter, we focus on what map layers are available in **tmap** and how they differ.
+@sec-visual-variables, on the other hand, is all about how to present information given in variables using colors, sizes, and shapes.
+<!-- ... -->
+
+<!-- maybe also we should add info about packages that tmap accepts (e.g., sf, sp, raster, stars, terra?) -->
+
+## Polygons {#sec-polygons}
+
+<!-- intro -->
+
+```{r}
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+ei_borders = read_sf("data/easter_island/ei_border.gpkg")
+```
+
+The main function of visualizing polygons is `tm_polygons()`.
+By default, it plots areas of polygons in light gray (`gray85`) and polygons borders in slightly dark gray (`gray25`).
+<!-- https://github.com/r-tmap/tmap/blob/master/R/tmap_options.R -->
+
+```{r}
+#| eval: false
+tm_shape(ei_borders) +
+  tm_polygons()
+```
+
+Both, colors of areas (polygons' fillings) and colors of borders can be modified using the `fill` and `col` arguments (@fig-tmpolygonsder-1).
+
+```{r}
+#| label: tmpolygonsder1
+#| eval: false
+tm_shape(ei_borders) +
+  tm_polygons(fill = "lightblue", col = "black", lwd = 0.5, lty = "dashed")
+```
+
+In fact, `tm_polygons()` is a combination of two separate functions: `tm_fill()` and `tm_borders()`.
+The `tm_fill()` function fills polygons with a fixed color or a color palette representing a selected variable (@fig-tmpolygonsder-2).
+
+```{r}
+#| label: tmpolygonsder2
+#| eval: false
+tm_shape(ei_borders) +
+  tm_fill(fill = "lightblue")
+```
+
+The `tm_borders()` function draws the borders of the polygons only (@fig-tmpolygonsder-3).
+It allows you to change the colors of borders, their widths, or the lines type.
+
+```{r}
+#| label: tmpolygonsder3
+#| eval: false
+tm_shape(ei_borders) +
+  tm_borders(col = "black", lwd = 0.5, lty = "dashed")
+```
+
+```{r}
+#| label: fig-tmpolygonsder
+#| warning: false
+#| echo: false
+#| layout-nrow: 1
+#| fig-cap: "Example of a map created using:"
+#| fig-subcap:
+#|   - "tm_polygons()"
+#|   - "tm_fill()"
+#|   - "tm_borders()"
+#| #fig-asp: 0.4
+<<tmpolygonsder1>>
+<<tmpolygonsder2>>
+<<tmpolygonsder3>>
+```
+
+More information on colors and how they can be applied and modified is explained in detail in @sec-colors.
+
+## Symbols {#sec-symbols}
+
+```{r}
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+
+Symbols are a very flexible layer type. 
+They are usually used to represent point data but can also be used for lines and polygons.
+In the latter cases, they are located in the centroid coordinates of each feature.
+Their flexibility is also related to the ways symbols can be visualized -- it is possible to show values of a given variable by colors of symbols, their sizes, or shapes (more about that is explained in @sec-visual-variables).
+
+The `tm_symbols()` is the main function in **tmap**, allowing to use and modify symbol elements (@fig-tmsymbols1).
+By default, this function draws a gray circle symbol with a black border for each element of an input feature.
+
+```{r}
+#| label: fig-tmsymbols1
+#| warning: false
+#| echo: false
+#| asp: 0.25
+#| fig-cap: A map showing the default tmap symbols.
+tm_shape(volcanos) +
+  tm_symbols()
+```
+
+In the above example, each symbol is related to one feature (row) in the `volcanos` object.
+However, in a case when we provide multi-element features (such as MULTIPOINT; @sec-vector-data-model), each multi-element object is first split into a number of single-element features and then plotted.
+
+The `tm_symbols()` is a very flexible function with a large number of arguments.
+While this allows adjusting its results to almost any need, it also makes this function complicated.
+Therefore, four additional layers are implemented in **tmap**: `tm_squares()`, `tm_bubbles()`, `tm_dots()`, `tm_markers()`.
+All of them use `tm_symbols()`, but with different default values.
+
+`tm_squares()` uses square symbols (`shape = 22`) instead of circles (`shapes = 21`) (@fig-tmsymbols2-1).
+<!--scale is 4/3 instead of 1-->
+
+```{r}
+#| label: tmsymbols21
+#| eval: false
+tm_shape(volcanos) +
+  tm_squares()
+```
+
+<!-- JN: what is the main difference between symbols and bubbles?? -->
+(@fig-tmsymbols2-2)
+<!--scale is 4/3 instead of 1-->
+
+```{r}
+#| label: tmsymbols22
+#| eval: false
+tm_shape(volcanos) +
+  tm_bubbles()
+```
+
+The main role of `tm_dots()` is to present many locations at the same time.
+To do this, this layer has a small size value (`0.02`) at the default (@fig-tmsymbols2-3).
+
+```{r}
+#| label: tmsymbols23
+#| eval: false
+tm_shape(volcanos) +
+  tm_dots()
+```
+
+The last additional layer is `tm_markers()`, which uses a marker icon by default (@fig-tmsymbols2-4).
+
+```{r}
+#| label: tmsymbols24
+#| eval: false
+tm_shape(volcanos) +
+  tm_markers()
+```
+
+```{r}
+#| label: fig-tmsymbols2
+#| warning: false
+#| echo: false
+#| layout-nrow: 2
+#| fig-cap: "Maps showing default visualizations using various types of symbols."
+#| fig-subcap:
+#|   - "tm_squares()"
+#|   - "tm_bubbles()"
+#|   - "tm_dots()"
+#|   - "tm_markers()"
+#| #fig-asp: 0.69
+<<tmsymbols21>>
+<<tmsymbols22>>
+<<tmsymbols23>>
+<<tmsymbols24>>
+```
+
+## Lines {#sec-lines}
+
+```{r}
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
+```
+
+The `tm_lines()` function allows the visualization of different types of line data (@fig-tmlines).
+
+```{r}
+#| label: fig-tmlines
+#| fig-cap: "Example of a map created with tm_lines()."
+tm_shape(ei_roads) + 
+  tm_lines()
+```
+
+Lines can be presented using different colors, widths, or types (@sec-visual-variables).
+This allows to show a hierarchy (for example, increased line widths for higher capacity roads) or distinguish between types of objects (for example, blue rivers comparing to gray roads).
+
+## Text {#sec-text}
+
+<!-- tm_labels? -->
+
+Text labels are often an integral part of many maps.
+They can serve several functions, from naming features, indicating relations between them, or representing a given variable's values.
+The main function for creating text labels is `tm_text()`, which adds a label to each spatial feature (@fig-tmtext).
+
+```{r}
+#| label: fig-tmtext
+#| fig-cap: "Example of a map created with tm_text()."
+#| fig-asp: 0.35
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation")
+```
+
+We can adjust sizes (`size`; @sec-sizes), colors (`col`), font faces (`fontface`), and background colors (`bgcol`)  of labels either by providing a single value or a name of a data variable.
+Text labels can be further modified with the `opt_tm_text()` function provided to the `options` argument.
+It includes a set of arguments that allow to adjustment of the text labels' appearance, such as `remove_overlap,` `along_lines,` and `shadow.`
+<!-- ref to the text section?? -->
+
+```{r}
+#| echo: false
+tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd") +
+  tm_text("name", size = "strokelwd", col = "red", 
+          options = opt_tm_text(remove_overlap = TRUE, shadow = TRUE))
+```
+
+<!-- to update -->
+Text labels can be added to spatial (multi-)points, (multi-)lines, and (multi-)polygons, and each of the cases is quite different. 
+The simplest case is for POINT data, for which each text label will be located precisely in the coordinates of the given points (@fig-tmtext).
+However, how to add text labels to multipoints, lines, multilines, polygons, or multipolygons?
+Should each label correspond to one spatial feature, or should every sub-feature have its own label? 
+Where should the labels be placed for lines or polygons - in the center of a line and centroid of a polygon or somewhat different?
+<!-- https://github.com/r-tmap/tmap-book/issues/16 -->
+<!-- wait for v4 -->
+
+```{r}
+#| echo: false
+#| eval: false
+metro3 = metro2 |>
+  dplyr::mutate(g = rep(1:5, 6)) |> 
+  dplyr::group_by(g) |> 
+  dplyr::summarize()
+tm_shape(metro3) +
+  tm_text(text = "g", size = "g") +
+  tm_layout(legend.outside = TRUE)
+```
+
+
+```{r}
+#| warning: false
+# x2 = x |> 
+#   dplyr::group_by(region_un) |> 
+#   dplyr::summarise()
+# tm_shape(x2) +
+#   tm_polygons() +
+#   tm_text("region_un")
+```
+
+<!-- add info about text location, e.g. -->
+<!-- add relation between text and other layers -->
+<!-- point + text -->
+<!-- lines + text -->
+<!-- polys + text -->
+<!-- ask MT -->
+
+Text labels are also often presented together with lines (@sec-lines).
+One example is an isopleth -- a line drawn on a map through all points having the same value of a given variable, such as atmospheric pressure or elevation.
+Isopleths can be created with the `tm_iso()` function.
+
+```{r}
+# to improve
+library(stars)
+library(terra)
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_elev_raster = rast(ei_elev)
+elev_isopleths = as.contour(ei_elev_raster)
+tm_shape(elev_isopleths) +
+  tm_iso()
+```
+
+```{r}
+ei_terrain = terra::terrain(ei_elev_raster, c("slope", "aspect"), unit = "radians")
+hs = terra::shade(ei_terrain[[1]]*3, ei_terrain[[2]])
+
+tm_shape(hs) +
+	tm_grid() +
+	tm_raster(col.scale = tm_scale(values = gray(0:100 / 100), n = 100),
+            col.legend = tm_legend_hide()) +
+	tm_shape(ei_elev) +
+	tm_raster(col_alpha = 0.25,
+            col.scale = tm_scale(values = terrain.colors(25)),
+            col.legend = tm_legend_hide()) +
+	tm_shape(elev_isopleths) +
+	tm_lines(col = "white") +
+	tm_text("level", col = "white")
+```
+
+<!-- auto.placement  -->
+<!-- remove.overlap -->
+<!-- xmod -->
+<!-- ymod -->
+<!-- just -->
+
+<!-- clustering -->
+
+## Raster {#sec-raster-layer}
+
+```{r}
+#| message: false
+library(stars)
+ei_elev = read_stars("data/easter_island/ei_elev.tif")
+ei_geomorphons = read_stars("data/easter_island/ei_geomorphons.tif")
+```
+
+<!-- Raster data intro -->
+Visualization of raster data depends on the raster type (continuous or categorical), its resolution, and the number of layers.
+@fig-rasterdown shows two simple examples of continuous and categorical raster visualizations created with `tm_raster().`
+This function attempts to recognize the type of a given raster -- when the input raster is continuous then the pretty style is used (@fig-rastertype-1).
+<!-- However, the continuous scale (`tm_scale_continuous()`) often better represent phenomena that progressively vary in space  -->
+
+```{r}
+#| label: rastertype1
+#| eval: false
+tm_shape(ei_elev) +
+  tm_raster()
+```
+
+On the other hand, when the given raster is categorical, then `tm_raster()` uses `tm_scale_categorical()` automatically (@fig-rastertype-2).
+We can also adjust the legend title, used colors, and many more, in a similar fashion as in the previously mentioned layers.
+
+```{r}
+#| label: rastertype2
+#| eval: false
+tm_shape(ei_geomorphons) +
+  tm_raster()
+```
+
+```{r}
+#| label: fig-rastertype
+#| echo: false
+#| message: false
+#| layout-nrow: 1
+#| fig-cap: Examples of raster maps
+#| fig-subcap:
+#|   - "Continuous raster map"
+#|   - "Categorical raster map"
+<<rastertype1>>
+<<rastertype2>>
+```
+
+The above examples used a raster with one layer only.
+However, rasters can have many layers, either represented by dimensions or attributes.
+By default, **tmap** shows all of the layers, where each raster has its own legend.
+
+```{r}
+#| results: hide
+#| message: false
+#| fig-show: hide
+raster2 = c(ei_elev, ei_geomorphons)
+tm_shape(raster2) +
+  tm_raster()
+```
+
+We can modify their arrangement with `tm_facets()` (@fig-tmrasterml).
+
+```{r}
+#| label: fig-tmrasterml
+#| message: false
+#| fig-cap: A map created from a multilayered raster.
+tm_shape(raster2) +
+  tm_raster() +
+  tm_facets(ncol = 1) +
+  tm_layout(panel.labels = c("Elevation", "Geomorphons"))
+```
+
+If you want to learn more -- we focus on how to specify and modify facets (also known as small multiples) in @sec-multiples and how to modify map layout in @sec-layout.
+
+```{r}
+#to replace later
+library(stars)
+landsat = read_stars(system.file("raster/landsat.tif", package = "spDataLarge"))
+```
+
+The `landsat` object contains four bands (blue, green, red, and near-infrared) of the Landsat 8 image for the area of Zion National Park taken on the 18th of August 2015.
+We can plot all of the bands independently or as a combination of three bands.
+This combination is known as a color composite image, and we can create such images with the `tm_rgb()` function (@fig-tmrgbs).
+
+Standard composite image (true color composite) uses the visible red, green, and blue bands to represent the data in natural colors.
+We can specify which band in `landsat` relates to red (third band), green (second band), and blue (first band) color in `tm_rgb()`.
+<!-- to update -->
+<!-- Also, by default, this function expects values from 0 to 255; however, our values are in a different scale, with the maximum value of 31961.  -->
+<!-- Therefore, to create a map, we can set `max.value` to our dataset's maximum value. -->
+<!-- The result is a true color composite, with green colors representing forests and other types of vegetation, and yellow color showing bare areas (@fig-tmrgbs-1). -->
+
+```{r}
+#| label: tmrgbs1
+#| eval: false
+tm_shape(landsat) +
+  tm_rgb(tm_vars(dimvalues = c(3, 2, 1), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE))
+```
+
+True color images are straightforward to interpret and understand, but they make subtle differences in features challenging to recognize.
+However, nothing stops us from using the above tools to integrate different bands to create so called false color composites.
+Various band combinations emphasize some spatial characteristics, such as water, agriculture, etc., and allow us to visualize wavelengths that our eyes can not see.
+<!-- add some reference?? -->
+@fig-tmrgbs-2 shows a composite of near-infrared, red, and green bands, highlighting vegetation with a bright red color.
+
+```{r}
+#| label: tmrgbs2
+#| eval: false
+tm_shape(landsat) +
+  tm_rgb(tm_vars(dimvalues = c(4, 3, 2), multivariate = TRUE),
+         col.scale = tm_scale_rgb(stretch = TRUE))
+```
+
+```{r}
+#| label: fig-tmrgbs
+#| message: false
+#| echo: false
+#| layout-nrow: 1
+#| fig-cap: 'Two color composite images'
+#| fig-subcap:
+#|   - 'True color composite image'
+#|   - 'False color composite image'
+<<tmrgbs1>>
+<<tmrgbs2>>
+```
+
+<!-- raster.warp -->
+<!-- raster margins -->
+
+## Tile {#sec-tile-layer}
+
+<!-- A tile layer is .. -->
+<!-- Tile layers (or just tines) are usually stored as prerendered raster tiles or as vector tiles on online servers. -->
+
+Tile layers can be used for two purposes: either as a basemap or an overlay layer.
+By default, three basemaps are used in the interactive mode (`tmap_mode("view")`): 
+`"Esri.WorldGrayCanvas"`, `"OpenStreetMap"`, and  `"Esri.WorldTopoMap"`.
+However, we can change the basemaps with a vector with the names of the tile layers' providers (@fig-tmbasemap1).
+
+```{r}
+#| eval: false
+tmap_mode("view")
+tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_shape(volcanos, is.main = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
+```
+
+```{r}
+#| label: fig-tmbasemap1
+#| cache: false
+#| eval: true
+#| echo: false
+#| message: false
+#| fig-cap: OpenStreetMap tile layer used as a base map with the red dots representing
+#|   volcanos on Easter Island.
+library(tmap)
+tmap_mode("view")
+tmbasemap1 = tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_shape(volcanos, is.main = TRUE) +
+  tm_dots(col = "red", group = "Volcanos")
+view_map(tmbasemap1, "tmbasemap1")
+```
+
+In the above code, we made two basemaps available: `"OpenStreetMap"` and `"OpenTopoMap"`, and for the map legend purpose, we renamed them as `StreetMap` and `TopoMap`.
+A complete list of available basemaps is in the `leaflet::providers` object and on the https://leaflet-extras.github.io/leaflet-providers/preview/ website^[Additional details can be found in the `leaflet::providers.details` object].
+<!-- explain why some providers do not work -->
+<!-- ?do we need to register somewhere?: -->
+<!-- https://github.com/leaflet-extras/leaflet-providers -->
+<!-- how to add url tiles -->
+<!-- how to setup your own server or some references? -->
+The `tm_basemap(NULL)` function allows to disable basemaps entirely. 
+
+The `tm_tiles()` function, on the other hand, draws the tile layer on the top (as an overlay layer) of the previous `tm_` layer.
+In the next example, we put the vector `"CartoDB.PositronOnlyLabels"` tiles on top of the previously set basemaps, but below the dots layer (@fig-tmtiles1).
+
+```{r}
+#| eval: false
+tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_tiles(c(CartoDB = "CartoDB.PositronOnlyLabels")) +
+  tm_shape(volcanos, is.main = TRUE) + 
+  tm_dots(col = "red", group = "Volcanos")
+```
+
+```{r}
+#| label: fig-tmtiles1
+#| cache: false
+#| echo: false
+#| message: false
+#| fig-cap: OpenStreetMap tile layer used as a base map with dashed lines representing
+#|   island coastline and the red dots representing volcanos on Easter Island.
+tmtiles1 = tm_basemap(c(StreetMap = "OpenStreetMap", TopoMap = "OpenTopoMap")) +
+  tm_tiles(c(CartoDB = "CartoDB.PositronOnlyLabels")) +
+  tm_shape(volcanos, is.main = TRUE) +
+  tm_dots(col = "red", group = "Volcanos")
+view_map(tmtiles1, "tmtiles1")
+```
+
+Tile layers are usually created to be used interactively.
+We can see it, for example, by the number of details varying depending on the zoom level we set.
+That being said, many people find them useful also for static maps, and **tmap** allows us to use them in this way.
+It uses the **maptiles** package to download the tiles and then plot them as a raster layer.
+
+A complete list of available providers and some [information about zoom levels](https://wiki.openstreetmap.org/wiki/Zoom_levels) are in the help file of the `?maptiles::get_tiles()` function.
+Different map tiles providers offer unique map styles, while zoom levels relate to different levels of detail -- the larger level, the more details we will get.
+When using map tiles, we should also consider adding their attribution to the map.
+Attribution for each provider can be obtained using the `maptiles::get_credit()` function by specifying the provider name, for example, `get_credit("CartoDB.VoyagerNoLabels").`
+
+The code below plots the `"CartoDB.VoyagerNoLabels"` tiles in the background, adds the island outline in light blue color, and puts attribution text in the bottom right corner of the map (@fig-stiles)).
+
+```{r}
+#| label: fig-stiles
+#| cache: false
+#| fig-cap: 'Example of a static map using a downloaded `"CartoDB.VoyagerNoLabels"` tile layer.'
+tmap_mode("plot")
+tm_basemap("CartoDB.VoyagerNoLabels") + 
+  tm_shape(ei_borders) +
+  tm_borders(lwd = 5, col = "lightblue") +
+  tm_credits(maptiles::get_credit("CartoDB.VoyagerNoLabels"),
+             bg.color = "white")
+```

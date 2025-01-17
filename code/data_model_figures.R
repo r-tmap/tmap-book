@@ -190,39 +190,43 @@ draw_vector_data = function(scale = 1) {
   
   print({
     tm_shape(sf_pnts, bbox = c(0, 0, 12.931, 10)) +
-      tm_dots(size = 0.2, col = "cols") +
+      tm_dots(size = 0.5, fill = "cols") +
       tm_text("ID", xmod = .5, ymod = .5) +
-      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0, 
+                bg.color = "white")
   }, vp = viewport(layout.pos.row = 2:3, layout.pos.col = 2))
   
   print({
     tm_shape(sf_lns, bbox = c(0, 0, 12.931, 10)) +
       tm_lines(lwd = 2, col = "cols") +
-      tm_text("ID", xmod = .5, ymod = c(.5, 1, .5)) +
+      tm_text("ID", xmod = .5, ymod = .5) +
       tm_shape(sf_lns_pnts) + 
-      tm_dots(size = 0.2, col = "cols") +
-      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+      tm_dots(size = 0.2, fill = "cols") +
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0, 
+                bg.color = "white")
   }, vp = viewport(layout.pos.row = 5:6, layout.pos.col = 2))
   
   print({
     tm_shape(sf_plg, bbox = c(0, 0, 12.931, 10), point.per = "segment") +
-      tm_polygons(lwd = 2, col = "cols", border.col = "grey30") +
-      tm_text("ID", col = "white") +
+      tm_polygons(lwd = 2, fill = "cols", col = "grey30") +
+      tm_text("ID", col = "white", 
+              options = opt_tm_text(on_surface = TRUE, point_per = "segment")) +
       tm_shape(sf_plg_pnts) + 
       tm_dots(size = 0.2, col = "grey30") +
-      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0)
+      tm_layout(scale = scale, inner.margins = 0, outer.margins = 0, 
+                bg.color = "white")
   }, vp = viewport(layout.pos.row = 8:9, layout.pos.col = 2))
   
   cellplot(2, 4, e = {
-    draw_table(sf_pnts %>% st_drop_geometry() %>% select(ID, name, has, evergreen), col_rows = cols, scale = scale)
+    draw_table(sf_pnts |> st_drop_geometry() |> select(ID, name, has, evergreen), col_rows = cols, scale = scale)
   })
   
   cellplot(5:6, 4, e = {
-    draw_table(sf_lns %>% st_drop_geometry() %>% select(ID, name, lanes, cycling), col_rows = cols, scale = scale)
+    draw_table(sf_lns |> st_drop_geometry() |> select(ID, name, lanes, cycling), col_rows = cols, scale = scale)
   })
   
   cellplot(8, 4, e = {
-    draw_table(sf_plg %>% st_drop_geometry() %>% select(ID, name, population, touristic), col_rows = cols, scale = scale)
+    draw_table(sf_plg |> st_drop_geometry() |> select(ID, name, population, touristic), col_rows = cols, scale = scale)
   })
   
   cellplot(1, 4, e = {
@@ -253,16 +257,16 @@ draw_vector_cubes = function() {
   data(NLD_prov)
   
   
-  lu = read.csv("data/lan_use_ovw.tsv", sep = "\t", na.strings = ": ") %>% 
-    rename(cat = 1) %>% 
-    {suppressWarnings(separate(., cat, into = c("unit", "landuse", "geo")))} %>% 
+  lu = read.csv("data/lan_use_ovw.tsv", sep = "\t", na.strings = ": ") |> 
+    rename(cat = 1) %>%
+    {suppressWarnings(separate(., cat, into = c("unit", "landuse", "geo")))} |> 
     filter(geo %in% paste0("NL", c(11:13, 21:23, 31:34, 41,42)),
            unit == "PC",
-           landuse %in% c("LUA", "LUB", "LUC", "LUD", "LUE", "LUF")) %>% 
-    mutate(x1 = ifelse(is.na(X2009), ifelse(is.na(X2012), X2015, X2012), X2009)) %>% 
-    mutate(x2 = ifelse(is.na(X2015), ifelse(is.na(X2012), X2009, X2012), X2015)) %>% 
+           landuse %in% c("LUA", "LUB", "LUC", "LUD", "LUE", "LUF")) |> 
+    mutate(x1 = ifelse(is.na(X2009), ifelse(is.na(X2012), X2015, X2012), X2009)) |> 
+    mutate(x2 = ifelse(is.na(X2015), ifelse(is.na(X2012), X2009, X2012), X2015)) |> 
     mutate(x1 = as.numeric(gsub("u", "", x1, fixed = TRUE)),
-           x2 = as.numeric(gsub("u", "", x2, fixed = TRUE))) %>% 
+           x2 = as.numeric(gsub("u", "", x2, fixed = TRUE))) |> 
     mutate(landuse2 =  case_when(landuse %in% "LUA" ~ "Crops",
                                  landuse %in% "LUB" ~ "Forest",
                                  landuse %in% "LUC" ~ "Water",
@@ -278,29 +282,29 @@ draw_vector_cubes = function() {
                             geo == "NL33" ~ "Zuid-Holland",
                             geo == "NL34" ~ "Zeeland",
                             geo == "NL41" ~ "Noord-Brabant",
-                            geo == "NL42" ~ "Limburg")) %>% 
-    group_by(name, landuse2) %>% 
+                            geo == "NL42" ~ "Limburg")) |> 
+    group_by(name, landuse2) |> 
     summarize(x1 = sum(x1),
               x2 = sum(x2))
   
-  lu1 = lu %>% 
-    pivot_wider(id = name, names_from = landuse2, values_from = x1) %>% 
-    replace_na(list(Water = 0)) %>% 
-    mutate(Urban = 100 - Crops - Forest - Water) %>% 
-    arrange(match(name, NLD_prov$name)) %>% 
-    ungroup() %>% 
-    mutate(name = NULL) %>% 
-    select(Urban, Crops, Forest, Water) %>% 
+  lu1 = lu |> 
+    pivot_wider(id_cols = name, names_from = landuse2, values_from = x1) |> 
+    replace_na(list(Water = 0)) |> 
+    mutate(Urban = 100 - Crops - Forest - Water) |> 
+    arrange(match(name, NLD_prov$name)) |> 
+    ungroup() |> 
+    mutate(name = NULL) |> 
+    select(Urban, Crops, Forest, Water) |> 
     as.matrix()
     
-  lu2 = lu %>% 
-    pivot_wider(id = name, names_from = landuse2, values_from = x2) %>% 
-    replace_na(list(Water = 0)) %>% 
-    mutate(Urban = 100 - Crops - Forest - Water) %>% 
-    arrange(match(name, NLD_prov$name)) %>% 
-    ungroup() %>% 
-    mutate(name = NULL) %>% 
-    select(Urban, Crops, Forest, Water) %>% 
+  lu2 = lu |> 
+    pivot_wider(id_cols = name, names_from = landuse2, values_from = x2) |> 
+    replace_na(list(Water = 0)) |> 
+    mutate(Urban = 100 - Crops - Forest - Water) |> 
+    arrange(match(name, NLD_prov$name)) |> 
+    ungroup() |> 
+    mutate(name = NULL) |> 
+    select(Urban, Crops, Forest, Water) |> 
     as.matrix()
   
   k = 8

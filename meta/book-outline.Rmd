@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
     1. which data to use *polygons/points/lines/raster;classes;where to get them?*
     2. CRS: how to project the earth on a flat screen *written to arouse curiosity and to understand the basic concept*
     3. simplification *about simplifying polygons and downsampling rasters. In the viz community, people are often afraid to throw away information, while more information can be communicated with less detailed data (e.g. the coastline of Norway)*
-    4. multiple datasets *stacking, is.master*
+    4. multiple datasets *stacking, is.main*
 5. Layer functions
     1. overview *table of layer functions and their aesthetics*
     2. polygons

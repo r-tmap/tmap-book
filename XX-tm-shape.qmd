@@ -1,0 +1,243 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Specifying spatial data {#sec-tmshape}
+
+At least two aspects need to be specified in order to plot spatial data: the spatial data object itself and the plotting method(s). 
+We will cover the former in this chapter. 
+The latter will be discussed in the next chapters.
+
+## Shapes and layers {#sec-shapes-and-layers}
+
+As described in @sec-geodata, shape objects can be vector or raster data.
+We recommend `sf` objects for vector data and `stars` objects for raster data^[However, **tmap** also accepts other spatial objects, e.g., of `sp`, `raster`, and `terra` classes.].
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+library(tmap)
+library(dplyr)
+library(sf)
+library(stars)
+worldelevation = read_stars("data/worldelevation.tif")
+worldvector = read_sf("data/worldvector.gpkg")
+worldcities = read_sf("data/worldcities.gpkg")
+```
+
+In **tmap**, a shape object needs to be defined with the function `tm_shape()`.
+When multiple shape objects are used, each has to be defined in a separate `tm_shape()` call.
+This is illustrated in the following example (@fig-tmshape1).
+
+```{r}
+#| label: fig-tmshape1
+#| echo: true
+#| warning: false
+#| fig-cap: A map representing three shapes (worldelevation, worldvector, and worldcities)
+#|   using four layers.
+tm_shape(worldelevation) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_shape(worldvector) +
+  tm_borders() +
+  tm_shape(worldcities) +
+  tm_dots() +
+  tm_text("name")
+```
+
+In this example, we use three shapes: `worldelevation` which is a `stars` object containing an attribute called `"worldelevation.tif"`, `worldvector` which is an `sf` object with country borders, and `worldcities` -- an `sf` object that contains metropolitan areas of at least 20 million inhabitants.
+
+Each `tm_shape()` function call is succeeded by one or more layer functions.
+In the above example, these are `tm_raster()`, `tm_borders()`, `tm_dots()` and `tm_text()`.
+We will describe layer functions in detail in the next chapter.
+For this chapter, it is sufficient to know that each layer function call defines how the spatial data specified with `tm_shape()` is plotted.
+
+Shape objects can be used to plot multiple layers.
+In the example, shape `worldcities` is used for two layers, `tm_dots()` and `tm_text()`.
+
+## Shapes hierarchy {#sec-shapes-hierarchy}
+
+The order of the `tm_shape()` functions' calls is crucial.
+The first `tm_shape()`, known as *the main shape*, is not only shown below the following *shapes*, but also sets the projection and extent of the whole map.
+In @fig-tmshape1, the `worldelevation` object was used as the first *shape*, and thus the whole map has the projection and extent of this object.
+
+However, we can quickly change the main *shape* with the `is.main` argument.
+In the following example, we set the `worldcities` object as the main *shape*, which limits the output map to the point locations in `worldcities` (@fig-tmshape2)^[We will show how to adjust margins and text locations later in the book].
+
+```{r}
+#| label: fig-tmshape2
+#| message: false
+#| #fig-asp: 0.35
+#| fig-cap: "A map representing three shapes (worldelevation, worldvector, and worldcities) using four layers and zoomed into the locations in the worldcities object."
+tm_shape(worldelevation) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_shape(worldvector) +
+  tm_borders() +
+  tm_shape(worldcities, is.main = TRUE) +
+  tm_dots() +
+  tm_text("name")
+```
+
+## Map extent {#sec-map-extent}
+
+Another important aspect of mapping, besides projection, is its extent -- a portion of the area shown in a map.
+<!--add info about the bounding box term-->
+This is not an issue when the extent of our spatial data is the same as we want to show on a map.
+However, what should we do when the spatial data contains a larger region than we want to present?
+
+Again, we could take two routes.
+The first one is to preprocess our data before mapping - this can be done with vector clipping (e.g., `st_intersection()`) and raster cropping (e.g., `st_crop()`).
+We would recommend this approach if you plan to work on the smaller data in the other parts of the project.
+The second route is to specify the map extent in **tmap**.
+
+**tmap** allows specifying map extent using three approaches.
+The first one is to specify minimum and maximum coordinates in the x and y directions that we want to represent.
+This can be done with a numeric vector of four values in the order of minimum x, minimum y, maximum x, and maximum y, where all of the coordinates need to be specified in the input data units^[This can also be done with the object of class `st_bbox` or a 2 by 2 matrix.]
+In the following example, we limit our map extent to the rectangular area between x from -15 to 45 and y from 35 to 65 (@fig-tbbox1).
+
+```{r}
+#| label: fig-tbbox1
+#| warning: false
+#| fig-cap: Global elevation data limited to the extent of the specified minimum and
+#|   maximum coordinates.
+tm_shape(worldelevation, bbox = c(-15, 35, 45, 65)) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
+```
+
+The second approach allows for the map to be set to an extent based on a search query.
+In the code below, we limit the map extent to the area of `"Europe"` (@fig-tbbox2).
+This approach uses the OpenStreetMap tool called Nominatim to automatically generate minimum and maximum coordinates in the x and y directions based on the provided query.
+<!-- add refs/links -->
+
+```{r}
+#| label: fig-tbbox2
+#| warning: false
+#| fig-cap: Global elevation data limited to the extent specified with the 'Europe' query.
+tm_shape(worldelevation, bbox = "Europe") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
+```
+
+In the last approach, the map extent is based on another existing spatial object.
+@fig-tbbox3 shows the elevation raster data (`worldelevation`) limited to the edge coordinates from `worldcities`. 
+
+```{r}
+#| label: fig-tbbox3
+#| warning: false
+#| fig-asp: 0.35
+#| fig-cap: Global elevation data limited to the extent of the other spatial object.
+tm_shape(worldelevation, bbox = worldcities) +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
+```
+
+<!-- mention that legend related to the complete object -->
+<!-- ?bb -->
+<!-- explain some additional arguments of bb?? -->
+
+## Map projection {#sec-map-projection}
+\index{map projection}
+
+As we mentioned in the previous section, created maps use the projection from the main *shape*.
+However, we often want to create a map with a different projection, for example, to preserve a specific map property (@sec-crs).
+We can do this in three ways.
+The first way to use a different projection on a map is to reproject the main data before plotting, as shown in @sec-crs-in-r.
+The second way is to specify the map projection using the `crs` argument of `tm_shape()`.
+This argument expects either some `crs` object or a CRS code.
+The third way is to use a `tm_crs()` function.
+
+The next code chunks shows all of the three ways, in which we transform the CRS of the `worldvector` object to `"EPSG:8857"`.
+This represents a projection called [Equal Earth](http://equal-earth.com/index.html) [@savric_equal_2019].
+The Equal Earth projection is an equal-area pseudocylindrical projection for world maps similar to the non-equal-area Robinson projection (@fig-crs-robin).
+
+```{r}
+#| eval: false
+#1
+worldvector8857 = st_transform(worldvector, crs = "EPSG:8857")
+tm_shape(worldvector8857) +
+  tm_polygons()
+#2
+tm_shape(worldvector, crs = "EPSG:8857") +
+  tm_polygons() 
+#3
+tm_shape(worldvector) +
+  tm_polygons() +
+  tm_crs("EPSG:8857")
+```
+
+The first way requires understanding various R packages, as different spatial objects have different functions for changing the projection.
+The second way is the most straightforward, but it is important to remember that the `crs` argument can only be set in the main layer (@sec-shapes-hierarchy).
+The third way is the most flexible, as it allows changing the projection for the whole map.
+Additionally, the `tm_crs()` function can automatically determine the projection based on the expected property of the map, e.g., equal area (`"area"`), equidistant (`"distance"`), or conformal (`"shape"`).
+For example, `tm_crs("auto")` will choose the projection that best preserves the area of the map (*Lambert Azimuthal Equal Area*), while `tm_crs("auto", property = "shape")` will choose the projection that best preserves the shape of the map (*Stereographic*).
+
+Reprojections of vector data are usually straightforward because each spatial coordinate is reprojected individually.
+<!-- mention invalid geometries? -->
+Reprojecting of raster data, on the other hand, is more complex and requires using one of two approaches.
+The first approach applies raster warping, which is a name for two separate spatial operations: creation of a new regular raster object and computation of new pixel values through resampling (for more details read Chapter 7 of @lovelace_geocomputation_2025).
+This is the default option in **tmap**, however, it has some limitations and it is not always possible to use it.
+
+<!-- to fix the rest of the section! -->
+@fig-tm-map-proj-1 shows the world elevation raster reprojected to Equal Earth.
+Some of you can quickly notice that certain areas, such as parts of Antarctica, New Zealand, Alaska, and the Kamchatka Peninsula, are presented twice, with one version being largely distorted.
+Another limitation of `raster.warp = TRUE` is the use of the nearest neighbor resampling only -- while it can be a proper method to use for categorical rasters, it can have some unintended consequences for continuous rasters (such as the `"worldelevation.tif"` data).
+
+```{r}
+#| label: tm-map-proj1
+#| warning: false
+#| eval: false
+tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) 
+```
+
+The second approach (`tm_options(raster.warp = FALSE)`) computes new coordinates for each raster cell keeping all of the original values and results in a curvilinear grid.
+This calculation could deform the shapes of original grid cells, and usually curvilinear grids take a longer time to plot^[For more details of the first approach, see `?stars::st_warp()` and of the second approach, see `?stars::st_transform()`.].
+
+@fig-tm-map-proj-2 shows an example of the second approach, which gave a better result in this case without any spurious lands.
+However, the creation of the (b) map takes about ten times longer than the (a) map.
+
+```{r}
+#| label: tm-map-proj2
+#| warning: false
+#| eval: false
+tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_options(raster.warp = FALSE)
+```
+
+```{r}
+#| label: fig-tm-map-proj
+#| echo: false
+#| warning: false
+#| layout-nrow: 2
+#| fig-cap: Two elevation maps in the Equal Earth projection
+#| fig-subcap: 
+#|   - created using raster.warp = TRUE
+#|   - created using raster.warp = FALSE
+<<tm-map-proj1>>
+<<tm-map-proj2>>
+```
+
+```{r}
+#| echo: false
+#| eval: false
+tmp1 = tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8)))
+tmp2 = tm_shape(worldelevation, crs = "EPSG:8857") +
+  tm_raster("worldelevation.tif", 
+            col.scale = tm_scale(values = terrain.colors(8))) +
+  tm_options(raster.warp = FALSE)
+bench::mark(print(tmp1), print(tmp2), check = FALSE)
+# 2.28s vs 24.52s
+```
+
+<!-- add our recommendations -->
+<!-- about reprojecting first vs later - why and how -->
+

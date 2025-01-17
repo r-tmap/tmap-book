@@ -1,0 +1,771 @@
+```{r}
+#| echo: false
+source("code/before_script.R")
+```
+
+# Visual variables {#sec-visual-variables}
+
+Visual variables are methods to translate information given in variables into many types of visualizations, including maps.
+Basic visual variables are color, size, and shape^[Other visual variables include position, orientation, and texture.].
+All of them can influence our perception and understanding of the presented information; therefore, it is worth understanding when and how they can be used.
+
+<!-- raster data in the plot? -->
+<!-- improve/update/expand hte plot -->
+
+```{r}
+#| label: fig-visual-variables
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: Basic visual variables and their representations on maps
+source("code/visual_variables.R")
+visual_variables()
+```
+
+The use of visual variables on maps depends on two main things: (a) type of the presented variable, and (b) type of the map layer.
+@fig-visual-variables shows examples of different visual variables.
+Color is the most universal visual variable.
+It can represent both qualitative (categorical) and quantitative (numerical) variables, and also we can color symbols, lines, or polygon fillings.
+Sizes, on the other hand, should focus on quantitative variables.
+Small symbols could represent low values of a given variable, and the higher the value, the larger the symbol.
+Quantitative values of line data can be shown with the widths of the lines (@sec-sizes).
+The use of shapes usually should be limited to qualitative variables, and different shapes can represent different categories of points (@sec-shapes).
+Similarly, qualitative variables in lines can be presented by different line types.
+Values of polygons usually cannot be represented by either shapes or sizes, as these two features are connected to the geometries of the objects.
+<!-- exception - cartograms - ref to other chapter \@ref(other-types) -->
+
+<!-- also, sometimes it is possible to use several visual variables at the same time (e.g. width lines + colors) -->
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+worldvector = read_sf("data/worldvector.gpkg")
+```
+
+## Constant visual values {#sec-const-visual-variables}
+
+Before we start using visual variables, it is worth reminding that we can set constant values for visual variables: fill, color, size, and shape for all objects on the map.
+For example, with `tm_polygons()` we can fill all polygons with the same color, and set borders to the same color, width, and type (@fig-colorscales1).
+
+```{r}
+#| label: fig-colorscales1
+#| warning: false
+#| fig-cap: Example of a map with all polygons filled with the same color.
+#| fig-height: 2
+tm_shape(worldvector) +
+  tm_polygons(fill = "lightblue", 
+              col = "black",
+              lwd = 0.5,
+              lty = "dashed")
+```
+
+## Automatic scales {#sec-auto-scales}
+
+On the other hand, if we provide a name of the column (variable) we want to visualize, **tmap** will automatically set the visual variables.
+The **tmap** package has many defaults that automatically specify colors, sizes, and shapes used on the maps. 
+Thus, for example, when we provide a character variable's name to the `fill` argument, then the color scale for a categorical variable is set, and when we provide a numeric variable's name to the `size` argument, then the size scale for a continuous variable is used.
+However, **tmap** also allows us to change them with a few additional functions, including `tm_scale()` and `tm_legend()`.
+In this and the following sections, we will show how to use the `tm_scale()` function to modify the appearance of the visual variables.
+<!--add refs-->
+
+The most basic use of the `tm_scale()` function is to modify the appearance of the map, such as changing the color palette (`col.scale` and `fill.scale`), sizes (`size.scale`), or shapes (`shape.scale`).
+This is done with the `values` argument, which can be one of many things, depending on the visual variable.
+For example, for colors, it can be a vector of colors, a palette function, or a name of a build-in palette; for sizes, it can be a numerical variable; and for shapes, it can be a custom icon or a numerical variable (@fig-tmscalevals).
+
+```{r}
+#| label: fig-tmscalevals
+#| fig-cap: "Examples of various ways of specifying values for visual variables"
+#| fig-subcap: 
+#|    - A name of a build-in color palette
+#|    - A vector of colors
+#|    - A numerical variable for sizes
+#|    - A numerical variable for shapes
+#| message: false
+#| layout-ncol: 2
+tm_shape(volcanos) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale(values = "greens"))
+tm_shape(volcanos) +
+  tm_symbols(col = "elevation",
+             col.scale = tm_scale(values = c("red", "blue")))
+tm_shape(volcanos) +
+  tm_symbols(size = "elevation",
+             size.scale = tm_scale(values = 1:5))
+tm_shape(volcanos) + 
+  tm_symbols(shape = "elevation", 
+             shape.scale = tm_scale(values = 1:6))
+```
+
+The following sections @sec-colors, @sec-sizes, and @sec-shapes explain the basic visual variables.
+Next, they show how to set colors, sizes, and shapes for different types of spatial objects.
+
+## Colors {#sec-colors}
+
+\index{colors}
+Colors, along with sizes and shapes, are the most often used to express values of attributes or their properties.
+Proper use of colors draws the attention of viewers and has a positive impact on the clarity of the presented information. 
+On the other hand, poor decisions about colors can lead to misinterpretation of the map.
+
+\index{color palettes}
+<!-- reference this bp - https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/06/subtleties-of-color-part-2-of-6/ -->
+
+<!-- As we discussed in ..., -->
+<!-- We can express values of attributes in spatial data using colors, shapes, or sizes. -->
+<!-- https://en.wikipedia.org/wiki/Color_scheme -->
+\index{colors}
+\index{hexadecimal form}
+Colors in R are created based either on the color name or its hexadecimal form.
+R understands 657 built-in color names, such as `"red"`, `"lightblue"` or `"gray90"`, that are available using the `colors()` function.
+<!-- demo("colors") -->
+<!-- http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf -->
+Hexadecimal form, on the other hand, can represent 16,777,216 unique colors.
+It consists of six-digits prefixed by the `#` (hash) symbol, where red, green, and blue values are each represented by two characters.
+In hexadecimal form, `00` is interpreted as `0.0` which means a lack of a particular color and `FF` means `1.0` and shows that the given color has maximal intensity.
+For example, `#000000` represents black color, `#FFFFFF` white color, and `#00FF00` green color.
+<!-- hex alpha?? -->
+
+Using a single color we are able to draw points, lines, polygon borders, or their areas.
+In that scenario, all of the elements will have the same color. 
+However, often, we want to represent different values in our data using different colors. 
+This is a role for color palettes.
+A color palette is a set of colors used to distinguish the values of variables on maps.
+
+\index{color palettes}
+Color palettes in R are usually stored as a vector of either color names or hexadecimal representations.
+For example, `c("red", "green", "blue")` or `c("#66C2A5", "#FC8D62", "#8DA0CB")`.
+It allows every one of us to create our own color palettes. 
+However, the decision on how to decide which colors to use is not straightforward, and usually requires thinking about several aspects.
+
+\index{color properties}
+Firstly, what kind of variable we want to show? 
+<!-- a next sentence is a simplification, as always -->
+Is it a <!--qualitative-->categorical variable where each value represents a <!--orderless-->group or a <!--quantitative-->numerical variable in which values have order?
+<!-- http://colorspace.r-forge.r-project.org/articles/palette_visualization.html -->
+The variable type impacts how it should be presented on the map.
+For categorical variables, each color usually should receive the same perceptual weight, which is done by using colors with the same brightness<!--luminance-->, but different hue<!--type of color-->.
+On the other hand, for numerical variables, we should easily understand which colors represent lower and which represent higher values.
+This is done by manipulating colorfulness<!--chroma,saturation--> and brightness<!--luminance-->.
+For example, low values could be presented by a blue color with low colorfulness and high brightness, and with growing values, colorfulness increases, and brightness decreases. 
+
+\index{color perception}
+The next consideration is related to how people <!--(reader/viewers)--> perceive some colors.
+Usually, we want them to be able to preliminary understand which values the colors represent without looking at the legend -- colors should be intuitive.
+For example, in the case of categorical variables representing land use, we usually want to use some type of blue color for rivers, green for trees, and white for ice.
+This idea also extends to numerical variables, where we should think about the association between colors and cultural values.
+The blue color is usually connected to cold temperature, while the red color is hot or can represent danger or something not good.
+However, we need to be aware that the connection between colors and cultural values varied between cultures.
+<!-- http://uxblog.idvsolutions.com/2013/07/language-and-color.html -->
+
+\index{color blindness}
+Another thing to consider is to use a color palette that is accessible for people with color vision deficiencies (color blindness).
+<!-- https://en.wikipedia.org/wiki/Color_blindness -->
+There are several types of color blindness, with red-green color blindness (*deuteranomaly*) being the most common.
+It is estimated that up to about 8% of the male population and about 0.5% of the female population in some regions of the world is color blind [@birch_worldwide_2012;@sharpe_opsin_1999].
+<!-- tools in R for checking for colorblindness -->
+
+<!-- Simultaneous contrast. --><!-- background -->
+The relation between the selected color palette and other map elements or the map background should also be taken into consideration.
+For example, using a bright or dark background color on a map has an impact on how people will perceive different color palettes.
+<!-- relation between the background col and other colors -->
+<!-- using two or more palettes (e.g. lines and points): -->
+<!-- color palettes then should be complementary -->
+
+<!-- should we add: (?) -->
+<!-- aesthetic -->
+<!-- similar to lines types, fonts, etc, positions -->
+<!-- hard to grasp, hard to learn, look for good examples and be inspired -->
+
+\index{color palettes}
+Generally, color palettes can be divided into three main types (@fig-palette-types):
+
+- **Categorical** (also known as Qualitative): used for presenting categorical information, such as categories or groups. 
+Every color in this type of palette should receive the same perceptual weight, and the order of colors is meaningless.
+Categorical color palettes are usually limited to a dozen or so different colors, as our eyes have problems with distinguishing a large number of different hues. 
+Their use includes, for example, regions of the world or land cover categories.
+- **Sequential**: used for presenting continuous variables, in which order matters.
+Colors in this palette type changes from low to high (or vice versa), which is usually underlined by luminance differences (light-dark contrasts).
+Sequential palettes can be found in maps of GDP, population density, elevation, and many others.
+- **Diverging**: used for presenting continuous variables, but where colors diverge from a central neutral value to two extremes.
+Therefore, in a sense, they consist of two sequential palettes that meet in the midpoint value.
+Examples of diverging palettes include maps where a certain temperature or median value of household income is use as the midpoint.
+It can also be used on maps to represent differences or change as well. 
+
+```{r}
+#| echo: false
+#| eval: false
+to = tmap_options()
+to$values.var$fill
+```
+
+<!-- idea: replace one diverging palette with the dark in the middle -->
+
+```{r}
+#| label: fig-palette-types
+#| echo: false
+#| fig-cap: 'Examples of three main types of color palettes: categorical, sequential,
+#|   and diverging'
+#| fig-asp: 0.5
+# y - a named list of palettes
+source("code/palette_figures.R")
+p_cat = cols4all::c4a("cols4all.area7", n = 7)
+p_seq = cols4all::c4a("-hcl.blues3", n = 7)
+p_div = cols4all::c4a("pu_gn_div", n = 7)
+
+p_cat2 = cols4all::c4a("brewer.set2", n = 7)
+p_seq2 = cols4all::c4a("viridis", n = 7)
+p_div2 = cols4all::c4a("brewer.br_bg", n = 7)
+
+y = list(Categorical = list(area7 = p_cat, set2 = p_cat2),
+         Sequential = list(blues3 = p_seq, viridis = p_seq2),
+         Diverging = list(pu_gn = p_div, br_bg = p_div2))
+plot_palette_types(y)
+```
+
+\index{color palettes}
+Gladly, a lot of work has been put on creating color palettes that are grounded in the research of perception and design.
+Currently, [several dozens of R packages](https://github.com/EmilHvitfeldt/r-color-palettes
+) contain hundreds of color palettes. 
+The most popular among them are **RColorBrewer** [@R-RColorBrewer] and **viridis** [@R-viridis].
+**RColorBrewer** builds upon a set of perceptually ordered color palettes [@harrower_colorbrewer_2003] and the associated website at <https://colorbrewer2.org>.
+The website not only presents all of the available color palettes, but also allow to filter them based on their properties, such as being colorblind safe or print-friendly.
+The **viridis** package has five color palettes that are perceptually uniform and suitable for people with color blindness.
+Four palettes in this package ("viridis", "magma", "plasma", and "inferno") are derived from the work on the color palettes for [the matplotlib Python library](http://bids.github.io/colormap/).
+The last one, "cividis", is based on the work of @nunez_optimizing_2018.
+
+```{r}
+RColorBrewer::brewer.pal(7, "RdBu")
+viridis::viridis(7)
+```
+
+\index{color palettes}
+In the last few years, the **grDevices** package that is an internal part of R, has received several improvements in color palette handling.^[Learn more about them at <https://developer.r-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/> and <https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html>.]
+It includes the creation of `hcl.colors()` and `palette.colors()`.
+The `hcl.colors()` function [incorporates color palettes from several R packages](http://colorspace.r-forge.r-project.org/articles/approximations.html), including **RColorBrewer**, **viridis**, **rcartocolor** [@carto_cartocolors_2019;@R-rcartocolor], and **scico** [@crameri_geodynamic_2018;@R-scico].
+You can get the list of available palette names for `hcl.colors()` using the `hcl.pals()` function and visualize all of the palettes with `colorspace::hcl_palettes(plot = TRUE)`.
+The `palette.colors()` function adds [several palettes for categorical data](https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html).
+It includes `"Okabe-Ito"` [suited for color vision deficiencies](https://jfly.uni-koeln.de/color/) or `"Polychrome 36"` that has 36 unique colors [@coombes_polychrome_2019]. 
+You can find the available names of the palettes for this function using `palette.pals()`
+
+```{r}
+grDevices::hcl.colors(7, "Oslo")
+grDevices::palette.colors(7, "Okabe-Ito")
+```
+
+The **cols4all** package <!--ref--> is a set of tools for selecting color palettes; it also includes all of the groups of color palettes mentioned above and more.
+Its main function is `cols4all::c4a_gui()` that starts an interactive application allowing to see and examine hundreds of color palettes.
+Each color palette shown `cols4all::c4a_gui()` can be used in **tmap**.
+
+\index{color palettes!rainbow}
+One of the most widely used color palettes is "rainbow" (the `rainbow()` function in R).
+It was inspired by colors of a rainbow -- a set of seven colors going from red to violet.
+However, this palette has a number of disadvantages, including irregular changes in brightness affecting its interpretation or being unsuitable for people with color vision deficiencies [@borland_rainbow_2007;@stauffer_somewhere_2015;@quinan_examining_2019]. 
+Depending on a given situation, there are many palettes better suited for visualization than "rainbow", including sequential `"viridis"` and `"ag_sunset"` or diverging `"pu_gn"` and `"geyser"`.
+All of them can be specified in **tmap**.^[You can also derive them using `cols4all::c4a()` function.]
+More examples showing alternatives to the "rainbow" palette are in the documentation of the **colorspace** package at 
+https://colorspace.r-forge.r-project.org/articles/endrainbow.html [@R-colorspace].
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tmap)
+library(sf)
+worldvector = read_sf("data/worldvector.gpkg")
+```
+
+```{r}
+#| echo: false
+#| eval: false
+to = tmap_options()
+to$values.var$fill
+```
+
+By default, the **tmap** package attempts to identify the type of variable used. 
+For example, it uses `"area7"` for a categorical (unordered) variable, `"blues3"` for a sequential variable, and "`pu_gn`" for a diverging one (@fig-tmpals).
+<!-- info about tm_layout or reference to a section about it -->
+
+```{r}
+#| label: tmpals1
+#| eval: false
+tm_shape(worldvector) + 
+  tm_polygons("life_expectancy")
+```
+
+There are three main ways to specify color palettes as an `values` argument of the `tm_scale()` family of functions.
+<!-- add ref to the section -->
+This argument accepts (1) a vector of colors, (2) a palette function, or (3) one of the built-in palette names (@fig-tmpals).
+A vector of colors can be specified using color names or hexadecimal representations (@fig-tmpals).
+Importantly, the length of the provided vector does not need to be equal to the number of colors in the map legend. 
+**tmap** automatically interpolates new colors when a smaller number of colors are provided.
+
+```{r}
+#| label: tmpals2
+#| eval: false
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = c("yellow", "darkgreen")))
+```
+
+Another approach is to provide the output of a palette function (@fig-tmpals).
+In the example below, we derived seven colors from `"ag_GrnYl"` palette.
+This palette goes from green colors to yellow ones, however, we wanted to reverse the order of this palette.
+Thus, we also used the `rev()` function here. 
+
+```{r}
+#| label: tmpals3
+#| eval: false
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy", 
+              fill.scale = tm_scale(values = rev(hcl.colors(7, "ag_GrnYl"))))
+```
+
+The last approach is to use one of the names of color palettes built in **tmap** (@fig-tmpals).
+In this example, we used the `"brewer.yl_gn"` palette that goes from yellow to green.
+
+```{r}
+#| label: tmpals4
+#| eval: false
+tm_shape(worldvector) +
+  tm_polygons("life_expectancy",
+              fill.scale = tm_scale(values = "brewer.yl_gn"))
+```
+
+It is also possible to reverse the order of any named color palette by using the `-` prefix.
+Therefore, `"-yl_gn"` will return a palette going from green to yellow.
+
+```{r}
+#| label: fig-tmpals
+#| warning: false
+#| echo: false
+#| layout-ncol: 2
+#| fig-cap: "Examples of four ways of specifying color palettes"
+#| fig-subcap: 
+#|   - default sequential color palette
+#|   - palette created based on provided vector of colors
+#|   - palette created using the `hcl.colors()` function
+#|   - one of the build-in palettes
+<<tmpals1>>
+<<tmpals2>>
+<<tmpals3>>
+<<tmpals4>>
+```
+<!-- state that the above example of setting colors works for most of palettes -->
+
+<!-- midpoint argument -->
+The default color palette for positive numerical variables is `"blues3"` as seen in @fig-tmmidpoint-1.
+On the other hand, when the given variable has both negative and positive values, then **tmap** uses the `"pu_gn"` color palette, with purple colors below the midpoint value, light gray color around the midpoint value, and green colors above the midpoint value.
+The use of diverging color palettes can be adjusted using the `midpoint` argument. 
+It has a value of 0 as the default, however, it is possible to change it to any other value.
+For example, we want to create a map that shows countries with life expectancy below and above the median life expectancy of about 73 years.
+To do that, we just need to set the `midpoint` argument to this value (@fig-tmmidpoint-2).
+
+```{r}
+#| label: tmmidpoint2
+#| eval: false
+# mean(x$lifeExp, na.rm = TRUE)
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(midpoint = 73))
+```
+
+```{r}
+#| label: fig-tmmidpoint
+#| warning: false
+#| echo: false
+#| layout-ncol: 2
+#| fig-cap: Examples of maps with different midpoints used
+#| fig-subcap:
+#|   - the default sequential color palette
+#|   - the diverging color palette around the midpoint value of 73
+#| fig-height: 2
+<<tmpals1>>
+<<tmmidpoint2>>
+```
+
+Now the countries with low life expectancy are presented with purple colors, light gray areas represent countries with life expectancy around the median value (the `midpoint` in our case), and the countries with high life expectancy are represented by green colors.
+
+The above examples all contain several polygons with missing values of a given variable.
+Objects with missing values are, by default, represented by gray color and a related legend label *Missing*.
+However, it is possible to change this color with the `value.na` argument and its label with `label.na`.
+
+**tmap** has a special way to manually set colors for categorical maps.
+It works by providing a named vector to the `values` argument.
+In this vector, the names of the categories from the categorical variable are the vector names, and specified colors are the vector values.
+You can see it in the example below, where we plot the `"wb_region"` categorical variable (@fig-tmcatpals).
+Each category in this variable (e.g., `"South Asia"`) has a new, connected to it color (e.g., `"#df5454"`).
+<!--improve colors-->
+<!-- also - improve example - maybe use less colors/categories -->
+```{r}
+#| label: fig-tmcatpals
+#| warning: false
+#| fig-cap: An example of a categorical map with manually selected colors.
+#| fig-height: 2
+tm_shape(worldvector) + 
+  tm_polygons("wb_region", 
+    fill.scale = tm_scale(values = c(
+      "Latin America & Caribbean" = "#11467b",
+      "Europe & Central Asia" = "#ffd14d", 
+      "Middle East & North Africa" = "#86909a", 
+      "Sub-Saharan Africa" = "#14909a",
+      "East Asia & Pacific" = "#7fbee9",
+      "South Asia" = "#df5454",
+      "North America" = "#7b1072")
+    ))
+```
+
+```{r}
+#| echo: false
+#| eval: false
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy")
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy", fill_alpha = 0.5) 
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(value.na = "purple",
+                                    label.na = "I do not know!")) 
+tm_shape(worldvector) +
+  tm_polygons(fill = "life_expectancy", 
+              fill.scale = tm_scale(values.range = c(0.4, 1))) 
+```
+
+\index{color palettes!transparency}
+Finally, visualized colors can be additionally modified.
+It includes setting the `col_alpha` and `fill_alpha` arguments that represents the transparency of the used colors.
+By default, the colors are not transparent at all as the value of `col_alpha` and `fill_alpha` is 1.
+However, we can decrease this value to 0 -- a total transparency.
+The `col_alpha`/ `fill_alpha` argument is useful in two ways: one -- it allows us to see-through some large objects (e.g., some points below the polygons or a hillshade map behind the colored raster of elevation), second -- it makes colors more subtle.
+
+<!-- idea: add bivariate/trivariate scheme -->
+<!-- add ord, cyc, biv -->
+
+<!-- alpha figure? -->
+<!-- color to highlight?? -->
+
+<!-- resources: -->
+<!-- https://bookdown.org/hneth/ds4psy/D-2-apx-colors-essentials.html -->
+<!-- https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html -->
+<!-- add some references about colors theory, color blindness, etc. -->
+<!-- https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/09/10/subtleties-of-color-part-6-of-6/ -->
+
+## Sizes {#sec-sizes}
+
+```{r}
+ei_points = read_sf("data/easter_island/ei_points.gpkg")
+volcanos = subset(ei_points, type == "volcano")
+```
+
+Differences in sizes between objects are relatively easy to recognize on maps. 
+Sizes can be used for points, lines (line widths), or text to represent quantitative (numerical) variables, where small values are related to small objects and large values are presented by large objects.
+Large sizes can also be used to attract viewers' attention.
+
+By default, **t**maps present points, lines, or text objects of the same size. 
+For example, `tm_symbols()` returns a map where each object is a circle with a consistent size^[The default value of size is 1, which corresponds to the area of symbols that have the same height as one line of text.].
+We can change the sizes of all objects using the `size` argument (@fig-tmsizes-1).
+
+```{r}
+#| label: tmsizes1
+#| eval: false
+tm_shape(volcanos) +
+  tm_symbols(size = 0.5) 
+```
+
+On the other hand, if we provide the name of the numerical variable in the `size` argument (e.g., `"elevation"`), then symbol sizes are scaled proportionally to the provided values.
+Objects with small values will be represented by smaller circles, while larger values will be represented by larger circles (@fig-tmsizes-2).
+
+```{r}
+#| label: tmsizes2
+#| eval: false
+tm_shape(volcanos) +
+  tm_symbols(size = "elevation") 
+```
+
+<!-- numeric only -->
+<!-- size.max	 -->
+<!-- size.lim	 -->
+<!-- sizes.legend	 -->
+<!-- sizes.legend.labels	 -->
+
+We can adjust size legend breaks with `ticks` and the corresponding labels with `labels` (@fig-tmsizes C) as arguments of the `tm_scale` function provided to the `size.scale` argument.
+
+```{r}
+#| label: tmsizes3
+#| eval: false
+tm_shape(volcanos) +
+  tm_symbols(size = "elevation",
+            size.scale = tm_scale(ticks = c(100, 600),
+                                  labels = c("low", "high")))
+```
+
+For example in the above code, we just show examples of how symbols with elevation of 100 and 600 meters about see level like on the map.
+
+```{r}
+#| label: fig-tmsizes
+#| echo: false
+#| message: false
+#| layout-ncol: 3
+#| fig-cap: 'Examples of three approaches for changing sizes of symbols'
+#| fig-subcap:
+#|   - all symbols have a consistent size of 0.5
+#|   - sizes of symbols depend on the values of the elevation variable
+#|   - sizes of symbols have a manually created legend
+#| #fig-asp: 0.42
+<<tmsizes1>>
+<<tmsizes2>>
+<<tmsizes3>>
+```
+
+Widths of the lines can represent values of numerical variables for line data similar to sizes of the symbols for point data.
+The `lwd` argument in `tm_lines()` creates thin lines for small values and thick lines for large values of the given variable (@fig-tmlwd).
+
+```{r}
+#| label: fig-tmlwd
+#| fig-asp: 0.66
+#| fig-cap: Example of a map where lines' widths represent values of the corresponding
+#|   lines.
+ei_roads = read_sf("data/easter_island/ei_roads.gpkg")
+tm_shape(ei_roads) + 
+  tm_lines(lwd = "strokelwd")
+```
+
+In the above example, values of the `"strokelwd"` are divided into four groups and represented by four line widths.
+Lines' thickness can be change using the `values.scale` argument of `tm_scale()`, where the value of 1 is the default, and increasing this values increases lines' thickness.
+<!-- Also, similarly to the last example of the `tm_symbols` above, it is possible to modify the lines width legend, by changing its title (`title.lwd`), categories (`lwd.legend`), and their names (`lwd.legend.labels`). -->
+
+<!-- how about trying some transportation examples here (and expanding them)? -->
+
+```{r}
+#| echo: false
+#| eval: false
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd")
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd", lwd.scale = tm_scale(values.scale = 2))
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd", 
+           lwd.scale = tm_scale(values.scale = 2, n = 12))
+tm_shape(World_rivers) + 
+  tm_lines(lwd = "strokelwd",
+           lwd.scale = tm_scale(values.scale = 2,
+                                ticks = c(1, 2, 3, 5, 10, 15)),
+           lwd.legend = tm_legend(title = "Line legend",
+                                  labels = LETTERS[1:6]))
+```
+
+Text labels have a role in naming features on a map or just highlighting some of them.
+Usually, the size of text labels is consistent for the same spatial objects. <!--ref to the text label layer section-->
+However, text labels can also be used to represent the values of some numerical variables.
+@fig-tmtextsize shows an example, in which text labels show names of different volcanos areas, while their sizes are related to their elevations.
+<!-- This allows us to not only locate different volcanos on the map but also differentiate between less populous areas (e.g., Seattle) and more populous ones (e.g., Tokyo). -->
+
+```{r}
+#| label: fig-tmtextsize
+#| message: false
+#| fig-asp: 0.25
+#| fig-cap: Example of a map where text sizes represent elevations of the volcanos.
+tm_shape(volcanos) +
+  tm_text(text = "name", size = "elevation") +
+  tm_layout(legend.outside = TRUE)
+```
+
+<!-- sizes.legend -->
+<!-- sizes.legend.labels -->
+<!-- sizes.legend.text -->
+
+<!-- again - mention other map types - cartograms, hexmaps, etc., which even impact of polygon sizes -->
+
+## Shapes {#sec-shapes}
+<!-- ??and markers -->
+
+<!-- potential tmap improvement: do not allow to use shape for numerical vars -->
+
+Shapes allow representing different categories of point data.
+They can be very generic, e.g., circle or square, just to be able to differentiate between categories, but often we use symbols that we associate with different types of features. 
+For example, we use the letter *P* for parking lots, *I* for information centers, an airplane symbol for airports, or a bus symbol for bus stops.
+
+To use different shapes, we should use the `shape` argument in the `tm_symbols()` function.
+It expects the name of the categorical variable.
+
+```{r}
+#| label: tmsymshape1
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type")
+```
+
+<!-- tmap::tmap_options()$values.var$shape -->
+By default, **tmap** uses symbols of filled circle, square, diamond, point-up triangle, and point-down triangle^[They are represented in R by numbers from 21 to 25.]. 
+However, it is also possible to customize used symbols, their title, and labels.
+Legend titles related to shapes and their labels are modified with the `shape.legend` argument.
+
+Shapes can be specified with the `shapes` argument, which allows using one of three options.
+The first one is a numeric value that specifies the plotting character of the symbol.
+A complete list of available symbols and their corresponding numbers is in the `?pch` function's documentation.
+<!--JN: or should we add a figure with them here??-->
+
+```{r}
+#| label: tmsymshape2
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = c(0, 2, 5)))
+```
+
+The second option is to use a *grob* object.
+<!-- add intro what are grobs -->
+<!-- add reference to some section explaining tmap_grob (chapter 10??) -->
+
+```{r}
+# library(grid)
+# library(ggplotify)
+library(ggplot2)
+
+# p1 = as.grob(~barplot(1:10))
+# p2 = as.grob(expression(plot(rnorm(10), yaxt = "n", xaxt = "n", ann = FALSE, bty = "n")))
+# p3 = as.grob(function() plot(sin, yaxt = "n", xaxt = "n", ann = FALSE, bty = "n"))
+p4 = ggplotGrob(ggplot(data.frame(x = 1:5, y = 1:5), aes(x, y)) + geom_point() + theme_void())
+```
+
+```{r}
+#| label: tmsymshape3
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = list(p4, p4, p4)))
+```
+
+<!-- explain what's a grob -->
+<!-- try different codes (including the view mode) -->
+<!-- add new example -->
+
+<!-- A grob object, which can be a ggplot2 plot object created with ggplotGrob. To specify multiple shapes, a list of grob objects is required. See example of a proportional symbol map with ggplot2 plots. -->
+
+The last possibility is to use an icon specification created with the `tmap_icons()` function, that uses any png images.
+The `tmap_icons()` function accepts a vector of file paths or urls, and also allows setting the width and height of the icon.
+In our example, we have three distinct groups, therefore we need to create new icons based on three images -- `icon1.png`, `icon2.png`, and `icon3.png` in this case.
+
+```{r}
+my_icons = tmap_icons(c("images/icon1.png", 
+                        "images/icon2.png", 
+                        "images/icon3.png"))
+```
+
+Now, we can use the prepared icons in the `shapes` argument (@fig-tmsymshape-4).
+<!-- border.col = NULL -->
+
+```{r}
+#| label: tmsymshape4
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(shape = "type",
+             shape.scale = tm_scale(values = my_icons))
+```
+
+```{r}
+#| label: fig-tmsymshape
+#| echo: false
+#| message: false
+#| layout-row: 4
+#| fig-asp: 1.32
+#| fig-cap: 'Examples of maps with different symbols'
+#| fig-subcap:
+#|   - default symbols
+#|   - user-defined symbols
+#|   - grob objects
+#|   - icons
+<<tmsymshape1>>
+<<tmsymshape2>>
+<<tmsymshape3>>
+<<tmsymshape4>>
+```
+
+```{r}
+#| label: tmlinlty
+#| echo: false
+#| eval: false
+#| fig-asp: 0.33
+#| fig-cap: ''
+tm_shape(World_rivers) + 
+  tm_lines(lty = 2)
+```
+
+## Mixing visual variables {#sec-mixing-visual-variables}
+
+The values of a given variable can be expressed by different categorical or sequential colors in polygons.
+Lines can be also colored by one variable, but also widths of the lines can represent values of another quantitative variable.
+When we use symbols, then we are able to use colors for one qualitative or quantitative variable, sizes for a quantitative variable, and shapes for another qualitative variable.
+Therefore, it is possible to mix some visual variables for symbols and lines.
+This section shows only some possible examples of mixing visual variables.
+
+@fig-mixsymb-1 shows symbols, which sizes are scales based on the `sv` variable and they are colored using the values from `elevation`.
+This can be set with the `size` and `fill` arguments.
+
+```{r}
+#| label: mixsymb1
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(size = "sv",
+             fill = "elevation")
+```
+
+We can also modify all of the visual variables using the additional arguments explained in the next sections.<!--update-->
+For example, we can set the color style, color palette, or specify shapes (@fig-mixsymb-2).
+
+```{r}
+#| label: mixsymb2
+#| eval: false
+tm_shape(ei_points) +
+  tm_symbols(fill = "elevation",
+             fill.scale = tm_scale(values = "Greens"),
+             shape = "type",
+             shape.scale = tm_scale(values = c(23, 24, 25)))
+```
+
+```{r}
+#| label: fig-mixsymb
+#| echo: false
+#| message: false
+#| layout-nrow: 2
+#| fig-asp: 1
+#| fig-cap: 'Examples of maps using two visual variables at the same time'
+#| fig-subcap: 
+#|   - size and fill
+#|   - fill and shape
+<<mixsymb1>>
+<<mixsymb2>>
+```
+
+For line data, we can present its qualitative and quantitative variables using colors and quantitative variables using sizes (line widths) (@fig-mixline).
+
+```{r}
+#| label: fig-mixline
+#| echo: false
+#| message: false
+#| fig-asp: 0.66
+#| fig-cap: A map using two visual variables, color, and size (line width), at the same time.
+tm_shape(ei_roads) +
+  tm_lines(col = "type", 
+           lwd = "strokelwd")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+tm_shape(ei_points) +
+  tm_symbols(fill = "elevation",
+             col = "elevation",
+             col.scale = tm_scale(values = "reds"),
+             col.legend = tm_legend_combine("fill"))
+```
