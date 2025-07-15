@@ -1,6 +1,5 @@
-# tmap_book
-  <!-- badges: start -->
-  [![R build status](https://github.com/mtennekes/tmap_book/workflows/Render-Book-from-master/badge.svg)](https://github.com/mtennekes/tmap_book/actions)
-  <!-- badges: end -->
+# tmap book
 
-tmap: elegant and effective thematic maps in R
+This repository contains a 2021 draft of the book "tmap: Elegant and Effective Thematic Maps in R."
+
+**For the latest version of the book, please visit: <https://tmap.geocompx.org/>.**
